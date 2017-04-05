@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox
 
 class MIDISequence : Collection, Comparable, Hashable {
-    private let ref : MusicSequence
+    internal let ref : MusicSequence
     typealias Index = Int
     typealias Element = MIDITrack
     

@@ -32,10 +32,8 @@ internal func MIDISequenceCreate() -> MusicSequence {
 }
 
 @inline(__always)
-internal func CreateMIDITrack() -> MusicSequence {
-    var ref : MusicSequence? = nil
-    NewMusicSequence(&ref)
-    return ref!
+internal func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
+    fatalError()
 }
 
 internal func MIDISequenceLoad(path: String) -> MusicSequence {

@@ -15,8 +15,12 @@ struct MIDITrack : Sequence {
     
     internal let ref : MusicTrack
     
-    init() {
-        ref = MIDISequenceCreate()
+    init(seq: MIDISequence) {
+        ref = MIDITrackCreate(ref: seq.ref)
+    }
+    
+    init(seq: MIDISequence, no: Int) {
+        fatalError()
     }
     
     //    deinit {
