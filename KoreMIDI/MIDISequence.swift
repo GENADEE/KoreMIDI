@@ -41,8 +41,7 @@ class MIDISequence : Collection, Comparable, Hashable {
     func index(after i: Index) -> Index {
         return i + 1
     }
-    
-    
+
     var type : MusicSequenceType {
         get {
             //MusicSequenceGetSequenceType

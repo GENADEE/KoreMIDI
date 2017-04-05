@@ -9,6 +9,12 @@
 import Foundation
 import AudioToolbox
 
+extension Bool {
+    init(_ value: DarwinBoolean) {
+        fatalError()
+    }
+}
+
 class EventIterator : IteratorProtocol {
     typealias Timestamp = Double
     typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
@@ -35,6 +41,11 @@ class EventIterator : IteratorProtocol {
     }
     
     
+    private var _hasCurrent: Bool {
+        var bool : DarwinBoolean = false
+        MusicEventIteratorHasCurrentEvent(ref, &bool)
+        return Bool(bool)
+    }
     
     func seek(to timestamp: Timestamp ) {
         
