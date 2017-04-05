@@ -26,20 +26,34 @@ struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
         self.beats = beats
     }
     
+    init(base: Base, beats: CABarBeatTime) {
+//        self.base = base
+//        self.beats = beats
+        fatalError()
+    }
+    
     var description: String {
         return "Timestamp(\(beats))"
     }
     
     static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
+        assert(lhs.base == rhs.base)
         return lhs.beats == rhs.beats
     }
     
     static func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
+        assert(lhs.base == rhs.base)
         return lhs.beats < rhs.beats
     }
     
     var hashValue: Int {
         return beats.hashValue
+    }
+    
+    func beatTime(for subdivisor: UInt32) -> CABarBeatTime {
+        var t = CABarBeatTime()
+        MusicSequenceBeatsToBarBeatTime(base.ref, beats, subdivisor, &t)
+        return t
     }
     
     func advanced(by n: Stride) -> Timestamp {
