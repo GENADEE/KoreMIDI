@@ -22,6 +22,10 @@ class MIDISequence : Collection, Comparable, Hashable {
         ref = MIDISequenceLoad(path: path)
     }
     
+    init(import: Data) {
+        fatalError()
+    }
+    
     var startIndex: Index {
         return 0
     }

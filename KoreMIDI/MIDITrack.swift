@@ -23,6 +23,10 @@ struct MIDITrack : Sequence {
         fatalError()
     }
     
+    var timerange: ClosedRange<Timestamp> {
+        return Timestamp(offsetTime)...Timestamp(offsetTime + length)
+    }
+    
     //    deinit {
     //
     //    }
