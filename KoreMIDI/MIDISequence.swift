@@ -9,12 +9,7 @@
 import Foundation
 import AudioToolbox
 
-@inline(__always)
-func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
-    var c: UInt32 = 0
-    MusicSequenceGetTrackCount(ref, &c)
-    return Int(c)
-}
+
 
 struct MIDISequence : Collection, Comparable, Hashable {
   
@@ -90,6 +85,7 @@ struct MIDISequence : Collection, Comparable, Hashable {
     
     var tempoTrack : MIDITrack {
         fatalError()
+        //MusicSequenceGetTempoTrack
     }
     
     private class Ref {

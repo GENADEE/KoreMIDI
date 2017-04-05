@@ -56,6 +56,33 @@ protocol MIDIEvent {
     func add(to: MIDITrack, at timestamp: Double)
 }
 
+@inline(__always)
+func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
+    var r : MusicTrack? = nil
+    MusicSequenceGetIndTrack(ref, UInt32(no), &r)
+    return r!
+}
+
+@inline(__always)
+func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
+    var c: UInt32 = 0
+    MusicSequenceGetTrackCount(ref, &c)
+    return Int(c)
+}
+
+@inline(__always)
+func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
+    var out: Float64 = 0
+    MusicSequenceGetSecondsForBeats(ref, beats, &out)
+    return out
+}
+
+@inline(__always)
+func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
+    var out: MusicTimeStamp = 0
+    MusicSequenceGetBeatsForSeconds(ref, seconds, &out)
+    return out
+}
 
 extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
     typealias Timestamp = Double

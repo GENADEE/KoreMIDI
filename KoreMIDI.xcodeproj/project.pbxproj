@@ -13,6 +13,7 @@
 		377723D61E9557E900CB214A /* MIDISequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377723D51E9557E900CB214A /* MIDISequence.swift */; };
 		377723D81E957F4300CB214A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377723D71E957F4300CB214A /* Extensions.swift */; };
 		377723DA1E95833F00CB214A /* Disposables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377723D91E95833F00CB214A /* Disposables.swift */; };
+		377723DC1E95936400CB214A /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377723DB1E95936400CB214A /* Timestamp.swift */; };
 		37933A2E1E9547E00081656B /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37933A2D1E9547E00081656B /* AudioToolbox.swift */; };
 		37EE57EF1E95411000A08DF0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57EE1E95411000A08DF0 /* main.swift */; };
 		37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */; };
@@ -37,6 +38,7 @@
 		377723D51E9557E900CB214A /* MIDISequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDISequence.swift; sourceTree = "<group>"; };
 		377723D71E957F4300CB214A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		377723D91E95833F00CB214A /* Disposables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposables.swift; sourceTree = "<group>"; };
+		377723DB1E95936400CB214A /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
 		37933A2D1E9547E00081656B /* AudioToolbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioToolbox.swift; sourceTree = "<group>"; };
 		37EE57EB1E95411000A08DF0 /* KoreMIDI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EE57EE1E95411000A08DF0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				37EE57EE1E95411000A08DF0 /* main.swift */,
 				37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */,
 				377723D51E9557E900CB214A /* MIDISequence.swift */,
+				377723DB1E95936400CB214A /* Timestamp.swift */,
 				377723D91E95833F00CB214A /* Disposables.swift */,
 				377723D31E95557600CB214A /* MIDITrack.swift */,
 				377723D71E957F4300CB214A /* Extensions.swift */,
@@ -150,6 +153,7 @@
 				377723D41E95557600CB214A /* MIDITrack.swift in Sources */,
 				377723D81E957F4300CB214A /* Extensions.swift in Sources */,
 				37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */,
+				377723DC1E95936400CB214A /* Timestamp.swift in Sources */,
 				377723D61E9557E900CB214A /* MIDISequence.swift in Sources */,
 				377723D21E9554C900CB214A /* Iterators.swift in Sources */,
 				37933A2E1E9547E00081656B /* AudioToolbox.swift in Sources */,

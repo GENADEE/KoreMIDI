@@ -9,12 +9,7 @@
 import Foundation
 import AudioToolbox
 
-@inline(__always)
-func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
-    var r : MusicTrack? = nil
-    MusicSequenceGetIndTrack(ref, UInt32(no), &r)
-    return r!
-}
+
 
 //public func MusicSequenceGetTrackIndex(_ inSequence: MusicSequence, _ inTrack: MusicTrack, _ outTrackIndex: UnsafeMutablePointer<UInt32>)  {
 //    
@@ -167,7 +162,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         event.add(to: self, at: timestamp)
     }
     
-    mutating func remove<S : Sequence>() where S.Iterator.Element == Int {
+    mutating func remove<S : Sequence>() where S.Iterator.Element == Element {
         fatalError()
         
     }
