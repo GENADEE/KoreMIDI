@@ -36,8 +36,9 @@ struct Note : Equatable, CustomStringConvertible {
 
 for (i,e) in s.enumerated() {
     
-    for (ts, msg) in e {
-        let note = Note(timestamp: ts, msg: msg)
-        print(i, note)
-    }
+//    for (ts, msg) in e {
+//        let note = Note(timestamp: ts, msg: msg)
+//        print(i, note)
+//    }
+    print(e.timeResolution)
 }
