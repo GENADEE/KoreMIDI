@@ -11,7 +11,7 @@ import AudioToolbox
 
 extension Bool {
     init(_ value: DarwinBoolean) {
-        fatalError()
+        self = value.boolValue ? true : false
     }
 }
 
@@ -36,7 +36,21 @@ class MIDITrackIterator : IteratorProtocol {
     
     
     func current() -> Element? {
-        fatalError()
+        var ts: Timestamp = 0
+        var type: MusicEventType = 0
+        var data : UnsafeRawPointer? = nil
+        var size : UInt32 = 0
+        while _hasCurrent {
+            
+            MusicEventIteratorGetEventInfo(ref, &ts, &type, &data, &size)
+            if type == kMusicEventType_MIDINoteMessage {
+                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
+
+                return (ts, p.pointee)
+            }
+            move()
+        }
+        return nil
     }
     
     func remove() {
@@ -50,25 +64,22 @@ class MIDITrackIterator : IteratorProtocol {
         return Bool(bool)
     }
     
-    func seek(to timestamp: Timestamp ) {
-        
-        
+    private func seek(to timestamp: Timestamp ) {
+        MusicEventIteratorSeek(ref, timestamp)
     }
     
     
     private func move() {
-        fatalError()
+        MusicEventIteratorNextEvent(ref)
     }
     
 
     func next() -> Element? {
-        while let l = current() {
-            
-//            if l.timestamp
+        defer {
             move()
         }
-//
         return current()
+
     }
 }
 

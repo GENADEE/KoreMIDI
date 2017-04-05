@@ -16,7 +16,11 @@ func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
     return r!
 }
 
-struct MIDITrack : Sequence {
+//public func MusicSequenceGetTrackIndex(_ inSequence: MusicSequence, _ inTrack: MusicTrack, _ outTrackIndex: UnsafeMutablePointer<UInt32>)  {
+//    
+//}
+
+struct MIDITrack : Sequence, CustomStringConvertible {
     typealias Iterator = MIDITrackIterator
     typealias Element = Iterator.Element
     typealias Timestamp = Iterator.Timestamp
@@ -39,7 +43,18 @@ struct MIDITrack : Sequence {
     //
     //    }
     
-
+    var description: String {
+        var opts: [String] = []
+        if soloed {
+            opts.append("soloed")
+        }
+        
+        if muted {
+            opts.append("muted")
+        }
+        
+        return "MIDITrack(in:\(timerange), \(opts))"
+    }
     
     var startTime : Int {
         get {
@@ -98,7 +113,6 @@ struct MIDITrack : Sequence {
             self[kSequenceTrackProperty_AutomatedParameters] = Int(newValue)
         }
     }
-
     
     var timeResolution : Int {
         get {
