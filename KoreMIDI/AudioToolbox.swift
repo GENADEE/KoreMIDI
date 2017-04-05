@@ -44,6 +44,7 @@ internal func MIDISequenceLoad(path: String) -> MusicSequence {
     return seq
 }
 
+@inline(__always)
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     var r: MusicEventIterator? = nil
     NewMusicEventIterator(ref, &r)
@@ -96,26 +97,26 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return "MIDIMsg(\(note), duration: \(duration))"
     }
     
-        func add(to track: MIDITrack, at timestamp: Timestamp) {
+    func add(to track: MIDITrack, at timestamp: Timestamp) {
         var cpy = self
         MusicTrackNewMIDINoteEvent(track.ref, timestamp.beats, &cpy)
     }
     
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return (lhs.channel, lhs.note, lhs.velocity, lhs.releaseVelocity, lhs.duration) ==
-               (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
+            (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
     }
-
+    
     public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return lhs.note < rhs.note
     }
     
     public var hashValue: Int {
-        fatalError()
+        return note.hashValue
     }
 }
 //
 //extension MIDIChannelMessage : MIDIEventType {
-////    static var type: 
+////    static var type:
 //}
 

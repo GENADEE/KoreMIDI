@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-struct Timestamp : Comparable, Hashable, Strideable {
+struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     typealias Base = MIDISequence
     
     typealias Stride = MusicTimeStamp
@@ -24,6 +24,10 @@ struct Timestamp : Comparable, Hashable, Strideable {
     init(base: Base, beats: MusicTimeStamp) {
         self.base = base
         self.beats = beats
+    }
+    
+    var description: String {
+        return "Timestamp(\(beats))"
     }
     
     static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {

@@ -12,8 +12,8 @@ let path = "/Users/adamnemecek/midi/darude-sandstorm.mid"
 
 let s = MIDISequence(path: path)
 
-for e in s {
-//    for ee in e {
-        print(e)
-//    }
+for (i,e) in s.enumerated() {
+    for ee in e {
+        print(i, ee)
+    }
 }
