@@ -172,7 +172,8 @@ struct MIDITrack : Sequence, CustomStringConvertible {
     func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
         MusicTrackMerge(ref,
                         timerange.lowerBound.beats,
-                        timerange.upperBound.beats, other.ref,
+                        timerange.upperBound.beats,
+                        other.ref,
                         timestamp.beats)
     }
     
