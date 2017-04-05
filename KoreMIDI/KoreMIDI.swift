@@ -95,7 +95,7 @@ protocol TimeSeries : Sequence {
     subscript(timerange: ClosedRange<Timestamp>) -> SubSequence { get }
 }
 
-class MIDITrack : Sequence {
+struct MIDITrack : Sequence {
     typealias Element = Int
     typealias Timestamp = Double
 
@@ -105,9 +105,9 @@ class MIDITrack : Sequence {
         ref = MIDISequenceCreate()
     }
     
-    deinit {
-        
-    }
+//    deinit {
+//        
+//    }
     
     var loopInfo : Int {
         get {
@@ -185,6 +185,27 @@ class MIDITrack : Sequence {
         }
     }
     
+    mutating
+    func move(_ timerange: ClosedRange<Timestamp>, to timestamp: Timestamp) {
+        MusicTrackMoveEvents(ref, timerange.lowerBound, timerange.upperBound, timestamp)
+    }
+    
+    mutating
+    func clear(_ timerange: ClosedRange<Timestamp>) {
+        MusicTrackClear(ref, timerange.lowerBound, timerange.upperBound)
+    }
+    
+    mutating
+    func cut(_ timerange: ClosedRange<Timestamp>) {
+        MusicTrackCut(ref, timerange.lowerBound, timerange.upperBound)
+    }
+    
+    mutating
+    func copyInsert(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
+        MusicTrackCopyInsert(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
+    }
+    
+    mutating
     func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
         MusicTrackMerge(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
     }
@@ -198,6 +219,7 @@ class EventIterator : IteratorProtocol {
     init(track: MIDITrack) {
         fatalError()
     }
+
     deinit {
         DisposeMusicEventIterator(ref)
     }
