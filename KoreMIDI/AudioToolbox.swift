@@ -41,3 +41,24 @@ internal func CreateMIDITrack() -> MusicSequence {
 internal func MIDISequenceLoad(path: String) -> MusicSequence {
     fatalError()
 }
+
+func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
+    var r: MusicEventIterator? = nil
+    NewMusicEventIterator(ref, &r)
+    return r!
+}
+
+protocol MIDIEvent {
+    static var type : MIDIEventType { get }
+}
+
+extension MIDINoteMessage {
+    static var type : MIDIEventType {
+        return .note
+    }
+}
+//
+//extension MIDIChannelMessage : MIDIEventType {
+////    static var type: 
+//}
+

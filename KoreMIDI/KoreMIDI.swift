@@ -99,7 +99,7 @@ struct MIDITrack : Sequence {
     typealias Element = Int
     typealias Timestamp = Double
 
-    private let ref : MusicTrack
+    fileprivate let ref : MusicTrack
 
     init() {
         ref = MIDISequenceCreate()
@@ -209,6 +209,15 @@ struct MIDITrack : Sequence {
     func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
         MusicTrackMerge(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
     }
+    
+    func add(_ event: MIDIEvent, at timestamp: Timestamp) {
+        switch type(of: event).type {
+//            case let msg =
+        case .note:
+            fatalError()
+        default: fatalError()
+        }
+    }
 
 }
 
@@ -217,13 +226,17 @@ class EventIterator : IteratorProtocol {
     private let ref: MusicEventIterator
     
     init(track: MIDITrack) {
-        fatalError()
+        ref = MIDIIteratorCreate(ref : track.ref)
     }
-
+    
     deinit {
         DisposeMusicEventIterator(ref)
     }
-    
+
+    func current() -> Element? {
+        fatalError()
+    }
+
     func next() -> Element? {
         fatalError()
     }

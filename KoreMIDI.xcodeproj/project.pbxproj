@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		377723D01E95503600CB214A /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377723CF1E95503600CB214A /* MIDIEventType.swift */; };
 		37933A2E1E9547E00081656B /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37933A2D1E9547E00081656B /* AudioToolbox.swift */; };
 		37EE57EF1E95411000A08DF0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57EE1E95411000A08DF0 /* main.swift */; };
 		37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		377723CF1E95503600CB214A /* MIDIEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIEventType.swift; sourceTree = "<group>"; };
 		37933A2D1E9547E00081656B /* AudioToolbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioToolbox.swift; sourceTree = "<group>"; };
 		37EE57EB1E95411000A08DF0 /* KoreMIDI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EE57EE1E95411000A08DF0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				37EE57EE1E95411000A08DF0 /* main.swift */,
 				37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */,
 				37933A2D1E9547E00081656B /* AudioToolbox.swift */,
+				377723CF1E95503600CB214A /* MIDIEventType.swift */,
 			);
 			path = KoreMIDI;
 			sourceTree = "<group>";
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37EE57EF1E95411000A08DF0 /* main.swift in Sources */,
+				377723D01E95503600CB214A /* MIDIEventType.swift in Sources */,
 				37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */,
 				37933A2E1E9547E00081656B /* AudioToolbox.swift in Sources */,
 			);
