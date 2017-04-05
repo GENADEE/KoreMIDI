@@ -34,7 +34,7 @@ class MIDISequence : Collection {
     
     
     init() {
-        ref = CreateMIDISequence()
+        ref = MIDISequenceCreate()
     }
     
     deinit {
@@ -49,17 +49,107 @@ class MIDISequence : Collection {
         fatalError()
     }
 }
+extension Int {
+    init(_ bool: Bool) {
+        self = bool ? 1 : 0
+    }
+}
 
-class MIDITrack {
+extension Bool {
+    init(_ int: Int) {
+        self = int != 0
+    }
+}
+
+class MIDITrack : Sequence {
+    typealias Element = Int
     let ref : MusicTrack
     
+    
     init() {
-        ref = CreateMIDITrack()
+        ref = MIDISequenceCreate()
     }
     
     deinit {
         
     }
+    
+    var loopInfo : Int {
+        get {
+            return self[kSequenceTrackProperty_LoopInfo]
+        }
+        set {
+            self[kSequenceTrackProperty_LoopInfo] = newValue
+        }
+    }
+    
+    var offsetTime : Int {
+        get {
+            return self[kSequenceTrackProperty_OffsetTime]
+        }
+        set {
+            self[kSequenceTrackProperty_OffsetTime] = newValue
+        }
+    }
+
+    var muted : Bool {
+        get {
+            return Bool(self[kSequenceTrackProperty_MuteStatus])
+        }
+        set {
+            self[kSequenceTrackProperty_OffsetTime] = Int(newValue)
+        }
+    }
+
+    var soloed : Bool {
+        get {
+            return Bool(self[kSequenceTrackProperty_SoloStatus])
+        }
+        set {
+            self[kSequenceTrackProperty_SoloStatus] = Int(newValue)
+        }
+    }
+
+    var automatedParameters : Bool {
+        get {
+            return Bool(self[kSequenceTrackProperty_AutomatedParameters])
+        }
+        set {
+            self[kSequenceTrackProperty_AutomatedParameters] = Int(newValue)
+        }
+    }
+    
+    var length : Int {
+        get {
+            return self[kSequenceTrackProperty_TrackLength]
+        }
+        set {
+            self[kSequenceTrackProperty_TrackLength] = newValue
+        }
+    }
+    
+    var timeResolution : Int {
+        get {
+            return self[kSequenceTrackProperty_TimeResolution]
+        }
+        set {
+            self[kSequenceTrackProperty_TimeResolution] = newValue
+        }
+    }
+    
+    func makeIterator() -> AnyIterator<Int> {
+        fatalError()
+    }
+    
+    private subscript(prop: UInt32) -> Int {
+        get {
+            return MIDITrackGetProperty(ref: ref, prop: prop)
+        }
+        set {
+            MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
+        }
+    }
+//    func insert(_ event: )
 }
 
 class EventIterator : IteratorProtocol {
@@ -83,14 +173,3 @@ class MIDIEventIterator<Element> : EventIterator {
 }
 
 
-private func CreateMIDISequence() -> MusicSequence {
-    var ref : MusicSequence? = nil
-    NewMusicSequence(&ref)
-    return ref!
-}
-
-private func CreateMIDITrack() -> MusicSequence {
-    var ref : MusicSequence? = nil
-    NewMusicSequence(&ref)
-    return ref!
-}
