@@ -115,7 +115,7 @@ struct MIDITrack : Sequence {
     }
     
     mutating
-    func copyInsert(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
+    func copyInsert(from other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
         MusicTrackCopyInsert(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
     }
     
