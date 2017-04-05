@@ -53,7 +53,7 @@ protocol MIDIEvent {
 }
 
 
-extension MIDINoteMessage {
+extension MIDINoteMessage : MIDIEvent, Hashable {
     static var type : MIDIEventType {
         return .note
     }
@@ -61,6 +61,14 @@ extension MIDINoteMessage {
     func add(to track: MIDITrack, at timestamp: Double) {
         var cpy = self
         MusicTrackNewMIDINoteEvent(track.ref, timestamp, &cpy)
+    }
+    
+    public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
+        fatalError()
+    }
+    
+    public var hashValue: Int {
+        fatalError()
     }
 }
 //

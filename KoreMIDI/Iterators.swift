@@ -62,13 +62,17 @@ class EventIterator : IteratorProtocol {
     
 
     func next() -> Element? {
-        defer {
+        while let l = current() {
+            
+//            if l.timestamp
             move()
         }
-//        timerange
+//
         return current()
     }
 }
+
+
 
 struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
     typealias Timestamp = Double

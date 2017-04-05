@@ -141,6 +141,7 @@ struct MIDITrack : Sequence {
     
     mutating
     func add(_ event: MIDIEvent, at timestamp: Timestamp) {
+
         event.add(to: self, at: timestamp)
     }
     
