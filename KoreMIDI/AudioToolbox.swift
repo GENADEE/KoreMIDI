@@ -70,12 +70,14 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
     return Int(c)
 }
 
+
 @inline(__always)
 func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
     var out: Float64 = 0
     MusicSequenceGetSecondsForBeats(ref, beats, &out)
     return out
 }
+
 
 @inline(__always)
 func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {

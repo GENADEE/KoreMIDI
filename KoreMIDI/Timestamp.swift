@@ -39,11 +39,11 @@ struct Timestamp : Comparable, Hashable, Strideable {
     }
     
     func advanced(by n: Stride) -> Timestamp {
-        fatalError()
+        return Timestamp(base: base, beats: beats + n)
     }
     
     func distance(to other: Timestamp) -> Stride {
-        fatalError()
+        return other.beats - beats
     }
     
     static func +(lhs: Timestamp, rhs: Timestamp) -> Timestamp {
