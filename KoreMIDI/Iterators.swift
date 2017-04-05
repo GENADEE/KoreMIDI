@@ -25,6 +25,9 @@ class EventIterator : IteratorProtocol {
     init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
+        timerange.map {
+            self.seek(to: $0.lowerBound)
+        }
     }
     
     deinit {
