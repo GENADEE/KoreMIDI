@@ -39,7 +39,7 @@ struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     }
     
     var description: String {
-        return "Timestamp(\(beats))"
+        return "\(beatTime())"
     }
     
     static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {

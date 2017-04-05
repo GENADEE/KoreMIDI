@@ -26,7 +26,7 @@ struct Note : Equatable, CustomStringConvertible {
     }
     
     var description: String {
-        return "Note(note: \(note), timestamp: \(timestamp), duration: \(duration))"
+        return "note: \(note), timestamp: \(timestamp), duration: \(duration)"
     }
     
     static func ==(lhs: Note, rhs: Note) -> Bool {
@@ -36,9 +36,10 @@ struct Note : Equatable, CustomStringConvertible {
 
 for (i,e) in s.enumerated() {
     
-//    for (ts, msg) in e {
-//        let note = Note(timestamp: ts, msg: msg)
-//        print(i, note)
-//    }
-    print(e.timeResolution)
+    for (ts, msg) in e {
+        let note = Note(timestamp: ts, msg: msg)
+        
+        print(i, note)
+    }
+//    print(e.timeResolution)
 }
