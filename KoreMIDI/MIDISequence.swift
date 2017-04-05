@@ -12,14 +12,14 @@ import AudioToolbox
 
 
 struct MIDISequence : Collection, Comparable, Hashable {
-  
-    internal var ref : MusicSequence {
-        return _ref.ref
-    }
 
     typealias Index = Int
     typealias IndexDistance = Int
     typealias Element = MIDITrack
+
+    internal var ref : MusicSequence {
+        return _ref.ref
+    }
     
     init() {
         _ref = Ref()
@@ -57,11 +57,13 @@ struct MIDISequence : Collection, Comparable, Hashable {
 
     var type : MusicSequenceType {
         get {
-            //MusicSequenceGetSequenceType
-            fatalError()
+            var out: MusicSequenceType = .beats
+            MusicSequenceGetSequenceType(ref, &out)
+            return out
         }
         set {
-        
+            var cpy = newValue
+//            MusicSequenceSetSequenceType(ref, &cpy)
         }
     }
 

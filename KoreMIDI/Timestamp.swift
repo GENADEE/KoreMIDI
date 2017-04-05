@@ -9,6 +9,12 @@
 import Foundation
 import AudioToolbox
 
+extension CABarBeatTime : CustomStringConvertible {
+    public var description : String {
+        return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
+    }
+}
+
 struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     typealias Base = MIDISequence
     
@@ -50,7 +56,7 @@ struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
         return beats.hashValue
     }
     
-    func beatTime(for subdivisor: UInt32) -> CABarBeatTime {
+    func beatTime(for subdivisor: UInt32 = 4) -> CABarBeatTime {
         var t = CABarBeatTime()
         MusicSequenceBeatsToBarBeatTime(base.ref, beats, subdivisor, &t)
         return t
