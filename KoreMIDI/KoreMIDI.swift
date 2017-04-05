@@ -88,11 +88,19 @@ extension Bool {
     }
 }
 
+protocol TimeSeries : Sequence {
+    associatedtype Timestamp : Comparable
+    var startTimestamp: Timestamp { get }
+    var endTimestamp : Timestamp { get }
+    subscript(timerange: ClosedRange<Timestamp>) -> SubSequence { get }
+}
+
 class MIDITrack : Sequence {
     typealias Element = Int
-    let ref : MusicTrack
-    
-    
+    typealias Timestamp = Double
+
+    private let ref : MusicTrack
+
     init() {
         ref = MIDISequenceCreate()
     }
@@ -176,7 +184,11 @@ class MIDITrack : Sequence {
             MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
         }
     }
-//    func insert(_ event: )
+    
+    func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
+        MusicTrackMerge(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
+    }
+
 }
 
 class EventIterator : IteratorProtocol {
