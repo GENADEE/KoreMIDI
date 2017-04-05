@@ -17,8 +17,9 @@ func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
 }
 
 struct MIDITrack : Sequence {
-    typealias Element = Int
-    typealias Timestamp = Double
+    typealias Iterator = MIDITrackIterator
+    typealias Element = Iterator.Element
+    typealias Timestamp = Iterator.Timestamp
     
     internal let ref : MusicTrack
     
@@ -31,7 +32,7 @@ struct MIDITrack : Sequence {
     }
     
     var timerange: ClosedRange<Timestamp> {
-        return Timestamp(offsetTime)...Timestamp(offsetTime + length)
+        return Timestamp(startTime)...Timestamp(endTime)
     }
     
     //    deinit {
@@ -47,7 +48,7 @@ struct MIDITrack : Sequence {
         }
     }
     
-    var offsetTime : Int {
+    var startTime : Int {
         get {
             return self[kSequenceTrackProperty_OffsetTime]
         }
@@ -56,6 +57,19 @@ struct MIDITrack : Sequence {
         }
     }
     
+    var duration : Int {
+        get {
+            return self[kSequenceTrackProperty_TrackLength]
+        }
+        set {
+            self[kSequenceTrackProperty_TrackLength] = newValue
+        }
+    }
+    
+    var endTime : Int {
+        return startTime + duration
+    }
+
     var muted : Bool {
         get {
             return Bool(self[kSequenceTrackProperty_MuteStatus])
@@ -82,15 +96,7 @@ struct MIDITrack : Sequence {
             self[kSequenceTrackProperty_AutomatedParameters] = Int(newValue)
         }
     }
-    
-    var length : Int {
-        get {
-            return self[kSequenceTrackProperty_TrackLength]
-        }
-        set {
-            self[kSequenceTrackProperty_TrackLength] = newValue
-        }
-    }
+
     
     var timeResolution : Int {
         get {
@@ -101,8 +107,8 @@ struct MIDITrack : Sequence {
         }
     }
     
-    func makeIterator() -> AnyIterator<MIDIEvent> {
-        fatalError()
+    func makeIterator() -> Iterator {
+        return MIDITrackIterator(self)
     }
     
     private subscript(prop: UInt32) -> Int {

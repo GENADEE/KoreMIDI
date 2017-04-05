@@ -15,7 +15,7 @@ extension Bool {
     }
 }
 
-class EventIterator : IteratorProtocol {
+class MIDITrackIterator : IteratorProtocol {
     typealias Timestamp = Double
     typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
     private let ref: MusicEventIterator
@@ -85,7 +85,7 @@ struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
     }
     
     func makeIterator() -> AnyIterator<Element> {
-        let i = EventIterator(content, timerange: timerange)
+        let i = MIDITrackIterator(content, timerange: timerange)
         
         return AnyIterator {
             while let n = i.next() {
