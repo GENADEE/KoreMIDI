@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37EE57EF1E95411000A08DF0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57EE1E95411000A08DF0 /* main.swift */; };
+		37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		37EE57EB1E95411000A08DF0 /* KoreMIDI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EE57EE1E95411000A08DF0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreMIDI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				37EE57EE1E95411000A08DF0 /* main.swift */,
+				37EE57F51E95411D00A08DF0 /* KoreMIDI.swift */,
 			);
 			path = KoreMIDI;
 			sourceTree = "<group>";
@@ -121,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37EE57EF1E95411000A08DF0 /* main.swift in Sources */,
+				37EE57F61E95411D00A08DF0 /* KoreMIDI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
