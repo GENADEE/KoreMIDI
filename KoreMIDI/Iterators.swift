@@ -11,11 +11,14 @@ import AudioToolbox
 
 class EventIterator : IteratorProtocol {
     typealias Timestamp = Double
-    typealias Element = MIDINoteMessage
+    typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
     private let ref: MusicEventIterator
     
-    init(track: MIDITrack) {
-        ref = MIDIIteratorCreate(ref : track.ref)
+    private let timerange: ClosedRange<Timestamp>?
+    
+    init(track: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+        self.ref = MIDIIteratorCreate(ref : track.ref)
+        self.timerange = timerange
     }
     
     deinit {
@@ -47,6 +50,7 @@ class EventIterator : IteratorProtocol {
         defer {
             move()
         }
+        timerange
         return current()
     }
 }
