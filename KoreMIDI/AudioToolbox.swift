@@ -37,3 +37,7 @@ internal func CreateMIDITrack() -> MusicSequence {
     NewMusicSequence(&ref)
     return ref!
 }
+
+internal func MIDISequenceLoad(path: String) -> MusicSequence {
+    fatalError()
+}

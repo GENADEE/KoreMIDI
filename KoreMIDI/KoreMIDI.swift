@@ -11,11 +11,19 @@ import Foundation
 import AudioToolbox
 
 
-class MIDISequence : Collection {
-    let ref : MusicSequence
+class MIDISequence : Collection, Comparable, Hashable {
+    private let ref : MusicSequence
     typealias Index = Int
     typealias Element = MIDITrack
     
+    init() {
+        ref = MIDISequenceCreate()
+    }
+
+    init(path: String) {
+        ref = MIDISequenceLoad(path: path)
+    }
+
     var startIndex: Index {
         return 0
     }
@@ -23,6 +31,7 @@ class MIDISequence : Collection {
     var endIndex : Index {
         fatalError()
     }
+    
     
     subscript(index: Index) -> Element {
         fatalError()
@@ -33,8 +42,26 @@ class MIDISequence : Collection {
     }
     
     
-    init() {
-        ref = MIDISequenceCreate()
+    var type : MusicSequenceType {
+        get {
+            //MusicSequenceGetSequenceType
+            fatalError()
+        }
+        set {
+            
+        }
+    }
+
+    static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+        return lhs.ref == rhs.ref
+    }
+
+    static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+        return lhs.hashValue < rhs.hashValue
+    }
+
+    var hashValue: Int {
+        return ref.hashValue
     }
     
     deinit {
@@ -97,7 +124,7 @@ class MIDITrack : Sequence {
             return Bool(self[kSequenceTrackProperty_MuteStatus])
         }
         set {
-            self[kSequenceTrackProperty_OffsetTime] = Int(newValue)
+            self[kSequenceTrackProperty_MuteStatus] = Int(newValue)
         }
     }
 
