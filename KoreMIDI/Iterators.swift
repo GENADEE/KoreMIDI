@@ -10,6 +10,7 @@ import Foundation
 import AudioToolbox
 
 class EventIterator : IteratorProtocol {
+    typealias Timestamp = Double
     typealias Element = MIDINoteMessage
     private let ref: MusicEventIterator
     
@@ -21,12 +22,32 @@ class EventIterator : IteratorProtocol {
         DisposeMusicEventIterator(ref)
     }
     
+    
     func current() -> Element? {
         fatalError()
     }
     
-    func next() -> Element? {
+    func remove() {
+        //
+    }
+    
+    
+    
+    func seek(to timestamp: Timestamp ) {
+        
+        
+    }
+    
+    
+    private func move() {
         fatalError()
+    }
+    
+    func next() -> Element? {
+        defer {
+            move()
+        }
+        return current()
     }
 }
 

@@ -124,6 +124,7 @@ struct MIDITrack : Sequence {
         MusicTrackMerge(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
     }
     
+    mutating
     func add(_ event: MIDIEvent, at timestamp: Timestamp) {
         switch type(of: event).type {
         //            case let msg =
@@ -131,5 +132,14 @@ struct MIDITrack : Sequence {
             fatalError()
         default: fatalError()
         }
+    }
+    
+    mutating func remove<S : Sequence>() where S.Iterator.Element == Int {
+        fatalError()
+        
+    }
+    
+    mutating func remove(_ timerange: ClosedRange<Timestamp>) {
+        fatalError()
     }
 }
