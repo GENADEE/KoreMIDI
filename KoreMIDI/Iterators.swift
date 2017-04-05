@@ -22,8 +22,8 @@ class EventIterator : IteratorProtocol {
     
     private let timerange: ClosedRange<Timestamp>?
     
-    init(track: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
-        self.ref = MIDIIteratorCreate(ref : track.ref)
+    init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+        self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
     }
     
@@ -57,15 +57,36 @@ class EventIterator : IteratorProtocol {
         fatalError()
     }
     
+
     func next() -> Element? {
         defer {
             move()
         }
-        timerange
+//        timerange
         return current()
     }
 }
 
-class MIDIEventIterator<Element> : EventIterator {
+struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
+    typealias Timestamp = Double
+    let content: MIDITrack
+    let timerange: ClosedRange<Timestamp>?
     
+    init(content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+        self.content = content
+        self.timerange = timerange
+    }
+    
+    func makeIterator() -> AnyIterator<Element> {
+        let i = EventIterator(content, timerange: timerange)
+        
+        return AnyIterator {
+            while let n = i.next() {
+                if let nn = n as? Element {
+                    return nn
+                }
+            }
+            return nil
+        }
+    }
 }

@@ -47,6 +47,7 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 }
 
 protocol MIDIEvent {
+    
     static var type : MIDIEventType { get }
 }
 
