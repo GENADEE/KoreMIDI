@@ -8,5 +8,8 @@
 
 import Foundation
 
-print("Hello, World!")
+let path = "/Users/adamnemecek/midi/darude-sandstorm.mid"
+
+let s = MIDISequence(path: path)
+
 

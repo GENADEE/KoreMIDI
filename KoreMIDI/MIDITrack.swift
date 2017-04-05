@@ -9,6 +9,13 @@
 import Foundation
 import AudioToolbox
 
+@inline(__always)
+func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
+    var r : MusicTrack? = nil
+    MusicSequenceGetIndTrack(ref, UInt32(no), &r)
+    return r!
+}
+
 struct MIDITrack : Sequence {
     typealias Element = Int
     typealias Timestamp = Double
@@ -20,7 +27,7 @@ struct MIDITrack : Sequence {
     }
     
     init(seq: MIDISequence, no: Int) {
-        fatalError()
+        ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
     }
     
     var timerange: ClosedRange<Timestamp> {

@@ -9,17 +9,50 @@
 import Foundation
 import AudioToolbox
 
-class MIDISequence : Collection, Comparable, Hashable {
-    internal let ref : MusicSequence
+@inline(__always)
+func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
+    var c: UInt32 = 0
+    MusicSequenceGetTrackCount(ref, &c)
+    return Int(c)
+}
+
+struct MIDISequence : Collection, Comparable, Hashable {
+    private class Ref {
+        internal let ref : MusicSequence
+
+        init() {
+            ref = MIDISequenceCreate()
+
+        }
+        
+        init(path: String) {
+            ref = MIDISequenceLoad(path: path)
+
+        }
+        deinit {
+            DisposeMusicSequence(ref)
+        }
+    }
+    
+    private let _ref: Ref
+//            let path: String?
+    
+    internal var ref : MusicSequence {
+        return _ref.ref
+    }
+
     typealias Index = Int
+    typealias IndexDistance = Int
     typealias Element = MIDITrack
     
     init() {
-        ref = MIDISequenceCreate()
+        _ref = Ref()
+//        self.path = nil
     }
     
     init(path: String) {
-        ref = MIDISequenceLoad(path: path)
+        _ref = Ref(path: path)
+//        self.path = path
     }
     
     init(import: Data) {
@@ -30,14 +63,18 @@ class MIDISequence : Collection, Comparable, Hashable {
         return 0
     }
     
+    var count: IndexDistance {
+        return MusicSequenceGetTrackCount(ref: ref)
+    }
+    
     var endIndex : Index {
-        fatalError()
+        return startIndex + count
     }
 
     subscript(index: Index) -> Element {
-        fatalError()
+        return MIDITrack(seq: self, no: index)
     }
-    
+
     func index(after i: Index) -> Index {
         return i + 1
     }
@@ -62,10 +99,6 @@ class MIDISequence : Collection, Comparable, Hashable {
     
     var hashValue: Int {
         return ref.hashValue
-    }
-    
-    deinit {
-        DisposeMusicSequence(ref)
     }
     
     func export() -> Data {
