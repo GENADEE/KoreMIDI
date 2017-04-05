@@ -57,10 +57,16 @@ protocol MIDIEvent {
 }
 
 
-extension MIDINoteMessage : MIDIEvent, Hashable {
+extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
     static var type : MIDIEventType {
         return .note
     }
+    
+    public var description: String {
+        return "MIDIMsg(\(note), duration: \(duration))"
+    }
+    
+
     
     func add(to track: MIDITrack, at timestamp: Double) {
         var cpy = self
@@ -68,7 +74,12 @@ extension MIDINoteMessage : MIDIEvent, Hashable {
     }
     
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
-        fatalError()
+        return (lhs.channel, lhs.note, lhs.velocity, lhs.releaseVelocity, lhs.duration) ==
+               (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
+    }
+
+    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
+        return lhs.note < rhs.note
     }
     
     public var hashValue: Int {
