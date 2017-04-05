@@ -58,6 +58,8 @@ protocol MIDIEvent {
 
 
 extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
+    typealias Timestamp = Double
+    
     static var type : MIDIEventType {
         return .note
     }
@@ -66,6 +68,13 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return "MIDIMsg(\(note), duration: \(duration))"
     }
     
+    var startTime : Timestamp {
+        return 0
+    }
+    
+    var endTime : Timestamp {
+        return Timestamp(duration)
+    }
 
     
     func add(to track: MIDITrack, at timestamp: Double) {
