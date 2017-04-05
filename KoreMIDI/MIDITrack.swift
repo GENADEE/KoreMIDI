@@ -134,12 +134,7 @@ struct MIDITrack : Sequence {
     
     mutating
     func add(_ event: MIDIEvent, at timestamp: Timestamp) {
-        switch type(of: event).type {
-        //            case let msg =
-        case .note:
-            fatalError()
-        default: fatalError()
-        }
+        event.add(to: self, at: timestamp)
     }
     
     mutating func remove<S : Sequence>() where S.Iterator.Element == Int {

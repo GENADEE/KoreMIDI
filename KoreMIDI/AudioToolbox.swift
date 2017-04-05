@@ -49,11 +49,18 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 protocol MIDIEvent {
     
     static var type : MIDIEventType { get }
+    func add(to: MIDITrack, at timestamp: Double)
 }
+
 
 extension MIDINoteMessage {
     static var type : MIDIEventType {
         return .note
+    }
+    
+    func add(to track: MIDITrack, at timestamp: Double) {
+        var cpy = self
+        MusicTrackNewMIDINoteEvent(track.ref, timestamp, &cpy)
     }
 }
 //
