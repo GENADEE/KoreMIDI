@@ -8,9 +8,20 @@
 
 import Foundation
 
+import AudioToolbox
+
 protocol Disposable {
+    func dispose()
     
 }
+//
+//struct MIDITrack : Disposable {
+//    private let ref : MusicTrack
+//    
+//    func dispose() {
+//        MusicTrack
+//    }
+//}
 
 ////class MIDIRef {
 ////    let ref: OpaquePointer

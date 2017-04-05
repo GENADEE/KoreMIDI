@@ -53,7 +53,7 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 protocol MIDIEvent {
     
     static var type : MIDIEventType { get }
-    func add(to: MIDITrack, at timestamp: Double)
+    func add(to: MIDITrack, at timestamp: Timestamp)
 }
 
 @inline(__always)
@@ -85,7 +85,6 @@ func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) ->
 }
 
 extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
-    typealias Timestamp = Double
     
     static var type : MIDIEventType {
         return .note
@@ -95,18 +94,9 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return "MIDIMsg(\(note), duration: \(duration))"
     }
     
-    var startTime : Timestamp {
-        return 0
-    }
-    
-    var endTime : Timestamp {
-        return Timestamp(duration)
-    }
-
-    
-    func add(to track: MIDITrack, at timestamp: Double) {
+        func add(to track: MIDITrack, at timestamp: Timestamp) {
         var cpy = self
-        MusicTrackNewMIDINoteEvent(track.ref, timestamp, &cpy)
+        MusicTrackNewMIDINoteEvent(track.ref, timestamp.beats, &cpy)
     }
     
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {

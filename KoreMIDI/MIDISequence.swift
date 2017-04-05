@@ -34,7 +34,7 @@ struct MIDISequence : Collection, Comparable, Hashable {
     init(import: Data) {
         fatalError()
     }
-    
+
     var startIndex: Index {
         return 0
     }
@@ -64,9 +64,7 @@ struct MIDISequence : Collection, Comparable, Hashable {
         
         }
     }
-    
-    
-    
+
     static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs.ref == rhs.ref
     }

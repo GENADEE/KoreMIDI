@@ -18,20 +18,22 @@ import AudioToolbox
 struct MIDITrack : Sequence, CustomStringConvertible {
     typealias Iterator = MIDITrackIterator
     typealias Element = Iterator.Element
-    typealias Timestamp = Iterator.Timestamp
     
     internal let ref : MusicTrack
+    internal let parent: MIDISequence
     
     init(seq: MIDISequence) {
         ref = MIDITrackCreate(ref: seq.ref)
+        parent = seq
     }
     
     init(seq: MIDISequence, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
+        parent = seq
     }
     
     var timerange: ClosedRange<Timestamp> {
-        return Timestamp(startTime)...Timestamp(endTime)
+        return startTime...endTime
     }
     
     //    deinit {
@@ -51,7 +53,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         return "MIDITrack(in:\(timerange), \(opts))"
     }
     
-    var startTime : Int {
+    var offsetTime : Int {
         get {
             return self[kSequenceTrackProperty_OffsetTime]
         }
@@ -69,8 +71,12 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var endTime : Int {
-        return startTime + duration
+    var startTime : Timestamp {
+        return Timestamp(base: parent, beats: MusicTimeStamp(offsetTime))
+    }
+    
+    var endTime : Timestamp {
+        return startTime.advanced(by: MusicTimeStamp(duration))
     }
 
     var loopInfo : Int {
@@ -133,27 +139,41 @@ struct MIDITrack : Sequence, CustomStringConvertible {
     
     mutating
     func move(_ timerange: ClosedRange<Timestamp>, to timestamp: Timestamp) {
-        MusicTrackMoveEvents(ref, timerange.lowerBound, timerange.upperBound, timestamp)
+        MusicTrackMoveEvents(ref,
+                             timerange.lowerBound.beats,
+                             timerange.upperBound.beats,
+                             timestamp.beats)
     }
     
     mutating
     func clear(_ timerange: ClosedRange<Timestamp>) {
-        MusicTrackClear(ref, timerange.lowerBound, timerange.upperBound)
+        MusicTrackClear(ref,
+                        timerange.lowerBound.beats,
+                        timerange.upperBound.beats)
     }
     
     mutating
     func cut(_ timerange: ClosedRange<Timestamp>) {
-        MusicTrackCut(ref, timerange.lowerBound, timerange.upperBound)
+        MusicTrackCut(ref,
+                      timerange.lowerBound.beats,
+                      timerange.upperBound.beats)
     }
     
     mutating
     func copyInsert(from other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
-        MusicTrackCopyInsert(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
+        MusicTrackCopyInsert(ref,
+                             timerange.lowerBound.beats,
+                             timerange.upperBound.beats,
+                             other.ref,
+                             timestamp.beats)
     }
     
     mutating
     func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
-        MusicTrackMerge(ref, timerange.lowerBound, timerange.upperBound, other.ref, timestamp)
+        MusicTrackMerge(ref,
+                        timerange.lowerBound.beats,
+                        timerange.upperBound.beats, other.ref,
+                        timestamp.beats)
     }
     
     mutating

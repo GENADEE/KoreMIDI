@@ -9,14 +9,21 @@
 import Foundation
 import AudioToolbox
 
-struct Timestamp : Comparable, Hashable {
-    let beats : MusicTimeStamp
+struct Timestamp : Comparable, Hashable, Strideable {
     typealias Base = MIDISequence
     
-    let base : UnsafePointer<Base>
+    typealias Stride = MusicTimeStamp
+
+    let beats : MusicTimeStamp
+    private let base : Base
     
-    init(base: UnsafePointer<Base>, beats: MusicTimeStamp) {
-        fatalError()
+    var seconds: Float64 {
+        return MusicSequenceBeatsToSeconds(ref: base.ref, beats: beats)
+    }
+
+    init(base: Base, beats: MusicTimeStamp) {
+        self.base = base
+        self.beats = beats
     }
     
     static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
@@ -31,12 +38,28 @@ struct Timestamp : Comparable, Hashable {
         return beats.hashValue
     }
     
+    func advanced(by n: Stride) -> Timestamp {
+        fatalError()
+    }
+    
+    func distance(to other: Timestamp) -> Stride {
+        fatalError()
+    }
+    
     static func +(lhs: Timestamp, rhs: Timestamp) -> Timestamp {
         assert(lhs.base == rhs.base)
         return Timestamp(base: lhs.base, beats: lhs.beats + rhs.beats)
     }
     
+    static prefix func -(_ value: Timestamp) -> Timestamp {
+        return Timestamp(base: value.base, beats: -value.beats)
+    }
+    
     static func -(lhs: Timestamp, rhs: Timestamp) -> Timestamp {
-        return Timestamp(base: lhs.base, beats: lhs.beats - rhs.beats)
+        return lhs + (-rhs)
     }
 }
+
+//public func MusicSequenceBeatsToBarBeatTime(_ inSequence: MusicSequence, _ inBeats: MusicTimeStamp, _ inSubbeatDivisor: UInt32, _) -> CABarBeatTime {
+//    
+//}
