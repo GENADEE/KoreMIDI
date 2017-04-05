@@ -36,8 +36,12 @@ internal func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     fatalError()
 }
 
+@inline(__always)
 internal func MIDISequenceLoad(path: String) -> MusicSequence {
-    fatalError()
+    let seq = MIDISequenceCreate()
+    let url = URL(fileURLWithPath: path) as CFURL
+    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
+    return seq
 }
 
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {

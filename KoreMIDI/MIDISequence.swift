@@ -17,26 +17,7 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
 }
 
 struct MIDISequence : Collection, Comparable, Hashable {
-    private class Ref {
-        internal let ref : MusicSequence
-
-        init() {
-            ref = MIDISequenceCreate()
-
-        }
-        
-        init(path: String) {
-            ref = MIDISequenceLoad(path: path)
-
-        }
-        deinit {
-            DisposeMusicSequence(ref)
-        }
-    }
-    
-    private let _ref: Ref
-//            let path: String?
-    
+  
     internal var ref : MusicSequence {
         return _ref.ref
     }
@@ -89,6 +70,8 @@ struct MIDISequence : Collection, Comparable, Hashable {
         }
     }
     
+    
+    
     static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs.ref == rhs.ref
     }
@@ -108,4 +91,29 @@ struct MIDISequence : Collection, Comparable, Hashable {
     var tempoTrack : MIDITrack {
         fatalError()
     }
+    
+    private class Ref {
+        internal let ref : MusicSequence
+        
+        init() {
+            ref = MIDISequenceCreate()
+            
+        }
+        
+        init(path: String) {
+            ref = MIDISequenceLoad(path: path)
+            
+        }
+        deinit {
+            DisposeMusicSequence(ref)
+        }
+    }
+    
+    private let _ref: Ref
+    //            let path: String?
 }
+
+
+//struct MIDISequenceView<Event: MIDIEvent> : Sequence {
+//    
+//}

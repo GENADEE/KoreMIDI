@@ -39,14 +39,7 @@ struct MIDITrack : Sequence {
     //
     //    }
     
-    var loopInfo : Int {
-        get {
-            return self[kSequenceTrackProperty_LoopInfo]
-        }
-        set {
-            self[kSequenceTrackProperty_LoopInfo] = newValue
-        }
-    }
+
     
     var startTime : Int {
         get {
@@ -68,6 +61,15 @@ struct MIDITrack : Sequence {
     
     var endTime : Int {
         return startTime + duration
+    }
+
+    var loopInfo : Int {
+        get {
+            return self[kSequenceTrackProperty_LoopInfo]
+        }
+        set {
+            self[kSequenceTrackProperty_LoopInfo] = newValue
+        }
     }
 
     var muted : Bool {
