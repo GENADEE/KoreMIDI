@@ -32,8 +32,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Hashable, CustomString
     
     internal func copy() -> MIDITrackImpl {
         var cpy = MIDITrackImpl()
-        fatalError()
-//        cpy.copyInsert(from: self, in: timerange, at: )
+//        fatalError()
+        cpy.copyInsert(from: self, in: timerange, at: startTime)
         return cpy
     }
     
