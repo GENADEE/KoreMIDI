@@ -26,17 +26,30 @@ enum MIDIEventType : RawRepresentable {
     ///     // Prints "nil"
     ///
     /// - Parameter rawValue: The raw value to use for the new instance.
-    init?(rawValue: UInt32) {
-        fatalError()
+    
+    case null, extendedNote, extendedTempo, user, meta, note, channel, rawData, parameter, auPreset
+    init?(rawValue: MusicEventType) {
+        switch rawValue {
+        case kMusicEventType_NULL: fatalError()
+        case kMusicEventType_ExtendedNote: self = .extendedNote
+        case kMusicEventType_ExtendedTempo: fatalError()
+        case kMusicEventType_User: fatalError()
+        case kMusicEventType_Meta: fatalError()
+        case kMusicEventType_MIDINoteMessage: self = .note
+        case kMusicEventType_MIDIChannelMessage: fatalError()
+        case kMusicEventType_MIDIRawData: fatalError()
+        case kMusicEventType_Parameter: fatalError()
+        case kMusicEventType_AUPreset: fatalError()
+        default: fatalError()
+        }
+        
     }
-
-    case note
     
     var rawValue : UInt32 {
         switch self {
         case .note :
             return kMusicEventType_ExtendedNote
-        
+        default: fatalError()
         }
     }
 }
