@@ -45,19 +45,26 @@ internal class MIDITrackRef : Hashable, Comparable {
         return ref.hashValue
     }
 }
+//
+//protocol Ref {
+//    var isUnique: Bool { get }
+//}
 
 internal class MIDISequenceRef : Hashable, Comparable {
     internal let ref : MusicSequence
     
     internal init() {
         ref = MIDISequenceCreate()
-        
     }
     
     internal init(path: String) {
         ref = MIDISequenceLoad(path: path)
-        
     }
+    
+    internal init(import data: Data) {
+        fatalError()
+    }
+
     deinit {
         DisposeMusicSequence(ref)
     }
