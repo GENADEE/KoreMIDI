@@ -218,8 +218,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     //    mutating
-    internal func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
-        event.add(to: self, at: timestamp)
+    internal func insert(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
+        event.insert(to: self, at: timestamp)
         //        fatalError()
     }
     

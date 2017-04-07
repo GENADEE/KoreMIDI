@@ -160,9 +160,9 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating
-    func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
+    func insert(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
         _ensureUnique()
-        event.add(to: impl, at: timestamp)
+        event.insert(to: impl, at: timestamp)
     }
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
