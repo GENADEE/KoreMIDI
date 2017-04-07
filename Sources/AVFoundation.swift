@@ -10,4 +10,7 @@ import AVFoundation
 
 class MIDIPlayer : AVMIDIPlayer {
     
+    override func prepareToPlay() {
+        super.prepareToPlay()
+    }
 }
