@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
-internal final class MIDITrackImpl : Sequence, Equatable, Hashable, CustomStringConvertible {
+internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     internal typealias Iterator = MIDITrackIterator
     internal typealias Element = Iterator.Element
     
@@ -47,6 +47,10 @@ internal final class MIDITrackImpl : Sequence, Equatable, Hashable, CustomString
         return lhs.ref == rhs.ref || lhs.elementsEqual(rhs) {
             $0.timestamp == $1.timestamp && $0.event == $1.event
         }
+    }
+    
+    internal static func <(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
+        return lhs.ref.hashValue < rhs.ref.hashValue
     }
     
     internal var description: String {
