@@ -23,7 +23,7 @@ public class MIDITrackIterator : IteratorProtocol {
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
         timerange.map {
-            self.seek(to: $0.lowerBound)
+            self._seek(to: $0.lowerBound)
         }
     }
     
@@ -76,7 +76,7 @@ public class MIDITrackIterator : IteratorProtocol {
         return MIDIIteratorHasCurrent(ref: ref)
     }
     
-    private func seek(to timestamp: MIDITimestamp) {
+    private func _seek(to timestamp: MIDITimestamp) {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }
     

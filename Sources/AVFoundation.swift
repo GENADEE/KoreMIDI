@@ -8,6 +8,6 @@
 
 import AVFoundation
 
-extension AVMIDIPlayer {
+class MIDIPlayer : AVMIDIPlayer {
     
 }
