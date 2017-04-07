@@ -24,6 +24,10 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
 
+    func copy() -> MIDISequence {
+        return MIDISequence(import: export())
+    }
+    
     public init() {
         _ref = MIDISequenceRef()
 //        self.path = nil
