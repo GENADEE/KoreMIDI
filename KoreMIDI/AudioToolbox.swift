@@ -59,14 +59,14 @@ func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
 }
 
 @inline(__always)
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MusicEventType, data: UnsafeRawPointer?, size: UInt32)? {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MIDIEventType, data: UnsafeRawPointer?, size: UInt32)? {
     var beats: Double = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
 
     MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-    return (beats, type, data, size)
+    return (beats, MIDIEventType(rawValue: type)!, data, size)
 }
 
 protocol MIDIEvent {
