@@ -9,30 +9,24 @@
 import Foundation
 import AudioToolbox
 
-
-
-//public func MusicSequenceGetTrackIndex(_ inSequence: MusicSequence, _ inTrack: MusicTrack, _ outTrackIndex: UnsafeMutablePointer<UInt32>)  {
-//    
-//}
-
-struct MIDITrack : Sequence, CustomStringConvertible {
-    typealias Iterator = MIDITrackIterator
-    typealias Element = Iterator.Element
+public struct MIDITrack : Sequence, CustomStringConvertible {
+    public typealias Iterator = MIDITrackIterator
+    public typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
     internal let parent: MIDISequence
     
-    init(seq: MIDISequence) {
+    public init(seq: MIDISequence) {
         ref = MIDITrackCreate(ref: seq.ref)
         parent = seq
     }
     
-    init(seq: MIDISequence, no: Int) {
+    public init(seq: MIDISequence, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
         parent = seq
     }
     
-    var timerange: ClosedRange<Timestamp> {
+    public var timerange: ClosedRange<Timestamp> {
         return startTime...endTime
     }
     
@@ -40,7 +34,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
     //
     //    }
     
-    var description: String {
+    public var description: String {
         var opts: [String] = []
         if soloed {
             opts.append("soloed")
@@ -53,7 +47,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         return "MIDITrack(in:\(timerange), \(opts))"
     }
     
-    var offsetTime : Int {
+    public var offsetTime : Int {
         get {
             return self[kSequenceTrackProperty_OffsetTime]
         }
@@ -62,7 +56,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var duration : Int {
+    public var duration : Int {
         get {
             return self[kSequenceTrackProperty_TrackLength]
         }
@@ -71,15 +65,15 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var startTime : Timestamp {
+    public var startTime : Timestamp {
         return Timestamp(base: parent, beats: MusicTimeStamp(offsetTime))
     }
     
-    var endTime : Timestamp {
+    public var endTime : Timestamp {
         return startTime.advanced(by: MusicTimeStamp(duration))
     }
 
-    var loopInfo : Int {
+    public var loopInfo : Int {
         get {
             return self[kSequenceTrackProperty_LoopInfo]
         }
@@ -88,7 +82,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
 
-    var muted : Bool {
+    public var muted : Bool {
         get {
             return Bool(self[kSequenceTrackProperty_MuteStatus])
         }
@@ -97,7 +91,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var soloed : Bool {
+    public var soloed : Bool {
         get {
             return Bool(self[kSequenceTrackProperty_SoloStatus])
         }
@@ -106,7 +100,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var automatedParameters : Bool {
+    public var automatedParameters : Bool {
         get {
             return Bool(self[kSequenceTrackProperty_AutomatedParameters])
         }
@@ -115,7 +109,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    var timeResolution : Int {
+    public var timeResolution : Int {
         get {
             return self[kSequenceTrackProperty_TimeResolution]
         }
@@ -124,7 +118,7 @@ struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    func makeIterator() -> Iterator {
+    public func makeIterator() -> Iterator {
         return MIDITrackIterator(self)
     }
     

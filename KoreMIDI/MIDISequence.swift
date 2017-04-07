@@ -6,16 +6,13 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
 import AudioToolbox
 
+public struct MIDISequence : Collection, Comparable, Hashable {
 
-
-struct MIDISequence : Collection, Comparable, Hashable {
-
-    typealias Index = Int
-    typealias IndexDistance = Int
-    typealias Element = MIDITrack
+    public typealias Index = Int
+    public typealias IndexDistance = Int
+    public typealias Element = MIDITrack
 
     internal var ref : MusicSequence {
         return _ref.ref
@@ -31,31 +28,31 @@ struct MIDISequence : Collection, Comparable, Hashable {
 //        self.path = path
     }
     
-    init(import: Data) {
+    public init(import: Data) {
         fatalError()
     }
 
-    var startIndex: Index {
+    public var startIndex: Index {
         return 0
     }
     
-    var count: IndexDistance {
+    public var count: IndexDistance {
         return MusicSequenceGetTrackCount(ref: ref)
     }
     
-    var endIndex : Index {
+    public var endIndex : Index {
         return startIndex + count
     }
 
-    subscript(index: Index) -> Element {
+    public subscript(index: Index) -> Element {
         return MIDITrack(seq: self, no: index)
     }
 
-    func index(after i: Index) -> Index {
+    public func index(after i: Index) -> Index {
         return i + 1
     }
 
-    var type : MusicSequenceType {
+    public var type : MusicSequenceType {
         get {
             var out: MusicSequenceType = .beats
             MusicSequenceGetSequenceType(ref, &out)
@@ -67,23 +64,23 @@ struct MIDISequence : Collection, Comparable, Hashable {
         }
     }
 
-    static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+    public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs.ref == rhs.ref
     }
     
-    static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+    public static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs.hashValue < rhs.hashValue
     }
     
-    var hashValue: Int {
+    public var hashValue: Int {
         return ref.hashValue
     }
     
-    func export() -> Data {
+    public func export() -> Data {
         fatalError()
     }
     
-    var tempoTrack : MIDITrack {
+    public var tempoTrack : MIDITrack {
         fatalError()
         //MusicSequenceGetTempoTrack
     }

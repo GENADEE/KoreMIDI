@@ -15,16 +15,16 @@ extension Bool {
     }
 }
 
-class MIDITrackIterator : IteratorProtocol {
+public class MIDITrackIterator : IteratorProtocol {
     //    typealias Timestamp = Double
-    typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
+    public typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
     
     private let ref: MusicEventIterator
     private let content: MIDITrack
 
     private let timerange: ClosedRange<Timestamp>?
     
-    init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+    public init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
         self.content = content
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
@@ -37,7 +37,7 @@ class MIDITrackIterator : IteratorProtocol {
         DisposeMusicEventIterator(ref)
     }
     
-    func current() -> Element? {
+    public func current() -> Element? {
         
         var beats: Double = 0
         var type: MusicEventType = 0
@@ -74,7 +74,7 @@ class MIDITrackIterator : IteratorProtocol {
 //        return nil
 //    }
     
-    func remove() {
+    public func remove() {
         //
     }
     
@@ -90,7 +90,7 @@ class MIDITrackIterator : IteratorProtocol {
         MusicEventIteratorNextEvent(ref)
     }
     
-    func next() -> Element? {
+    public func next() -> Element? {
         defer {
             move()
         }
