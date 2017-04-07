@@ -41,7 +41,7 @@ public class MIDITrackIterator : IteratorProtocol {
             MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
             if type == kMusicEventType_MIDINoteMessage {
                 let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-                let tt = MIDITimestamp(base: content.parent, beats: beats)
+                let tt = MIDITimestamp(base: content.parent!, beats: beats)
                 if (timerange.map { $0.contains(tt) }) ?? true {
                     return (tt, p.pointee)
                 }

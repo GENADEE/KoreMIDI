@@ -12,13 +12,11 @@ import AudioToolbox.MusicPlayer
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
-    
 
-    internal weak var parent: MIDISequenceImpl! = nil
-    private  var impl : MIDITrackImpl! = nil
+    private var impl : MIDITrackImpl! = nil
     
-    init() {
-        fatalError()
+    public init() {
+        impl = MIDITrackImpl()
     }
     
     internal init(seq: MIDISequenceImpl) {
@@ -46,11 +44,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
+        return impl.startTime
     }
     
     public var endTime : MIDITimestamp {
-        return startTime.advanced(by: MusicTimeStamp(duration))
+        return impl.endTime
     }
     
     public func makeIterator() -> Iterator {
