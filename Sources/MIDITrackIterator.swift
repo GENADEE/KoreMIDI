@@ -53,6 +53,17 @@ public class MIDITrackIterator : IteratorProtocol {
         return nil
     }
     
+    subscript(element : Element) -> Element {
+        get {
+            fatalError()
+        }
+        set {
+            assert(current! == element)
+            fatalError()
+            
+        }
+    }
+    
 //    func current1() -> Element? {
 //        
 //        while _hasCurrent {

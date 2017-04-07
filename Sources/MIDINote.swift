@@ -13,6 +13,8 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible {
     let timestamp: MIDITimestamp
     
     let duration: Float32
+    
+//    private weak let parent : MIDITrackImpl?
 
     var endstamp: MIDITimestamp {
         return timestamp.advanced(by: MIDITimestamp.Stride(duration))

@@ -150,16 +150,29 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     private subscript(prop: MIDITrackProp) -> Int {
+        @inline(__always)
         get {
             return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
         }
+        @inline(__always)
         set {
             MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
         }
     }
     
+    subscript(element element: Element) -> Element {
+        get {
+            fatalError()
+        }
+        set {
+            guard element != newValue else { return }
+            let i = MIDITrackIterator(self, timerange: element.timerange)
+            i[element] = newValue
+        }
+    }
+    
     //    mutating
-    func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
+    internal func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
         MusicTrackMoveEvents(ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
@@ -167,25 +180,25 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     //    mutating
-    func clear(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func clear(_ timerange: ClosedRange<MIDITimestamp>) {
         MusicTrackClear(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats)
     }
     
-    func clearAll() {
+    internal func clearAll() {
         clear(timerange)
     }
     
     //    mutating
-    func cut(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func cut(_ timerange: ClosedRange<MIDITimestamp>) {
         MusicTrackCut(ref,
                       timerange.lowerBound.beats,
                       timerange.upperBound.beats)
     }
     
     //    mutating
-    func copyInsert(from other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+    internal func copyInsert(from other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
         MusicTrackCopyInsert(other.ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
@@ -194,7 +207,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     //    mutating
-    func merge(with other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+    internal func merge(with other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
         MusicTrackMerge(other.ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats,
@@ -203,17 +216,17 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     //    mutating
-    func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
+    internal func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
         event.add(to: self, at: timestamp)
         //        fatalError()
     }
     
-    func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
+    internal func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
         fatalError()
     }
     
-    func remove(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func remove(_ timerange: ClosedRange<MIDITimestamp>) {
         fatalError()
     }
 }

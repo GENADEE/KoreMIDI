@@ -27,6 +27,7 @@ for (i,track) in s.enumerated() {
 
 for (i, track) in s.enumerated() {
     print(i, track)
+//    track[note] = note
 }
 
 
