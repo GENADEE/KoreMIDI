@@ -73,6 +73,10 @@ public struct MIDISequence : Collection, Comparable, Hashable {
         return MusicSequenceCreateData(ref: ref)
     }
     
+    public func save(to: URL) {
+        fatalError()
+    }
+    
     public var tempoTrack : MIDITempoTrack {
         return MIDITempoTrack(ref: self)
     }

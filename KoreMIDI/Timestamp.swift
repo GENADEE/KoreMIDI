@@ -9,12 +9,6 @@
 import Foundation
 import AudioToolbox
 
-extension CABarBeatTime : CustomStringConvertible {
-    public var description : String {
-        return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
-    }
-}
-
 public struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     internal typealias Base = MIDISequence
     

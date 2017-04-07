@@ -66,8 +66,8 @@ func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
 func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data {
     var data: Unmanaged<CFData>? = nil
     fatalError()
-    MusicSequenceFileCreateData(ref, .midiType, .eraseFile, Int16(resolution), &data)
-    return (data?.takeRetainedValue() as! Data)
+//    MusicSequenceFileCreateData(ref, .midiType, .eraseFile, Int16(resolution), &data)
+//    return (data?.takeRetainedValue() as! Data)
 }
 
 ///

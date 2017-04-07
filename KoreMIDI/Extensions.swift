@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AudioToolbox
 
 extension ClosedRange {
     func union(_ other: ClosedRange) -> ClosedRange<Bound>{
@@ -24,5 +25,11 @@ extension Int {
 extension Bool {
     init(_ int: Int) {
         self = int != 0
+    }
+}
+
+extension CABarBeatTime : CustomStringConvertible {
+    public var description : String {
+        return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
     }
 }
