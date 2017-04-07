@@ -131,40 +131,48 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     mutating
     func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
+        _ensureUnique()
         impl.move(timerange, to: timestamp)
     }
     
     mutating
     func clear(_ timerange: ClosedRange<MIDITimestamp>) {
+        _ensureUnique()
         impl.clear(timerange)
     }
     
     mutating
     func cut(_ timerange: ClosedRange<MIDITimestamp>) {
+        _ensureUnique()
         impl.cut(timerange)
     }
     
     mutating
     func copyInsert(from other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+        _ensureUnique()
         impl.copyInsert(from: other.impl, in: timerange, at: timestamp)
     }
     
     mutating
     func merge(with other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+        _ensureUnique()
         impl.merge(with: other.impl, in: timerange, at: timestamp)
     }
     
     mutating
     func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
+        _ensureUnique()
         event.add(to: impl, at: timestamp)
     }
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
+        _ensureUnique()
         fatalError()
     }
     
     mutating func remove(_ timerange: ClosedRange<MIDITimestamp>) {
+        _ensureUnique()
         fatalError()
     }
 }

@@ -11,7 +11,7 @@ import AudioToolbox.MusicPlayer
 ///
 /// MIDISequence
 ///
-internal final class MIDISequenceImpl : Hashable, Comparable, Collection {
+internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
     internal typealias Index = Int
     internal typealias IndexDistance = Index

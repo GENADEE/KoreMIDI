@@ -14,10 +14,10 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal private(set) weak var parent: MIDISequenceImpl?
+    internal private(set) var parent: MIDISequenceImpl
     
     init() {
-        let s = MIDISequenceImpl()
+//        let s = MIDISequenceImpl()
         
         fatalError()
         //        ref = M
@@ -71,7 +71,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     internal var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent!, beats: MusicTimeStamp(offsetTime))
+        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
     }
     
     internal var endTime : MIDITimestamp {
