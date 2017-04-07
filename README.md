@@ -21,7 +21,7 @@ struct MIDISequence : MutableCollection, Comparable {
 ```
 
 ```
-struct MIDITrack : Sequence< Equatable {
+struct MIDITrack : Sequence, Equatable {
     
 }
 ```

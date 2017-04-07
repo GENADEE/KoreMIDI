@@ -136,6 +136,13 @@ func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, 
     return t
 }
 
+@inline(__always) internal
+func MusicSequenceGetTempoTrack(ref: MusicSequence) -> MusicTrack {
+    var out : MusicTrack? = nil
+    MusicSequenceGetTempoTrack(ref, &out)
+    return out!
+}
+
 protocol MIDIEvent {
     static var type : MIDIEventType { get }
     func add(to: MIDITrack, at timestamp: MIDITimestamp)

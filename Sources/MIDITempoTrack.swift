@@ -10,8 +10,9 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 public struct MIDITempoTrack {
-//    typealias Element = 
+//    typealias Element =
+    
     init(ref: MIDISequence) {
-        fatalError()
+//        ref = MusicSequenceGetTempoTrack(ref: ref.ref)
     }
 }

@@ -13,43 +13,22 @@ let path = "/Users/adamnemecek/midi/darude-sandstorm.mid"
 
 let s = MIDISequence(path: path)
 
-struct Note : Equatable, Hashable, CustomStringConvertible {
-    let note: UInt8
-    let timestamp: MIDITimestamp
-    let duration: Float32
-    
-    
-    init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {
-        self.timestamp = timestamp
-        self.note = msg.note
-        self.duration = msg.duration
-    }
-    
-    var hashValue: Int {
-        return note.hashValue
-    }
 
-    var description: String {
-        return "note: \(note), timestamp: \(timestamp), duration: \(duration)"
-    }
-    
-    static func ==(lhs: Note, rhs: Note) -> Bool {
-        return lhs.note == rhs.note && lhs.timestamp == rhs.timestamp && lhs.duration == rhs.duration
-    }
-}
+
+let notes : [MIDINote] = []
 
 for (i,e) in s.enumerated() {
     
     for (ts, msg) in e {
-        let note = Note(timestamp: ts, msg: msg)
+        let note = MIDINote(timestamp: ts, msg: msg)
         
         print(i, note)
     }
 //    print(e.timeResolution)
 }
-let notes : [Note] = []
 
-let kls: Classifier<Note, UInt8> = Classifier(notes) { (e: Note) -> UInt8 in
+
+let kls: Classifier<MIDINote, UInt8> = Classifier(notes) { (e: MIDINote) -> UInt8 in
     e.note
 }
 
