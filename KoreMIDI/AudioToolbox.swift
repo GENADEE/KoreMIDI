@@ -9,35 +9,6 @@
 import AudioToolbox
 
 ///
-/// Iterators
-///
-
-@inline(__always) internal
-func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
-    var r: MusicEventIterator? = nil
-    NewMusicEventIterator(ref, &r)
-    return r!
-}
-
-@inline(__always) internal
-func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
-    var bool : DarwinBoolean = false
-    MusicEventIteratorHasCurrentEvent(ref, &bool)
-    return Bool(bool)
-}
-
-@inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MIDIEventType, data: UnsafeRawPointer?, size: UInt32)? {
-    var beats: Double = 0
-    var type: MusicEventType = 0
-    var data : UnsafeRawPointer? = nil
-    var size : UInt32 = 0
-    
-    MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-    return (beats, MIDIEventType(rawValue: type)!, data, size)
-}
-
-///
 /// Sequences
 ///
 
@@ -82,6 +53,42 @@ func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) ->
     var out: MusicTimeStamp = 0
     MusicSequenceGetBeatsForSeconds(ref, seconds, &out)
     return out
+}
+
+@inline(__always) internal
+func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
+    var out: MusicSequenceType = .beats
+    MusicSequenceGetSequenceType(ref, &out)
+    return out
+}
+
+///
+/// Iterators
+///
+
+@inline(__always) internal
+func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
+    var r: MusicEventIterator? = nil
+    NewMusicEventIterator(ref, &r)
+    return r!
+}
+
+@inline(__always) internal
+func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
+    var bool : DarwinBoolean = false
+    MusicEventIteratorHasCurrentEvent(ref, &bool)
+    return Bool(bool)
+}
+
+@inline(__always) internal
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MIDIEventType, data: UnsafeRawPointer?, size: UInt32)? {
+    var beats: Double = 0
+    var type: MusicEventType = 0
+    var data : UnsafeRawPointer? = nil
+    var size : UInt32 = 0
+    
+    MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
+    return (beats, MIDIEventType(rawValue: type)!, data, size)
 }
 
 ///
@@ -136,7 +143,7 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
     
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return (lhs.channel, lhs.note, lhs.velocity, lhs.releaseVelocity, lhs.duration) ==
-               (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
+            (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
     }
     
     public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {

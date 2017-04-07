@@ -54,13 +54,10 @@ public struct MIDISequence : Collection, Comparable, Hashable {
 
     public var type : MusicSequenceType {
         get {
-            var out: MusicSequenceType = .beats
-            MusicSequenceGetSequenceType(ref, &out)
-            return out
+            return MusicSequenceGetSequenceType(ref: ref)
         }
         set {
-            var cpy = newValue
-//            MusicSequenceSetSequenceType(ref, &cpy)
+            MusicSequenceSetSequenceType(ref, newValue)
         }
     }
 
