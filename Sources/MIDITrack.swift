@@ -14,14 +14,18 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal let parent: MIDISequenceRef
+    internal weak var parent: MIDISequenceImpl! = nil
     
-    internal init(seq: MIDISequenceRef) {
+    init() {
+        fatalError()
+    }
+    
+    internal init(seq: MIDISequenceImpl) {
         ref = MIDITrackCreate(ref: seq.ref)
         parent = seq
     }
     
-    internal init(seq: MIDISequenceRef, no: Int) {
+    internal init(seq: MIDISequenceImpl, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
         parent = seq
     }
@@ -47,6 +51,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
         
         return "MIDITrack(in:\(timerange), \(opts))"
+    }
+    
+    public subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element> {
+        fatalError()
     }
     
     public var startTime : MIDITimestamp {

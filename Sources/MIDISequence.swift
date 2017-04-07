@@ -29,34 +29,34 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
     
     public init() {
-        _ref = MIDISequenceRef()
+        _impl = MIDISequenceImpl()
 //        self.path = nil
     }
     
     public init(path: String) {
-        _ref = MIDISequenceRef(path: path)
+        _impl = MIDISequenceImpl(path: path)
 //        self.path = path
     }
     
     public init(import data: Data) {
-        _ref = MIDISequenceRef(import: data)
+        _impl = MIDISequenceImpl(import: data)
     }
 
     public var startIndex: Index {
-        return 0
+        return _impl.startIndex
     }
     
     public var count: IndexDistance {
-        return MusicSequenceGetTrackCount(ref: ref)
+        return _impl.count
     }
     
     public var endIndex : Index {
-        return startIndex + count
+        return _impl.endIndex
     }
 
     public subscript(index: Index) -> Element {
         get {
-            return MIDITrack(seq: _ref, no: index)
+            return MIDITrack(seq: _impl, no: index)
         }
         set {
             ensureUnique()
@@ -69,8 +69,8 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
 
     private mutating func ensureUnique() {
-        if !isKnownUniquelyReferenced(&_ref) {
-            _ref = _ref.copy()
+        if !isKnownUniquelyReferenced(&_impl) {
+            _impl = _impl.copy()
         }
     }
 
@@ -82,7 +82,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 
     public var type : MusicSequenceType {
         get {
-            return MusicSequenceGetSequenceType(ref: ref)
+            return _impl.type
         }
 //        set {
 //            MusicSequenceSetSequenceType(ref, newValue)
@@ -90,23 +90,23 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
-        return lhs._ref == rhs._ref
+        return lhs._impl == rhs._impl
     }
     
     public static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
-        return lhs._ref < rhs._ref
+        return lhs._impl < rhs._impl
     }
     
     public var hashValue: Int {
-        return _ref.hashValue
+        return _impl.hashValue
     }
     
     public func export() -> Data {
-        return _ref.export()
+        return _impl.export()
     }
     
     public func save(to url: URL) {
-        _ref.save(to: url)
+        _impl.save(to: url)
     }
     
     public var tempoTrack : MIDITempoTrack {
@@ -114,10 +114,10 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
     
     internal var ref : MusicSequence {
-        return _ref.ref
+        return _impl.ref
     }
     
-    private var _ref: MIDISequenceRef
+    private var _impl: MIDISequenceImpl
 }
 
 
