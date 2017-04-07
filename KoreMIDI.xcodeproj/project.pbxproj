@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		371120021E985E420037DFFA /* MIDIProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371120011E985E420037DFFA /* MIDIProject.swift */; };
 		373BE4181E98154600DC1E15 /* MIDINote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4171E98154600DC1E15 /* MIDINote.swift */; };
 		373BE4201E9816D300DC1E15 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE41F1E9816D300DC1E15 /* main.swift */; };
 		373BE4241E9816F800DC1E15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		371120011E985E420037DFFA /* MIDIProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIProject.swift; sourceTree = "<group>"; };
 		373BE4171E98154600DC1E15 /* MIDINote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDINote.swift; sourceTree = "<group>"; };
 		373BE41D1E9816D300DC1E15 /* TestBed */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestBed; sourceTree = BUILT_PRODUCTS_DIR; };
 		373BE41F1E9816D300DC1E15 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				373BE4491E98344000DC1E15 /* MIDISequenceImpl.swift */,
 				37B150011E98059100CBDB07 /* Classifier.swift */,
 				OBJ_20 /* Timestamp.swift */,
+				371120011E985E420037DFFA /* MIDIProject.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -319,6 +322,7 @@
 			files = (
 				373BE44D1E9835D600DC1E15 /* MIDITrackImpl.swift in Sources */,
 				373BE4181E98154600DC1E15 /* MIDINote.swift in Sources */,
+				371120021E985E420037DFFA /* MIDIProject.swift in Sources */,
 				37B150021E98059100CBDB07 /* Classifier.swift in Sources */,
 				OBJ_32 /* AudioToolbox.swift in Sources */,
 				37B150001E97FC8000CBDB07 /* MIDITrackSlice.swift in Sources */,
@@ -566,6 +570,7 @@
 				373BE4231E9816D300DC1E15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		OBJ_2 /* Build configuration list for PBXProject "KoreMIDI" */ = {
 			isa = XCConfigurationList;
