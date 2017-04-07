@@ -17,9 +17,9 @@ let s = MIDISequence(path: path)
 
 let notes : [MIDINote] = []
 
-for (i,e) in s.enumerated() {
+for (i,track) in s.enumerated() {
     
-    for (ts, msg) in e {
+    for (ts, msg) in track {
         let note = MIDINote(timestamp: ts, msg: msg)
         
         print(i, note)
@@ -28,8 +28,8 @@ for (i,e) in s.enumerated() {
 }
 
 
-let kls: Classifier<MIDINote, UInt8> = Classifier(notes) { (e: MIDINote) -> UInt8 in
-    e.note
-}
-
-print(kls)
+//let kls: Classifier<MIDINote, UInt8> = Classifier(notes) { (e: MIDINote) -> UInt8 in
+//    e.note
+//}
+//
+//print(kls)

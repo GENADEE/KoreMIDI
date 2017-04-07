@@ -130,7 +130,7 @@ func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: Int) {
 }
 
 @inline(__always) internal
-func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, _ subdivisor: UInt32) -> CABarBeatTime {
+func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, subdivisor: UInt32) -> CABarBeatTime {
     var t = CABarBeatTime()
     MusicSequenceBeatsToBarBeatTime(ref, beats, subdivisor, &t)
     return t

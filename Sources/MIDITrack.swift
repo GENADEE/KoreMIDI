@@ -48,7 +48,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         
         return "MIDITrack(in:\(timerange), \(opts))"
     }
-
+    
     public var startTime : MIDITimestamp {
         return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
     }
@@ -57,11 +57,15 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         return startTime.advanced(by: MusicTimeStamp(duration))
     }
     
+    public func makeIterator() -> Iterator {
+        return MIDITrackIterator(self)
+    }
+    
     public var hashValue: Int {
         return ref.hashValue
     }
-
-    public var offsetTime : Int {
+    
+    private var offsetTime : Int {
         get {
             return self[.offsetTime]
         }
@@ -78,7 +82,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
             self[.length] = newValue
         }
     }
-
+    
     public var loopInfo : Int {
         get {
             return self[.loopInfo]
@@ -87,7 +91,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
             self[.loopInfo] = newValue
         }
     }
-
+    
     public var muted : Bool {
         get {
             return Bool(self[.muted])
@@ -124,10 +128,6 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public func makeIterator() -> Iterator {
-        return MIDITrackIterator(self)
-    }
-
     private subscript(prop: MIDITrackProp) -> Int {
         get {
             return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
@@ -183,7 +183,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
-//        remove(÷
+        //        remove(÷
         fatalError()
     }
     

@@ -51,9 +51,7 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     }
     
     public func beatTime(for subdivisor: UInt32 = 4) -> CABarBeatTime {
-        var t = CABarBeatTime()
-        MusicSequenceBeatsToBarBeatTime(base.ref, beats, subdivisor, &t)
-        return t
+        return MusicSequenceBeatsToBarBeatTime(ref: base.ref, beats: beats, subdivisor: subdivisor)
     }
     
     public func advanced(by n: Stride) -> MIDITimestamp {

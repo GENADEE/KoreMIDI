@@ -33,6 +33,18 @@ extension Bool {
     }
 }
 
+extension Sequence {
+    func reduce(combine: (Iterator.Element, Iterator.Element) throws -> Iterator.Element) rethrows -> Iterator.Element? {
+        var g = makeIterator()
+        guard var accu = g.next() else { return nil }
+        
+        while let next = g.next() {
+            accu = try combine(accu, next)
+        }
+        return accu
+    }
+}
+
 extension CABarBeatTime : CustomStringConvertible {
     public var description : String {
         return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
