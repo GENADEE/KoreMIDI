@@ -1,5 +1,5 @@
 //
-//  Timestamp.swift
+//  MIDITimestamp.swift
 //  KoreMIDI
 //
 //  Created by Adam Nemecek on 4/5/17.
@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-public struct Timestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
+public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     internal typealias Base = MIDISequence
     
     public typealias Stride = MusicTimeStamp
@@ -36,12 +36,12 @@ public struct Timestamp : Comparable, Hashable, Strideable, CustomStringConverti
         return "\(beatTime())"
     }
     
-    public static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
+    public static func ==(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
         assert(lhs.base == rhs.base)
         return lhs.beats == rhs.beats
     }
     
-    public static func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
+    public static func <(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
         assert(lhs.base == rhs.base)
         return lhs.beats < rhs.beats
     }
@@ -56,24 +56,24 @@ public struct Timestamp : Comparable, Hashable, Strideable, CustomStringConverti
         return t
     }
     
-    public func advanced(by n: Stride) -> Timestamp {
-        return Timestamp(base: base, beats: beats + n)
+    public func advanced(by n: Stride) -> MIDITimestamp {
+        return MIDITimestamp(base: base, beats: beats + n)
     }
     
-    public func distance(to other: Timestamp) -> Stride {
+    public func distance(to other: MIDITimestamp) -> Stride {
         return other.beats - beats
     }
     
-    public static func +(lhs: Timestamp, rhs: Timestamp) -> Timestamp {
+    public static func +(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
         assert(lhs.base == rhs.base)
-        return Timestamp(base: lhs.base, beats: lhs.beats + rhs.beats)
+        return MIDITimestamp(base: lhs.base, beats: lhs.beats + rhs.beats)
     }
     
-    public static prefix func -(_ value: Timestamp) -> Timestamp {
-        return Timestamp(base: value.base, beats: -value.beats)
+    public static prefix func -(_ value: MIDITimestamp) -> MIDITimestamp {
+        return MIDITimestamp(base: value.base, beats: -value.beats)
     }
     
-    public static func -(lhs: Timestamp, rhs: Timestamp) -> Timestamp {
+    public static func -(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
         return lhs + (-rhs)
     }
 }

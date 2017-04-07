@@ -26,7 +26,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         parent = seq
     }
     
-    public var timerange: ClosedRange<Timestamp> {
+    public var timerange: ClosedRange<MIDITimestamp> {
         return startTime...endTime
     }
     
@@ -65,11 +65,11 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         }
     }
     
-    public var startTime : Timestamp {
-        return Timestamp(base: parent, beats: MusicTimeStamp(offsetTime))
+    public var startTime : MIDITimestamp {
+        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
     }
     
-    public var endTime : Timestamp {
+    public var endTime : MIDITimestamp {
         return startTime.advanced(by: MusicTimeStamp(duration))
     }
 
@@ -132,7 +132,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
     }
     
     mutating
-    func move(_ timerange: ClosedRange<Timestamp>, to timestamp: Timestamp) {
+    func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
         MusicTrackMoveEvents(ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
@@ -140,21 +140,21 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
     }
     
     mutating
-    func clear(_ timerange: ClosedRange<Timestamp>) {
+    func clear(_ timerange: ClosedRange<MIDITimestamp>) {
         MusicTrackClear(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats)
     }
     
     mutating
-    func cut(_ timerange: ClosedRange<Timestamp>) {
+    func cut(_ timerange: ClosedRange<MIDITimestamp>) {
         MusicTrackCut(ref,
                       timerange.lowerBound.beats,
                       timerange.upperBound.beats)
     }
     
     mutating
-    func copyInsert(from other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
+    func copyInsert(from other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
         MusicTrackCopyInsert(ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
@@ -163,7 +163,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
     }
     
     mutating
-    func merge(with other: MIDITrack, in timerange: ClosedRange<Timestamp>, at timestamp: Timestamp) {
+    func merge(with other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
         MusicTrackMerge(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats,
@@ -172,7 +172,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
     }
     
     mutating
-    func add(_ event: MIDIEvent, at timestamp: Timestamp) {
+    func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
 
         event.add(to: self, at: timestamp)
     }
@@ -182,7 +182,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         
     }
     
-    mutating func remove(_ timerange: ClosedRange<Timestamp>) {
+    mutating func remove(_ timerange: ClosedRange<MIDITimestamp>) {
         fatalError()
     }
 }

@@ -15,11 +15,11 @@ let s = MIDISequence(path: path)
 
 struct Note : Equatable, CustomStringConvertible {
     let note: UInt8
-    let timestamp: Timestamp
+    let timestamp: MIDITimestamp
     let duration: Float32
     
     
-    init(timestamp: Timestamp, msg: MIDINoteMessage) {
+    init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp
         self.note = msg.note
         self.duration = msg.duration

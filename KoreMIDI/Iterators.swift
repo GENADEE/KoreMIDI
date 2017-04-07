@@ -16,15 +16,15 @@ extension Bool {
 }
 
 public class MIDITrackIterator : IteratorProtocol {
-    //    typealias Timestamp = Double
-    public typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
+    //    typealias MIDITimestamp = Double
+    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
     
     private let ref: MusicEventIterator
     private let content: MIDITrack
 
-    private let timerange: ClosedRange<Timestamp>?
+    private let timerange: ClosedRange<MIDITimestamp>?
     
-    public init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+    public init(_ content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
         self.content = content
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
@@ -48,7 +48,7 @@ public class MIDITrackIterator : IteratorProtocol {
             MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
             if type == kMusicEventType_MIDINoteMessage {
                 let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-                let tt = Timestamp(base: content.parent, beats: beats)
+                let tt = MIDITimestamp(base: content.parent, beats: beats)
                 return (tt, p.pointee)
             }
             move()
@@ -66,7 +66,7 @@ public class MIDITrackIterator : IteratorProtocol {
 //            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
 //            if type == kMusicEventType_MIDINoteMessage {
 //                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-//                let tt = Timestamp(base: content.parent, beats: beats)
+//                let tt = MIDITimestamp(base: content.parent, beats: beats)
 //                return (tt, p.pointee)
 //            }
 //            move()
@@ -82,7 +82,7 @@ public class MIDITrackIterator : IteratorProtocol {
         return MIDIIteratorHasCurrent(ref: ref)
     }
     
-    private func seek(to timestamp: Timestamp) {
+    private func seek(to timestamp: MIDITimestamp) {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }
     
@@ -102,9 +102,9 @@ public class MIDITrackIterator : IteratorProtocol {
 struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
     
     let content: MIDITrack
-    let timerange: ClosedRange<Timestamp>?
+    let timerange: ClosedRange<MIDITimestamp>?
     
-    init(content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
+    init(content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
         self.content = content
         self.timerange = timerange
     }

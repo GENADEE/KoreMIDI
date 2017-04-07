@@ -131,7 +131,7 @@ func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, 
 
 protocol MIDIEvent {
     static var type : MIDIEventType { get }
-    func add(to: MIDITrack, at timestamp: Timestamp)
+    func add(to: MIDITrack, at timestamp: MIDITimestamp)
 }
 
 extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
@@ -144,7 +144,7 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return "MIDIMsg(\(note), duration: \(duration))"
     }
     
-    public func add(to track: MIDITrack, at timestamp: Timestamp) {
+    public func add(to track: MIDITrack, at timestamp: MIDITimestamp) {
         var cpy = self
         MusicTrackNewMIDINoteEvent(track.ref, timestamp.beats, &cpy)
     }

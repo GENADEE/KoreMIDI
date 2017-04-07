@@ -10,10 +10,10 @@ import Foundation
 import AudioToolbox
 
 protocol TimeSeries : Sequence {
-    associatedtype Timestamp : Comparable
-    var startTimestamp: Timestamp { get }
-    var endTimestamp : Timestamp { get }
-    subscript(timerange: ClosedRange<Timestamp>) -> SubSequence { get }
+    associatedtype MIDITimestamp : Comparable
+    var startTimestamp: MIDITimestamp { get }
+    var endTimestamp : MIDITimestamp { get }
+    subscript(timerange: ClosedRange<MIDITimestamp>) -> SubSequence { get }
 }
 
 struct MIDIEventTrack<Event : MIDIEvent> : Sequence {
