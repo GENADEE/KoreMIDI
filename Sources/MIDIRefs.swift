@@ -8,7 +8,7 @@
 
 import Foundation
 
-import AudioToolbox
+import AudioToolbox.MusicPlayer
 
 protocol MIDIRef : class {
     init(ref: OpaquePointer)

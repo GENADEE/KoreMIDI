@@ -4,6 +4,8 @@ This project as a wrapper around the AudioToolbox framework and tries to make it
 
 ## MIDITimestamp
 
+MIDITimestamp is the timestamp in the context of a . 
+
 ```
 struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     var beats: MusicTimeStamp { get }
@@ -31,7 +33,7 @@ struct MIDISequence : Collection, Comparable {
 ```
 
 ```
-struct MIDITrack {
+struct MIDITrack : Sequence< Equatable {
     
 }
 ```

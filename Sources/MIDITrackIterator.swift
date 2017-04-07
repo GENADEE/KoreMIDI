@@ -72,8 +72,12 @@ public class MIDITrackIterator : IteratorProtocol {
         //
     }
     
+    private var timestamp: MIDITimestamp? {
+        return current()?.timestamp
+    }
+    
     private var _hasCurrent: Bool {
-        return MIDIIteratorHasCurrent(ref: ref)
+        return MIDIIteratorHasCurrent(ref: ref) && timestamp.flatMap { timerange?.contains($0) } ?? true
     }
     
     private func _seek(to timestamp: MIDITimestamp) {
@@ -92,6 +96,12 @@ public class MIDITrackIterator : IteratorProtocol {
         
     }
 }
+
+//class MIDITrackFilteringIterator : MIDITrackIterator {
+//    public init(_ content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
+//        
+//    }
+//}
 
 struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
     

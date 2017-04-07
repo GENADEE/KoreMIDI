@@ -6,8 +6,6 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
-import AudioToolbox
 
 protocol TimeSeries : Sequence {
     associatedtype MIDITimestamp : Comparable

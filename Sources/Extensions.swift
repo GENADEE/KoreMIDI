@@ -6,8 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
-import AudioToolbox
+import AudioToolbox.MusicPlayer
 
 extension ClosedRange {
     func union(_ other: ClosedRange) -> ClosedRange<Bound>{

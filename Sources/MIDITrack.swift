@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import AudioToolbox
+import AudioToolbox.MusicPlayer
 
-public struct MIDITrack : Sequence, Equatable, CustomStringConvertible {
+public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
     
@@ -48,7 +48,19 @@ public struct MIDITrack : Sequence, Equatable, CustomStringConvertible {
         
         return "MIDITrack(in:\(timerange), \(opts))"
     }
+
+    public var startTime : MIDITimestamp {
+        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
+    }
     
+    public var endTime : MIDITimestamp {
+        return startTime.advanced(by: MusicTimeStamp(duration))
+    }
+    
+    public var hashValue: Int {
+        return ref.hashValue
+    }
+
     public var offsetTime : Int {
         get {
             return self[.offsetTime]
@@ -65,14 +77,6 @@ public struct MIDITrack : Sequence, Equatable, CustomStringConvertible {
         set {
             self[.length] = newValue
         }
-    }
-    
-    public var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
-    }
-    
-    public var endTime : MIDITimestamp {
-        return startTime.advanced(by: MusicTimeStamp(duration))
     }
 
     public var loopInfo : Int {
@@ -176,13 +180,12 @@ public struct MIDITrack : Sequence, Equatable, CustomStringConvertible {
     
     mutating
     func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
-
         event.add(to: self, at: timestamp)
     }
     
-    mutating func remove<S : Sequence>() where S.Iterator.Element == Element {
+    mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
+//        remove(÷
         fatalError()
-        
     }
     
     mutating func remove(_ timerange: ClosedRange<MIDITimestamp>) {
