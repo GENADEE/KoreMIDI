@@ -46,10 +46,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return _impl.startIndex
     }
     
-    public var count: IndexDistance {
-        return _impl.count
-    }
-    
     public var endIndex : Index {
         return _impl.endIndex
     }

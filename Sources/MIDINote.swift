@@ -11,7 +11,16 @@ import AudioToolbox.MusicPlayer
 public struct MIDINote : Equatable, Hashable, CustomStringConvertible {
     let note: UInt8
     let timestamp: MIDITimestamp
+    
     let duration: Float32
+
+    var endstamp: MIDITimestamp {
+        return timestamp.advanced(by: MIDITimestamp.Stride(duration))
+    }
+    
+    var timerange: ClosedRange<MIDITimestamp> {
+        return timestamp...endstamp
+    }
     
     internal init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp
