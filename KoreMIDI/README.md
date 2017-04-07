@@ -9,4 +9,15 @@ struct MIDISequence {
 
 ```
 
+```
+struct MIDITrack {
+    
+}
+```
+
+```
+struct {
+}
+```
+
  

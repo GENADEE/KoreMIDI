@@ -9,16 +9,12 @@
 import Foundation
 import AudioToolbox
 
-
-
 protocol TimeSeries : Sequence {
     associatedtype Timestamp : Comparable
     var startTimestamp: Timestamp { get }
     var endTimestamp : Timestamp { get }
     subscript(timerange: ClosedRange<Timestamp>) -> SubSequence { get }
 }
-
-
 
 struct MIDIEventTrack<Event : MIDIEvent> : Sequence {
     private let ref : MIDITrack

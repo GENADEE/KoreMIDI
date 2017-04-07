@@ -6,9 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
 import AudioToolbox
-
 
 ///
 /// Iterators
@@ -149,4 +147,5 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return note.hashValue
     }
 }
+
 
