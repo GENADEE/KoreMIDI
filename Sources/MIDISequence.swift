@@ -62,9 +62,9 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         get {
             return MusicSequenceGetSequenceType(ref: ref)
         }
-        set {
-            MusicSequenceSetSequenceType(ref, newValue)
-        }
+//        set {
+//            MusicSequenceSetSequenceType(ref, newValue)
+//        }
     }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {

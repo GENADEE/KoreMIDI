@@ -42,7 +42,10 @@ public class MIDITrackIterator : IteratorProtocol {
             if type == kMusicEventType_MIDINoteMessage {
                 let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
                 let tt = MIDITimestamp(base: content.parent, beats: beats)
-                return (tt, p.pointee)
+                if (timerange.map { $0.contains(tt) }) ?? true {
+                    return (tt, p.pointee)
+                }
+                return nil
             }
             move()
         }
@@ -76,7 +79,7 @@ public class MIDITrackIterator : IteratorProtocol {
     }
     
     private var _hasCurrent: Bool {
-        return MIDIIteratorHasCurrent(ref: ref) && timestamp.flatMap { timerange?.contains($0) } ?? true
+        return MIDIIteratorHasCurrent(ref: ref)
     }
     
     private func _seek(to timestamp: MIDITimestamp) {
