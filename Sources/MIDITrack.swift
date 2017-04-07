@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-public struct MIDITrack : Sequence, CustomStringConvertible {
+public struct MIDITrack : Sequence, Equatable, CustomStringConvertible {
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
     
@@ -21,7 +21,7 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         parent = seq
     }
     
-    public init(seq: MIDISequence, no: Int) {
+    internal init(seq: MIDISequence, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
         parent = seq
     }
@@ -30,9 +30,11 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         return startTime...endTime
     }
     
-    //    deinit {
-    //
-    //    }
+    public static func ==(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
+        return lhs.ref == rhs.ref || lhs.elementsEqual(rhs) {
+            $0.timestamp == $1.timestamp && $0.event == $1.event
+        }
+    }
     
     public var description: String {
         var opts: [String] = []
@@ -122,14 +124,6 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         return MIDITrackIterator(self)
     }
     
-//    private subscript(prop: UInt32) -> Int {
-//        get {
-//            return MIDITrackGetProperty(ref: ref, prop: prop)
-//        }
-//        set {
-//            MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
-//        }
-//    }
     
     private subscript(prop: MIDITrackProp) -> Int {
         get {

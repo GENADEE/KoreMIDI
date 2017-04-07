@@ -10,6 +10,7 @@ import Foundation
 import AudioToolbox
 
 public struct MIDITempoTrack {
+//    typealias Element = 
     init(ref: MIDISequence) {
         fatalError()
     }

@@ -8,19 +8,19 @@
 
 import AudioToolbox
 
-public struct MIDISequence : Collection, Comparable, Hashable {
+public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection {
 
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = MIDITrack
 
-    internal init() {
-        _ref = Ref()
+    public init() {
+        _ref = MIDISequenceRef()
 //        self.path = nil
     }
     
-    internal init(path: String) {
-        _ref = Ref(path: path)
+    public init(path: String) {
+        _ref = MIDISequenceRef(path: path)
 //        self.path = path
     }
     
@@ -41,11 +41,21 @@ public struct MIDISequence : Collection, Comparable, Hashable {
     }
 
     public subscript(index: Index) -> Element {
-        return MIDITrack(seq: self, no: index)
+        get {
+            return MIDITrack(seq: self, no: index)
+        }
+        set {
+            fatalError()
+        }
     }
 
     public func index(after i: Index) -> Index {
         return i + 1
+    }
+    
+    mutating
+    public func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
+        fatalError()
     }
 
     public var type : MusicSequenceType {
@@ -58,11 +68,11 @@ public struct MIDISequence : Collection, Comparable, Hashable {
     }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
-        return lhs.ref == rhs.ref
+        return lhs._ref == rhs._ref
     }
     
     public static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
-        return lhs.hashValue < rhs.hashValue
+        return lhs._ref < rhs._ref
     }
     
     public var hashValue: Int {
@@ -84,26 +94,8 @@ public struct MIDISequence : Collection, Comparable, Hashable {
     internal var ref : MusicSequence {
         return _ref.ref
     }
-
-    private class Ref {
-        internal let ref : MusicSequence
-        
-        init() {
-            ref = MIDISequenceCreate()
-            
-        }
-        
-        init(path: String) {
-            ref = MIDISequenceLoad(path: path)
-            
-        }
-        deinit {
-            DisposeMusicSequence(ref)
-        }
-    }
     
-    private let _ref: Ref
-    //            let path: String?
+    private let _ref: MIDISequenceRef
 }
 
 
