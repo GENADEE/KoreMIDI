@@ -62,6 +62,14 @@ func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
     return out
 }
 
+@inline(__always) internal
+func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data {
+    var data: Unmanaged<CFData>? = nil
+    fatalError()
+    MusicSequenceFileCreateData(ref, .midiType, .eraseFile, Int16(resolution), &data)
+    return (data?.takeRetainedValue() as! Data)
+}
+
 ///
 /// Iterators
 ///

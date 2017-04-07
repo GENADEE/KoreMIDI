@@ -4,7 +4,18 @@ This project as a wrapper around the AudioToolbox framework and tries to make it
 
 
 ```
-struct MIDISequence {
+struct Timestamp {
+    
+}
+```
+
+```
+
+```
+
+```
+struct MIDISequence : Collection {
+
 }
 
 ```

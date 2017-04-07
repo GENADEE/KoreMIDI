@@ -14,16 +14,12 @@ public struct MIDISequence : Collection, Comparable, Hashable {
     public typealias IndexDistance = Int
     public typealias Element = MIDITrack
 
-    internal var ref : MusicSequence {
-        return _ref.ref
-    }
-    
-    init() {
+    internal init() {
         _ref = Ref()
 //        self.path = nil
     }
     
-    init(path: String) {
+    internal init(path: String) {
         _ref = Ref(path: path)
 //        self.path = path
     }
@@ -74,14 +70,17 @@ public struct MIDISequence : Collection, Comparable, Hashable {
     }
     
     public func export() -> Data {
-        fatalError()
+        return MusicSequenceCreateData(ref: ref)
     }
     
-    public var tempoTrack : MIDITrack {
-        fatalError()
-        //MusicSequenceGetTempoTrack
+    public var tempoTrack : MIDITempoTrack {
+        return MIDITempoTrack(ref: self)
     }
     
+    internal var ref : MusicSequence {
+        return _ref.ref
+    }
+
     private class Ref {
         internal let ref : MusicSequence
         
