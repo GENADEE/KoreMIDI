@@ -29,11 +29,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //        self.path = nil
     }
     
-    
-    private mutating func isUnique() -> Bool {
-        return isKnownUniquelyReferenced(&_ref)
-    }
-    
     public init(path: String) {
         _ref = MIDISequenceRef(path: path)
 //        self.path = path
@@ -60,6 +55,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
             return MIDITrack(seq: self, no: index)
         }
         set {
+            ensureUnique()
             fatalError()
         }
     }
@@ -68,8 +64,16 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i + 1
     }
     
+    
+    private mutating func ensureUnique() {
+        if !isKnownUniquelyReferenced(&_ref) {
+            _ref = _ref.copy()
+        }
+    }
+
     mutating
     public func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
+        ensureUnique()
         fatalError()
     }
 
@@ -91,11 +95,11 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
     
     public var hashValue: Int {
-        return ref.hashValue
+        return _ref.hashValue
     }
     
     public func export() -> Data {
-        return MusicSequenceCreateData(ref: ref)
+        return _ref.export()
     }
     
     public func save(to: URL) {

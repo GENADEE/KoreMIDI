@@ -64,6 +64,10 @@ internal class MIDISequenceRef : Hashable, Comparable {
     internal init(import data: Data) {
         fatalError()
     }
+    
+    func copy() -> MIDISequenceRef {
+        return MIDISequenceRef(import: export())
+    }
 
     deinit {
         DisposeMusicSequence(ref)
@@ -79,6 +83,10 @@ internal class MIDISequenceRef : Hashable, Comparable {
     
     internal var hashValue: Int {
         return ref.hashValue
+    }
+    
+    internal func export() -> Data {
+        fatalError()
     }
 }
 

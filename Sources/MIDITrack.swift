@@ -67,7 +67,8 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     private var offsetTime : Int {
         get {
-            return self[.offsetTime]
+//            let offset = self[.offsetTime]
+            return tee(self[.offsetTime])
         }
         set {
             self[.offsetTime] = newValue

@@ -8,6 +8,11 @@
 
 import AudioToolbox.MusicPlayer
 
+func tee<T>(_ obj: T) -> T {
+    print(obj)
+    return obj
+}
+
 extension ClosedRange {
     func union(_ other: ClosedRange) -> ClosedRange<Bound>{
         let s = [lowerBound, upperBound, other.lowerBound, other.upperBound].sorted()
