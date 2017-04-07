@@ -236,10 +236,10 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         }
     }
     
-    internal func remove(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func remove(_ timerange: ClosedRange<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDITrackIterator(self, timerange: timerange)
         while let n = i.next() {
-            if timerange.overlaps(n.timerange) {
+            if timerange.overlaps(n.timerange) || (predicate.map { $0(n) } ?? false) {
                 i.remove()
             }
         }
