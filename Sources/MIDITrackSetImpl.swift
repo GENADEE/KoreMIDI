@@ -17,6 +17,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal private(set) weak var parent: MIDISequenceImpl?
     
     init() {
+        let s = MIDISequenceImpl()
+        
         fatalError()
         //        ref = M
         //        parent = nil

@@ -41,7 +41,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public init(import data: Data) {
         _impl = MIDISequenceImpl(import: data)
     }
-
+    
     public var startIndex: Index {
         return _impl.startIndex
     }
