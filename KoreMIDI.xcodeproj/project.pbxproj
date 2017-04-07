@@ -11,7 +11,7 @@
 		373BE4201E9816D300DC1E15 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE41F1E9816D300DC1E15 /* main.swift */; };
 		373BE4241E9816F800DC1E15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
 		373BE4251E9816F800DC1E15 /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* AudioToolbox.swift */; };
-		373BE4261E9816F800DC1E15 /* AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* AVFoundation.swift */; };
+		373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
 		373BE4281E9816F800DC1E15 /* MIDIRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* MIDIRefs.swift */; };
 		373BE4291E9816F800DC1E15 /* MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* MIDITrack.swift */; };
@@ -28,7 +28,7 @@
 		37B150001E97FC8000CBDB07 /* MIDITrackSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B14FFF1E97FC7F00CBDB07 /* MIDITrackSlice.swift */; };
 		37B150021E98059100CBDB07 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B150011E98059100CBDB07 /* Classifier.swift */; };
 		OBJ_32 /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* AudioToolbox.swift */; };
-		OBJ_33 /* AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* AVFoundation.swift */; };
+		OBJ_33 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		OBJ_34 /* MIDIRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* MIDIRefs.swift */; };
 		OBJ_35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
 		OBJ_36 /* MIDITrackIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDITrackIterator.swift */; };
@@ -88,7 +88,7 @@
 		OBJ_26 /* KoreMIDITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreMIDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_8 /* AudioToolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioToolbox.swift; sourceTree = "<group>"; };
-		OBJ_9 /* AVFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundation.swift; sourceTree = "<group>"; };
+		OBJ_9 /* MIDIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,7 @@
 			children = (
 				OBJ_11 /* Extensions.swift */,
 				OBJ_8 /* AudioToolbox.swift */,
-				OBJ_9 /* AVFoundation.swift */,
+				OBJ_9 /* MIDIPlayer.swift */,
 				OBJ_15 /* MIDIEventType.swift */,
 				OBJ_10 /* MIDIRefs.swift */,
 				OBJ_18 /* MIDITrack.swift */,
@@ -280,7 +280,7 @@
 			files = (
 				373BE4241E9816F800DC1E15 /* Extensions.swift in Sources */,
 				373BE4251E9816F800DC1E15 /* AudioToolbox.swift in Sources */,
-				373BE4261E9816F800DC1E15 /* AVFoundation.swift in Sources */,
+				373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */,
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
 				373BE4281E9816F800DC1E15 /* MIDIRefs.swift in Sources */,
 				373BE4291E9816F800DC1E15 /* MIDITrack.swift in Sources */,
@@ -305,7 +305,7 @@
 				37B150021E98059100CBDB07 /* Classifier.swift in Sources */,
 				OBJ_32 /* AudioToolbox.swift in Sources */,
 				37B150001E97FC8000CBDB07 /* MIDITrackSlice.swift in Sources */,
-				OBJ_33 /* AVFoundation.swift in Sources */,
+				OBJ_33 /* MIDIPlayer.swift in Sources */,
 				OBJ_34 /* MIDIRefs.swift in Sources */,
 				OBJ_35 /* Extensions.swift in Sources */,
 				OBJ_36 /* MIDITrackIterator.swift in Sources */,

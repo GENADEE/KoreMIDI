@@ -1,5 +1,5 @@
 //
-//  AVFoundation.swift
+//  MIDIPlayer.swift
 //  KoreMIDI
 //
 //  Created by Adam Nemecek on 4/7/17.
@@ -8,14 +8,14 @@
 
 import AVFoundation
 
-class MIDIPlayer : AVMIDIPlayer {
+class MIDIPlayer {
     let sequence : MIDISequence
-    
-    private var isDirty : Bool = false
+
+    private var player: AVMIDIPlayer? = nil
+    private var isDirty : Bool = true
     
     init(sequence: MIDISequence) {
         self.sequence = sequence
-        super.init()
     }
     
     private func reload() {
@@ -26,8 +26,8 @@ class MIDIPlayer : AVMIDIPlayer {
         
     }
 
-    override func prepareToPlay() {
-        super.prepareToPlay()
-        reload()
+    func prepareToPlay() {
+        player?.prepareToPlay()
+        
     }
 }
