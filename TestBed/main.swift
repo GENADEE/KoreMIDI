@@ -19,10 +19,8 @@ let s = MIDISequence(path: path)
 //
 for (i,track) in s.enumerated() {
 
-    for (ts, msg) in track {
-        let note = MIDINote(timestamp: ts, msg: msg)
-        
-        print(i, note)
+    for note in track {
+        print(note)
     }
     //    print(e.timeResolution)
 }

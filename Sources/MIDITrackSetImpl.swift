@@ -44,9 +44,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     internal static func ==(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
-        return lhs.ref == rhs.ref || lhs.elementsEqual(rhs) {
-            $0.timestamp == $1.timestamp && $0.event == $1.event
-        }
+        return lhs.ref == rhs.ref || lhs.elementsEqual(rhs)
     }
     
     internal static func <(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {

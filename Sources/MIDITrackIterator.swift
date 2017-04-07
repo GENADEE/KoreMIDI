@@ -11,7 +11,8 @@ import AudioToolbox
 
 public class MIDITrackIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
-    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
+//    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
+    public typealias Element = MIDINote
     
     private let ref: MusicEventIterator
     private let content: MIDITrackImpl
@@ -43,7 +44,7 @@ public class MIDITrackIterator : IteratorProtocol {
                 let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
                 let tt = MIDITimestamp(base: content.parent!, beats: beats)
                 if (timerange.map { $0.contains(tt) }) ?? true {
-                    return (tt, p.pointee)
+                    return MIDINote(timestamp: tt, msg: p.pointee)
                 }
                 return nil
             }
