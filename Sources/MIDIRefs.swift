@@ -58,7 +58,7 @@ internal class MIDISequenceRef : Hashable, Comparable {
     }
     
     internal init(path: String) {
-        ref = MIDISequenceLoad(path: path)
+        ref = MIDISequenceImport(path: path)
     }
     
     internal init(import data: Data) {
@@ -86,7 +86,7 @@ internal class MIDISequenceRef : Hashable, Comparable {
     }
     
     internal func export() -> Data {
-        fatalError()
+        return MIDISequenceExport(ref: ref)
     }
 }
 

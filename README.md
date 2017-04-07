@@ -9,6 +9,10 @@ struct MIDISequence : MutableCollection, Comparable {
     typealias Element = MIDITrack
     
     func export() -> Data
+    
+    init()
+    init(import data: Data)
+    init(path: String)
 }
 
 ```

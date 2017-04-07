@@ -67,8 +67,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public func index(after i: Index) -> Index {
         return i + 1
     }
-    
-    
+
     private mutating func ensureUnique() {
         if !isKnownUniquelyReferenced(&_ref) {
             _ref = _ref.copy()
