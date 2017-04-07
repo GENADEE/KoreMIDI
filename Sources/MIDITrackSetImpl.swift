@@ -234,7 +234,6 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
                 i.remove()
             }
         }
-        
     }
     
     internal func remove(_ timerange: ClosedRange<MIDITimestamp>) {
