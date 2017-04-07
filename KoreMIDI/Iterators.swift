@@ -16,12 +16,12 @@ extension Bool {
 }
 
 class MIDITrackIterator : IteratorProtocol {
-//    typealias Timestamp = Double
+    //    typealias Timestamp = Double
     typealias Element = (timestamp: Timestamp, event: MIDINoteMessage)
     
     private let ref: MusicEventIterator
     private let content: MIDITrack
-    
+
     private let timerange: ClosedRange<Timestamp>?
     
     init(_ content: MIDITrack, timerange: ClosedRange<Timestamp>? = nil) {
@@ -37,8 +37,8 @@ class MIDITrackIterator : IteratorProtocol {
         DisposeMusicEventIterator(ref)
     }
     
-    
     func current() -> Element? {
+        
         var beats: Double = 0
         var type: MusicEventType = 0
         var data : UnsafeRawPointer? = nil
@@ -56,40 +56,51 @@ class MIDITrackIterator : IteratorProtocol {
         return nil
     }
     
+//    func current1() -> Element? {
+//        
+//        while _hasCurrent {
+//            let e = MIDIIteratorGetCurrent(ref: ref)
+//            if e?.type == kMusicEventType_MIDINoteMessage{
+//                
+//            }
+//            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
+//            if type == kMusicEventType_MIDINoteMessage {
+//                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
+//                let tt = Timestamp(base: content.parent, beats: beats)
+//                return (tt, p.pointee)
+//            }
+//            move()
+//        }
+//        return nil
+//    }
+    
     func remove() {
         //
     }
     
-    
     private var _hasCurrent: Bool {
-        var bool : DarwinBoolean = false
-        MusicEventIteratorHasCurrentEvent(ref, &bool)
-        return Bool(bool)
+        return MIDIIteratorHasCurrent(ref: ref)
     }
     
-    private func seek(to timestamp: Timestamp ) {
+    private func seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }
-    
     
     private func move() {
         MusicEventIteratorNextEvent(ref)
     }
     
-
     func next() -> Element? {
         defer {
             move()
         }
         return current()
-
+        
     }
 }
 
-
-
 struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
-
+    
     let content: MIDITrack
     let timerange: ClosedRange<Timestamp>?
     

@@ -7,21 +7,9 @@
 //
 
 import Foundation
-
 import AudioToolbox
 
 
-extension Int {
-    init(_ bool: Bool) {
-        self = bool ? 1 : 0
-    }
-}
-
-extension Bool {
-    init(_ int: Int) {
-        self = int != 0
-    }
-}
 
 protocol TimeSeries : Sequence {
     associatedtype Timestamp : Comparable

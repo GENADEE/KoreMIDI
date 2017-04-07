@@ -13,6 +13,16 @@ extension ClosedRange {
         let s = [lowerBound, upperBound, other.lowerBound, other.upperBound].sorted()
         return s.first!...s.last!
     }
-    
-//    init<S: Sequence>(_ seq: S) where S.Iterator.Element :
+}
+
+extension Int {
+    init(_ bool: Bool) {
+        self = bool ? 1 : 0
+    }
+}
+
+extension Bool {
+    init(_ int: Int) {
+        self = int != 0
+    }
 }

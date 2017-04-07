@@ -51,8 +51,25 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     return r!
 }
 
+@inline(__always)
+func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
+    var bool : DarwinBoolean = false
+    MusicEventIteratorHasCurrentEvent(ref, &bool)
+    return Bool(bool)
+}
+
+@inline(__always)
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MusicEventType, data: UnsafeRawPointer?, size: UInt32)? {
+    var beats: Double = 0
+    var type: MusicEventType = 0
+    var data : UnsafeRawPointer? = nil
+    var size : UInt32 = 0
+
+    MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
+    return (beats, type, data, size)
+}
+
 protocol MIDIEvent {
-    
     static var type : MIDIEventType { get }
     func add(to: MIDITrack, at timestamp: Timestamp)
 }
@@ -71,14 +88,12 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
     return Int(c)
 }
 
-
 @inline(__always)
 func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
     var out: Float64 = 0
     MusicSequenceGetSecondsForBeats(ref, beats, &out)
     return out
 }
-
 
 @inline(__always)
 func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
@@ -104,7 +119,7 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
     
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return (lhs.channel, lhs.note, lhs.velocity, lhs.releaseVelocity, lhs.duration) ==
-            (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
+               (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
     }
     
     public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
@@ -115,8 +130,4 @@ extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvert
         return note.hashValue
     }
 }
-//
-//extension MIDIChannelMessage : MIDIEventType {
-////    static var type:
-//}
 
