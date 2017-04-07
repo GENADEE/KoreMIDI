@@ -15,7 +15,7 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     public typealias Stride = MusicTimeStamp
 
     public let beats : MusicTimeStamp
-    private let base : Base
+    private weak var base : Base! = nil
     
     var seconds: Float64 {
         return MusicSequenceBeatsToSeconds(ref: base.ref, beats: beats)

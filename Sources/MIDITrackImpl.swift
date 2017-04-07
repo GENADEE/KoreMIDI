@@ -13,7 +13,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Hashable, CustomString
     internal typealias Iterator = MIDITrackIterator
     internal typealias Element = Iterator.Element
     
-    private let ref : MusicTrack
+    internal let ref : MusicTrack
     internal weak var parent: MIDISequenceImpl! = nil
     
     init() {
@@ -196,8 +196,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Hashable, CustomString
     
 //    mutating
     func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
-//        event.add(to: self, at: timestamp)
-        fatalError()
+        event.add(to: self, at: timestamp)
+//        fatalError()
     }
     
     func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {

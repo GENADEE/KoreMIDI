@@ -13,7 +13,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
     
-    internal let ref : MusicTrack
+
     internal weak var parent: MIDISequenceImpl! = nil
     private  var impl : MIDITrackImpl! = nil
     
@@ -22,13 +22,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     internal init(seq: MIDISequenceImpl) {
-        ref = MIDITrackCreate(ref: seq.ref)
-        parent = seq
+        impl = MIDITrackImpl(seq: seq)
     }
     
     internal init(seq: MIDISequenceImpl, no: Int) {
-        ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
-        parent = seq
+        impl = MIDITrackImpl(seq: seq, no: no)
     }
     
     public var timerange: ClosedRange<MIDITimestamp> {
@@ -74,6 +72,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
             return impl.offsetTime
         }
         set {
+            //_ensureUnique()
             impl.offsetTime = newValue
         }
     }
@@ -136,47 +135,32 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     mutating
     func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
-        MusicTrackMoveEvents(ref,
-                             timerange.lowerBound.beats,
-                             timerange.upperBound.beats,
-                             timestamp.beats)
+        impl.move(timerange, to: timestamp)
     }
     
     mutating
     func clear(_ timerange: ClosedRange<MIDITimestamp>) {
-        MusicTrackClear(ref,
-                        timerange.lowerBound.beats,
-                        timerange.upperBound.beats)
+        impl.clear(timerange)
     }
     
     mutating
     func cut(_ timerange: ClosedRange<MIDITimestamp>) {
-        MusicTrackCut(ref,
-                      timerange.lowerBound.beats,
-                      timerange.upperBound.beats)
+        impl.cut(timerange)
     }
     
     mutating
     func copyInsert(from other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
-        MusicTrackCopyInsert(ref,
-                             timerange.lowerBound.beats,
-                             timerange.upperBound.beats,
-                             other.ref,
-                             timestamp.beats)
+        impl.copyInsert(from: other.impl, in: timerange, at: timestamp)
     }
     
     mutating
     func merge(with other: MIDITrack, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
-        MusicTrackMerge(ref,
-                        timerange.lowerBound.beats,
-                        timerange.upperBound.beats,
-                        other.ref,
-                        timestamp.beats)
+        impl.merge(with: other.impl, in: timerange, at: timestamp)
     }
     
     mutating
     func add(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
-        event.add(to: self, at: timestamp)
+        event.add(to: impl, at: timestamp)
     }
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {

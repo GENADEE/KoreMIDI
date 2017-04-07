@@ -14,11 +14,11 @@ public class MIDITrackIterator : IteratorProtocol {
     public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
     
     private let ref: MusicEventIterator
-    private let content: MIDITrack
+    private let content: MIDITrackImpl
 
     private let timerange: ClosedRange<MIDITimestamp>?
     
-    public init(_ content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
+    internal init(_ content: MIDITrackImpl, timerange: ClosedRange<MIDITimestamp>? = nil) {
         self.content = content
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
@@ -111,26 +111,26 @@ class TypedMIDIIterator<Element> : MIDITrackIterator {
 //    }
 //}
 
-struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
-    
-    let content: MIDITrack
-    let timerange: ClosedRange<MIDITimestamp>?
-    
-    init(content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
-        self.content = content
-        self.timerange = timerange
-    }
-    
-    func makeIterator() -> AnyIterator<Element> {
-        let i = MIDITrackIterator(content, timerange: timerange)
-        
-        return AnyIterator {
-            while let n = i.next() {
-                if let nn = n as? Element {
-                    return nn
-                }
-            }
-            return nil
-        }
-    }
-}
+//struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
+//    
+//    let content: MIDITrack
+//    let timerange: ClosedRange<MIDITimestamp>?
+//    
+//    init(content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
+//        self.content = content
+//        self.timerange = timerange
+//    }
+//    
+//    func makeIterator() -> AnyIterator<Element> {
+//        let i = MIDITrackIterator(content, timerange: timerange)
+//        
+//        return AnyIterator {
+//            while let n = i.next() {
+//                if let nn = n as? Element {
+//                    return nn
+//                }
+//            }
+//            return nil
+//        }
+//    }
+//}
