@@ -9,12 +9,6 @@
 import Foundation
 import AudioToolbox
 
-extension Bool {
-    init(_ value: DarwinBoolean) {
-        self = value.boolValue ? true : false
-    }
-}
-
 public class MIDITrackIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
     public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)

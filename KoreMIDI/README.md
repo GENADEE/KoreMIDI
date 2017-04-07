@@ -14,10 +14,12 @@ struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible
 ```
 
 ```
-struct MIDISequence : Collection {
+struct MIDISequence : Collection, Comparable {
     typealias Index = Int
     typealias Element = MIDITrack
     
+    func export() -> Data
+    func 
     
 }
 

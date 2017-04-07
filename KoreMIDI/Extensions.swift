@@ -23,6 +23,12 @@ extension Int {
 }
 
 extension Bool {
+    init(_ value: DarwinBoolean) {
+        self = value.boolValue ? true : false
+    }
+}
+
+extension Bool {
     init(_ int: Int) {
         self = int != 0
     }
