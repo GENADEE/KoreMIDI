@@ -10,9 +10,8 @@ import Foundation
 
 import AudioToolbox
 
-protocol Disposable {
-    func dispose()
-    
+protocol MIDIRef : class {
+    init(ref: OpaquePointer)
 }
 //
 //struct MIDITrack : Disposable {
@@ -32,3 +31,5 @@ protocol Disposable {
 //        
 //    }
 //}
+
+

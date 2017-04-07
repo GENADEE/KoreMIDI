@@ -118,14 +118,14 @@
 				OBJ_9 /* AVFoundation.swift */,
 				OBJ_10 /* Disposables.swift */,
 				OBJ_11 /* Extensions.swift */,
+				OBJ_18 /* MIDITrack.swift */,
+				OBJ_17 /* MIDITempoTrack.swift */,
 				OBJ_12 /* MIDITrackIterator.swift */,
+				OBJ_19 /* MIDITrackProperty.swift */,
 				OBJ_13 /* KoreMIDI.swift */,
 				OBJ_14 /* main.swift */,
 				OBJ_15 /* MIDIEventType.swift */,
 				OBJ_16 /* MIDISequence.swift */,
-				OBJ_17 /* MIDITempoTrack.swift */,
-				OBJ_18 /* MIDITrack.swift */,
-				OBJ_19 /* MIDITrackProperty.swift */,
 				OBJ_20 /* Timestamp.swift */,
 			);
 			path = Sources;

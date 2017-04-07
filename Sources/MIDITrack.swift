@@ -49,19 +49,19 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
     
     public var offsetTime : Int {
         get {
-            return self[kSequenceTrackProperty_OffsetTime]
+            return self[.offsetTime]
         }
         set {
-            self[kSequenceTrackProperty_OffsetTime] = newValue
+            self[.offsetTime] = newValue
         }
     }
     
     public var duration : Int {
         get {
-            return self[kSequenceTrackProperty_TrackLength]
+            return self[.length]
         }
         set {
-            self[kSequenceTrackProperty_TrackLength] = newValue
+            self[.length] = newValue
         }
     }
     
@@ -75,46 +75,46 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
 
     public var loopInfo : Int {
         get {
-            return self[kSequenceTrackProperty_LoopInfo]
+            return self[.loopInfo]
         }
         set {
-            self[kSequenceTrackProperty_LoopInfo] = newValue
+            self[.loopInfo] = newValue
         }
     }
 
     public var muted : Bool {
         get {
-            return Bool(self[kSequenceTrackProperty_MuteStatus])
+            return Bool(self[.muted])
         }
         set {
-            self[kSequenceTrackProperty_MuteStatus] = Int(newValue)
+            self[.muted] = Int(newValue)
         }
     }
     
     public var soloed : Bool {
         get {
-            return Bool(self[kSequenceTrackProperty_SoloStatus])
+            return Bool(self[.soloed])
         }
         set {
-            self[kSequenceTrackProperty_SoloStatus] = Int(newValue)
+            self[.soloed] = Int(newValue)
         }
     }
     
     public var automatedParameters : Bool {
         get {
-            return Bool(self[kSequenceTrackProperty_AutomatedParameters])
+            return Bool(self[.automatedParams])
         }
         set {
-            self[kSequenceTrackProperty_AutomatedParameters] = Int(newValue)
+            self[.automatedParams] = Int(newValue)
         }
     }
     
     public var timeResolution : Int {
         get {
-            return self[kSequenceTrackProperty_TimeResolution]
+            return self[.resolution]
         }
         set {
-            self[kSequenceTrackProperty_TimeResolution] = newValue
+            self[.resolution] = newValue
         }
     }
     
@@ -122,12 +122,21 @@ public struct MIDITrack : Sequence, CustomStringConvertible {
         return MIDITrackIterator(self)
     }
     
-    private subscript(prop: UInt32) -> Int {
+//    private subscript(prop: UInt32) -> Int {
+//        get {
+//            return MIDITrackGetProperty(ref: ref, prop: prop)
+//        }
+//        set {
+//            MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
+//        }
+//    }
+    
+    private subscript(prop: MIDITrackProp) -> Int {
         get {
-            return MIDITrackGetProperty(ref: ref, prop: prop)
+            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
         }
         set {
-            MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
+            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
         }
     }
     

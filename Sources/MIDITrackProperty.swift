@@ -9,18 +9,7 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
-
-//struct MIDITrackProperty1 {
-//    static let loopInfo = kSequenceTrackProperty_LoopInfo
-//    static let offsetTime = kSequenceTrackProperty_OffsetTime
-//    static let muted = kSequenceTrackProperty_MuteStatus
-//    static let soloed =  kSequenceTrackProperty_SoloStatus
-//    static let automatedParams = kSequenceTrackProperty_AutomatedParameters
-//    static let length = kSequenceTrackProperty_TrackLength
-//    static let resolution = kSequenceTrackProperty_TimeResolution
-//}
-
-public enum MIDITrackProperty : RawRepresentable {
+internal enum MIDITrackProp : RawRepresentable {
     
     case loopInfo, offsetTime, muted, soloed, automatedParams, length, resolution
     
