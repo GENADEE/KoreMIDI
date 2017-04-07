@@ -62,6 +62,13 @@ func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
     return out
 }
 
+//@inline(__always) internal
+//func MusicSequenceSetSequenceType(ref: MusicSequence, type: MIDIS)  {
+//    var out: MusicSequenceType = .beats
+//    MusicSequenceGetSequenceType(ref, &out)
+//    return out
+//}
+
 @inline(__always) internal
 func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data {
     var data: Unmanaged<CFData>? = nil

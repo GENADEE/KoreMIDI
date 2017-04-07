@@ -96,6 +96,12 @@ public class MIDITrackIterator : IteratorProtocol {
     }
 }
 
+class TypedMIDIIterator<Element> : MIDITrackIterator {
+    override func next() -> Element? {
+        return super.next()
+    }
+}
+
 //class MIDITrackFilteringIterator : MIDITrackIterator {
 //    public init(_ content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
 //        

@@ -35,6 +35,6 @@ struct Classifier<Element : Hashable, Prop: Hashable> : Collection {
 
 
     func index(after i: Index) -> Index {
-        fatalError()
+        return content.index(after: i)
     }
 }

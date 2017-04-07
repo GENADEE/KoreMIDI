@@ -11,7 +11,7 @@ import AudioToolbox.MusicPlayer
 public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection {
 
     public typealias Index = Int
-    public typealias IndexDistance = Int
+    public typealias IndexDistance = Index
     public typealias Element = MIDITrack
 
     public init() {
