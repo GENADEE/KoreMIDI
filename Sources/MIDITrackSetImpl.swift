@@ -14,7 +14,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal private(set) var parent: MIDISequenceImpl
+    internal var parent: MIDISequenceImpl
     
     init() {
 //        let s = MIDISequenceImpl()

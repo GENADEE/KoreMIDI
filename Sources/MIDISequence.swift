@@ -24,8 +24,12 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
 
-    func copy() -> MIDISequence {
-        return MIDISequence(import: export())
+//    func copy() -> MIDISequence {
+//        return MIDISequence(import: export())
+//    }
+    
+    private init(impl: MIDISequenceImpl) {
+        _impl = impl
     }
     
     public init() {
@@ -107,10 +111,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     
     public var tempoTrack : MIDITempoTrack {
         return MIDITempoTrack(ref: self)
-    }
-    
-    internal var ref : MusicSequence {
-        return _impl.ref
     }
     
     private var _impl: MIDISequenceImpl

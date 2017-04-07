@@ -13,7 +13,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
 
-    private weak var impl : MIDITrackImpl! = nil
+    private var impl : MIDITrackImpl
 
     public init() {
         impl = MIDITrackImpl()
@@ -60,7 +60,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     private mutating func _ensureUnique() {
-        if !isKnownUniquelyReferenced(&impl!) {
+        if !isKnownUniquelyReferenced(&impl.parent) {
             impl = impl.copy()
         }
     }
