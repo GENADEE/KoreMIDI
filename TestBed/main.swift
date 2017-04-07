@@ -14,7 +14,6 @@ let path = "/Users/adamnemecek/midi/darude-sandstorm.mid"
 let s = MIDISequence(path: path)
 
 
-
 //let notes : [MIDINote] = []
 //
 for (i,track) in s.enumerated() {

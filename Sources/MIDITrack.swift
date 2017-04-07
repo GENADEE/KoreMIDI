@@ -166,9 +166,18 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
-        //        remove(÷
+        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
         _ensureUnique()
-        fatalError()
+        
+        let s = Set(elements)
+        
+        let i = MIDITrackIterator(impl, timerange: range)
+        while let n = i.next() {
+            if s.contains(n) {
+                i.remove()
+            }
+        }
+        
     }
     
     mutating func remove(_ timerange: ClosedRange<MIDITimestamp>) {

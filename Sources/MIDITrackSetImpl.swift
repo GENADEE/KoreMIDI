@@ -225,11 +225,25 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
-        fatalError()
+        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
+        let s = Set(elements)
+        
+        let i = MIDITrackIterator(self, timerange: range)
+        while let n = i.next() {
+            if s.contains(n) {
+                i.remove()
+            }
+        }
+        
     }
     
     internal func remove(_ timerange: ClosedRange<MIDITimestamp>) {
-        fatalError()
+        let i = MIDITrackIterator(self, timerange: timerange)
+        while let n = i.next() {
+            if timerange.overlaps(n.timerange) {
+                i.remove()
+            }
+        }
     }
 }
 
