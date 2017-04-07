@@ -45,12 +45,16 @@ internal class MIDITrackRef : Hashable, Comparable {
         return ref.hashValue
     }
 }
-//
-//protocol Ref {
-//    var isUnique: Bool { get }
-//}
 
-internal class MIDISequenceRef : Hashable, Comparable {
+///
+/// MIDISequence
+///
+internal final class MIDISequenceRef : Hashable, Comparable, Collection {
+    
+    internal typealias Index = Int
+    internal typealias IndexDistance = Index
+    internal typealias Element = MIDITrack
+
     internal let ref : MusicSequence
     
     internal init() {
@@ -76,6 +80,10 @@ internal class MIDISequenceRef : Hashable, Comparable {
     internal static func ==(lhs: MIDISequenceRef, rhs: MIDISequenceRef) -> Bool {
         return lhs.ref == rhs.ref
     }
+
+//    internal static func ===(lhs: MIDISequenceRef, rhs: MIDISequenceRef) -> Bool {
+//        return lhs.ref == rhs.ref
+//    }
     
     internal static func <(lhs: MIDISequenceRef, rhs: MIDISequenceRef) -> Bool {
         return lhs.hashValue < rhs.hashValue
@@ -84,9 +92,42 @@ internal class MIDISequenceRef : Hashable, Comparable {
     internal var hashValue: Int {
         return ref.hashValue
     }
-    
+
     internal func export() -> Data {
         return MIDISequenceExport(ref: ref)
+    }
+    
+    internal func save(to: URL) {
+        fatalError()
+    }
+    
+    internal var type : MusicSequenceType {
+        get {
+            return MusicSequenceGetSequenceType(ref: ref)
+        }
+        //        set {
+        //            MusicSequenceSetSequenceType(ref, newValue)
+        //        }
+    }
+    
+    internal var startIndex: Index {
+        return 0
+    }
+    
+    internal var count: IndexDistance {
+        return MusicSequenceGetTrackCount(ref: ref)
+    }
+    
+    internal var endIndex : Index {
+        return startIndex + count
+    }
+    
+    internal func index(after i: Index) -> Index {
+        return i + 1
+    }
+
+    internal subscript(index: Index) -> Element {
+        return MIDITrack(seq: self, no: index)
     }
 }
 

@@ -14,14 +14,14 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal let parent: MIDISequence
+    internal let parent: MIDISequenceRef
     
-    public init(seq: MIDISequence) {
+    internal init(seq: MIDISequenceRef) {
         ref = MIDITrackCreate(ref: seq.ref)
         parent = seq
     }
     
-    internal init(seq: MIDISequence, no: Int) {
+    internal init(seq: MIDISequenceRef, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
         parent = seq
     }

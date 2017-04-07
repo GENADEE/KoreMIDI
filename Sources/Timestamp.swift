@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
-    internal typealias Base = MIDISequence
+    internal typealias Base = MIDISequenceRef
     
     public typealias Stride = MusicTimeStamp
 

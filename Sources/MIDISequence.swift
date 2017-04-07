@@ -56,7 +56,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 
     public subscript(index: Index) -> Element {
         get {
-            return MIDITrack(seq: self, no: index)
+            return MIDITrack(seq: _ref, no: index)
         }
         set {
             ensureUnique()
@@ -105,8 +105,8 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return _ref.export()
     }
     
-    public func save(to: URL) {
-        fatalError()
+    public func save(to url: URL) {
+        _ref.save(to: url)
     }
     
     public var tempoTrack : MIDITempoTrack {
