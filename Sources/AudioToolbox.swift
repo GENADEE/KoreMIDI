@@ -27,6 +27,14 @@ func MIDISequenceImport(path: String) -> MusicSequence {
     return seq
 }
 
+@inline(__always) internal
+func MIDISequenceImport(import data: Data) -> MusicSequence {
+//    let seq = MIDISequenceCreate()
+//    let url = URL(fileURLWithPath: path) as CFURL
+//    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
+//    return seq
+    fatalError()
+}
 
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence) -> Data {

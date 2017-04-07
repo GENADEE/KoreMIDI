@@ -62,10 +62,10 @@ internal class MIDISequenceRef : Hashable, Comparable {
     }
     
     internal init(import data: Data) {
-        fatalError()
+        ref = MIDISequenceImport(import: data)
     }
     
-    func copy() -> MIDISequenceRef {
+    internal func copy() -> MIDISequenceRef {
         return MIDISequenceRef(import: export())
     }
 
