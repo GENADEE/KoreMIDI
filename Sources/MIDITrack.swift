@@ -127,8 +127,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public func makeIterator() -> Iterator {
         return MIDITrackIterator(self)
     }
-    
-    
+
     private subscript(prop: MIDITrackProp) -> Int {
         get {
             return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)

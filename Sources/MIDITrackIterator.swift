@@ -31,8 +31,7 @@ public class MIDITrackIterator : IteratorProtocol {
         DisposeMusicEventIterator(ref)
     }
     
-    public func current() -> Element? {
-        
+    public var current: Element? {
         var beats: Double = 0
         var type: MusicEventType = 0
         var data : UnsafeRawPointer? = nil
@@ -73,7 +72,7 @@ public class MIDITrackIterator : IteratorProtocol {
     }
     
     private var timestamp: MIDITimestamp? {
-        return current()?.timestamp
+        return current?.timestamp
     }
     
     private var _hasCurrent: Bool {
@@ -92,7 +91,7 @@ public class MIDITrackIterator : IteratorProtocol {
         defer {
             move()
         }
-        return current()
+        return current
         
     }
 }

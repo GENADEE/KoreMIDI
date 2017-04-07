@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		37B14FFE1E97F5A200CBDB07 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 37B14FFD1E97F5A200CBDB07 /* README.md */; };
 		37B150001E97FC8000CBDB07 /* MIDITrackSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B14FFF1E97FC7F00CBDB07 /* MIDITrackSlice.swift */; };
+		37B150021E98059100CBDB07 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B150011E98059100CBDB07 /* Classifier.swift */; };
 		OBJ_32 /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* AudioToolbox.swift */; };
 		OBJ_33 /* AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* AVFoundation.swift */; };
 		OBJ_34 /* MIDIRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* MIDIRefs.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		37B14FFD1E97F5A200CBDB07 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		37B14FFF1E97FC7F00CBDB07 /* MIDITrackSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDITrackSlice.swift; sourceTree = "<group>"; };
+		37B150011E98059100CBDB07 /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
 		OBJ_10 /* MIDIRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIRefs.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_12 /* MIDITrackIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackIterator.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				OBJ_13 /* KoreMIDI.swift */,
 				OBJ_14 /* main.swift */,
 				OBJ_16 /* MIDISequence.swift */,
+				37B150011E98059100CBDB07 /* Classifier.swift */,
 				OBJ_20 /* Timestamp.swift */,
 			);
 			path = Sources;
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				37B150021E98059100CBDB07 /* Classifier.swift in Sources */,
 				OBJ_32 /* AudioToolbox.swift in Sources */,
 				37B150001E97FC8000CBDB07 /* MIDITrackSlice.swift in Sources */,
 				OBJ_33 /* AVFoundation.swift in Sources */,
