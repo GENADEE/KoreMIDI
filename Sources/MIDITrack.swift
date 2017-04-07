@@ -13,8 +13,8 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
 
-    private var impl : MIDITrackImpl! = nil
-    
+    private weak var impl : MIDITrackImpl! = nil
+
     public init() {
         impl = MIDITrackImpl()
     }
@@ -40,7 +40,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element> {
-        fatalError()
+        return impl[timerange: timerange]
     }
     
     public var startTime : MIDITimestamp {
@@ -74,9 +74,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
             impl.offsetTime = newValue
         }
     }
-    
-    
-    
+
     public var duration : Int {
         get {
             return impl.duration

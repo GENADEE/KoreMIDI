@@ -9,6 +9,35 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
+struct WeakRef < Element : AnyObject > {
+    weak var ref: Element? = nil
+}
+extension Optional {
+    
+}
+enum AutoRef<Wrapped : AnyObject> {
+    case weak(WeakRef<Wrapped>), strong(Wrapped)
+    
+    
+    
+    func map<U : AnyObject>(_ transform: (Wrapped) throws -> U) rethrows -> AutoRef<U> {
+//        switch self {
+//        case let .weak(ref):
+//            
+//            return ref.ref.map {
+//                AutoRef.weak(WeakRef<U>(ref: $0))
+//                } ?? AutoRef.weak(WeakRef<U>(ref: nil))
+//            fatalError()
+//        default: fatalError()
+//        }
+        fatalError()
+    }
+    
+    func weaken() -> AutoRef<Wrapped> {
+        fatalError()
+    }
+}
+
 internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     internal typealias Iterator = MIDITrackIterator
     internal typealias Element = Iterator.Element
@@ -173,6 +202,10 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         MusicTrackClear(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats)
+    }
+    
+    func clearAll() {
+        clear(timerange)
     }
     
 //    mutating

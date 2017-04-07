@@ -30,6 +30,8 @@ for (i,track) in s.enumerated() {
 for (i, track) in s.enumerated() {
     print(i, track)
 }
+
+
 //for a in zip(Timer(), 0...10) {
 //    print(a)
 //}
