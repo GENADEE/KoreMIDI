@@ -15,6 +15,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     internal let ref : MusicTrack
     internal weak var parent: MIDISequenceImpl! = nil
+    private  var impl : MIDITrackImpl! = nil
     
     init() {
         fatalError()
@@ -31,26 +32,15 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public var timerange: ClosedRange<MIDITimestamp> {
-        return startTime...endTime
+        return impl.timerange
     }
     
     public static func ==(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
-        return lhs.ref == rhs.ref || lhs.elementsEqual(rhs) {
-            $0.timestamp == $1.timestamp && $0.event == $1.event
-        }
+        return lhs.impl == rhs.impl
     }
     
     public var description: String {
-        var opts: [String] = []
-        if soloed {
-            opts.append("soloed")
-        }
-        
-        if muted {
-            opts.append("muted")
-        }
-        
-        return "MIDITrack(in:\(timerange), \(opts))"
+        return impl.description
     }
     
     public subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element> {
@@ -66,83 +56,81 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public func makeIterator() -> Iterator {
-        return MIDITrackIterator(self)
+        return impl.makeIterator()
     }
     
     public var hashValue: Int {
-        return ref.hashValue
+        return impl.hashValue
+    }
+    
+    private mutating func _ensureUnique() {
+        if !isKnownUniquelyReferenced(&impl!) {
+            impl = impl.copy()
+        }
     }
     
     private var offsetTime : Int {
         get {
-//            let offset = self[.offsetTime]
-            return tee(self[.offsetTime])
+            return impl.offsetTime
         }
         set {
-            self[.offsetTime] = newValue
+            impl.offsetTime = newValue
         }
     }
     
+    
+    
     public var duration : Int {
         get {
-            return self[.length]
+            return impl.duration
         }
         set {
-            self[.length] = newValue
+            impl.duration = newValue
         }
     }
     
     public var loopInfo : Int {
         get {
-            return self[.loopInfo]
+            return impl.duration
         }
         set {
-            self[.loopInfo] = newValue
+            impl.duration = newValue
         }
     }
     
     public var muted : Bool {
         get {
-            return Bool(self[.muted])
+            return impl.muted
         }
         set {
-            self[.muted] = Int(newValue)
+            impl.muted = newValue
         }
     }
     
     public var soloed : Bool {
         get {
-            return Bool(self[.soloed])
+            return impl.soloed
         }
         set {
-            self[.soloed] = Int(newValue)
+            impl.soloed = newValue
         }
     }
     
     public var automatedParameters : Bool {
         get {
-            return Bool(self[.automatedParams])
+            return impl.automatedParameters
         }
         set {
-            self[.automatedParams] = Int(newValue)
+            impl.automatedParameters = newValue
         }
     }
     
     public var timeResolution : Int {
         get {
-            return self[.resolution]
+            return impl.timeResolution
         }
         set {
-            self[.resolution] = newValue
-        }
-    }
-    
-    private subscript(prop: MIDITrackProp) -> Int {
-        get {
-            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
-        }
-        set {
-            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
+            impl.timeResolution = newValue
         }
     }
     

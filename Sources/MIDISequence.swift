@@ -59,7 +59,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
             return MIDITrack(seq: _impl, no: index)
         }
         set {
-            ensureUnique()
+            _ensureUnique()
             fatalError()
         }
     }
@@ -68,7 +68,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i + 1
     }
 
-    private mutating func ensureUnique() {
+    private mutating func _ensureUnique() {
         if !isKnownUniquelyReferenced(&_impl) {
             _impl = _impl.copy()
         }
@@ -76,7 +76,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 
     mutating
     public func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
-        ensureUnique()
+        _ensureUnique()
         fatalError()
     }
 
