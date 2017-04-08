@@ -31,8 +31,11 @@ for (i, track) in s.enumerated() {
 
 
 
-var track = s[0]
-let f = track.makeIterator().next()!
+var track = s[4]
+print("here")
+for e in track {
+    print("here", e)
+}
 //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
 
 

@@ -185,7 +185,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     private mutating func _ensureUnique() {
-        guard isKnownUniquelyReferenced(&impl._parent) else { return }
+        if impl.isParentUnique { return }
         impl = impl.copy()
     }
     

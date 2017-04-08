@@ -14,7 +14,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal weak var _parent: MIDISequenceImpl? = nil
+    private weak var _parent: MIDISequenceImpl? = nil
     
     var parent : MIDISequence {
         return MIDISequence(impl: _parent ?? MIDISequenceImpl(for: self))
@@ -90,7 +90,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal func makeIterator() -> Iterator {
         //        return MIDITrackIterator(self)
-        fatalError()
+//        fatalError()
+        return MIDITrackIterator(self)
     }
     
     internal var hashValue: Int {
