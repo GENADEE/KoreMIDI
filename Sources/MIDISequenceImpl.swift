@@ -72,12 +72,22 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         //        }
     }
     
+//    func remove
+    
     internal var startIndex: Index {
         return 0
     }
     
     internal var count: IndexDistance {
         return MusicSequenceGetTrackCount(ref: ref)
+    }
+    
+    var startTime : MIDITimestamp? {
+        return lazy.map { $0.startTime }.reduce  { Swift.min($0, $1) }
+    }
+
+    var endTime : MIDITimestamp? {
+        return lazy.map { $0.endTime }.reduce  { Swift.max($0, $1) }
     }
     
     internal var endIndex : Index {

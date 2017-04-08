@@ -4,11 +4,11 @@ This project as a wrapper around the AudioToolbox framework and tries to make it
 Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
 
 ```
-struct MIDISequence : MutableCollection, Comparable {
+struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, Comparable {
     typealias Index = Int
     typealias Element = MIDITrack
     
-    func export() -> Data
+
     
     /// Create a new sequence
     init()
@@ -19,8 +19,17 @@ struct MIDISequence : MutableCollection, Comparable {
     /// 
     init(url: URL)
 
+    /// 
+    var type : MusicSequenceType { get }
     
-  
+    /// export sequence as data
+    func export() -> Data
+
+    ///
+    func save(to url: URL)
+
+    ///
+    public var tempoTrack: MIDITrack<> { get }
 }
 
 ```

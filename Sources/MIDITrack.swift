@@ -171,6 +171,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         event.insert(to: impl, at: timestamp)
     }
     
+    mutating
+    func insert(_ note: MIDINote) {
+        _ensureUnique()
+    }
+    
     mutating func remove(_ element : Element) {
         remove([element])
     }
