@@ -59,7 +59,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
 
-    public var duration : Int {
+    public var duration : MusicTimeStamp {
         get {
             return impl.duration
         }
@@ -70,10 +70,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     public var loopInfo : Int {
         get {
-            return impl.duration
+            return impl.loopInfo
         }
         set {
-            impl.duration = newValue
+            impl.loopInfo = newValue
         }
     }
     

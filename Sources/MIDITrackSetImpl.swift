@@ -108,12 +108,14 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         }
     }
     
-    internal var duration : Int {
+    internal var duration : MusicTimeStamp {
         get {
-            return self[.length]
+            return MIDITrackGetProperty(ref: ref, prop: MIDITrackProp.length.rawValue)
+//            return self[.length]
         }
         set {
-            self[.length] = newValue
+//            self[.length] = newValue
+            fatalError()
         }
     }
     
