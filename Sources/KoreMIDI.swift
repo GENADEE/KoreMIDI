@@ -14,25 +14,25 @@ protocol TimeSeries : Sequence {
     subscript(timerange: ClosedRange<MIDITimestamp>) -> SubSequence { get }
 }
 
-struct MIDIEventTrack<Event : MIDIEvent> : Sequence {
-    private let ref : MIDITrack
-    
-    init(ref: MIDITrack) {
-        self.ref = ref
-    }
-
-    func makeIterator() -> AnyIterator<Event> {
-        let i = ref.makeIterator()
-        return AnyIterator {
-            while let n = i.next() {
-                if let nn = n as? Event {
-                    return nn
-                }
-            }
-            return nil
-        }
-    }
-}
+//struct MIDIEventTrack<Event : MIDIEvent> : Sequence {
+//    private let ref : MIDITrack
+//    
+//    init(ref: MIDITrack) {
+//        self.ref = ref
+//    }
+//
+//    func makeIterator() -> AnyIterator<Event> {
+//        let i = ref.makeIterator()
+//        return AnyIterator {
+//            while let n = i.next() {
+//                if let nn = n as? Event {
+//                    return nn
+//                }
+//            }
+//            return nil
+//        }
+//    }
+//}
 
 
 

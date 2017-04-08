@@ -55,3 +55,14 @@ extension CABarBeatTime : CustomStringConvertible {
         return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
     }
 }
+
+extension Data {
+    init<T>(encode: T) {
+        var cpy = encode
+        self.init(bytes: withUnsafePointer(to: &cpy) { $0 }, count: MemoryLayout<T>.size)
+    }
+    
+    func decode<T>() -> T {
+        return withUnsafeBytes { $0.pointee }
+    }
+}

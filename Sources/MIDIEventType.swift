@@ -35,4 +35,48 @@ public enum MIDIEventType : RawRepresentable {
         default: fatalError()
         }
     }
+    
+    init<T: MIDIEventConvertible>(type: T.Type) {
+        //    let types: [T.Type: ATMIDIType] = [:]
+        //    switch type {
+        //      case MIDIChannelMessage.self: break
+        //      default: break
+        //    }
+        //    switch type {
+        //      case MIDIChannelMessage.self: break
+        //      default: break
+        //    }
+        
+        if type == ExtendedNoteOnEvent.self {
+            self = .extendedNote
+        }
+        else if type == ExtendedTempoEvent.self {
+            self = .extendedTempo
+        }
+        else if type == MusicEventUserData.self {
+            self = .user
+        }
+        else if type == MIDIMetaEvent.self {
+            self = .meta
+        }
+        else if type == MIDINoteMessage.self {
+            self = .note
+        }
+        else if type == MIDIChannelMessage.self {
+            self = .channel
+        }
+        else if type == MIDIRawData.self {
+            self = .rawData
+        }
+        else if type == ParameterEvent.self {
+            self = .parameter
+        }
+        else if type == AUPresetEvent.self {
+            self = .auPreset
+        }
+        else {
+            fatalError()
+        }
+    }
 }
+

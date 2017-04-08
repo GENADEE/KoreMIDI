@@ -123,16 +123,21 @@ func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
 }
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MIDIEventType, data: UnsafeRawPointer?, size: UInt32)? {
-    var beats: Double = 0
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent {
+    var timestamp: Double = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
     
-    MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-    return (beats, MIDIEventType(rawValue: type)!, data, size)
+    MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size)
+    let d = Data(bytes: data!, count: Int(size))
+    return MIDIEvent(timestamp: timestamp, type: type, data: d)
 }
 
+
+extension Data {
+    
+}
 ///
 /// Tracks
 ///
@@ -161,6 +166,11 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
         ptr.deallocate(capacity: 1)
     }
       return ptr.pointee
+}
+
+@inline(__always) internal
+func MIDITrackSetProperty<T>(ref: MusicTrack, prop: MIDITrackProp, to value: T) {
+    fatalError()
 }
 
 
@@ -196,40 +206,6 @@ func MusicSequenceGetTempoTrack(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
     MusicSequenceGetTempoTrack(ref, &out)
     return out!
-}
-
-protocol MIDIEvent {
-    static var type : MIDIEventType { get }
-    func insert(to: MIDITrackImpl, at timestamp: MIDITimestamp)
-}
-
-extension MIDINoteMessage : MIDIEvent, Hashable, Comparable, CustomStringConvertible {
-    
-    public static var type : MIDIEventType {
-        return .note
-    }
-    
-    public var description: String {
-        return "MIDIMsg(\(note), duration: \(duration))"
-    }
-    
-    internal func insert(to track: MIDITrackImpl, at timestamp: MIDITimestamp) {
-        var cpy = self
-        MusicTrackNewMIDINoteEvent(track.ref, timestamp.beats, &cpy)
-    }
-    
-    public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
-        return (lhs.channel, lhs.note, lhs.velocity, lhs.releaseVelocity, lhs.duration) ==
-            (rhs.channel, rhs.note, rhs.velocity, rhs.releaseVelocity, rhs.duration)
-    }
-    
-    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
-        return lhs.note < rhs.note
-    }
-    
-    public var hashValue: Int {
-        return note.hashValue
-    }
 }
 
 

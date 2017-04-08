@@ -14,6 +14,8 @@ protocol List : Sequence {
     var tail: SubSequence { get }
 }
 
+
+
 public class MIDITrackIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
@@ -38,22 +40,27 @@ public class MIDITrackIterator : IteratorProtocol {
     }
     
     public var current: Element? {
-        var beats: Double = 0
-        var type: MusicEventType = 0
-        var data : UnsafeRawPointer? = nil
-        var size : UInt32 = 0
         while _hasCurrent {
             
-            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-            if type == kMusicEventType_MIDINoteMessage {
-                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-                let tt = MIDITimestamp(base: content.parent._impl, beats: beats)
-                if (timerange.map { $0.contains(tt) }) ?? true {
-                    return MIDINote(timestamp: tt, msg: p.pointee)
-                }
-                return nil
-            }
+            let n = MIDIIteratorGetCurrent(ref: ref)
+            
             move()
+            
+            
+//            n.data.copyBytes(to: <#T##UnsafeMutableBufferPointer<DestinationType>#>)
+//            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
+//            EventInfo(timestamp: beats, type: type, data: Data(bytes: data, count: Int(size)))
+//            
+//            if type == kMusicEventType_MIDINoteMessage {
+//                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
+//                let tt = MIDITimestamp(base: content.parent._impl, beats: beats)
+//                if (timerange.map { $0.contains(tt) }) ?? true {
+//                    return MIDINote(timestamp: tt, msg: p.pointee)
+//                }
+//                return nil
+//            }
+
+            
         }
         return nil
     }

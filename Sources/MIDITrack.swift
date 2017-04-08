@@ -40,6 +40,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         set {
             impl.startTime = newValue
         }
+
     }
     
     public var endTime : MIDITimestamp {
@@ -143,7 +144,8 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     mutating
     func insert(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
         _ensureUnique()
-        event.insert(to: impl, at: timestamp)
+//        event.insert(to: impl, at: timestamp)
+        fatalError()
     }
     
     mutating

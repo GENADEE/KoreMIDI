@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
-internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
+internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     internal typealias Iterator = MIDITrackIterator
     internal typealias Element = Iterator.Element
     
@@ -244,10 +244,11 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     //    mutating
-    internal func insert(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
-        event.insert(to: self, at: timestamp)
-        //        fatalError()
-    }
+//    internal func insert<T: MIDIEvent>(_ event: T, at timestamp: MIDITimestamp) {
+////        event.insert(to: self, at: timestamp)
+//        fatalError()
+//        //        fatalError()
+//    }
     
     internal func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
@@ -270,6 +271,10 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
             }
         }
     }
+}
+
+final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
+    
 }
 
 //extension MIDITrackImpl : SetAlgebra {

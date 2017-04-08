@@ -8,8 +8,8 @@
 
 import Foundation
 
-class MIDIProject {
-    let sequence: MIDISequence
-    
-    
-}
+//class MIDIProject {
+//    let sequence: MIDISequence
+//    
+//    
+//}
