@@ -154,12 +154,12 @@ func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
 func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
     var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
     var size: UInt32 = 0
-    MusicTrackGetProperty(ref, prop.rawValue, &ptr, &size)
+    MusicTrackGetProperty(ref, prop.rawValue, ptr, &size)
 //    fatalError("ownership")
-//    defer {
-//        ptr.deinitialize()
-//        ptr.deallocate(capacity: 1)
-//    }
+    defer {
+        ptr.deinitialize()
+        ptr.deallocate(capacity: 1)
+    }
       return ptr.pointee
 }
 

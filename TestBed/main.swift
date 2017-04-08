@@ -36,7 +36,7 @@ for (i, track) in s.enumerated() {
 //print("duration", track.duration)
 //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
 
-print(s.startTime!.beats, s.endTime!.beats)
+print(s.startTime!, s.endTime!.beats)
 
 
 //for a in zip(Timer(), 0...10) {
