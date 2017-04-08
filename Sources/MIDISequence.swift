@@ -29,7 +29,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //        return MIDISequence(import: export())
 //    }
     
-    private init(impl: MIDISequenceImpl) {
+    internal init(impl: MIDISequenceImpl) {
         _impl = impl
     }
     
@@ -116,7 +116,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return MIDITempoTrack(ref: self)
     }
     
-    private var _impl: MIDISequenceImpl
+    internal var _impl: MIDISequenceImpl
 }
 
 

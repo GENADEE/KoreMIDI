@@ -16,8 +16,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal let ref : MusicTrack
     internal weak var _parent: MIDISequenceImpl? = nil
     
-    var parent : MIDISequenceImpl {
-        return _parent ?? MIDISequenceImpl(for: self)
+    var parent : MIDISequence {
+        return MIDISequence(impl: _parent ?? MIDISequenceImpl(for: self))
     }
     
     
@@ -81,7 +81,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     internal var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent, beats: MusicTimeStamp(offsetTime))
+        return MIDITimestamp(base: parent._impl, beats: MusicTimeStamp(offsetTime))
     }
     
     internal var endTime : MIDITimestamp {
