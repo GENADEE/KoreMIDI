@@ -17,7 +17,11 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     private weak var _parent: MIDISequenceImpl? = nil
     
     var parent : MIDISequence {
-        return MIDISequence(impl: _parent ?? MIDISequenceImpl(for: self))
+        return MIDISequence(impl: parentImpl)
+    }
+    
+    var parentImpl : MIDISequenceImpl {
+        return _parent ?? MIDISequenceImpl(for: self)
     }
     
     
@@ -188,9 +192,10 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             fatalError()
         }
         set {
-            guard element != newValue else { return }
-            let i = MIDITrackIterator(self, timerange: element.timerange)
-            i[element] = newValue
+//            guard element != newValue else { return }
+//            let i = MIDITrackIterator(self, timerange: element.timerange)
+//            i[element] = newValue
+            fatalError()
         }
     }
     
@@ -252,7 +257,8 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     internal func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
-        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
+//        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
+        guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
         let s = Set(elements)
         
         let i = MIDITrackIterator(self, timerange: range)
@@ -266,7 +272,8 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     internal func remove(_ timerange: ClosedRange<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDITrackIterator(self, timerange: timerange)
         while let n = i.next() {
-            if timerange.overlaps(n.timerange) || (predicate.map { $0(n) } ?? false) {
+            let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
+            if timerange.contains(t) || (predicate.map { $0(n) } ?? false) {
                 i.remove()
             }
         }

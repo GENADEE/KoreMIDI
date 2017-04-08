@@ -15,11 +15,10 @@ protocol List : Sequence {
 }
 
 
-
 public class MIDITrackIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
-    public typealias Element = MIDINote
+    public typealias Element = MIDIEvent
     
     private let ref: MusicEventIterator
     private let content: MIDITrackImpl
@@ -35,6 +34,16 @@ public class MIDITrackIterator : IteratorProtocol {
         }
     }
     
+    internal init(_ content: MIDITrackImpl, timerange: ClosedRange<MusicTimeStamp>) {
+        fatalError()
+//        self.content = content
+//        self.ref = MIDIIteratorCreate(ref : content.ref)
+//        self.timerange = timerange
+//        timerange.map {
+//            self._seek(to: $0.lowerBound)
+//        }
+    }
+    
     deinit {
         DisposeMusicEventIterator(ref)
     }
@@ -45,7 +54,7 @@ public class MIDITrackIterator : IteratorProtocol {
             let n = MIDIIteratorGetCurrent(ref: ref)
             
             move()
-            
+            return n
             
 //            n.data.copyBytes(to: <#T##UnsafeMutableBufferPointer<DestinationType>#>)
 //            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
@@ -70,7 +79,7 @@ public class MIDITrackIterator : IteratorProtocol {
             fatalError()
         }
         set {
-            assert(current! == element)
+//            assert(current! == element)
             fatalError()
             
         }
@@ -99,7 +108,8 @@ public class MIDITrackIterator : IteratorProtocol {
     }
     
     private var timestamp: MIDITimestamp? {
-        return current?.timestamp
+//        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
+        fatalError()
     }
     
     private var _hasCurrent: Bool {
@@ -123,9 +133,14 @@ public class MIDITrackIterator : IteratorProtocol {
     }
 }
 
-class TypedMIDIIterator<Element> : MIDITrackIterator {
+class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
     override func next() -> Element? {
-        return super.next()
+        while let n = super.next() {
+            if n.type == Event.type1 {
+                return n
+            }
+        }
+        return nil
     }
 }
 

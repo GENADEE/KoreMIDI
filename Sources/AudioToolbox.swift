@@ -123,7 +123,10 @@ func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
 }
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
+    
+    guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
+
     var timestamp: Double = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
