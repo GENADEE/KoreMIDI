@@ -36,7 +36,8 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal func copy() -> MIDITrackImpl {
         var cpy = MIDITrackImpl()
-        //        fatalError()
+        //        fatalError
+        ()
         cpy.copyInsert(from: self, in: timerange, at: startTime)
         return cpy
     }
@@ -181,6 +182,11 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
                              timestamp.beats)
     }
     
+    internal func load(from other: MIDITrackImpl) {
+        clearAll()
+        copyInsert(from: other, in: other.timerange, at: other.startTime)
+    }
+    
     //    mutating
     internal func clear(_ timerange: ClosedRange<MIDITimestamp>) {
         MusicTrackClear(ref,
@@ -190,7 +196,6 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal func clearAll() {
         clear(timerange)
-//        MusicSequenceDisposeTrack(<#T##inSequence: MusicSequence##MusicSequence#>, <#T##inTrack: MusicTrack##MusicTrack#>)
     }
     
     //    mutating

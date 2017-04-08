@@ -126,9 +126,9 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating
-    func copy(from other: MIDITrack) {
+    func load(from other: MIDITrack) {
         _ensureUnique()
-        
+        impl.load(from: other.impl)
     }
     
     mutating
@@ -158,9 +158,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     mutating
     func insert(_ note: MIDINote) {
         _ensureUnique()
+        fatalError()
     }
     
     mutating func remove(_ element : Element) {
+        _ensureUnique()
         remove([element])
     }
     
