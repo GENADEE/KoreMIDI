@@ -171,6 +171,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         event.insert(to: impl, at: timestamp)
     }
     
+    mutating func remove(_ element : Element) {
+        remove([element])
+    }
+    
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         _ensureUnique()
         impl.remove(elements)
