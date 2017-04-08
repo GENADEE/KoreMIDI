@@ -14,10 +14,20 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     internal typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
-    internal var parent: MIDISequenceImpl
+    internal weak var _parent: MIDISequenceImpl? = nil
     
+    var parent : MIDISequenceImpl {
+        return _parent ?? MIDISequenceImpl(for: self)
+    }
+    
+    
+    internal var isParentUnique : Bool {
+        return _parent == nil
+    }
+
     init() {
-//        let s = MIDISequenceImpl()
+        let s = MIDISequenceImpl()
+        ref = MIDITrackCreate(ref: s.ref)
         
         fatalError()
         //        ref = M
@@ -26,18 +36,17 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal init(seq: MIDISequenceImpl) {
         ref = MIDITrackCreate(ref: seq.ref)
-        parent = seq
+        _parent = seq
     }
     
     internal init(seq: MIDISequenceImpl, no: Int) {
         ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
-        parent = seq
+        _parent = seq
     }
     
     internal func copy() -> MIDITrackImpl {
         let cpy = MIDITrackImpl()
         //        fatalError
-        ()
         cpy.copyInsert(from: self, in: timerange, at: startTime)
         return cpy
     }

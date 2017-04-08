@@ -82,6 +82,13 @@ func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
     return out
 }
 
+@inline(__always) internal
+func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
+    var out: MusicSequence? = nil
+    MusicTrackGetSequence(track, &out)
+    return out!
+}
+
 //@inline(__always) internal
 //func MusicSequenceSetSequenceType(ref: MusicSequence, type: MIDIS)  {
 //    var out: MusicSequenceType = .beats

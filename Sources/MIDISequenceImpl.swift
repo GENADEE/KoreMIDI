@@ -23,6 +23,10 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         ref = MIDISequenceCreate()
     }
     
+    internal init(for track: MIDITrackImpl) {
+        ref = MusicTrackGetSequence(track.ref)
+    }
+    
     internal init(url: URL) {
         ref = MIDISequenceImport(url: url)
     }
