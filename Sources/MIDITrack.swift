@@ -104,7 +104,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public var timeResolution : Int {
+    public var timeResolution : MusicTimeStamp {
         get {
             return impl.timeResolution
         }

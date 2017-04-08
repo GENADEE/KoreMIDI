@@ -86,11 +86,11 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return MusicSequenceGetTrackCount(ref: ref)
     }
     
-    var startTime : MIDITimestamp? {
+    internal var startTime : MIDITimestamp? {
         return lazy.map { $0.startTime }.reduce  { Swift.min($0, $1) }
     }
 
-    var endTime : MIDITimestamp? {
+    internal var endTime : MIDITimestamp? {
         return lazy.map { $0.endTime }.reduce  { Swift.max($0, $1) }
     }
     
