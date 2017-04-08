@@ -151,6 +151,12 @@ func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Int {
 }
 
 @inline(__always) internal
+func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: Int) {
+    var data = UInt32(to)
+    MusicTrackSetProperty(ref, prop, &data, UInt32(MemoryLayout<UInt32>.size))
+}
+
+@inline(__always) internal
 func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> MusicTimeStamp {
     var data: MusicTimeStamp = 0
     var len : UInt32 = 0
@@ -158,11 +164,10 @@ func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> MusicTimeStamp {
     return data
 }
 
-
 @inline(__always) internal
-func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: Int) {
-    var data = UInt32(to)
-    MusicTrackSetProperty(ref, prop, &data, UInt32(MemoryLayout<UInt32>.size))
+func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: MusicTimeStamp) {
+    var data = to
+    MusicTrackSetProperty(ref, prop, &data, UInt32(MemoryLayout<MusicTimeStamp>.size))
 }
 
 @inline(__always) internal

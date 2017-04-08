@@ -175,6 +175,17 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         }
     }
     
+    private subscript(prop: MIDITrackProp) -> MusicTimeStamp {
+        @inline(__always)
+        get {
+            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
+        }
+        @inline(__always)
+        set {
+            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
+        }
+    }
+    
     subscript(element element: Element) -> Element {
         get {
             fatalError()
