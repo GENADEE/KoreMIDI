@@ -9,6 +9,11 @@
 import Foundation
 import AudioToolbox
 
+protocol List : Sequence {
+    var head: Iterator.Element? { get }
+    var tail: SubSequence { get }
+}
+
 public class MIDITrackIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)

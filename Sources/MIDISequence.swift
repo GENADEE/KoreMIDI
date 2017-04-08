@@ -18,6 +18,7 @@ extension Sequence {
     }
 }
 
+
 public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection {
 
     public typealias Index = Int

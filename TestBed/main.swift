@@ -29,6 +29,8 @@ for (i, track) in s.enumerated() {
 //    track[note] = note
 }
 
+let track = s[0]
+
 
 
 //for a in zip(Timer(), 0...10) {
