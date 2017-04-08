@@ -17,8 +17,9 @@ struct MIDISequence : MutableCollection, Comparable {
     init(import data: Data)
 
     /// 
-    init(path: String)
+    init(url: URL)
 
+    
   
 }
 

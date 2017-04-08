@@ -60,7 +60,9 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         }
         set {
             _ensureUnique()
-            fatalError()
+            let value = self[index]
+            
+            
         }
     }
 

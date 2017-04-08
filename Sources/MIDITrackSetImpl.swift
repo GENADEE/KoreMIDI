@@ -190,6 +190,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal func clearAll() {
         clear(timerange)
+//        MusicSequenceDisposeTrack(<#T##inSequence: MusicSequence##MusicSequence#>, <#T##inTrack: MusicTrack##MusicTrack#>)
     }
     
     //    mutating
@@ -235,7 +236,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
             }
         }
     }
-    
+
     internal func remove(_ timerange: ClosedRange<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDITrackIterator(self, timerange: timerange)
         while let n = i.next() {

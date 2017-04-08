@@ -142,6 +142,12 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating
+    func copy(from other: MIDITrack) {
+        _ensureUnique()
+        
+    }
+    
+    mutating
     func cut(_ timerange: ClosedRange<MIDITimestamp>) {
         _ensureUnique()
         impl.cut(timerange)
