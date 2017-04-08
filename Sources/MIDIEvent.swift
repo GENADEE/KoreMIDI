@@ -11,6 +11,6 @@ import AudioToolbox
 
 struct MIDIEvent {
     let timestamp: MusicTimeStamp
-    let type: MusicEventType
+    let type: MIDIEventType
     let data: Data
 }
