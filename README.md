@@ -40,12 +40,24 @@ struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, C
 ```
 
 ```
-struct MIDITrack : Sequence, Hashable, Equatable {
+struct MIDITrack <Element> : Sequence, Hashable, Equatable {
     init()
     var timerange: ClosedRange<MIDITimestamp> { get }
     var startTime: MIDITimestamp { get }
     var endTime: MIDITimestamp { get }
+    var duration : Int { get set }
 
+    /// 
+    subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element>
+
+    var loopInfo : Int { get set }
+    var muted : Bool { get set }
+    var soloed : Bool { get set }
+    var automatedParams : Bool { get set }
+    var timeResolution : Int { get set } 
+    
+    mutating func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp)
+    
 }
 ```
 
