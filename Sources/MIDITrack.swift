@@ -34,11 +34,21 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public var startTime : MIDITimestamp {
-        return impl.startTime
+        get {
+            return impl.startTime
+        }
+        set {
+            impl.startTime = newValue
+        }
     }
     
     public var endTime : MIDITimestamp {
-        return impl.endTime
+        get {
+            return impl.endTime
+        }
+        set {
+            impl.endTime = newValue
+        }
     }
     
     public func makeIterator() -> Iterator {
@@ -47,25 +57,6 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     public var hashValue: Int {
         return impl.hashValue
-    }
-    
-    private var offsetTime : MusicTimeStamp {
-        get {
-            return impl.offsetTime
-        }
-        set {
-            //_ensureUnique()
-            impl.offsetTime = newValue
-        }
-    }
-
-    public var duration : MusicTimeStamp {
-        get {
-            return impl.duration
-        }
-        set {
-            impl.duration = newValue
-        }
     }
     
     public var loopInfo : MusicTrackLoopInfo {

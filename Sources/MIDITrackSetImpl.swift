@@ -81,11 +81,21 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     internal var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent._impl, beats: offsetTime)
+        get {
+            return MIDITimestamp(base: parent._impl, beats: offsetTime)
+        }
+        set {
+            self.offsetTime = newValue.beats
+        }
     }
     
     internal var endTime : MIDITimestamp {
-        return startTime.advanced(by: duration)
+        get {
+            return startTime.advanced(by: duration)
+        }
+        set {
+            self.duration = offsetTime + newValue.beats
+        }
     }
     
     internal func makeIterator() -> Iterator {
@@ -98,7 +108,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         return ref.hashValue
     }
     
-    internal var offsetTime : MusicTimeStamp {
+    private var offsetTime : MusicTimeStamp {
         get {
             //            let offset = self[.offsetTime]
             return get(.offsetTime)
@@ -108,7 +118,7 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         }
     }
     
-    internal var duration : MusicTimeStamp {
+    private var duration : MusicTimeStamp {
         get {
             return get(.length)
 
@@ -172,27 +182,6 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
 //        return MIDITrackGetProperty(ref: ref, prop: prop)
         fatalError()
     }
-//    private subscript(prop: MIDITrackProp) -> Int {
-//        @inline(__always)
-//        get {
-//            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
-//        }
-//        @inline(__always)
-//        set {
-//            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
-//        }
-//    }
-//    
-//    private subscript(prop: MIDITrackProp) -> MusicTimeStamp {
-//        @inline(__always)
-//        get {
-//            return MusicTrackGetT(ref: ref, prop: prop)
-//        }
-//        @inline(__always)
-//        set {
-////            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
-//        }
-//    }
     
     internal subscript(element element: Element) -> Element {
         get {
