@@ -13,20 +13,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Iterator = MIDITrackIterator
     public typealias Element = Iterator.Element
 
-    private var impl : MIDITrackImpl
-
     public init() {
         impl = MIDITrackImpl()
     }
-    
-    internal init(seq: MIDISequenceImpl) {
-        impl = MIDITrackImpl(seq: seq)
-    }
-    
-    internal init(seq: MIDISequenceImpl, no: Int) {
-        impl = MIDITrackImpl(seq: seq, no: no)
-    }
-    
+
     public var timerange: ClosedRange<MIDITimestamp> {
         return impl.timerange
     }
@@ -57,12 +47,6 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     public var hashValue: Int {
         return impl.hashValue
-    }
-    
-    private mutating func _ensureUnique() {
-        if !isKnownUniquelyReferenced(&impl.parent) {
-            impl = impl.copy()
-        }
     }
     
     private var offsetTime : Int {
@@ -189,4 +173,20 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _ensureUnique()
         impl.remove(timerange)
     }
+    
+    internal init(seq: MIDISequenceImpl) {
+        impl = MIDITrackImpl(seq: seq)
+    }
+    
+    internal init(seq: MIDISequenceImpl, no: Int) {
+        impl = MIDITrackImpl(seq: seq, no: no)
+    }
+    
+    private mutating func _ensureUnique() {
+        if !isKnownUniquelyReferenced(&impl.parent) {
+            impl = impl.copy()
+        }
+    }
+    
+    private var impl : MIDITrackImpl
 }
