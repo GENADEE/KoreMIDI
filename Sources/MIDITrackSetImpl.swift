@@ -50,8 +50,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     internal func copy() -> MIDITrackImpl {
         let cpy = MIDITrackImpl()
-        //        fatalError
-        cpy.copyInsert(from: self, in: timerange, at: startTime)
+        cpy.copyInsert(from: self)
         return cpy
     }
     
@@ -231,21 +230,27 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     //    mutating
-    internal func copyInsert(from other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+    internal func copyInsert(from other: MIDITrackImpl,
+                             in timerange: ClosedRange<MIDITimestamp>? = nil,
+                             at timestamp: MIDITimestamp? = nil) {
+        let tr = timerange ?? other.timerange
         MusicTrackCopyInsert(other.ref,
-                             timerange.lowerBound.beats,
-                             timerange.upperBound.beats,
+                             tr.lowerBound.beats,
+                             tr.upperBound.beats,
                              ref,
-                             timestamp.beats)
+                             timestamp?.beats ?? 0)
     }
     
     //    mutating
-    internal func merge(with other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+    internal func merge(with other: MIDITrackImpl,
+                        in timerange: ClosedRange<MIDITimestamp>? = nil,
+                        at timestamp: MIDITimestamp? = nil) {
+        let tr = timerange ?? other.timerange
         MusicTrackMerge(other.ref,
-                        timerange.lowerBound.beats,
-                        timerange.upperBound.beats,
+                        tr.lowerBound.beats,
+                        tr.upperBound.beats,
                         ref,
-                        timestamp.beats)
+                        timestamp?.beats ?? 0)
     }
     
     //    mutating
