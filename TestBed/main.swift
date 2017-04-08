@@ -31,11 +31,12 @@ for (i, track) in s.enumerated() {
 
 
 
-var track = s[4]
-print("duration", track.duration)
+//var track = s[4]
+//print(s.start)
+//print("duration", track.duration)
 //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
 
-
+print(s.startTime, s.endTime)
 
 
 //for a in zip(Timer(), 0...10) {

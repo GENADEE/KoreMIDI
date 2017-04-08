@@ -62,8 +62,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         set {
             _ensureUnique()
             let value = self[index]
-            
-            
         }
     }
 
@@ -71,10 +69,14 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i + 1
     }
 
-    private mutating func _ensureUnique() {
-        if !isKnownUniquelyReferenced(&_impl) {
-            _impl = _impl.copy()
-        }
+
+    
+    public var startTime : MIDITimestamp? {
+        return _impl.startTime
+    }
+
+    public var endTime : MIDITimestamp? {
+        return _impl.endTime
     }
 
     mutating
@@ -112,10 +114,17 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         _impl.save(to: url)
     }
     
-    public var tempoTrack : MIDITempoTrack {
-        return MIDITempoTrack(ref: self)
+    public var tempoTrack : MIDITrack {
+//        return MIDITempoTrack(ref: self)
+        fatalError()
     }
     
+    private mutating func _ensureUnique() {
+        if !isKnownUniquelyReferenced(&_impl) {
+            _impl = _impl.copy()
+        }
+    }
+
     internal var _impl: MIDISequenceImpl
 }
 
