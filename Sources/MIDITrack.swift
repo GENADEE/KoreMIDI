@@ -49,7 +49,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         return impl.hashValue
     }
     
-    private var offsetTime : Int {
+    private var offsetTime : MusicTimeStamp {
         get {
             return impl.offsetTime
         }
@@ -68,7 +68,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public var loopInfo : Int {
+    public var loopInfo : MusicTrackLoopInfo {
         get {
             return impl.loopInfo
         }
@@ -79,23 +79,23 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     public var muted : Bool {
         get {
-            return impl.muted
+            return impl.muted.boolValue
         }
         set {
-            impl.muted = newValue
+            impl.muted = DarwinBoolean(newValue)
         }
     }
     
     public var soloed : Bool {
         get {
-            return impl.soloed
+            return impl.soloed.boolValue
         }
         set {
-            impl.soloed = newValue
+            impl.soloed = DarwinBoolean(newValue)
         }
     }
     
-    public var automatedParameters : Bool {
+    public var automatedParameters : UInt32 {
         get {
             return impl.automatedParameters
         }
@@ -104,7 +104,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public var timeResolution : MusicTimeStamp {
+    public var timeResolution : Int16 {
         get {
             return impl.timeResolution
         }

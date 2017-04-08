@@ -65,11 +65,11 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     
     internal var description: String {
         var opts: [String] = []
-        if soloed {
+        if soloed.boolValue {
             opts.append("soloed")
         }
         
-        if muted {
+        if muted.boolValue {
             opts.append("muted")
         }
         
@@ -81,11 +81,11 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
     }
     
     internal var startTime : MIDITimestamp {
-        return MIDITimestamp(base: parent._impl, beats: MusicTimeStamp(offsetTime))
+        return MIDITimestamp(base: parent._impl, beats: offsetTime)
     }
     
     internal var endTime : MIDITimestamp {
-        return startTime.advanced(by: MusicTimeStamp(duration))
+        return startTime.advanced(by: duration)
     }
     
     internal func makeIterator() -> Iterator {
@@ -98,92 +98,101 @@ internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, 
         return ref.hashValue
     }
     
-    internal var offsetTime : Int {
+    internal var offsetTime : MusicTimeStamp {
         get {
             //            let offset = self[.offsetTime]
-            return tee(self[.offsetTime])
+            return get(.offsetTime)
         }
         set {
-            self[.offsetTime] = newValue
+            set(.offsetTime, to: newValue)
         }
     }
     
     internal var duration : MusicTimeStamp {
         get {
-            return self[.length]
+            return get(.length)
 
         }
         set {
-            self[.length] = newValue
+            set(.length, to: newValue)
         }
     }
     
-    internal var loopInfo : Int {
+    internal var loopInfo : MusicTrackLoopInfo {
         get {
-            return self[.loopInfo]
+            return get(.loopInfo)
         }
         set {
-            self[.loopInfo] = newValue
+            set(.loopInfo, to: newValue)
         }
     }
     
-    internal var muted : Bool {
+    internal var muted : DarwinBoolean {
         get {
-            return Bool(self[.muted])
+            return get(.muted)
         }
         set {
-            self[.muted] = Int(newValue)
+            set(.muted, to: newValue)
         }
     }
     
-    internal var soloed : Bool {
+    internal var soloed : DarwinBoolean {
         get {
-            return Bool(self[.soloed])
+            return get(.soloed)
         }
         set {
-            self[.soloed] = Int(newValue)
+            set(.soloed, to: newValue)
         }
     }
     
-    internal var automatedParameters : Bool {
+    internal var automatedParameters : UInt32 {
         get {
-            return Bool(self[.automatedParams])
+            return get(.automatedParams)
         }
         set {
-            self[.automatedParams] = Int(newValue)
+            set(.automatedParams, to: newValue)
         }
     }
     
-    internal var timeResolution : MusicTimeStamp {
+    internal var timeResolution : Int16 {
         get {
-            return self[.resolution]
+            return get(.resolution)
         }
         set {
-            self[.resolution] = newValue
+            set(.resolution, to: newValue)
         }
     }
     
-    private subscript(prop: MIDITrackProp) -> Int {
-        @inline(__always)
-        get {
-            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
-        }
-        @inline(__always)
-        set {
-            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
-        }
+    private func get<T>(_ prop: MIDITrackProp) -> T {
+        return MIDITrackGetProperty(ref: ref, prop: prop)
     }
     
-    private subscript(prop: MIDITrackProp) -> MusicTimeStamp {
-        @inline(__always)
-        get {
-            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
-        }
-        @inline(__always)
-        set {
-            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
-        }
+    
+    private func set<T>(_ prop: MIDITrackProp, to value: T) {
+//        return MIDITrackGetProperty(ref: ref, prop: prop)
+        fatalError()
     }
+//    private subscript(prop: MIDITrackProp) -> Int {
+//        @inline(__always)
+//        get {
+//            return MIDITrackGetProperty(ref: ref, prop: prop.rawValue)
+//        }
+//        @inline(__always)
+//        set {
+//            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
+//        }
+//    }
+//    
+//    private subscript(prop: MIDITrackProp) -> MusicTimeStamp {
+//        @inline(__always)
+//        get {
+//            return MusicTrackGetT(ref: ref, prop: prop)
+//        }
+//        @inline(__always)
+//        set {
+////            MIDITrackSetProperty(ref: ref, prop: prop.rawValue, to: newValue)
+//        }
+//    }
     
     internal subscript(element element: Element) -> Element {
         get {

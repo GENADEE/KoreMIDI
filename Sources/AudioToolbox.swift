@@ -141,14 +141,28 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (beats: Double, type: MI
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     fatalError()
 }
+//
+//@inline(__always) internal
+//func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Int {
+//    var data: UInt32 = 0
+//    var len : UInt32 = 0
+//    MusicTrackGetProperty(ref, prop, &data, &len)
+//    return Int(data)
+//}
 
 @inline(__always) internal
-func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Int {
-    var data: UInt32 = 0
-    var len : UInt32 = 0
-    MusicTrackGetProperty(ref, prop, &data, &len)
-    return Int(data)
+func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
+    var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
+    var size: UInt32 = 0
+    MusicTrackGetProperty(ref, prop.rawValue, &ptr, &size)
+//    fatalError("ownership")
+//    defer {
+//        ptr.deinitialize()
+//        ptr.deallocate(capacity: 1)
+//    }
+      return ptr.pointee
 }
+
 
 @inline(__always) internal
 func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: Int) {
