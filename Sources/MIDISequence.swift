@@ -37,8 +37,8 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //        self.path = nil
     }
     
-    public init(path: String) {
-        _impl = MIDISequenceImpl(path: path)
+    public init(url: URL) {
+        _impl = MIDISequenceImpl(url: url)
 //        self.path = path
     }
     

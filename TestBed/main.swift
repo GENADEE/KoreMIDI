@@ -9,9 +9,9 @@
 import Foundation
 import AudioToolbox
 
-let path = "/Users/adamnemecek/midi/darude-sandstorm.mid"
+let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
 
-let s = MIDISequence(path: path)
+let s = MIDISequence(url: url)
 
 
 //let notes : [MIDINote] = []

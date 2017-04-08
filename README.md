@@ -1,7 +1,7 @@
 # KoreMIDI: Easiest Standard MIDI File (SMF) Swift library
 
 This project as a wrapper around the AudioToolbox framework and tries to make it look like AVFoundation.
-
+Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
 
 ```
 struct MIDISequence : MutableCollection, Comparable {
@@ -10,9 +10,16 @@ struct MIDISequence : MutableCollection, Comparable {
     
     func export() -> Data
     
+    /// Create a new sequence
     init()
+
+    /// Import Data containing MIDI
     init(import data: Data)
+
+    /// 
     init(path: String)
+
+  
 }
 
 ```
@@ -23,8 +30,12 @@ struct MIDISequence : MutableCollection, Comparable {
 ```
 
 ```
-struct MIDITrack : Sequence, Equatable {
-    
+struct MIDITrack : Sequence, Hashable, Equatable {
+    init()
+    var timerange: ClosedRange<MIDITimestamp> { get }
+    var startTime: MIDITimestamp { get }
+    var endTime: MIDITimestamp { get }
+
 }
 ```
 

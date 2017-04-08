@@ -23,8 +23,8 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         ref = MIDISequenceCreate()
     }
     
-    internal init(path: String) {
-        ref = MIDISequenceImport(path: path)
+    internal init(url: URL) {
+        ref = MIDISequenceImport(url: url)
     }
     
     internal init(import data: Data) {
