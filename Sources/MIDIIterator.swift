@@ -14,6 +14,13 @@ protocol List : Sequence {
     var tail: SubSequence { get }
 }
 
+extension Range where Bound == MIDITimestamp {
+    init(base: MIDITimestamp.Base, timerange: Range<MusicTimeStamp>) {
+        lowerBound = MIDITimestamp(base: base, beats: timerange.lowerBound)
+        upperBound = MIDITimestamp(base: base, beats: timerange.upperBound)
+    }
+}
+
 
 public class MIDIIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
@@ -23,25 +30,22 @@ public class MIDIIterator : IteratorProtocol {
     private let _ref: MusicEventIterator
     private let _content: MIDITrackImpl
 
-    private let timerange: Range<MIDITimestamp>?
+    private let _timerange: Range<MIDITimestamp>?
     
     internal init(_ content: MIDITrackImpl, timerange: Range<MIDITimestamp>? = nil) {
         self._content = content
         self._ref = MIDIIteratorCreate(ref : _content.ref)
-        self.timerange = timerange
+        self._timerange = timerange
         timerange.map {
             self._seek(to: $0.lowerBound)
         }
     }
     
     internal init(_ content: MIDITrackImpl, timerange: Range<MusicTimeStamp>) {
-        fatalError()
-//        self.content = content
-//        self.ref = MIDIIteratorCreate(ref : content.ref)
-//        self.timerange = timerange
-//        timerange.map {
-//            self._seek(to: $0.lowerBound)
-//        }
+        self._content = content
+        self._ref = MIDIIteratorCreate(ref: _content.ref)
+        self._timerange = Range(base: content.parentImpl, timerange: timerange)
+        self._seek(to: _timerange!.lowerBound)
     }
     
     deinit {
