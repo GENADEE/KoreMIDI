@@ -14,13 +14,13 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideabl
     public let timestamp: MIDITimestamp
 
     public var duration: Stride {
-         return Stride(msg.duration)
+         return Stride(_msg.duration)
     }
     
-    private let msg: MIDINoteMessage
+    private let _msg: MIDINoteMessage
         
     public var note: UInt8 {
-        return msg.note
+        return _msg.note
     }
 
     public var endstamp: MIDITimestamp {
@@ -33,16 +33,11 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideabl
     
     internal init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp
-        self.msg = msg
-       
+        self._msg = msg
     }
     
     public func advanced(by n: Stride) -> MIDINote {
-//        MIDINote(timestamp: timestamp, msg: <#T##MIDINoteMessage#>)
-//        var cp = self
-//        cp.timestamp = cp.timestamp.advanced(by: n)
-//        return cp
-        fatalError()
+        return MIDINote(timestamp: timestamp.advanced(by: n), msg: _msg)
     }
     
     public func distance(to other: MIDINote) -> Stride {
@@ -50,7 +45,7 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideabl
     }
     
     public static func ==(lhs: MIDINote, rhs: MIDINote) -> Bool {
-        return lhs.note == rhs.note && lhs.timestamp == rhs.timestamp && lhs.duration == rhs.duration
+        return lhs.timestamp == rhs.timestamp && lhs._msg == rhs._msg
     }
     
     public var hashValue: Int {

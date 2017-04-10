@@ -139,6 +139,24 @@ public protocol MIDIEventConvertible : Hashable, Comparable {
 //
 // MARK: MIDINoteMessage
 //
+extension MIDINoteMessage : Comparable, Hashable {
+    
+    public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
+        return lhs.duration == rhs.duration &&
+            lhs.note == rhs.note &&
+            lhs.channel == rhs.channel &&
+            lhs.velocity == rhs.velocity &&
+            lhs.releaseVelocity == rhs.releaseVelocity
+    }
+    
+    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
+        return lhs.note < rhs.note
+    }
+    
+    public var hashValue: Int {
+        return channel.hashValue ^ note.hashValue
+    }
+}
 
 extension MIDINoteMessage : MIDIEventConvertible {
     public init?(event: MIDIEvent) {
@@ -147,26 +165,10 @@ extension MIDINoteMessage : MIDIEventConvertible {
     }
     
     public static var type : MIDIEventType { return .note }
-    
-    public var hashValue: Int {
-        return channel.hashValue ^ note.hashValue
-    }
-    
+
     public func insert(to track: MIDITrack, at: MIDITimestamp) {
         var copy = self
         MusicTrackNewMIDINoteEvent(track._impl.ref, at.beats, &copy)
-    }
-    
-    public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
-        return lhs.duration == rhs.duration &&
-                lhs.note == rhs.note &&
-                lhs.channel == rhs.channel &&
-                lhs.velocity == rhs.velocity &&
-                lhs.releaseVelocity == rhs.releaseVelocity
-    }
-    
-    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
-        return lhs.note < rhs.note
     }
 }
 
