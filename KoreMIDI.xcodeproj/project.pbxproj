@@ -17,7 +17,7 @@
 		373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
 		373BE4291E9816F800DC1E15 /* MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* MIDITrack.swift */; };
-		373BE42C1E9816F800DC1E15 /* MIDITrackIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDITrackIterator.swift */; };
+		373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDIIterator.swift */; };
 		373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
 		373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
 		373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4171E98154600DC1E15 /* MIDINote.swift */; };
@@ -42,7 +42,7 @@
 		OBJ_32 /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* AudioToolbox.swift */; };
 		OBJ_33 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		OBJ_35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
-		OBJ_36 /* MIDITrackIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDITrackIterator.swift */; };
+		OBJ_36 /* MIDIIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDIIterator.swift */; };
 		OBJ_37 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
 		OBJ_38 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* main.swift */; };
 		OBJ_39 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
@@ -90,7 +90,7 @@
 		37CDEFC31E9970F40005B509 /* MIDIEventConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIEventConvertible.swift; sourceTree = "<group>"; };
 		37CDEFC51E9972390005B509 /* MIDIEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MIDIEvent.swift; path = Sources/MIDIEvent.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		OBJ_12 /* MIDITrackIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackIterator.swift; sourceTree = "<group>"; };
+		OBJ_12 /* MIDIIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIIterator.swift; sourceTree = "<group>"; };
 		OBJ_13 /* KoreMIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDI.swift; sourceTree = "<group>"; };
 		OBJ_14 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_15 /* MIDIEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEventType.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				OBJ_18 /* MIDITrack.swift */,
 				371120031E9863870037DFFA /* Edit.swift */,
 				373BE44C1E9835D600DC1E15 /* MIDITrackImpl.swift */,
-				OBJ_12 /* MIDITrackIterator.swift */,
+				OBJ_12 /* MIDIIterator.swift */,
 				37CDEFC11E996D440005B509 /* MIDITrackSlice.swift */,
 				OBJ_19 /* MIDITrackProperty.swift */,
 				OBJ_13 /* KoreMIDI.swift */,
@@ -311,7 +311,7 @@
 				373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */,
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
 				373BE4291E9816F800DC1E15 /* MIDITrack.swift in Sources */,
-				373BE42C1E9816F800DC1E15 /* MIDITrackIterator.swift in Sources */,
+				373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */,
 				373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */,
 				373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */,
 				373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */,
@@ -334,7 +334,7 @@
 				37CDEFC61E9972390005B509 /* MIDIEvent.swift in Sources */,
 				OBJ_33 /* MIDIPlayer.swift in Sources */,
 				OBJ_35 /* Extensions.swift in Sources */,
-				OBJ_36 /* MIDITrackIterator.swift in Sources */,
+				OBJ_36 /* MIDIIterator.swift in Sources */,
 				373BE44A1E98344000DC1E15 /* MIDISequenceImpl.swift in Sources */,
 				OBJ_37 /* KoreMIDI.swift in Sources */,
 				OBJ_38 /* main.swift in Sources */,

@@ -48,7 +48,7 @@ public class MIDIIterator : IteratorProtocol {
         DisposeMusicEventIterator(ref)
     }
     
-    public var current: Element? {
+    public final var current: Element? {
         while _hasCurrent {
             
             let n = MIDIIteratorGetCurrent(ref: ref)
@@ -133,7 +133,7 @@ public class MIDIIterator : IteratorProtocol {
     }
 }
 
-class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDIIterator {
+final class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
     override func next() -> Element? {
         while let n = super.next() {
             if n.type == Event.type1 {
