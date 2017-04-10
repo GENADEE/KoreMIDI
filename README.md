@@ -4,6 +4,27 @@ This project as a wrapper around the AudioToolbox framework and tries to make it
 Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
 
 ```
+
+public protocol Temporal {
+    associatedtype Timestamp : Comparable, Strideable
+}
+
+public protocol TimeSeries : Sequence, Temporal {
+
+
+    var startTime: Timestamp { get }
+    var endTime : Timestamp { get }
+
+    var duration : Timestamp.Stride { get }
+
+    func timestamp(after t: Timestamp) -> Timestamp
+
+    //    subscript(timerange: Range<Timestamp>) -> SubSequence { get }
+}
+
+```
+
+```
 struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, Comparable {
     typealias Index = Int
     typealias Element = MIDITrack
