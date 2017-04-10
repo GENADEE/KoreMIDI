@@ -44,7 +44,11 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     internal static func ==(lhs: MIDISequenceImpl, rhs: MIDISequenceImpl) -> Bool {
-        return lhs.ref == rhs.ref
+        return lhs.isIdentical(to: rhs) || lhs.elementsEqual(rhs)
+    }
+
+    internal func isIdentical(to : MIDISequenceImpl) -> Bool {
+        return ref == to.ref
     }
     
     //    internal static func ===(lhs: MIDISequenceImpl, rhs: MIDISequenceImpl) -> Bool {

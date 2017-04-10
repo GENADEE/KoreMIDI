@@ -10,10 +10,10 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-    internal typealias Iterator = MIDIIterator
-    internal typealias Element = Iterator.Element
+    typealias Iterator = MIDIIterator
+    typealias Element = Iterator.Element
     
-    internal let ref : MusicTrack
+    let ref : MusicTrack
     private weak var _parent: MIDISequenceImpl? = nil
     
     var parent : MIDISequence {
@@ -24,7 +24,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return _parent ?? MIDISequenceImpl(for: self)
     }
     
-    internal var isParentUnique : Bool {
+    var isParentUnique : Bool {
         return _parent == nil
     }
     
@@ -37,16 +37,24 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         //        parent = nil
     }
     
-    public static func ===(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
+    static func ===(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
         return lhs.ref == rhs.ref
     }
     
-    internal init(parent: MIDISequenceImpl) {
+    static func ==(lhs: MIDISequenceImpl, rhs: MIDISequenceImpl) -> Bool {
+        return lhs === rhs || lhs.elementsEqual(rhs)
+    }
+    
+    static func ===(lhs: MIDISequenceImpl, rhs: MIDISequenceImpl) -> Bool {
+        return lhs.ref == rhs.ref
+    }
+    
+    init(parent: MIDISequenceImpl) {
         ref = MIDITrackCreate(ref: parent.ref)
         _parent = parent
     }
     
-    internal init(parent: MIDISequenceImpl, no: Int) {
+    init(parent: MIDISequenceImpl, no: Int) {
         _parent = parent
         ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
     }
@@ -231,7 +239,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
                       timerange.lowerBound.beats,
                       timerange.upperBound.beats)
     }
-    
+
     //    mutating
     internal func copyInsert(from other: MIDITrackImpl,
                              in timerange: Range<MIDITimestamp>? = nil,
@@ -286,6 +294,11 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             }
         }
     }
+    
+    internal func remove() {
+        
+    }
+
 }
 
 final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
