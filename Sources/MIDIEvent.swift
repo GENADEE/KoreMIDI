@@ -17,8 +17,8 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
     
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp == rhs.timestamp &&
-                lhs.type == rhs.type &&
-                lhs.data == rhs.data
+            lhs.type == rhs.type &&
+            lhs.data == rhs.data
     }
     
     /// Comparison is based on timestamp
@@ -31,7 +31,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
     }
     
     public static var type : MIDIEventType {
-            fatalError()
+        fatalError()
     }
     
     public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
@@ -65,7 +65,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
             fatalError()
         case MIDIEventType.auPreset:
             fatalError()
-
+            
         default: fatalError()
         }
         

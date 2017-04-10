@@ -10,6 +10,9 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 
+public protocol Test : Hashable, Comparable {
+    
+}
 
 public protocol MIDIEventConvertible : Hashable, Comparable {
     static var type : MIDIEventType { get }
@@ -159,6 +162,7 @@ extension MIDINoteMessage : Comparable, Hashable {
 }
 
 extension MIDINoteMessage : MIDIEventConvertible {
+
     public init?(event: MIDIEvent) {
         guard event.type == .note else { return nil }
         self = event.data.decode()

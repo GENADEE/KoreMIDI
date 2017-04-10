@@ -65,6 +65,13 @@ public class MIDIIterator : IteratorProtocol {
         //
     }
     
+    public func next() -> Element? {
+        defer {
+            _move()
+        }
+        return current
+    }
+
     private var timestamp: Timestamp? {
 //        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
         fatalError()
@@ -77,13 +84,7 @@ public class MIDIIterator : IteratorProtocol {
     private func _move() {
         MusicEventIteratorNextEvent(_ref)
     }
-    
-    public func next() -> Element? {
-        defer {
-            _move()
-        }
-        return current
-    }
+
     
     private let _ref: MusicEventIterator
     private let _content: MIDITrackImpl

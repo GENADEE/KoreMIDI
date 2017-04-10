@@ -20,6 +20,12 @@ extension Range {
     }
 }
 
+extension Sequence where Iterator.Element : Hashable {
+    func hashValue() -> Int {
+        fatalError()
+    }
+}
+
 extension Strideable {
     static func +(lhs: Self, rhs: Stride) -> Self {
         return lhs.advanced(by: rhs)

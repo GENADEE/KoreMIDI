@@ -25,6 +25,14 @@ public protocol TimeSeries : Sequence, Temporal {
     //    subscript(timerange: Range<Timestamp>) -> SubSequence { get }
 }
 
+protocol EventType : Temporal, Comparable {
+    associatedtype Event : Equatable
+    var event : Event { get }
+    var timestamp : Timestamp { get }
+    
+    init(event: Event, timestamp : Timestamp)
+}
+
 protocol MutableTimeSeries : TimeSeries {
     
     subscript(timerange: Range<Timestamp>) -> SubSequence { get set }

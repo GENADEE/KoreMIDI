@@ -64,7 +64,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     internal var hashValue: Int {
-        return ref.hashValue
+        return hashValue()
     }
     
     internal func export() -> Data {

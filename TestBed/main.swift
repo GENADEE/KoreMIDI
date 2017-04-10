@@ -31,7 +31,9 @@ for (i, track) in s.enumerated() {
 
 
 
-//var track = s[4]
+var track = s[4]
+
+
 //print(s.start)
 //print("duration", track.duration)
 //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)

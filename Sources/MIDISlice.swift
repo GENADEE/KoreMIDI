@@ -12,26 +12,26 @@ import Foundation
 
 public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
     public typealias Timestamp = MIDITimestamp
-    typealias Base = MIDITrackImpl
+    internal typealias Base = MIDIEventTrackImpl<Element>
     
-    private let base: Base
+    private let _base: Base
     let timerange : Range<Timestamp>?
 
     internal init(base: Base, timerange: Range<Timestamp>? = nil) {
-        self.base = base
+        self._base = base
         self.timerange = timerange
     }
 
     public var startTime : Timestamp {
-        return base.startTime
+        return _base.startTime
     }
     
     public var endTime: Timestamp {
-        return base.endTime
+        return _base.endTime
     }
     
     public var duration: Timestamp.Stride {
-        return base.duration
+        return _base.duration
     }
     
     public func timestamp(after t: Timestamp) -> Timestamp {
@@ -44,11 +44,15 @@ public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
             fatalError()
         }
         set {
+            
             fatalError()
         }
     }
     
     public func makeIterator() -> AnyIterator<Element> {
-        fatalError()
+        let i = _base.makeIterator()
+        return AnyIterator {
+            i.next().map { Element(event: $0)! }
+        }
     }
 }
