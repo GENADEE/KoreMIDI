@@ -15,11 +15,13 @@ public struct MIDIEvent : Equatable, Comparable, Hashable {
     let data: Data
     
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
-        fatalError()
+        return lhs.timestamp == rhs.timestamp &&
+                lhs.type == rhs.type &&
+                lhs.data == rhs.data
     }
     
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
-        fatalError()
+        return lhs.timestamp < rhs.timestamp
     }
     
     public var hashValue: Int {
