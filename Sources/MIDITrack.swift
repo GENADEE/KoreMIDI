@@ -115,6 +115,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
+    public func map<S: Sequence>(from: S, to: S) where S.Iterator.Element == Element {
+        
+    }
+    
     mutating
     func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
         _ensureUnique()
