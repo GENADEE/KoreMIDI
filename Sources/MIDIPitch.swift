@@ -10,7 +10,7 @@ import Foundation
 
 public struct MIDIPitch : Comparable, Hashable, RawRepresentable {
     public typealias Interval = Int
-    private let range = 0..<UInt8.max
+    private static let range = 0..<UInt8.max
 
     public let rawValue: UInt8
     
@@ -18,7 +18,7 @@ public struct MIDIPitch : Comparable, Hashable, RawRepresentable {
         self.rawValue = rawValue
     }
     
-    public static func +(lhs: MIDIPitch, rhs: MIDIPitch) -> MIDIPitch? {
+    public static func +(lhs: MIDIPitch, rhs: Interval) -> MIDIPitch? {
         fatalError()
     }
     
