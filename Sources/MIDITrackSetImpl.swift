@@ -37,14 +37,18 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         //        parent = nil
     }
     
+    public static func ===(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
+        return lhs.ref == rhs.ref
+    }
+
     internal init(parent: MIDISequenceImpl) {
         ref = MIDITrackCreate(ref: parent.ref)
         _parent = parent
     }
     
     internal init(parent: MIDISequenceImpl, no: Int) {
-        ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
         _parent = parent
+        ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
     }
     
     internal func copy() -> MIDITrackImpl {
@@ -108,26 +112,6 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     internal var hashValue: Int {
         return ref.hashValue
-    }
-    
-    private var offsetTime : MusicTimeStamp {
-        get {
-            //            let offset = self[.offsetTime]
-            return get(.offsetTime)
-        }
-        set {
-            set(.offsetTime, to: newValue)
-        }
-    }
-    
-    private var duration : MusicTimeStamp {
-        get {
-            return get(.length)
-            
-        }
-        set {
-            set(.length, to: newValue)
-        }
     }
     
     internal var loopInfo : MusicTrackLoopInfo {
@@ -194,6 +178,26 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             //            let i = MIDIIterator(self, timerange: element.timerange)
             //            i[element] = newValue
             fatalError()
+        }
+    }
+    
+    private var offsetTime : MusicTimeStamp {
+        get {
+            //            let offset = self[.offsetTime]
+            return get(.offsetTime)
+        }
+        set {
+            set(.offsetTime, to: newValue)
+        }
+    }
+    
+    private var duration : MusicTimeStamp {
+        get {
+            return get(.length)
+            
+        }
+        set {
+            set(.length, to: newValue)
         }
     }
     

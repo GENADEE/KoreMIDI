@@ -14,137 +14,137 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Element = Iterator.Element
 
     public init() {
-        impl = MIDITrackImpl()
+        _impl = MIDITrackImpl()
     }
 
     public var timerange: Range<MIDITimestamp> {
-        return impl.timerange
+        return _impl.timerange
     }
     
     public static func ==(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
-        return lhs.impl == rhs.impl
+        return lhs._impl == rhs._impl
     }
     
     public var description: String {
-        return impl.description
+        return _impl.description
     }
     
     public subscript(timerange timerange: Range<MIDITimestamp>) -> AnyIterator<Element> {
-        return impl[timerange: timerange]
+        return _impl[timerange: timerange]
     }
     
     public var startTime : MIDITimestamp {
         get {
-            return impl.startTime
+            return _impl.startTime
         }
         set {
-            impl.startTime = newValue
+            _impl.startTime = newValue
         }
 
     }
     
     public var endTime : MIDITimestamp {
         get {
-            return impl.endTime
+            return _impl.endTime
         }
         set {
-            impl.endTime = newValue
+            _impl.endTime = newValue
         }
     }
     
     public func makeIterator() -> Iterator {
-        return impl.makeIterator()
+        return _impl.makeIterator()
     }
     
     public var hashValue: Int {
-        return impl.hashValue
+        return _impl.hashValue
     }
     
     public var loopInfo : MusicTrackLoopInfo {
         get {
-            return impl.loopInfo
+            return _impl.loopInfo
         }
         set {
-            impl.loopInfo = newValue
+            _impl.loopInfo = newValue
         }
     }
     
     public var muted : Bool {
         get {
-            return impl.muted.boolValue
+            return _impl.muted.boolValue
         }
         set {
-            impl.muted = DarwinBoolean(newValue)
+            _impl.muted = DarwinBoolean(newValue)
         }
     }
     
     public var soloed : Bool {
         get {
-            return impl.soloed.boolValue
+            return _impl.soloed.boolValue
         }
         set {
-            impl.soloed = DarwinBoolean(newValue)
+            _impl.soloed = DarwinBoolean(newValue)
         }
     }
     
     public var automatedParameters : UInt32 {
         get {
-            return impl.automatedParameters
+            return _impl.automatedParameters
         }
         set {
-            impl.automatedParameters = newValue
+            _impl.automatedParameters = newValue
         }
     }
     
     public var timeResolution : Int16 {
         get {
-            return impl.timeResolution
+            return _impl.timeResolution
         }
         set {
-            impl.timeResolution = newValue
+            _impl.timeResolution = newValue
         }
     }
     
     mutating
     func move(_ timerange: Range<MIDITimestamp>, to timestamp: MIDITimestamp) {
         _ensureUnique()
-        impl.move(timerange, to: timestamp)
+        _impl.move(timerange, to: timestamp)
     }
     
     mutating
     func clear(_ timerange: Range<MIDITimestamp>) {
         _ensureUnique()
-        impl.clear(timerange)
+        _impl.clear(timerange)
     }
     
     mutating
     func load(from other: MIDITrack) {
         _ensureUnique()
-        impl.load(from: other.impl)
+        _impl.load(from: other._impl)
     }
     
     mutating
     func cut(_ timerange: Range<MIDITimestamp>) {
         _ensureUnique()
-        impl.cut(timerange)
+        _impl.cut(timerange)
     }
     
     mutating
     func copyInsert(from other: MIDITrack, in timerange: Range<MIDITimestamp>, at timestamp: MIDITimestamp) {
         _ensureUnique()
-        impl.copyInsert(from: other.impl, in: timerange, at: timestamp)
+        _impl.copyInsert(from: other._impl, in: timerange, at: timestamp)
     }
     
     mutating
     func merge(with other: MIDITrack, in timerange: Range<MIDITimestamp>, at timestamp: MIDITimestamp) {
         _ensureUnique()
-        impl.merge(with: other.impl, in: timerange, at: timestamp)
+        _impl.merge(with: other._impl, in: timerange, at: timestamp)
     }
     
     mutating
     func insert(_ event: MIDIEvent, at timestamp: MIDITimestamp) {
         _ensureUnique()
-//        event.insert(to: impl, at: timestamp)
+//        event.insert(to: _impl, at: timestamp)
         fatalError()
     }
 
@@ -155,26 +155,26 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         _ensureUnique()
-        impl.remove(elements)
+        _impl.remove(elements)
     }
     
     mutating func remove(_ timerange: Range<MIDITimestamp>) {
         _ensureUnique()
-        impl.remove(timerange)
+        _impl.remove(timerange)
     }
     
     internal init(seq: MIDISequenceImpl) {
-        impl = MIDITrackImpl(seq: seq)
+        _impl = MIDITrackImpl(parent: seq)
     }
     
     internal init(seq: MIDISequenceImpl, no: Int) {
-        impl = MIDITrackImpl(seq: seq, no: no)
+        _impl = MIDITrackImpl(parent: seq, no: no)
     }
     
     private mutating func _ensureUnique() {
-        if impl.isParentUnique { return }
-        impl = impl.copy()
+        if _impl.isParentUnique { return }
+        _impl = _impl.copy()
     }
     
-    private var impl : MIDITrackImpl
+    private var _impl : MIDITrackImpl
 }
