@@ -11,12 +11,17 @@ import AudioToolbox.MusicPlayer
 public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Stride = MIDITimestamp.Stride
     
-    public let note: UInt8
     public let timestamp: MIDITimestamp
 
-    public let duration: Stride
+    public var duration: Stride {
+         return Stride(msg.duration)
+    }
     
-//    private weak let parent : MIDITrackImpl?
+    private let msg: MIDINoteMessage
+        
+    public var note: UInt8 {
+        return msg.note
+    }
 
     public var endstamp: MIDITimestamp {
         return timestamp + duration
@@ -28,11 +33,15 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideabl
     
     internal init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp
-        self.note = msg.note
-        self.duration = Stride(msg.duration)
+        self.msg = msg
+       
     }
     
     public func advanced(by n: Stride) -> MIDINote {
+//        MIDINote(timestamp: timestamp, msg: <#T##MIDINoteMessage#>)
+//        var cp = self
+//        cp.timestamp = cp.timestamp.advanced(by: n)
+//        return cp
         fatalError()
     }
     
