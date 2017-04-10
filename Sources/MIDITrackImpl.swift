@@ -13,7 +13,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
 //    typealias Iterator = MIDIIterator
 //    typealias Element = Iterator.Element
     typealias Element = MIDIEvent
-    typealias Timestamp = MIDITimestamp
+    public typealias Timestamp = MIDITimestamp
     
     let ref : MusicTrack
     private weak var _parent: MIDISequenceImpl? = nil
@@ -171,7 +171,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         fatalError()
     }
     
-    internal subscript(element element: Element) -> Element {
+    internal final subscript(element element: Element) -> Element {
         get {
             fatalError()
         }
@@ -193,7 +193,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    private final var _duration : MIDITimestamp.Stride {
+    final var duration : MIDITimestamp.Stride {
         get {
             return get(.length)
             

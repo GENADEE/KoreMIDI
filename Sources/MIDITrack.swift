@@ -53,6 +53,15 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
+    public var duration : Timestamp.Stride {
+        get {
+            return _impl.duration
+        }
+        set {
+            _impl.duration = newValue
+        }
+    }
+    
     public func makeIterator() -> AnyIterator<MIDIEvent> {
         return _impl.makeIterator()
     }

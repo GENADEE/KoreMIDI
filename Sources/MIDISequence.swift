@@ -23,7 +23,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //        self.path = nil
     }
     
-    public init(url: URL) {
+    public init(import url: URL) {
         _impl = MIDISequenceImpl(import: url)
 //        self.path = path
     }

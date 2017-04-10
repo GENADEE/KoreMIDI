@@ -11,7 +11,7 @@ import AudioToolbox
 
 let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
 
-let s = MIDISequence(url: url)
+let s = MIDISequence(import: url)
 
 
 //let notes : [MIDINote] = []

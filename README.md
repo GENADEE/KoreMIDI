@@ -38,7 +38,7 @@ struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, C
     init(import data: Data)
 
     /// 
-    init(url: URL)
+    init(import url: URL)
 
     /// 
     var type : MusicSequenceType { get }
@@ -61,7 +61,10 @@ struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, C
 ```
 
 ```
-struct MIDITrack <Element> : Sequence, Hashable, Equatable {
+struct MIDITrack : Sequence, Hashable, Equatable {
+    public typealias Element = MIDIEvent
+    public typealias Timestamp = MIDITimestamp
+
     init()
     var timerange: Range<MIDITimestamp> { get }
     var startTime: MIDITimestamp { get }
