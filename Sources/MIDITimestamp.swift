@@ -9,7 +9,15 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
+protocol DefaultConstructible {
+    init()
+    
+}
 
+protocol HasExtrema : DefaultConstructible {
+    static var min: Self { get }
+    static var max: Self { get }
+}
 
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     internal typealias Base = MIDISequenceImpl

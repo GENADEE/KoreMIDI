@@ -8,23 +8,34 @@
 
 import Foundation
 
+
+
 public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
     public typealias Timestamp = MIDITimestamp
     typealias Base = MIDITrackImpl
+    
+    private let base: Base
+    let timerange : Range<Timestamp>?
 
-    public var startTime : Timestamp {
-        fatalError()
+    internal init(base: Base, timerange: Range<Timestamp>? = nil) {
+        self.base = base
+        self.timerange = timerange
     }
 
+    public var startTime : Timestamp {
+        return base.startTime
+    }
+    
     public var endTime: Timestamp {
-        fatalError()
+        return base.endTime
     }
     
     public var duration: Timestamp.Stride {
+//        return base.duration
         fatalError()
     }
     
-    public func timestamp(after t: MIDITimestamp) -> MIDITimestamp {
+    public func timestamp(after t: Timestamp) -> Timestamp {
         fatalError()
     }
     
