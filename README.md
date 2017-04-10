@@ -1,4 +1,4 @@
-# KoreMIDI: Easiest Standard MIDI File (SMF) Swift library
+# KoreMIDI: MIDI Swift library
 
 This project as a wrapper around the AudioToolbox framework and tries to make it look like AVFoundation.
 Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
