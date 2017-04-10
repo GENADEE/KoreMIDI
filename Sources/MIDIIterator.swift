@@ -20,14 +20,14 @@ public class MIDIIterator : IteratorProtocol {
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
     public typealias Element = MIDIEvent
     
-    private let ref: MusicEventIterator
+    private let _ref: MusicEventIterator
     private let content: MIDITrackImpl
 
     private let timerange: Range<MIDITimestamp>?
     
     internal init(_ content: MIDITrackImpl, timerange: Range<MIDITimestamp>? = nil) {
         self.content = content
-        self.ref = MIDIIteratorCreate(ref : content.ref)
+        self._ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
         timerange.map {
             self._seek(to: $0.lowerBound)
@@ -45,13 +45,13 @@ public class MIDIIterator : IteratorProtocol {
     }
     
     deinit {
-        DisposeMusicEventIterator(ref)
+        DisposeMusicEventIterator(_ref)
     }
     
     public final var current: Element? {
         while _hasCurrent {
             
-            let n = MIDIIteratorGetCurrent(ref: ref)
+            let n = MIDIIteratorGetCurrent(ref: _ref)
             
             move()
             return n
@@ -113,15 +113,15 @@ public class MIDIIterator : IteratorProtocol {
     }
     
     private var _hasCurrent: Bool {
-        return MIDIIteratorHasCurrent(ref: ref)
+        return MIDIIteratorHasCurrent(ref: _ref)
     }
     
     private func _seek(to timestamp: MIDITimestamp) {
-        MusicEventIteratorSeek(ref, timestamp.beats)
+        MusicEventIteratorSeek(_ref, timestamp.beats)
     }
     
     private func move() {
-        MusicEventIteratorNextEvent(ref)
+        MusicEventIteratorNextEvent(_ref)
     }
     
     public func next() -> Element? {
