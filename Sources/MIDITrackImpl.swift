@@ -22,11 +22,11 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return MIDISequence(impl: parentImpl)
     }
     
-    var parentImpl : MIDISequenceImpl {
+    final var parentImpl : MIDISequenceImpl {
         return _parent ?? MIDISequenceImpl(for: self)
     }
     
-    var isParentUnique : Bool {
+    final var isParentUnique : Bool {
         return _parent == nil
     }
     
@@ -57,13 +57,13 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
     }
     
-    func copy() -> MIDITrackImpl {
+    final func copy() -> MIDITrackImpl {
         let cpy = MIDITrackImpl()
         cpy.copyInsert(from: self)
         return cpy
     }
     
-    var timerange: Range<Timestamp> {
+    final var timerange: Range<Timestamp> {
         return startTime..<endTime
     }
     
@@ -88,7 +88,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         fatalError()
     }
     
-    var startTime : MIDITimestamp {
+    final var startTime : MIDITimestamp {
         get {
             return MIDITimestamp(base: parent._impl, beats: _offsetTime)
         }
@@ -97,7 +97,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    var endTime : Timestamp {
+    final var endTime : Timestamp {
         get {
             return startTime.advanced(by: _duration)
         }
@@ -106,13 +106,13 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    func makeIterator() -> AnyIterator<MIDIEvent> {
+    final func makeIterator() -> AnyIterator<MIDIEvent> {
         //        return MIDIIterator(self)
         //        fatalError()
         return AnyIterator(MIDIIterator(self))
     }
     
-    var hashValue: Int {
+    final var hashValue: Int {
         return ref.hashValue
     }
     
