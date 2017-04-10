@@ -10,15 +10,12 @@ import Foundation
 
 public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
     public typealias Timestamp = MIDITimestamp
-//    public typealias SubSequence = MIDISlice<Element>
     typealias Base = MIDITrackImpl
 
     public var startTime : Timestamp {
         fatalError()
     }
-    
-    
-    
+
     public var endTime: Timestamp {
         fatalError()
     }
