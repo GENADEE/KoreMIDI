@@ -8,25 +8,29 @@
 
 import Foundation
 
-public struct MIDIPitch : Comparable, Hashable {
+public struct MIDIPitch : Comparable, Hashable, RawRepresentable {
     public typealias Interval = Int
     private let range = 0..<UInt8.max
 
-    private let content: UInt8
-
+    public let rawValue: UInt8
+    
+    public init?(rawValue: UInt8) {
+        self.rawValue = rawValue
+    }
+    
     public static func +(lhs: MIDIPitch, rhs: MIDIPitch) -> MIDIPitch? {
         fatalError()
     }
     
     public static func ==(lhs: MIDIPitch, rhs: MIDIPitch) -> Bool {
-        return lhs.content == rhs.content
+        return lhs.rawValue == rhs.rawValue
     }
 
     public static func <(lhs: MIDIPitch, rhs: MIDIPitch) -> Bool {
-        return lhs.content < rhs.content
+        return lhs.rawValue < rhs.rawValue
     }
 
     public var hashValue: Int {
-        return content.hashValue
+        return rawValue.hashValue
     }
 }
