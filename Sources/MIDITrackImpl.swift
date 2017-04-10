@@ -99,10 +99,10 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     final var endTime : Timestamp {
         get {
-            return startTime.advanced(by: _duration)
+            return startTime.advanced(by: duration)
         }
         set {
-            _duration = _offsetTime + newValue.beats
+            duration = _offsetTime + newValue.beats
         }
     }
     
@@ -160,6 +160,11 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             set(.resolution, to: newValue)
         }
     }
+    
+    final func timestamp(after t: Timestamp) -> Timestamp {
+        fatalError()
+    }
+
     
     private final  func get<T>(_ prop: MIDITrackProp) -> T {
         return MIDITrackGetProperty(ref: ref, prop: prop)

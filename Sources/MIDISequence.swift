@@ -14,6 +14,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
 
+    public typealias Timestamp = Element.Timestamp
 //    func copy() -> MIDISequence {
 //        return MIDISequence(import: export())
 //    }
@@ -54,11 +55,11 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i + 1
     }
 
-    public var startTime : MIDITimestamp? {
+    public var startTime : Timestamp? {
         return _impl.startTime
     }
 
-    public var endTime : MIDITimestamp? {
+    public var endTime : Timestamp? {
         return _impl.endTime
     }
 

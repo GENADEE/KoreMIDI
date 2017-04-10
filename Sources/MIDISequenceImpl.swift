@@ -33,6 +33,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
     internal init(import data: Data) {
         ref = MIDISequenceImport(data)
+//        MusicSequenceSetUserCallback(ref, MIDISequenceImpl.callback, <#T##inClientData: UnsafeMutableRawPointer?##UnsafeMutableRawPointer?#>)
     }
     
     internal func copy() -> MIDISequenceImpl {
@@ -40,9 +41,16 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     deinit {
+//        MusicSequenceSetUserCallback(ref, nil, nil)
         DisposeMusicSequence(ref)
     }
     
+//    private static var callback: MusicSequenceUserCallback {
+//        get {
+//            fatalError()
+//        }
+//    }
+//    
     internal static func ==(lhs: MIDISequenceImpl, rhs: MIDISequenceImpl) -> Bool {
         return lhs === rhs || lhs.elementsEqual(rhs)
     }
@@ -87,11 +95,11 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     internal var startTime : MIDITimestamp? {
-        return lazy.map { $0.startTime }.reduce  { Swift.min($0, $1) }
+        return lazy.map { $0.startTime }.reduce(combine: Swift.min)
     }
 
     internal var endTime : MIDITimestamp? {
-        return lazy.map { $0.endTime }.reduce  { Swift.max($0, $1) }
+        return lazy.map { $0.endTime }.reduce(combine: Swift.max)
     }
     
     internal var endIndex : Index {

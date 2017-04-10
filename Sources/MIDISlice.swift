@@ -31,11 +31,11 @@ public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
     }
     
     public var duration: Timestamp.Stride {
-//        return base.duration
-        fatalError()
+        return base.duration
     }
     
     public func timestamp(after t: Timestamp) -> Timestamp {
+//        return base.times
         fatalError()
     }
     
