@@ -1,0 +1,33 @@
+//
+//  TimeSeries.swift
+//  KoreMIDI
+//
+//  Created by Adam Nemecek on 4/9/17.
+//
+//
+
+import Foundation
+
+
+public protocol TimeSeries : Sequence {
+    associatedtype Timestamp : Comparable, Strideable
+    
+    var startTime: Timestamp { get }
+    var endTime : Timestamp { get }
+    
+    var duration : Timestamp.Stride { get }
+    
+    func timestamp(after t: Timestamp) -> Timestamp
+    
+//    subscript(timerange: Range<Timestamp>) -> SubSequence { get }
+}
+
+protocol MutableTimeSeries : TimeSeries {
+    subscript(timerange: Range<Timestamp>) -> SubSequence { get set }
+}
+
+extension TimeSeries {
+    var duration: Timestamp.Stride {
+        return startTime.distance(to: endTime)
+    }
+}

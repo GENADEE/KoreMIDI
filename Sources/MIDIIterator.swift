@@ -27,11 +27,6 @@ public class MIDIIterator : IteratorProtocol {
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
     public typealias Element = MIDIEvent
     
-    private let _ref: MusicEventIterator
-    private let _content: MIDITrackImpl
-
-    private let _timerange: Range<MIDITimestamp>?
-    
     internal init(_ content: MIDITrackImpl, timerange: Range<MIDITimestamp>? = nil) {
         self._content = content
         self._ref = MIDIIteratorCreate(ref : _content.ref)
@@ -89,8 +84,12 @@ public class MIDIIterator : IteratorProtocol {
             _move()
         }
         return current
-        
     }
+    
+    private let _ref: MusicEventIterator
+    private let _content: MIDITrackImpl
+    
+    private let _timerange: Range<MIDITimestamp>?
 }
 
 

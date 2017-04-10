@@ -176,5 +176,5 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _impl = _impl.copy()
     }
     
-    private var _impl : MIDITrackImpl
+    internal var _impl : MIDITrackImpl
 }
