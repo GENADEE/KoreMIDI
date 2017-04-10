@@ -15,9 +15,9 @@ public protocol Temporal {
 public protocol TimeSeries : Sequence, Temporal {
 
     
-    var startTime: Timestamp { get }
+    var startTime : Timestamp { get }
     var endTime : Timestamp { get }
-    
+
     var duration : Timestamp.Stride { get }
     
     func timestamp(after t: Timestamp) -> Timestamp

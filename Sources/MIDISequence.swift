@@ -8,17 +8,6 @@
 
 import AudioToolbox.MusicPlayer
 
-
-extension Sequence {
-    func split<A,B>(transform: @escaping (Iterator.Element) -> (A,B)) -> AnyIterator<(A,B)> {
-        var i = makeIterator()
-        return AnyIterator {
-            i.next().map { transform($0) }
-        }
-    }
-}
-
-
 public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection {
 
     public typealias Index = Int
