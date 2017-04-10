@@ -10,8 +10,9 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-    typealias Iterator = MIDIIterator
-    typealias Element = Iterator.Element
+//    typealias Iterator = MIDIIterator
+//    typealias Element = Iterator.Element
+    typealias Element = MIDIEvent
     typealias Timestamp = MIDITimestamp
     
     let ref : MusicTrack
@@ -105,10 +106,10 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    func makeIterator() -> Iterator {
+    func makeIterator() -> AnyIterator<MIDIEvent> {
         //        return MIDIIterator(self)
         //        fatalError()
-        return MIDIIterator(self)
+        return AnyIterator(MIDIIterator(self))
     }
     
     var hashValue: Int {

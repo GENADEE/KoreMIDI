@@ -137,7 +137,6 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
     return MIDIEvent(timestamp: timestamp, type: MIDIEventType(rawValue: type), data: d)
 }
 
-
 extension Data {
     
 }

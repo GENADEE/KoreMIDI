@@ -12,7 +12,7 @@ import AudioToolbox.MusicPlayer
 
 
 public protocol MIDIEventConvertible : Hashable, Comparable {
-    static var type1 : MIDIEventType { get }
+    static var type : MIDIEventType { get }
     init?(event: MIDIEvent)
     func insert(to: MIDITrack, at timestamp: MIDITimestamp)
 }
@@ -146,7 +146,7 @@ extension MIDINoteMessage : MIDIEventConvertible {
         self = event.data.decode()
     }
     
-    public static var type1 : MIDIEventType { return .note }
+    public static var type : MIDIEventType { return .note }
     
     public var hashValue: Int {
         return channel.hashValue ^ note.hashValue

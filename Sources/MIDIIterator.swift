@@ -95,7 +95,7 @@ public class MIDIIterator : IteratorProtocol {
 class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
     final override func next() -> Element? {
         while let n = super.next() {
-            if n.type == Event.type1 {
+            if n.type == Event.type {
                 return n
             }
         }

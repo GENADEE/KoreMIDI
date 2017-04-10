@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-public struct MIDIEvent : Equatable, Comparable, Hashable {
+public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible {
     public typealias Timestamp = MusicTimeStamp
     public let timestamp: Timestamp
     public let type: MIDIEventType
@@ -28,6 +28,24 @@ public struct MIDIEvent : Equatable, Comparable, Hashable {
     
     public var hashValue: Int {
         return (type.hashValue << 16) | timestamp.hashValue
+    }
+    
+    public static var type : MIDIEventType {
+            fatalError()
+    }
+    
+    public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
+        self.timestamp = timestamp
+        self.type = type
+        self.data = data
+    }
+    
+    public init?(event: MIDIEvent) {
+        self = event
+    }
+    
+    public func insert(to: MIDITrack, at timestamp: MIDITimestamp) {
+        fatalError()
     }
 }
 

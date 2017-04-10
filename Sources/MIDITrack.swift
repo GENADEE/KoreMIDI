@@ -10,8 +10,7 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
-    public typealias Iterator = MIDIIterator
-    public typealias Element = Iterator.Element
+    public typealias Element = MIDIEvent
 
     public init() {
         _impl = MIDITrackImpl()
@@ -52,7 +51,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public func makeIterator() -> Iterator {
+    public func makeIterator() -> AnyIterator<MIDIEvent> {
         return _impl.makeIterator()
     }
     
