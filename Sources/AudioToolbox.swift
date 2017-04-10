@@ -149,6 +149,7 @@ extension Data {
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     fatalError()
 }
+
 //
 //@inline(__always) internal
 //func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Int {

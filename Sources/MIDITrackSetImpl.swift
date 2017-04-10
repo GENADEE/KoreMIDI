@@ -27,7 +27,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     internal var isParentUnique : Bool {
         return _parent == nil
     }
-
+    
     init() {
         let s = MIDISequenceImpl()
         ref = MIDITrackCreate(ref: s.ref)
@@ -37,14 +37,14 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         //        parent = nil
     }
     
-    internal init(seq: MIDISequenceImpl) {
-        ref = MIDITrackCreate(ref: seq.ref)
-        _parent = seq
+    internal init(parent: MIDISequenceImpl) {
+        ref = MIDITrackCreate(ref: parent.ref)
+        _parent = parent
     }
     
-    internal init(seq: MIDISequenceImpl, no: Int) {
-        ref = MusicSequenceGetIndTrack(ref: seq.ref, no: no)
-        _parent = seq
+    internal init(parent: MIDISequenceImpl, no: Int) {
+        ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
+        _parent = parent
     }
     
     internal func copy() -> MIDITrackImpl {
@@ -102,7 +102,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     internal func makeIterator() -> Iterator {
         //        return MIDIIterator(self)
-//        fatalError()
+        //        fatalError()
         return MIDIIterator(self)
     }
     
@@ -123,7 +123,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     private var duration : MusicTimeStamp {
         get {
             return get(.length)
-
+            
         }
         set {
             set(.length, to: newValue)
@@ -181,7 +181,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     
     private func set<T>(_ prop: MIDITrackProp, to value: T) {
-//        return MIDITrackGetProperty(ref: ref, prop: prop)
+        //        return MIDITrackGetProperty(ref: ref, prop: prop)
         fatalError()
     }
     
@@ -190,9 +190,9 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             fatalError()
         }
         set {
-//            guard element != newValue else { return }
-//            let i = MIDIIterator(self, timerange: element.timerange)
-//            i[element] = newValue
+            //            guard element != newValue else { return }
+            //            let i = MIDIIterator(self, timerange: element.timerange)
+            //            i[element] = newValue
             fatalError()
         }
     }
@@ -253,15 +253,15 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     //    mutating
-//    internal func insert<T: MIDIEvent>(_ event: T, at timestamp: MIDITimestamp) {
-////        event.insert(to: self, at: timestamp)
-//        fatalError()
-//        //        fatalError()
-//    }
+    //    internal func insert<T: MIDIEvent>(_ event: T, at timestamp: MIDITimestamp) {
+    ////        event.insert(to: self, at: timestamp)
+    //        fatalError()
+    //        //        fatalError()
+    //    }
     
     internal func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
-//        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
+        //        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
         guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
         let s = Set(elements)
         
@@ -272,7 +272,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             }
         }
     }
-
+    
     internal func remove(_ timerange: Range<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDIIterator(self, timerange: timerange)
         while let n = i.next() {
@@ -289,7 +289,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 }
 
 //extension MIDITrackImpl : SetAlgebra {
-//    
+//
 //    /// Removes the elements of the set that are also in the given set and adds
 //    /// the members of the given set that are not already in the set.
 //    ///
@@ -311,12 +311,12 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        content.formSymmetricDifference(other.content)
 //        fatalError()
 //    }
-//    
+//
 //    public var isEmpty: Bool {
 ////        return content.isEmpty
 //        fatalError()
 //    }
-//    
+//
 //    /// Removes the elements of this set that aren't also in the given set.
 //    ///
 //    /// In the following example, the elements of the `employees` set that are
@@ -334,7 +334,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        content.formIntersection(other.content)
 //        fatalError()
 //    }
-//    
+//
 //    /// Adds the elements of the given set to the set.
 //    ///
 //    /// In the following example, the elements of the `visitors` set are added to
@@ -359,7 +359,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        content.formUnion(other.content)
 //        fatalError()
 //    }
-//    
+//
 //    /// Inserts the given element into the set unconditionally.
 //    ///
 //    /// If an element equal to `newMember` is already contained in the set,
@@ -387,17 +387,17 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 //    @discardableResult
 //    public final func update(with newMember: Element) -> Element? {
 ////        var i = MIDIIterator(self, timerange: newMember.time)
-//        
-//        
+//
+//
 ////        return content.update(with: newMember)
 //        fatalError()
 //    }
-//    
+//
 //    public func subtracting(_ other: MIDITrackImpl) -> Self {
 ////        return type(of: self).init(content: content.subtracting(other.content))
 //        fatalError()
 //    }
-//    
+//
 //    /// Removes the given element and any elements subsumed by the given element.
 //    ///
 //    /// - Parameter member: The element of the set to remove.
@@ -414,7 +414,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        return content.remove(member)
 //        fatalError()
 //    }
-//    
+//
 //    /// Inserts the given element in the set if it is not already present.
 //    ///
 //    /// If an element equal to `newMember` is already contained in the set, this
@@ -450,7 +450,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        return content.insert(newMember)
 //        fatalError()
 //    }
-//    
+//
 //    /// Returns a new set with the elements that are either in this set or in the
 //    /// given set, but not in both.
 //    ///
@@ -471,7 +471,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        return type(of: self).init(content: content.symmetricDifference(other.content))
 //        fatalError()
 //    }
-//    
+//
 //    /// Returns a new set with the elements that are common to both this set and
 //    /// the given set.
 //    ///
@@ -496,7 +496,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        return type(of: self).init(content: content.intersection(other.content))
 //        fatalError()
 //    }
-//    
+//
 //    /// Returns a new set with the elements of both this and the given set.
 //    ///
 //    /// In the following example, the `attendeesAndVisitors` set is made up
@@ -526,7 +526,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 ////        return type(of: self).init(content: content.union(other.content))
 //        fatalError()
 //    }
-//    
+//
 //    public func contains(_ member: Element) -> Bool {
 ////        return content.contains(member)
 //        fatalError()
