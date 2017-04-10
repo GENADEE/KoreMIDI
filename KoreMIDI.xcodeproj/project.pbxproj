@@ -185,11 +185,11 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_15 /* MIDIEventType.swift */,
 				37371FA01E9B251F00829B24 /* TimeSeries.swift */,
 				OBJ_11 /* Extensions.swift */,
 				OBJ_8 /* AudioToolbox.swift */,
 				OBJ_9 /* MIDIPlayer.swift */,
-				OBJ_15 /* MIDIEventType.swift */,
 				37CDEFC31E9970F40005B509 /* MIDIEventConvertible.swift */,
 				OBJ_18 /* MIDITrack.swift */,
 				371120031E9863870037DFFA /* Edit.swift */,

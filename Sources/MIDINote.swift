@@ -11,18 +11,18 @@ import AudioToolbox.MusicPlayer
 public struct MIDINote : Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Stride = MIDITimestamp.Stride
     
-    let note: UInt8
-    let timestamp: MIDITimestamp
+    public let note: UInt8
+    public let timestamp: MIDITimestamp
 
-    let duration: Stride
+    public let duration: Stride
     
 //    private weak let parent : MIDITrackImpl?
 
-    var endstamp: MIDITimestamp {
+    public var endstamp: MIDITimestamp {
         return timestamp + duration
     }
     
-    var timerange: Range<MIDITimestamp> {
+    public var timerange: Range<MIDITimestamp> {
         return timestamp..<endstamp
     }
     
