@@ -71,7 +71,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return lhs.ref.hashValue < rhs.ref.hashValue
     }
     
-    var description: String {
+    final var description: String {
         var opts: [String] = []
         if soloed.boolValue {
             opts.append("soloed")
@@ -84,7 +84,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return "MIDITrackImpl(in:\(timerange), \(opts))"
     }
     
-    subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
+    final subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
         fatalError()
     }
     
@@ -116,7 +116,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return ref.hashValue
     }
     
-    var loopInfo : MusicTrackLoopInfo {
+    final var loopInfo : MusicTrackLoopInfo {
         get {
             return get(.loopInfo)
         }
@@ -125,7 +125,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    var muted : DarwinBoolean {
+    final var muted : DarwinBoolean {
         get {
             return get(.muted)
         }
@@ -134,7 +134,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    var soloed : DarwinBoolean {
+    final var soloed : DarwinBoolean {
         get {
             return get(.soloed)
         }
@@ -143,7 +143,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    var automatedParameters : UInt32 {
+    final var automatedParameters : UInt32 {
         get {
             return get(.automatedParams)
         }
@@ -152,7 +152,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    var timeResolution : Int16 {
+    final var timeResolution : Int16 {
         get {
             return get(.resolution)
         }
@@ -161,12 +161,12 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    private func get<T>(_ prop: MIDITrackProp) -> T {
+    private final  func get<T>(_ prop: MIDITrackProp) -> T {
         return MIDITrackGetProperty(ref: ref, prop: prop)
     }
     
     
-    private func set<T>(_ prop: MIDITrackProp, to value: T) {
+    private final func set<T>(_ prop: MIDITrackProp, to value: T) {
         //        return MIDITrackGetProperty(ref: ref, prop: prop)
         fatalError()
     }
@@ -183,7 +183,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    private var _offsetTime : MusicTimeStamp {
+    private final var _offsetTime : MusicTimeStamp {
         get {
             //            let offset = self[.offsetTime]
             return get(.offsetTime)
@@ -193,7 +193,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    private var _duration : MIDITimestamp.Stride {
+    private final var _duration : MIDITimestamp.Stride {
         get {
             return get(.length)
             
@@ -203,35 +203,35 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
 
-    func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
+    final func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
         MusicTrackMoveEvents(ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
                              timestamp.beats)
     }
     
-    func load(from other: MIDITrackImpl) {
+    final func load(from other: MIDITrackImpl) {
         clearAll()
         copyInsert(from: other, in: other.timerange, at: other.startTime)
     }
 
-    func clear(_ timerange: Range<Timestamp>) {
+    final func clear(_ timerange: Range<Timestamp>) {
         MusicTrackClear(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats)
     }
 
-    func clearAll() {
+    final func clearAll() {
         clear(timerange)
     }
     
-    func cut(_ timerange: Range<Timestamp>) {
+    final func cut(_ timerange: Range<Timestamp>) {
         MusicTrackCut(ref,
                       timerange.lowerBound.beats,
                       timerange.upperBound.beats)
     }
 
-    func copyInsert(from other: MIDITrackImpl,
+    final func copyInsert(from other: MIDITrackImpl,
                              in timerange: Range<Timestamp>? = nil,
                              at timestamp: Timestamp? = nil) {
         let tr = timerange ?? other.timerange
@@ -242,7 +242,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
                              timestamp?.beats ?? 0)
     }
     
-    func merge(with other: MIDITrackImpl,
+    final func merge(with other: MIDITrackImpl,
                         in timerange: Range<Timestamp>? = nil,
                         at timestamp: Timestamp? = nil) {
         let tr = timerange ?? other.timerange
@@ -253,7 +253,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
                         timestamp?.beats ?? 0)
     }
 
-    func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
+    final func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         //        remove(÷
         //        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
         guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
@@ -267,7 +267,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    func remove(_ timerange: Range<Timestamp>, predicate: ((Element) -> Bool)? = nil) {
+    final func remove(_ timerange: Range<Timestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDIIterator(self, timerange: timerange)
         while let n = i.next() {
             let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
@@ -277,7 +277,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    func remove() {
+    final func remove() {
         
     }
 
