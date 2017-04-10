@@ -10,9 +10,10 @@ import Foundation
 import AudioToolbox
 
 public struct MIDIEvent : Equatable, Comparable, Hashable {
-    let timestamp: MusicTimeStamp
-    let type: MIDIEventType
-    let data: Data
+    public typealias Timestamp = MusicTimeStamp
+    public let timestamp: Timestamp
+    public let type: MIDIEventType
+    public let data: Data
     
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp == rhs.timestamp &&
@@ -20,6 +21,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable {
                 lhs.data == rhs.data
     }
     
+    /// Comparison is based on timestamp
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp < rhs.timestamp
     }
