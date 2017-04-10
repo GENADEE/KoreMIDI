@@ -21,13 +21,13 @@ public class MIDIIterator : IteratorProtocol {
     public typealias Element = MIDIEvent
     
     private let _ref: MusicEventIterator
-    private let content: MIDITrackImpl
+    private let _content: MIDITrackImpl
 
     private let timerange: Range<MIDITimestamp>?
     
     internal init(_ content: MIDITrackImpl, timerange: Range<MIDITimestamp>? = nil) {
-        self.content = content
-        self._ref = MIDIIteratorCreate(ref : content.ref)
+        self._content = content
+        self._ref = MIDIIteratorCreate(ref : _content.ref)
         self.timerange = timerange
         timerange.map {
             self._seek(to: $0.lowerBound)
@@ -49,29 +49,7 @@ public class MIDIIterator : IteratorProtocol {
     }
     
     public final var current: Element? {
-        while _hasCurrent {
-            
-            let n = MIDIIteratorGetCurrent(ref: _ref)
-            
-            _move()
-            return n
-            
-//            n.data.copyBytes(to: <#T##UnsafeMutableBufferPointer<DestinationType>#>)
-//            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-//            EventInfo(timestamp: beats, type: type, data: Data(bytes: data, count: Int(size)))
-//            
-//            if type == kMusicEventType_MIDINoteMessage {
-//                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-//                let tt = MIDITimestamp(base: content.parent._impl, beats: beats)
-//                if (timerange.map { $0.contains(tt) }) ?? true {
-//                    return MIDINote(timestamp: tt, msg: p.pointee)
-//                }
-//                return nil
-//            }
-
-            
-        }
-        return nil
+        return MIDIIteratorGetCurrent(ref: _ref)
     }
     
     subscript(element : Element) -> Element {
@@ -84,25 +62,7 @@ public class MIDIIterator : IteratorProtocol {
             
         }
     }
-    
-//    func current1() -> Element? {
-//        
-//        while _hasCurrent {
-//            let e = MIDIIteratorGetCurrent(ref: ref)
-//            if e?.type == kMusicEventType_MIDINoteMessage{
-//                
-//            }
-//            MusicEventIteratorGetEventInfo(ref, &beats, &type, &data, &size)
-//            if type == kMusicEventType_MIDINoteMessage {
-//                let p = data.map {  $0.bindMemory(to: MIDINoteMessage.self, capacity: 1) }!
-//                let tt = MIDITimestamp(base: content.parent, beats: beats)
-//                return (tt, p.pointee)
-//            }
-//            move()
-//        }
-//        return nil
-//    }
-    
+
     public func remove() {
         //
     }
@@ -111,11 +71,7 @@ public class MIDIIterator : IteratorProtocol {
 //        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
         fatalError()
     }
-    
-    private var _hasCurrent: Bool {
-        return MIDIIteratorHasCurrent(ref: _ref)
-    }
-    
+
     private func _seek(to timestamp: MIDITimestamp) {
         MusicEventIteratorSeek(_ref, timestamp.beats)
     }
