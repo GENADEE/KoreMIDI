@@ -53,7 +53,7 @@ public class MIDIIterator : IteratorProtocol {
             
             let n = MIDIIteratorGetCurrent(ref: _ref)
             
-            move()
+            _move()
             return n
             
 //            n.data.copyBytes(to: <#T##UnsafeMutableBufferPointer<DestinationType>#>)
@@ -120,21 +120,22 @@ public class MIDIIterator : IteratorProtocol {
         MusicEventIteratorSeek(_ref, timestamp.beats)
     }
     
-    private func move() {
+    private func _move() {
         MusicEventIteratorNextEvent(_ref)
     }
     
     public func next() -> Element? {
         defer {
-            move()
+            _move()
         }
         return current
         
     }
 }
 
-final class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
-    override func next() -> Element? {
+
+class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
+    final override func next() -> Element? {
         while let n = super.next() {
             if n.type == Event.type1 {
                 return n
@@ -143,6 +144,9 @@ final class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
         return nil
     }
 }
+
+
+
 
 //class MIDITrackFilteringIterator : MIDIIterator {
 //    public init(_ content: MIDITrack, timerange: Range<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
