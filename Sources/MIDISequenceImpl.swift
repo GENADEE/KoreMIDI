@@ -27,12 +27,12 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         ref = MusicTrackGetSequence(track.ref)
     }
     
-    internal init(url: URL) {
-        ref = MIDISequenceImport(url: url)
+    internal init(import url: URL) {
+        ref = MIDISequenceImport(url)
     }
     
     internal init(import data: Data) {
-        ref = MIDISequenceImport(import: data)
+        ref = MIDISequenceImport(data)
     }
     
     internal func copy() -> MIDISequenceImpl {

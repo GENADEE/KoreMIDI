@@ -29,17 +29,13 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //        return MIDISequence(import: export())
 //    }
     
-    internal init(impl: MIDISequenceImpl) {
-        _impl = impl
-    }
-    
     public init() {
         _impl = MIDISequenceImpl()
 //        self.path = nil
     }
     
     public init(url: URL) {
-        _impl = MIDISequenceImpl(url: url)
+        _impl = MIDISequenceImpl(import: url)
 //        self.path = path
     }
     
@@ -69,8 +65,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i + 1
     }
 
-
-    
     public var startTime : MIDITimestamp? {
         return _impl.startTime
     }
@@ -124,8 +118,12 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
             _impl = _impl.copy()
         }
     }
-
-    internal var _impl: MIDISequenceImpl
+    
+    internal init(impl: MIDISequenceImpl) {
+        _impl = impl
+    }
+    
+    internal private(set) var _impl: MIDISequenceImpl
 }
 
 

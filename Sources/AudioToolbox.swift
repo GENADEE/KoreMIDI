@@ -20,14 +20,14 @@ func MIDISequenceCreate() -> MusicSequence {
 }
 
 @inline(__always) internal
-func MIDISequenceImport(url: URL) -> MusicSequence {
+func MIDISequenceImport(_ url: URL) -> MusicSequence {
     let seq = MIDISequenceCreate()
     MusicSequenceFileLoad(seq, url as CFURL, .midiType, .smf_ChannelsToTracks)
     return seq
 }
 
 @inline(__always) internal
-func MIDISequenceImport(import data: Data) -> MusicSequence {
+func MIDISequenceImport(_ data: Data) -> MusicSequence {
 //    let seq = MIDISequenceCreate()
 //    let url = URL(fileURLWithPath: path) as CFURL
 //    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
