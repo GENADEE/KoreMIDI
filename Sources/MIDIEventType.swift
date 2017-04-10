@@ -96,6 +96,7 @@ public struct MIDIEventType: OptionSet, Hashable {
         return rawValue.hashValue
     }
     
+    public static let none = MIDIEventType(rawValue: kMusicEventType_NULL)
     public static let extendedNote = MIDIEventType(rawValue: kMusicEventType_ExtendedNote)
     public static let extendedTempo = MIDIEventType(rawValue: kMusicEventType_ExtendedTempo)
     public static let user = MIDIEventType(rawValue: kMusicEventType_User)
@@ -133,6 +134,9 @@ public struct MIDIEventType: OptionSet, Hashable {
         }
         else if type == AUPresetEvent.self {
             self = .auPreset
+        }
+        else if type == MIDIEvent.self {
+            self = .none
         }
         else {
             fatalError()

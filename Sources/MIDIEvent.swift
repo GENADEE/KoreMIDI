@@ -45,7 +45,30 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
     }
     
     public func insert(to: MIDITrack, at timestamp: MIDITimestamp) {
-        fatalError()
+        
+        switch type {
+        case MIDIEventType.extendedNote:
+            fatalError()
+        case MIDIEventType.extendedTempo:
+            fatalError()
+        case MIDIEventType.user:
+            fatalError()
+        case MIDIEventType.meta:
+            fatalError()
+        case MIDIEventType.note:
+            MIDINoteMessage(event: self)!.insert(to: to, at: timestamp)
+        case MIDIEventType.channel:
+            fatalError()
+        case MIDIEventType.rawData:
+            fatalError()
+        case MIDIEventType.parameter:
+            fatalError()
+        case MIDIEventType.auPreset:
+            fatalError()
+
+        default: fatalError()
+        }
+        
     }
 }
 

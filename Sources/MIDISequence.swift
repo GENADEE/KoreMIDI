@@ -17,7 +17,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 //    func copy() -> MIDISequence {
 //        return MIDISequence(import: export())
 //    }
-    
+
     public init() {
         _impl = MIDISequenceImpl()
 //        self.path = nil

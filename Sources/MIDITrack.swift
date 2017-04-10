@@ -31,7 +31,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public subscript(timerange timerange: Range<MIDITimestamp>) -> AnyIterator<Element> {
         return _impl[timerange: timerange]
     }
-    
+
     public var startTime : MIDITimestamp {
         get {
             return _impl.startTime
