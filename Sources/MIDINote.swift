@@ -20,8 +20,8 @@ public struct MIDINote : Equatable, Hashable, CustomStringConvertible {
         return timestamp.advanced(by: MIDITimestamp.Stride(duration))
     }
     
-    var timerange: ClosedRange<MIDITimestamp> {
-        return timestamp...endstamp
+    var timerange: Range<MIDITimestamp> {
+        return timestamp..<endstamp
     }
     
     internal init(timestamp: MIDITimestamp, msg: MIDINoteMessage) {

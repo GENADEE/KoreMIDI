@@ -13,10 +13,10 @@ func tee<T>(_ obj: T) -> T {
     return obj
 }
 
-extension ClosedRange {
-    func union(_ other: ClosedRange) -> ClosedRange<Bound>{
+extension Range {
+    func union(_ other: Range<Bound>) -> Range<Bound>{
         let s = [lowerBound, upperBound, other.lowerBound, other.upperBound].sorted()
-        return s.first!...s.last!
+        return s.first!..<s.last!
     }
 }
 

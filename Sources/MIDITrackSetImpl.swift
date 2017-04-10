@@ -24,7 +24,6 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return _parent ?? MIDISequenceImpl(for: self)
     }
     
-    
     internal var isParentUnique : Bool {
         return _parent == nil
     }
@@ -54,8 +53,8 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return cpy
     }
     
-    internal var timerange: ClosedRange<MIDITimestamp> {
-        return startTime...endTime
+    internal var timerange: Range<MIDITimestamp> {
+        return startTime..<endTime
     }
     
     internal static func ==(lhs: MIDITrackImpl, rhs: MIDITrackImpl) -> Bool {
@@ -79,7 +78,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         return "MIDITrackImpl(in:\(timerange), \(opts))"
     }
     
-    internal subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element> {
+    internal subscript(timerange timerange: Range<MIDITimestamp>) -> AnyIterator<Element> {
         fatalError()
     }
     
@@ -199,7 +198,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     //    mutating
-    internal func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
+    internal func move(_ timerange: Range<MIDITimestamp>, to timestamp: MIDITimestamp) {
         MusicTrackMoveEvents(ref,
                              timerange.lowerBound.beats,
                              timerange.upperBound.beats,
@@ -212,7 +211,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     //    mutating
-    internal func clear(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func clear(_ timerange: Range<MIDITimestamp>) {
         MusicTrackClear(ref,
                         timerange.lowerBound.beats,
                         timerange.upperBound.beats)
@@ -223,7 +222,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     //    mutating
-    internal func cut(_ timerange: ClosedRange<MIDITimestamp>) {
+    internal func cut(_ timerange: Range<MIDITimestamp>) {
         MusicTrackCut(ref,
                       timerange.lowerBound.beats,
                       timerange.upperBound.beats)
@@ -231,7 +230,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     //    mutating
     internal func copyInsert(from other: MIDITrackImpl,
-                             in timerange: ClosedRange<MIDITimestamp>? = nil,
+                             in timerange: Range<MIDITimestamp>? = nil,
                              at timestamp: MIDITimestamp? = nil) {
         let tr = timerange ?? other.timerange
         MusicTrackCopyInsert(other.ref,
@@ -243,7 +242,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     //    mutating
     internal func merge(with other: MIDITrackImpl,
-                        in timerange: ClosedRange<MIDITimestamp>? = nil,
+                        in timerange: Range<MIDITimestamp>? = nil,
                         at timestamp: MIDITimestamp? = nil) {
         let tr = timerange ?? other.timerange
         MusicTrackMerge(other.ref,
@@ -274,7 +273,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
 
-    internal func remove(_ timerange: ClosedRange<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
+    internal func remove(_ timerange: Range<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
         let i = MIDITrackIterator(self, timerange: timerange)
         while let n = i.next() {
             let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)

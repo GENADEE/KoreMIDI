@@ -68,7 +68,7 @@
 //        return cpy
 //    }
 //    
-//    internal var timerange: ClosedRange<MIDITimestamp> {
+//    internal var timerange: Range<MIDITimestamp> {
 //        return startTime...endTime
 //    }
 //    
@@ -95,7 +95,7 @@
 //        return "MIDITrackImpl(in:\(timerange), \(opts))"
 //    }
 //    
-//    internal subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element> {
+//    internal subscript(timerange timerange: Range<MIDITimestamp>) -> AnyIterator<Element> {
 //        fatalError()
 //    }
 //    
@@ -190,7 +190,7 @@
 //    }
 //    
 ////    mutating
-//    func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp) {
+//    func move(_ timerange: Range<MIDITimestamp>, to timestamp: MIDITimestamp) {
 //        MusicTrackMoveEvents(ref,
 //                             timerange.lowerBound.beats,
 //                             timerange.upperBound.beats,
@@ -198,7 +198,7 @@
 //    }
 //    
 ////    mutating
-//    func clear(_ timerange: ClosedRange<MIDITimestamp>) {
+//    func clear(_ timerange: Range<MIDITimestamp>) {
 //        MusicTrackClear(ref,
 //                        timerange.lowerBound.beats,
 //                        timerange.upperBound.beats)
@@ -209,14 +209,14 @@
 //    }
 //    
 ////    mutating
-//    func cut(_ timerange: ClosedRange<MIDITimestamp>) {
+//    func cut(_ timerange: Range<MIDITimestamp>) {
 //        MusicTrackCut(ref,
 //                      timerange.lowerBound.beats,
 //                      timerange.upperBound.beats)
 //    }
 //    
 ////    mutating
-//    func copyInsert(from other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+//    func copyInsert(from other: MIDITrackImpl, in timerange: Range<MIDITimestamp>, at timestamp: MIDITimestamp) {
 //        MusicTrackCopyInsert(other.ref,
 //                             timerange.lowerBound.beats,
 //                             timerange.upperBound.beats,
@@ -225,7 +225,7 @@
 //    }
 //    
 ////    mutating
-//    func merge(with other: MIDITrackImpl, in timerange: ClosedRange<MIDITimestamp>, at timestamp: MIDITimestamp) {
+//    func merge(with other: MIDITrackImpl, in timerange: Range<MIDITimestamp>, at timestamp: MIDITimestamp) {
 //        MusicTrackMerge(other.ref,
 //                        timerange.lowerBound.beats,
 //                        timerange.upperBound.beats,
@@ -244,7 +244,7 @@
 //        fatalError()
 //    }
 //    
-//    func remove(_ timerange: ClosedRange<MIDITimestamp>) {
+//    func remove(_ timerange: Range<MIDITimestamp>) {
 //        fatalError()
 //    }
 //}

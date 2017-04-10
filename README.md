@@ -42,13 +42,13 @@ struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, C
 ```
 struct MIDITrack <Element> : Sequence, Hashable, Equatable {
     init()
-    var timerange: ClosedRange<MIDITimestamp> { get }
+    var timerange: Range<MIDITimestamp> { get }
     var startTime: MIDITimestamp { get }
     var endTime: MIDITimestamp { get }
     var duration : Int { get set }
 
     /// 
-    subscript(timerange timerange: ClosedRange<MIDITimestamp>) -> AnyIterator<Element>
+    subscript(timerange timerange: Range<MIDITimestamp>) -> AnyIterator<Element>
 
     var loopInfo : Int { get set }
     var muted : Bool { get set }
@@ -56,7 +56,7 @@ struct MIDITrack <Element> : Sequence, Hashable, Equatable {
     var automatedParams : Bool { get set }
     var timeResolution : Int { get set } 
     
-    mutating func move(_ timerange: ClosedRange<MIDITimestamp>, to timestamp: MIDITimestamp)
+    mutating func move(_ timerange: Range<MIDITimestamp>, to timestamp: MIDITimestamp)
     
 }
 ```

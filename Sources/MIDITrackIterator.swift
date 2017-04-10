@@ -23,9 +23,9 @@ public class MIDITrackIterator : IteratorProtocol {
     private let ref: MusicEventIterator
     private let content: MIDITrackImpl
 
-    private let timerange: ClosedRange<MIDITimestamp>?
+    private let timerange: Range<MIDITimestamp>?
     
-    internal init(_ content: MIDITrackImpl, timerange: ClosedRange<MIDITimestamp>? = nil) {
+    internal init(_ content: MIDITrackImpl, timerange: Range<MIDITimestamp>? = nil) {
         self.content = content
         self.ref = MIDIIteratorCreate(ref : content.ref)
         self.timerange = timerange
@@ -34,7 +34,7 @@ public class MIDITrackIterator : IteratorProtocol {
         }
     }
     
-    internal init(_ content: MIDITrackImpl, timerange: ClosedRange<MusicTimeStamp>) {
+    internal init(_ content: MIDITrackImpl, timerange: Range<MusicTimeStamp>) {
         fatalError()
 //        self.content = content
 //        self.ref = MIDIIteratorCreate(ref : content.ref)
@@ -145,7 +145,7 @@ class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
 }
 
 //class MIDITrackFilteringIterator : MIDITrackIterator {
-//    public init(_ content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
+//    public init(_ content: MIDITrack, timerange: Range<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
 //        
 //    }
 //}
@@ -153,9 +153,9 @@ class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
 //struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
 //    
 //    let content: MIDITrack
-//    let timerange: ClosedRange<MIDITimestamp>?
+//    let timerange: Range<MIDITimestamp>?
 //    
-//    init(content: MIDITrack, timerange: ClosedRange<MIDITimestamp>? = nil) {
+//    init(content: MIDITrack, timerange: Range<MIDITimestamp>? = nil) {
 //        self.content = content
 //        self.timerange = timerange
 //    }
