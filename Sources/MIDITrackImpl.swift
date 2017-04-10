@@ -39,7 +39,7 @@
 //}
 //
 //internal final class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-//    internal typealias Iterator = MIDITrackIterator
+//    internal typealias Iterator = MIDIIterator
 //    internal typealias Element = Iterator.Element
 //    
 //    internal let ref : MusicTrack
@@ -108,7 +108,7 @@
 //    }
 //    
 //    internal func makeIterator() -> Iterator {
-////        return MIDITrackIterator(self)
+////        return MIDIIterator(self)
 //        fatalError()
 //    }
 //    

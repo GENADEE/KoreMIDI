@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
-    public typealias Iterator = MIDITrackIterator
+    public typealias Iterator = MIDIIterator
     public typealias Element = Iterator.Element
 
     public init() {

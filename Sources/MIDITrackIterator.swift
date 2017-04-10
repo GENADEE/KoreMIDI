@@ -15,7 +15,7 @@ protocol List : Sequence {
 }
 
 
-public class MIDITrackIterator : IteratorProtocol {
+public class MIDIIterator : IteratorProtocol {
     //    typealias MIDITimestamp = Double
 //    public typealias Element = (timestamp: MIDITimestamp, event: MIDINoteMessage)
     public typealias Element = MIDIEvent
@@ -133,7 +133,7 @@ public class MIDITrackIterator : IteratorProtocol {
     }
 }
 
-class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
+class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDIIterator {
     override func next() -> Element? {
         while let n = super.next() {
             if n.type == Event.type1 {
@@ -144,7 +144,7 @@ class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
     }
 }
 
-//class MIDITrackFilteringIterator : MIDITrackIterator {
+//class MIDITrackFilteringIterator : MIDIIterator {
 //    public init(_ content: MIDITrack, timerange: Range<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
 //        
 //    }
@@ -161,7 +161,7 @@ class TypedMIDIIterator<Event : MIDIEventConvertible> : MIDITrackIterator {
 //    }
 //    
 //    func makeIterator() -> AnyIterator<Element> {
-//        let i = MIDITrackIterator(content, timerange: timerange)
+//        let i = MIDIIterator(content, timerange: timerange)
 //        
 //        return AnyIterator {
 //            while let n = i.next() {

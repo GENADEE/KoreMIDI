@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-    internal typealias Iterator = MIDITrackIterator
+    internal typealias Iterator = MIDIIterator
     internal typealias Element = Iterator.Element
     
     internal let ref : MusicTrack
@@ -101,9 +101,9 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
     
     internal func makeIterator() -> Iterator {
-        //        return MIDITrackIterator(self)
+        //        return MIDIIterator(self)
 //        fatalError()
-        return MIDITrackIterator(self)
+        return MIDIIterator(self)
     }
     
     internal var hashValue: Int {
@@ -191,7 +191,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
         set {
 //            guard element != newValue else { return }
-//            let i = MIDITrackIterator(self, timerange: element.timerange)
+//            let i = MIDIIterator(self, timerange: element.timerange)
 //            i[element] = newValue
             fatalError()
         }
@@ -265,7 +265,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
         let s = Set(elements)
         
-        let i = MIDITrackIterator(self, timerange: range)
+        let i = MIDIIterator(self, timerange: range)
         while let n = i.next() {
             if s.contains(n) {
                 i.remove()
@@ -274,7 +274,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     }
 
     internal func remove(_ timerange: Range<MIDITimestamp>, predicate: ((Element) -> Bool)? = nil) {
-        let i = MIDITrackIterator(self, timerange: timerange)
+        let i = MIDIIterator(self, timerange: timerange)
         while let n = i.next() {
             let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
             if timerange.contains(t) || (predicate.map { $0(n) } ?? false) {
@@ -386,7 +386,7 @@ final class TypedTrackImpl<Element : MIDIEventConvertible> : MIDITrackImpl {
 //    ///   set and `[newMember]`, or `nil` if the intersection is empty.
 //    @discardableResult
 //    public final func update(with newMember: Element) -> Element? {
-////        var i = MIDITrackIterator(self, timerange: newMember.time)
+////        var i = MIDIIterator(self, timerange: newMember.time)
 //        
 //        
 ////        return content.update(with: newMember)

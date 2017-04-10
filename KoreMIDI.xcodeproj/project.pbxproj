@@ -23,7 +23,7 @@
 		373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4171E98154600DC1E15 /* MIDINote.swift */; };
 		373BE4301E9816F800DC1E15 /* MIDISequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* MIDISequence.swift */; };
 		373BE4311E9816F800DC1E15 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B150011E98059100CBDB07 /* Classifier.swift */; };
-		373BE4321E9816F800DC1E15 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Timestamp.swift */; };
+		373BE4321E9816F800DC1E15 /* MIDITimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* MIDITimestamp.swift */; };
 		373BE4341E98238500DC1E15 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4331E98238500DC1E15 /* Timer.swift */; };
 		373BE4351E9823A900DC1E15 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4331E98238500DC1E15 /* Timer.swift */; };
 		373BE44A1E98344000DC1E15 /* MIDISequenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4491E98344000DC1E15 /* MIDISequenceImpl.swift */; };
@@ -51,7 +51,7 @@
 		OBJ_40 /* MIDISequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* MIDISequence.swift */; };
 		OBJ_42 /* MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* MIDITrack.swift */; };
 		OBJ_43 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
-		OBJ_44 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Timestamp.swift */; };
+		OBJ_44 /* MIDITimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* MIDITimestamp.swift */; };
 		OBJ_51 /* KoreMIDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* KoreMIDITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,7 +101,7 @@
 		OBJ_16 /* MIDISequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISequence.swift; sourceTree = "<group>"; };
 		OBJ_18 /* MIDITrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrack.swift; sourceTree = "<group>"; };
 		OBJ_19 /* MIDITrackProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackProperty.swift; sourceTree = "<group>"; };
-		OBJ_20 /* Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
+		OBJ_20 /* MIDITimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITimestamp.swift; sourceTree = "<group>"; };
 		OBJ_23 /* KoreMIDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDITests.swift; sourceTree = "<group>"; };
 		OBJ_25 /* KoreMIDI */ = {isa = PBXFileReference; lastKnownFileType = text; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_26 /* KoreMIDITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreMIDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,7 +206,7 @@
 				OBJ_16 /* MIDISequence.swift */,
 				373BE4491E98344000DC1E15 /* MIDISequenceImpl.swift */,
 				37B150011E98059100CBDB07 /* Classifier.swift */,
-				OBJ_20 /* Timestamp.swift */,
+				OBJ_20 /* MIDITimestamp.swift */,
 				371120011E985E420037DFFA /* MIDIProject.swift */,
 			);
 			path = Sources;
@@ -325,7 +325,7 @@
 				373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */,
 				373BE4301E9816F800DC1E15 /* MIDISequence.swift in Sources */,
 				373BE4311E9816F800DC1E15 /* Classifier.swift in Sources */,
-				373BE4321E9816F800DC1E15 /* Timestamp.swift in Sources */,
+				373BE4321E9816F800DC1E15 /* MIDITimestamp.swift in Sources */,
 				373BE4201E9816D300DC1E15 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,7 +355,7 @@
 				OBJ_42 /* MIDITrack.swift in Sources */,
 				373BE4341E98238500DC1E15 /* Timer.swift in Sources */,
 				OBJ_43 /* MIDITrackProperty.swift in Sources */,
-				OBJ_44 /* Timestamp.swift in Sources */,
+				OBJ_44 /* MIDITimestamp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
