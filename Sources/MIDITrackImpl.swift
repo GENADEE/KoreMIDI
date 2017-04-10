@@ -89,10 +89,10 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     
     var startTime : MIDITimestamp {
         get {
-            return MIDITimestamp(base: parent._impl, beats: offsetTime)
+            return MIDITimestamp(base: parent._impl, beats: _offsetTime)
         }
         set {
-            self.offsetTime = newValue.beats
+            _offsetTime = newValue.beats
         }
     }
     
@@ -101,7 +101,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
             return startTime.advanced(by: _duration)
         }
         set {
-            _duration = offsetTime + newValue.beats
+            _duration = _offsetTime + newValue.beats
         }
     }
     
@@ -182,7 +182,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         }
     }
     
-    private var offsetTime : MusicTimeStamp {
+    private var _offsetTime : MusicTimeStamp {
         get {
             //            let offset = self[.offsetTime]
             return get(.offsetTime)
