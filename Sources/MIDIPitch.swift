@@ -9,11 +9,12 @@
 import Foundation
 
 public struct MIDIPitch : Comparable, Hashable {
+    public typealias Interval = Int
     private let range = 0..<UInt8.max
-    
+
     private let content: UInt8
 
-    public static func +(lhs: MIDIPitch, rhs: MIDIPitch) -> MIDIPitch {
+    public static func +(lhs: MIDIPitch, rhs: MIDIPitch) -> MIDIPitch? {
         fatalError()
     }
     
@@ -28,7 +29,4 @@ public struct MIDIPitch : Comparable, Hashable {
     public var hashValue: Int {
         return content.hashValue
     }
-//    func makeIterator() -> AnyIterator<MIDIPitch> {
-//        return
-//    }
 }
