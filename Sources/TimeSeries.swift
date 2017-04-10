@@ -26,6 +26,7 @@ public protocol TimeSeries : Sequence, Temporal {
 }
 
 protocol MutableTimeSeries : TimeSeries {
+    
     subscript(timerange: Range<Timestamp>) -> SubSequence { get set }
 }
 

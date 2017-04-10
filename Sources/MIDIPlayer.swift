@@ -8,26 +8,30 @@
 
 import AVFoundation
 
+struct MIDIBank {
+    let path : String
+}
+
 class MIDIPlayer {
     let sequence : MIDISequence
 
-    private var player: AVMIDIPlayer? = nil
-    private var isDirty : Bool = true
+    private var _player: AVMIDIPlayer? = nil
+    private var _isDirty : Bool = true
+    
     
     init(sequence: MIDISequence) {
         self.sequence = sequence
     }
     
     private func reload() {
-        if isDirty {
-            
-            isDirty = false
+        if _isDirty {
+            _player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: nil)
+            _isDirty = false
         }
         
     }
 
     func prepareToPlay() {
-        player?.prepareToPlay()
-        
+        _player?.prepareToPlay()
     }
 }
