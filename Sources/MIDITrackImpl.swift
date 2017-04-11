@@ -16,7 +16,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
     public typealias Timestamp = MIDITimestamp
     
     let ref : MusicTrack
-    private weak var _parent: MIDISequenceImpl? = nil
+    private var _parent: MIDISequenceImpl? = nil
     
     var parent : MIDISequence {
         return MIDISequence(impl: parentImpl)
@@ -34,7 +34,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         let s = MIDISequenceImpl()
         ref = MIDITrackCreate(ref: s.ref)
         
-
+        _parent = s
         //        ref = M
         //        parent = nil
     }

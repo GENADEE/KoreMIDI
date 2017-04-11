@@ -111,7 +111,8 @@ func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data 
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     var r: MusicEventIterator? = nil
-    NewMusicEventIterator(ref, &r)
+    
+    print(NewMusicEventIterator(ref, &r))
     return r!
 }
 
@@ -148,6 +149,7 @@ extension Data {
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
     MusicSequenceNewTrack(ref, &out)
+    
     return out!
 }
 

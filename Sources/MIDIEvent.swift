@@ -44,7 +44,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
         self = event
     }
     
-    public func insert(to: MIDITrack, at timestamp: MIDITimestamp) {
+    public func insert(to: MIDITrack, at timestamp: MusicTimeStamp) {
         
         switch type {
         case MIDIEventType.extendedNote:

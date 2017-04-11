@@ -17,10 +17,15 @@ public protocol Test : Hashable, Comparable {
 public protocol MIDIEventConvertible : Hashable, Comparable {
     static var type : MIDIEventType { get }
     init?(event: MIDIEvent)
-    func insert(to: MIDITrack, at timestamp: MIDITimestamp)
+    func insert(to: MIDITrack, at timestamp: MusicTimeStamp)
 }
 
+extension MIDIEventConvertible {
+    public func insert(to track: MIDITrack, at: MIDITimestamp) {
+        insert(to: track, at: at.beats)
+    }
 
+}
 //extension ExtendedNoteOnEvent: MIDIEventConvertible {
 //    init?(event: MIDIEvent) {
 //        guard event.type == .extendedNote else { return nil }
@@ -170,11 +175,15 @@ extension MIDINoteMessage : MIDIEventConvertible {
     
     public static var type : MIDIEventType { return .note }
 
-    public func insert(to track: MIDITrack, at: MIDITimestamp) {
+
+    public func insert(to track: MIDITrack, at: MusicTimeStamp) {
         var copy = self
-        MusicTrackNewMIDINoteEvent(track._impl.ref, at.beats, &copy)
+        print(track._impl.ref)
+        MusicTrackNewMIDINoteEvent(track._impl.ref, at, &copy)
     }
+
 }
+
 
 
 
