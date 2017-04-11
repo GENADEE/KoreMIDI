@@ -62,7 +62,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    public func makeIterator() -> AnyIterator<MIDIEvent> {
+    public func makeIterator() -> AnyIterator<Element> {
         return _impl.makeIterator()
     }
     
@@ -117,6 +117,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
 //    mutating func insert(_ element: Element) {
 //        _ensureUnique()
+//        
 //        switch element.type {
 //            
 //        }
@@ -164,7 +165,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     mutating
-    func insert(_ event: MIDIEvent, at timestamp: Timestamp) {
+    func insert(_ event: Element, at timestamp: Timestamp) {
         _ensureUnique()
 //        event.insert(to: _impl, at: timestamp)
         fatalError()
