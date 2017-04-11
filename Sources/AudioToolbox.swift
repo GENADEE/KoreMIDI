@@ -146,7 +146,9 @@ extension Data {
 
 @inline(__always) internal
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
-    fatalError()
+    var out : MusicTrack? = nil
+    MusicSequenceNewTrack(ref, &out)
+    return out!
 }
 
 //

@@ -21,12 +21,10 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
 
     public init() {
         _impl = MIDISequenceImpl()
-//        self.path = nil
     }
     
     public init(import url: URL) {
         _impl = MIDISequenceImpl(import: url)
-//        self.path = path
     }
     
     public init(import data: Data) {

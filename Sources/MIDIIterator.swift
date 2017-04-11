@@ -28,7 +28,7 @@ public class MIDIIterator : IteratorProtocol {
     
     internal init(_ content: MIDITrackImpl, timerange: Range<Timestamp>? = nil) {
         self._content = content
-        self._ref = MIDIIteratorCreate(ref : _content.ref)
+        self._ref = MIDIIteratorCreate(ref : content.ref)
         self._timerange = timerange
         timerange.map {
             self._seek(to: $0.lowerBound)

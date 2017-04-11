@@ -34,7 +34,7 @@ internal class MIDITrackImpl : Sequence, Equatable, Comparable, Hashable, Custom
         let s = MIDISequenceImpl()
         ref = MIDITrackCreate(ref: s.ref)
         
-        fatalError()
+
         //        ref = M
         //        parent = nil
     }

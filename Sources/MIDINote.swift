@@ -9,9 +9,10 @@
 import AudioToolbox.MusicPlayer
 
 public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, CustomStringConvertible, Strideable {
-    public typealias Stride = MIDITimestamp.Stride
+    public typealias Timestamp = MIDITimestamp
+    public typealias Stride = Timestamp.Stride
     
-    public let timestamp: MIDITimestamp
+    public let timestamp: Timestamp
     
     internal let _msg: Element
     
@@ -25,7 +26,7 @@ public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, Cu
     }
     
     public func distance(to other: MIDINote) -> Stride {
-        fatalError()
+        return timestamp.distance(to: other.timestamp)
     }
     
     public static func ==(lhs: MIDINote, rhs: MIDINote) -> Bool {
@@ -33,7 +34,7 @@ public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, Cu
     }
     
     public var hashValue: Int {
-        return timestamp.hashValue
+        return timestamp.hashValue ^ Element.type.hashValue
     }
     
     public var description: String {
@@ -42,10 +43,10 @@ public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, Cu
 }
 
 extension MIDINote where Element == MIDINoteMessage {
-    public var timerange: Range<MIDITimestamp> {
+    public var timerange: Range<Timestamp> {
         return timestamp..<endstamp
     }
-    public var endstamp: MIDITimestamp {
+    public var endstamp: Timestamp {
         return timestamp + duration
     }
 

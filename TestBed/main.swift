@@ -9,36 +9,47 @@
 import Foundation
 import AudioToolbox
 
-let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
-
-let s = MIDISequence(import: url)
-
-
-//let notes : [MIDINote] = []
-//
-for (i,track) in s.enumerated() {
-
-    for note in track {
-        print(note)
+func test() {
+    
+    let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
+    
+    let s = MIDISequence(import: url)
+    
+    
+    //let notes : [MIDINote] = []
+    //
+    for (i,track) in s.enumerated() {
+        
+        for note in track {
+            print(note)
+        }
+        //    print(e.timeResolution)
     }
-    //    print(e.timeResolution)
+    
+    for (i, track) in s.enumerated() {
+        print(i, track)
+        //    track[note] = note
+    }
+    
+    
+    
+    var track = s[4]
+    
+    
+    //print(s.start)
+    //print("duration", track.duration)
+    //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
+    
+    print(s.startTime!, s.endTime!.beats)
 }
 
-for (i, track) in s.enumerated() {
-    print(i, track)
-//    track[note] = note
-}
+
+test()
+//let track = MIDITrack()
+
+//print(Array(track))
 
 
-
-var track = s[4]
-
-
-//print(s.start)
-//print("duration", track.duration)
-//track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
-
-print(s.startTime!, s.endTime!.beats)
 
 
 //for a in zip(Timer(), 0...10) {
