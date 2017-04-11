@@ -28,15 +28,14 @@ func MIDISequenceImport(_ url: URL) -> MusicSequence {
 
 @inline(__always) internal
 func MIDISequenceImport(_ data: Data) -> MusicSequence {
-//    let seq = MIDISequenceCreate()
-//    let url = URL(fileURLWithPath: path) as CFURL
-//    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
-//    return seq
-    fatalError()
+    let seq = MIDISequenceCreate()
+    MusicSequenceFileLoadData(seq, data as CFData, .midiType, .smf_ChannelsToTracks)
+    return seq
 }
 
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence) -> Data {
+//    MusicSequenceFileCreateData(ref, .midiType, 0, )
     fatalError()
 //    MusicSequenceFileCreateData(ref, .midiType, .eraseFile)
 //    let seq = MIDISequenceCreate()
@@ -96,13 +95,6 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 //    return out
 //}
 
-@inline(__always) internal
-func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data {
-    var data: Unmanaged<CFData>? = nil
-    fatalError()
-//    MusicSequenceFileCreateData(ref, .midiType, .eraseFile, Int16(resolution), &data)
-//    return (data?.takeRetainedValue() as! Data)
-}
 
 ///
 /// Iterators
@@ -111,21 +103,18 @@ func MusicSequenceCreateData(ref: MusicSequence, resolution: Int = 480) -> Data 
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     var r: MusicEventIterator? = nil
-    
-    print(NewMusicEventIterator(ref, &r))
+    NewMusicEventIterator(ref, &r)
     return r!
 }
 
 @inline(__always) internal
-func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
-    var bool : DarwinBoolean = false
-    MusicEventIteratorHasCurrentEvent(ref, &bool)
-    return Bool(bool)
-}
-
-@inline(__always) internal
 func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
-    
+    func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
+        var bool : DarwinBoolean = false
+        MusicEventIteratorHasCurrentEvent(ref, &bool)
+        return Bool(bool)
+    }
+
     guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
 
     var timestamp: Double = 0
@@ -152,15 +141,6 @@ func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     
     return out!
 }
-
-//
-//@inline(__always) internal
-//func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Int {
-//    var data: UInt32 = 0
-//    var len : UInt32 = 0
-//    MusicTrackGetProperty(ref, prop, &data, &len)
-//    return Int(data)
-//}
 
 @inline(__always) internal
 func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {

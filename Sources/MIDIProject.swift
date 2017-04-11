@@ -13,3 +13,11 @@ import Foundation
 //    
 //    
 //}
+
+//class MIDIProject {
+//    let sequence : MIDISequence
+//}
+//
+//class MIDIProjectController : MIDIProject {
+//    
+//}
