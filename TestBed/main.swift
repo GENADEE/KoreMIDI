@@ -47,7 +47,7 @@ func test() {
 //test()
 let track = MIDITrack()
 let m = MIDINoteMessage(channel: 0, note: 60, velocity: 100, releaseVelocity: 0, duration: 20)
-noErr
+
 m.insert(to: track, at: 10)
 
 for e in track {

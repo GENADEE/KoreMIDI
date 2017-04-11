@@ -147,8 +147,12 @@ extension MIDIEventConvertible {
 //
 // MARK: MIDINoteMessage
 //
-extension MIDINoteMessage : Comparable, Hashable {
+extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
     
+    public var description : String {
+        return "note: \(note), duration: \(duration)"
+    }
+
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return lhs.duration == rhs.duration &&
             lhs.note == rhs.note &&

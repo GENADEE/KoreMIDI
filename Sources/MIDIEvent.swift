@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible {
+public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible, CustomStringConvertible {
     public typealias Timestamp = MusicTimeStamp
     public let timestamp: Timestamp
     public let type: MIDIEventType
@@ -19,6 +19,15 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
         return lhs.timestamp == rhs.timestamp &&
             lhs.type == rhs.type &&
             lhs.data == rhs.data
+    
+    }
+    
+    public var description : String {
+        switch type {
+        case .note:
+            return "Note(timestamp : \(timestamp), \(MIDINoteMessage(event: self)!)"
+        default: fatalError()
+        }
     }
     
     /// Comparison is based on timestamp
@@ -47,23 +56,23 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible 
     public func insert(to: MIDITrack, at timestamp: MusicTimeStamp) {
         
         switch type {
-        case MIDIEventType.extendedNote:
+        case .extendedNote:
             fatalError()
-        case MIDIEventType.extendedTempo:
+        case .extendedTempo:
             fatalError()
-        case MIDIEventType.user:
+        case .user:
             fatalError()
-        case MIDIEventType.meta:
+        case .meta:
             fatalError()
-        case MIDIEventType.note:
+        case .note:
             MIDINoteMessage(event: self)!.insert(to: to, at: timestamp)
-        case MIDIEventType.channel:
+        case .channel:
             fatalError()
-        case MIDIEventType.rawData:
+        case .rawData:
             fatalError()
-        case MIDIEventType.parameter:
+        case .parameter:
             fatalError()
-        case MIDIEventType.auPreset:
+        case .auPreset:
             fatalError()
             
         default: fatalError()
