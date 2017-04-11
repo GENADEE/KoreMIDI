@@ -25,7 +25,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible,
     public var description : String {
         switch type {
         case .note:
-            return "Note(timestamp : \(timestamp), \(MIDINoteMessage(event: self)!)"
+            return "Note(timestamp : \(timestamp), \(MIDINoteMessage(event: self)!))"
         default: fatalError()
         }
     }

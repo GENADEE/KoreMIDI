@@ -115,6 +115,14 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
+//    mutating func insert(_ element: Element) {
+//        _ensureUnique()
+//        switch element.type {
+//            
+//        }
+//        
+//    }
+    
 //    public func map<S: Sequence>(from: S, to: S) where S.Iterator.Element == Element {
 //        
 //    }
