@@ -44,8 +44,8 @@ func test() {
 }
 
 
-test()
-//let track = MIDITrack()
+//test()
+let track = MIDITrack()
 
 //print(Array(track))
 

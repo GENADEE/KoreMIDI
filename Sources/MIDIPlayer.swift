@@ -17,15 +17,17 @@ class MIDIPlayer {
 
     private var _player: AVMIDIPlayer? = nil
     private var _isDirty : Bool = true
+    private let _bank : URL?
     
     
-    init(sequence: MIDISequence) {
+    init(sequence: MIDISequence, bank: URL? = nil) {
         self.sequence = sequence
+        self._bank = bank
     }
     
     private func reload() {
         if _isDirty {
-            _player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: nil)
+            _player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: _bank)
             _isDirty = false
         }
         

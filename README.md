@@ -27,7 +27,7 @@ public protocol TimeSeries : Sequence, Temporal {
 ```
 struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, Comparable {
     typealias Index = Int
-    typealias Element = MIDITrack
+    typealias Element = MIDITrackain
     
 
     
