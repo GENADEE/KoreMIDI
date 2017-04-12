@@ -15,8 +15,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     public typealias Timestamp = MIDITimestamp
 
     public init() {
-        
-        _impl = MIDITrackImpl()
+        _impl = Impl()
     }
 
     public var timerange: Range<Timestamp> {
@@ -33,6 +32,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     public subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
         return _impl[timerange: timerange]
+    }
+    
+    public var parent: MIDISequence {
+        return _impl.parent
     }
 
     public var startTime : Timestamp {
@@ -187,11 +190,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     internal init(seq: MIDISequenceImpl) {
-        _impl = MIDITrackImpl(parent: seq)
+        _impl = Impl(parent: seq)
     }
     
     internal init(seq: MIDISequenceImpl, no: Int) {
-        _impl = MIDITrackImpl(parent: seq, no: no)
+        _impl = Impl(parent: seq, no: no)
     }
     
     private mutating func _ensureUnique() {
@@ -199,5 +202,5 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _impl = _impl.copy()
     }
     
-    internal var _impl : MIDITrackImpl
+    internal var _impl : Impl
 }

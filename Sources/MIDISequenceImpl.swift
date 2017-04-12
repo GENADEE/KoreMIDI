@@ -8,6 +8,9 @@
 
 import AudioToolbox.MusicPlayer
 
+
+
+
 ///
 /// MIDISequence
 ///
@@ -23,7 +26,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         ref = MIDISequenceCreate()
     }
     
-    internal init(for track: MIDITrackImpl) {
+    internal init(for track: MIDITrack.Impl) {
         ref = MusicTrackGetSequence(track.ref)
     }
     
@@ -41,7 +44,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     deinit {
-//        MusicSequenceSetUserCallback(ref, nil, nil)
+        MusicSequenceSetUserCallback(ref, nil, nil)
         DisposeMusicSequence(ref)
     }
     
@@ -112,5 +115,22 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
     internal subscript(index: Index) -> Element {
         return MIDITrack(seq: self, no: index)
+    }
+    
+    private func _registerCallback() {
+        var c = self
+        MusicSequenceSetUserCallback(ref, MIDISequenceImpl._callback, &c)
+    }
+    
+    private static let _callback: MusicSequenceUserCallback = {
+        ref, seq, mt, timestamp, userData, timestamp2, timestamp3 in
+        // Cタイプ関数なのでselfを使えません
+        //let mySelf: Sequencer = bridge(obj)
+        let impl = unsafeBitCast(ref, to: MIDISequenceImpl.self)
+//        for listener in mySelf.midiListeners {
+//            OperationQueue.main.addOperation({
+//                listener.midiSequenceDidFinish()
+//            })
+//        }
     }
 }
