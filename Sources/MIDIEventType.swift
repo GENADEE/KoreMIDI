@@ -45,9 +45,14 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
     public var description : String {
         switch self {
         case .extendedNote: return ".extendedNote"
-        
+        case .extendedTempo: return ".extendedTempo"
+        case .user: return ".user"
+        case .meta: return ".meta"
         case .note: return ".note"
-        default: return "other"
+        case .channel: return ".channel"
+        case .rawData: return ".rawData"
+        case .parameter: return ".parameter"
+        case .auPreset: return ".auPreset"
         }
     }
     
