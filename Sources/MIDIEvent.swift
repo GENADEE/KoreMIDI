@@ -150,11 +150,11 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         return timestamp.hashValue ^ type.hashValue
     }
     
-    public func advanced(by n: Timestamp.Stride) -> MIDIEvent<Timestamp> {
+    public func advanced(by n: Stride) -> MIDIEvent<Timestamp> {
         return MIDIEvent(timestamp: timestamp.advanced(by: n), type: type, data: data)
     }
     
-    public func distance(to other: MIDIEvent) -> Timestamp.Stride {
+    public func distance(to other: MIDIEvent) -> Stride {
         return timestamp.distance(to: other.timestamp)
     }
     
