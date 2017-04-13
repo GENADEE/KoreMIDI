@@ -10,13 +10,13 @@ import Foundation
 import AudioToolbox
 
 
-public protocol TimestampType : Comparable, Strideable {
+public protocol TimestampType : Comparable, Strideable, Hashable {
     var beats: MusicTimeStamp { get }
 }
 
 extension MIDITimestamp : TimestampType { }
 
-public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
+public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Stride = Timestamp.Stride
     
     case extendedNote(Timestamp, ExtendedNoteOnEvent)
@@ -50,6 +50,10 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
         case .auPreset:
             self = .auPreset(timestamp, data.decode())
         }
+    }
+    
+    func map<U : TimestampType>(transform: (Timestamp) -> U) -> MIDIEvent<U> {
+        return MIDIEvent<U>(timestamp: transform(timestamp), type: type, data: data)
     }
     
     public var description : String {

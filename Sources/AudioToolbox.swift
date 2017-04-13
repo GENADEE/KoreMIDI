@@ -104,15 +104,41 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 /// Iterators
 ///
 
+//enum OSResult<T> {
+//    case ok(T), err(OSStatus)
+//    
+//    public init(fun: @autoclosure () -> OSStatus, ok: @autoclosure () -> T) {
+//        let e = fun()
+//        if e == noErr {
+//            self = .ok(ok())
+//        }
+//        else {
+//            self = .err(e)
+//        }
+//    }
+//}
+
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
+//    var r: MusicEventIterator? = nil
+//    return OSResult(fun:
+//        NewMusicEventIterator(ref, &r)
+//    }) {
+//        r!
+//    }
     var r: MusicEventIterator? = nil
     OSAssert(NewMusicEventIterator(ref, &r))
     return r!
 }
 
+extension Double : TimestampType {
+    public var beats : MusicTimeStamp {
+        return MusicTimeStamp(self)
+    }
+}
+
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (ts: MusicTimeStamp, type: MIDIEventType, data: Data)? {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MusicTimeStamp>? {
     func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
         var bool : DarwinBoolean = false
         OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
@@ -127,13 +153,12 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (ts: MusicTimeStamp, typ
     var size : UInt32 = 0
     
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
-
-    return (timestamp, MIDIEventType(rawValue: type), Data(bytes: data!, count: Int(size)))
+    let d = Data(bytes: data!, count: Int(size))
+    return MIDIEvent(timestamp: timestamp,
+                     type: MIDIEventType(rawValue: type),
+                     data: d)
 }
 
-extension Data {
-    
-}
 ///
 /// Tracks
 ///

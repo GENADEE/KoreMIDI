@@ -24,7 +24,7 @@ extension Range where Bound == MIDITimestamp {
 
 public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MusicTimeStamp
-    public typealias Element = (ts: MusicTimeStamp, type: MIDIEventType, data: Data)
+    public typealias Element = MIDIEvent<Timestamp>
     
     internal init(_ content: MIDITrack.Impl, timerange: Range<Timestamp>? = nil) {
         self._content = content
@@ -35,19 +35,20 @@ public class MIDIIterator: IteratorProtocol {
         }
     }
     
-//    internal init(_ content: MIDITrack.Impl, timerange: Range<Timestamp>) {
-//        self._content = content
-//        self._ref = MIDIIteratorCreate(ref: _content.ref)
-//        self._timerange = timerange
-//        self._seek(to: _timerange!.lowerBound)
-//    }
-    
     deinit {
         DisposeMusicEventIterator(_ref)
     }
     
     private final var _current: Element? {
-        return MIDIIteratorGetCurrent(ref: _ref)
+        if let e = MIDIIteratorGetCurrent(ref: _ref) {
+            if let r = _timerange, !r.contains(e.timestamp) {
+                if !r.contains(e.timestamp) {
+                    return nil
+                }
+            }
+            return e
+        }
+        return nil
     }
     
     subscript(element : Element) -> Element {

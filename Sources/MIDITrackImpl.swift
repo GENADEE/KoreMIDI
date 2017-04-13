@@ -131,7 +131,7 @@ extension MIDITrack {
             let s = self.parentImpl
             return AnyIterator {
                 i.next().map {
-                    let t = Timestamp(base: s, beats: $0.ts)
+                    let t = Timestamp(base: s, beats: $0.timestamp)
                     return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
                 }
             }
@@ -308,17 +308,18 @@ extension MIDITrack {
         }
         
         final func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
-            //        remove(÷
-            //        guard let range = (elements.lazy.map { $0.timerange }.reduce { $0.union($1) }) else { return }
             guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
             let s = Set(elements)
             
-//            let i = MIDIIterator(self, timerange: range)
-//            while let n = i.next() {
-//                if s.contains(n) {
-//                    i.remove()
-//                }
-//            }
+            let i = MIDIIterator(self, timerange: range.lowerBound.beats..<range.upperBound.beats)
+            
+            while let n = i.next() {
+                let ts = Timestamp(base: parentImpl, beats: n.timestamp)
+                let e = Element(timestamp: ts, type: n.type, data: n.data)
+                if s.contains(e) {
+                    i.remove()
+                }
+            }
         }
         
         final func remove(_ timerange: Range<Timestamp>, predicate: ((Element) -> Bool)? = nil) {

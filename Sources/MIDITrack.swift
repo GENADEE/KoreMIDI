@@ -119,7 +119,9 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
+    mutating
     public func insert(_ element: Element) {
+        _ensureUnique()
         _impl.insert(element)
     }
     
@@ -172,15 +174,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _impl.merge(with: other._impl, in: timerange, at: timestamp)
     }
     
-    mutating
-    func insert(_ event: Element, at timestamp: Timestamp) {
-        _ensureUnique()
-//        event.insert(to: _impl, at: timestamp)
-        fatalError()
-    }
-
     mutating func remove(_ element : Element) {
-        _ensureUnique()
         remove([element])
     }
     
