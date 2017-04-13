@@ -8,6 +8,10 @@
 
 import AudioToolbox.MusicPlayer
 
+func OSAssert(_ stat: OSStatus) {
+    assert(stat == noErr)
+}
+
 ///
 /// Sequences
 ///
@@ -15,21 +19,21 @@ import AudioToolbox.MusicPlayer
 @inline(__always) internal
 func MIDISequenceCreate() -> MusicSequence {
     var ref : MusicSequence? = nil
-    NewMusicSequence(&ref)
+    OSAssert(NewMusicSequence(&ref))
     return ref!
 }
 
 @inline(__always) internal
 func MIDISequenceImport(_ url: URL) -> MusicSequence {
     let seq = MIDISequenceCreate()
-    MusicSequenceFileLoad(seq, url as CFURL, .midiType, .smf_ChannelsToTracks)
+    OSAssert(MusicSequenceFileLoad(seq, url as CFURL, .midiType, .smf_ChannelsToTracks))
     return seq
 }
 
 @inline(__always) internal
 func MIDISequenceImport(_ data: Data) -> MusicSequence {
     let seq = MIDISequenceCreate()
-    MusicSequenceFileLoadData(seq, data as CFData, .midiType, .smf_ChannelsToTracks)
+    OSAssert(MusicSequenceFileLoadData(seq, data as CFData, .midiType, .smf_ChannelsToTracks))
     return seq
 }
 
@@ -49,42 +53,42 @@ func MIDISequenceExport(ref: MusicSequence) -> Data {
 @inline(__always) internal
 func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
     var c: UInt32 = 0
-    MusicSequenceGetTrackCount(ref, &c)
+    OSAssert(MusicSequenceGetTrackCount(ref, &c))
     return Int(c)
 }
 
 @inline(__always) internal
 func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
     var r : MusicTrack? = nil
-    MusicSequenceGetIndTrack(ref, UInt32(no), &r)
+   OSAssert(MusicSequenceGetIndTrack(ref, UInt32(no), &r))
     return r!
 }
 
 @inline(__always) internal
 func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
     var out: Float64 = 0
-    MusicSequenceGetSecondsForBeats(ref, beats, &out)
+    OSAssert(MusicSequenceGetSecondsForBeats(ref, beats, &out))
     return out
 }
 
 @inline(__always) internal
 func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
     var out: MusicTimeStamp = 0
-    MusicSequenceGetBeatsForSeconds(ref, seconds, &out)
+    OSAssert(MusicSequenceGetBeatsForSeconds(ref, seconds, &out))
     return out
 }
 
 @inline(__always) internal
 func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
     var out: MusicSequenceType = .beats
-    MusicSequenceGetSequenceType(ref, &out)
+    OSAssert(MusicSequenceGetSequenceType(ref, &out))
     return out
 }
 
 @inline(__always) internal
 func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
     var out: MusicSequence? = nil
-    MusicTrackGetSequence(track, &out)
+    OSAssert(MusicTrackGetSequence(track, &out))
     return out!
 }
 
@@ -103,7 +107,7 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     var r: MusicEventIterator? = nil
-    NewMusicEventIterator(ref, &r)
+    OSAssert(NewMusicEventIterator(ref, &r))
     return r!
 }
 
@@ -111,7 +115,7 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (ts: MusicTimeStamp, type: MIDIEventType, data: Data)? {
     func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
         var bool : DarwinBoolean = false
-        MusicEventIteratorHasCurrentEvent(ref, &bool)
+        OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
         return Bool(bool)
     }
 
@@ -122,7 +126,7 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (ts: MusicTimeStamp, typ
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
     
-    MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size)
+    OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
 
     return (timestamp, MIDIEventType(rawValue: type), Data(bytes: data!, count: Int(size)))
 }
@@ -137,7 +141,7 @@ extension Data {
 @inline(__always) internal
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
-    MusicSequenceNewTrack(ref, &out)
+    OSAssert(MusicSequenceNewTrack(ref, &out))
     
     return out!
 }
@@ -146,7 +150,7 @@ func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
 func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
     var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
     var size: UInt32 = 0
-    MusicTrackGetProperty(ref, prop.rawValue, ptr, &size)
+    OSAssert(MusicTrackGetProperty(ref, prop.rawValue, ptr, &size))
 //    fatalError("ownership")
     defer {
         ptr.deinitialize()
@@ -157,41 +161,22 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
 
 @inline(__always) internal
 func MIDITrackSetProperty<T>(ref: MusicTrack, prop: MIDITrackProp, to value: T) {
-    fatalError()
+    var cpy = value
+    OSAssert(MusicTrackSetProperty(ref, prop.rawValue, &cpy, UInt32(MemoryLayout<T>.size)))
 }
 
-
-@inline(__always) internal
-func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: Int) {
-    var data = UInt32(to)
-    MusicTrackSetProperty(ref, prop, &data, UInt32(MemoryLayout<UInt32>.size))
-}
-
-@inline(__always) internal
-func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> MusicTimeStamp {
-    var data: MusicTimeStamp = 0
-    var len : UInt32 = 0
-    MusicTrackGetProperty(ref, prop, &data, &len)
-    return data
-}
-
-@inline(__always) internal
-func MIDITrackSetProperty(ref: MusicTrack, prop: UInt32, to: MusicTimeStamp) {
-    var data = to
-    MusicTrackSetProperty(ref, prop, &data, UInt32(MemoryLayout<MusicTimeStamp>.size))
-}
 
 @inline(__always) internal
 func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, subdivisor: UInt32) -> CABarBeatTime {
     var t = CABarBeatTime()
-    MusicSequenceBeatsToBarBeatTime(ref, beats, subdivisor, &t)
+    OSAssert(MusicSequenceBeatsToBarBeatTime(ref, beats, subdivisor, &t))
     return t
 }
 
 @inline(__always) internal
 func MusicSequenceGetTempoTrack(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
-    MusicSequenceGetTempoTrack(ref, &out)
+    OSAssert(MusicSequenceGetTempoTrack(ref, &out))
     return out!
 }
 

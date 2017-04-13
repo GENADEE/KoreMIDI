@@ -120,13 +120,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     }
     
     public func insert(_ element: Element) {
-        switch element {
-        case let .note(ts, e):
-            var copy = e
-            
-        default:
-            fatalError()
-        }
+        _impl.insert(element)
     }
     
 //    mutating func insert(_ element: Element) {
