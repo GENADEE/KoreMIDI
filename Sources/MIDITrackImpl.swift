@@ -127,8 +127,6 @@ extension MIDITrack {
         }
         
         final func makeIterator() -> AnyIterator<MIDIEvent> {
-            //        return MIDIIterator(self)
-            //        fatalError()
             return AnyIterator(MIDIIterator(self))
         }
         
