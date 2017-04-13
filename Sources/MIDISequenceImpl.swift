@@ -55,6 +55,8 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         DisposeMusicSequence(ref)
     }
     
+    
+    
 //    private static var callback: MusicSequenceUserCallback {
 //        get {
 //            fatalError()
@@ -124,6 +126,9 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return MIDITrack(seq: self, no: index)
     }
     
+    internal lazy var tempoTrack: MIDITrack.Impl = ({
+        return MIDITrack.Impl(tempoTrack: self)
+    })()
     /*
      typedef CALLBACK_API_C(void,MusicSequenceUserCallback)(
      void *inClientData,

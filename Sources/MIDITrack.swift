@@ -119,14 +119,12 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         }
     }
     
-    mutating
-    public func insert(_ element: Element) {
+    public mutating func insert(_ element: Element) {
         _ensureUnique()
         _impl.insert(element)
     }
     
-    mutating
-    public func insert(_ element: MIDIEvent<MusicTimeStamp>) {
+    public mutating func insert(_ element: MIDIEvent<MusicTimeStamp>) {
         _ensureUnique()
         _impl.insert(element)
     }
@@ -144,52 +142,46 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
 //        
 //    }
     
-    mutating
-    func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
+    public mutating func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
         _ensureUnique()
         _impl.move(timerange, to: timestamp)
     }
     
-    mutating
-    func clear(_ timerange: Range<Timestamp>) {
+    public mutating func clear(_ timerange: Range<Timestamp>) {
         _ensureUnique()
         _impl.clear(timerange)
     }
     
-    mutating
-    func load(from other: MIDITrack) {
+    public mutating func load(from other: MIDITrack) {
         _ensureUnique()
         _impl.load(from: other._impl)
     }
     
-    mutating
-    func cut(_ timerange: Range<Timestamp>) {
+    public mutating func cut(_ timerange: Range<Timestamp>) {
         _ensureUnique()
         _impl.cut(timerange)
     }
     
-    mutating
-    func copyInsert(from other: MIDITrack, in timerange: Range<Timestamp>, at timestamp: MIDITimestamp) {
+    public mutating func copyInsert(from other: MIDITrack, in timerange: Range<Timestamp>, at timestamp: MIDITimestamp) {
         _ensureUnique()
         _impl.copyInsert(from: other._impl, in: timerange, at: timestamp)
     }
     
-    mutating
-    func merge(with other: MIDITrack, in timerange: Range<Timestamp>, at timestamp: MIDITimestamp) {
+    public mutating func merge(with other: MIDITrack, in timerange: Range<Timestamp>, at timestamp: MIDITimestamp) {
         _ensureUnique()
         _impl.merge(with: other._impl, in: timerange, at: timestamp)
     }
     
-    mutating func remove(_ element : Element) {
+    public mutating func remove(_ element : Element) {
         remove([element])
     }
     
-    mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
+    public mutating func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
         _ensureUnique()
         _impl.remove(elements)
     }
     
-    mutating func remove(_ timerange: Range<Timestamp>) {
+    public mutating func remove(_ timerange: Range<Timestamp>) {
         _ensureUnique()
         _impl.remove(timerange) { _ in true }
     }
@@ -200,6 +192,10 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     internal init(seq: MIDISequenceImpl, no: Int) {
         _impl = Impl(parent: seq, no: no)
+    }
+    
+    internal init(impl: Impl) {
+        _impl = impl
     }
     
     private mutating func _ensureUnique() {
