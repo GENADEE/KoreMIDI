@@ -100,10 +100,10 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         try _impl.save(to: url)
     }
     
-    public var tempoTrack : MIDITrack {
-//        return MIDITempoTrack(ref: self)
-        fatalError()
-    }
+//    public var tempoTrack : MIDITrackImpl {
+//        return MIDITrackImpl(tempoTrack: self)
+//
+//    }
     
     private mutating func _ensureUnique() {
         guard isKnownUniquelyReferenced(&_impl) else { return }
