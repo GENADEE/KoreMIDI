@@ -9,20 +9,17 @@
 import AudioToolbox.MusicPlayer
 
 
-public protocol TimestampType : Comparable, Strideable {
-    var beats: MusicTimeStamp { get }
-}
 
-extension MIDITimestamp : TimestampType { }
+
 
 
 public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
 
     case extendedNote, extendedTempo, user, meta, note, channel, rawData, parameter, auPreset
 
-    public init?(rawValue: MusicEventType) {
+    public init(rawValue: MusicEventType) {
         switch rawValue {
-//        case kMusicEventType_NULL: fatalError()
+
         case kMusicEventType_ExtendedNote:
             self = .extendedNote
         case kMusicEventType_ExtendedTempo:
@@ -54,7 +51,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
         }
     }
     
-    public var rawValue : UInt32 {
+    public var rawValue : MusicEventType {
         switch self {
         case .extendedNote:
             return kMusicEventType_ExtendedNote

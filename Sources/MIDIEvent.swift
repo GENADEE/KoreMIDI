@@ -9,6 +9,13 @@
 import Foundation
 import AudioToolbox
 
+
+public protocol TimestampType : Comparable, Strideable {
+    var beats: MusicTimeStamp { get }
+}
+
+extension MIDITimestamp : TimestampType { }
+
 public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Stride = Timestamp.Stride
     
@@ -45,16 +52,30 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
         }
     }
     
-    public var description: String {
+    public var description : String {
         switch self {
+        case let .extendedNote(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .extendedTempo(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .user(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .meta(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
         case let .note(ts, e):
-            return ".note(timestamp: \(ts), \(e))"
-        default:
-            return "other"
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .channel(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .rawData(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .parameter(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
+        case let .auPreset(ts, e):
+            return "\(type)(timestamp: \(ts), \(e))"
         }
     }
     
-    public var timestamp: Timestamp {
+    public var timestamp : Timestamp {
         switch self {
         case let .extendedNote(ts, _):
             return ts
@@ -123,8 +144,6 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
         }
     }
     
-
-    
     public var hashValue: Int {
         return timestamp.hashValue ^ type.hashValue
     }
@@ -138,12 +157,9 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
     }
     
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
-        switch (lhs, rhs) {
-        case let (.note(rt, re), .note(lt, le)):
-            return rt == lt && re == le
-        default:
-            fatalError()
-        }
+        return lhs.timestamp == rhs.timestamp &&
+                lhs.type == rhs.type &&
+                lhs.data == rhs.data
     }
     
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
