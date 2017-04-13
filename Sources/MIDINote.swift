@@ -41,20 +41,3 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
         return "timestamp: \(timestamp), duration: \(_msg)"
     }
 }
-
-//extension MIDINote where Element == MIDINoteMessage {
-//    public var timerange: Range<Timestamp> {
-//        return timestamp..<endstamp
-//    }
-//    public var endstamp: Timestamp {
-//        return timestamp + duration
-//    }
-//
-//    public var duration: Stride {
-//        return Stride(_msg.duration)
-//    }
-//    
-//    public var note: UInt8 {
-//        return _msg.note
-//    }
-//}
