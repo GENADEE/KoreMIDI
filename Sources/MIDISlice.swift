@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+/*
 
 public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
     public typealias Timestamp = MIDITimestamp
@@ -56,3 +56,4 @@ public struct MIDISlice<Element : MIDIEventConvertible> : TimeSeries {
         }
     }
 }
+*/

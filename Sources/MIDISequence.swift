@@ -92,8 +92,8 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return _impl.export()
     }
     
-    public func save(to url: URL) {
-        _impl.save(to: url)
+    public func save(to url: URL) throws {
+        try _impl.save(to: url)
     }
     
     public var tempoTrack : MIDITrack {

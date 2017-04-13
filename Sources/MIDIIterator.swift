@@ -22,9 +22,9 @@ extension Range where Bound == MIDITimestamp {
 }
 
 
-public class MIDIIterator<Event : MIDIEventConvertible> : IteratorProtocol {
-    public typealias Timestamp = MIDITimestamp
-    public typealias Element = Event
+public class MIDIIterator: IteratorProtocol {
+    public typealias Timestamp = MusicTimeStamp
+    public typealias Element = (ts: MusicTimeStamp, type: MIDIEventType, data: Data)
     
     internal init(_ content: MIDITrack.Impl, timerange: Range<Timestamp>? = nil) {
         self._content = content
@@ -35,18 +35,18 @@ public class MIDIIterator<Event : MIDIEventConvertible> : IteratorProtocol {
         }
     }
     
-    internal init(_ content: MIDITrack.Impl, timerange: Range<MusicTimeStamp>) {
-        self._content = content
-        self._ref = MIDIIteratorCreate(ref: _content.ref)
-        self._timerange = Range(base: content.parentImpl, timerange: timerange)
-        self._seek(to: _timerange!.lowerBound)
-    }
+//    internal init(_ content: MIDITrack.Impl, timerange: Range<Timestamp>) {
+//        self._content = content
+//        self._ref = MIDIIteratorCreate(ref: _content.ref)
+//        self._timerange = timerange
+//        self._seek(to: _timerange!.lowerBound)
+//    }
     
     deinit {
         DisposeMusicEventIterator(_ref)
     }
     
-    private final var _current: MIDIEvent? {
+    private final var _current: Element? {
         return MIDIIteratorGetCurrent(ref: _ref)
     }
     
@@ -67,10 +67,8 @@ public class MIDIIterator<Event : MIDIEventConvertible> : IteratorProtocol {
     
     public func next() -> Element? {
         while let event = _current {
-            if let e = Element(event: event) {
-                return e
-            }
             _move()
+            return event
         }
         return nil
     }
@@ -81,7 +79,7 @@ public class MIDIIterator<Event : MIDIEventConvertible> : IteratorProtocol {
     }
     
     private func _seek(to timestamp: Timestamp) {
-        MusicEventIteratorSeek(_ref, timestamp.beats)
+        MusicEventIteratorSeek(_ref, timestamp)
     }
     
     private func _move() {

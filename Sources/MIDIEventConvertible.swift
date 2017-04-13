@@ -16,7 +16,9 @@ public protocol Test : Hashable, Comparable {
 
 public protocol MIDIEventConvertible : Hashable, Comparable {
     static var type : MIDIEventType { get }
-    init?(event: MIDIEvent)
+//    init?(event: MIDIEvent)
+    init(data: Data)
+
     func insert(to: MIDITrack, at timestamp: MusicTimeStamp)
 }
 
@@ -172,9 +174,9 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
 
 extension MIDINoteMessage : MIDIEventConvertible {
 
-    public init?(event: MIDIEvent) {
-        guard event.type == .note else { return nil }
-        self = event.data.decode()
+    public init(data: Data) {
+//        guard event.type == .note else { return nil }
+        self = data.decode()
     }
     
     public static var type : MIDIEventType { return .note }

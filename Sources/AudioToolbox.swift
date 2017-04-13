@@ -108,7 +108,7 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 }
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> (ts: MusicTimeStamp, type: MIDIEventType, data: Data)? {
     func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
         var bool : DarwinBoolean = false
         MusicEventIteratorHasCurrentEvent(ref, &bool)
@@ -123,8 +123,8 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
     var size : UInt32 = 0
     
     MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size)
-    let d = Data(bytes: data!, count: Int(size))
-    return MIDIEvent(timestamp: timestamp, type: MIDIEventType(rawValue: type)!, data: d)
+
+    return (timestamp, MIDIEventType(rawValue: type)!, Data(bytes: data!, count: Int(size)))
 }
 
 extension Data {

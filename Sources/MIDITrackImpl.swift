@@ -32,9 +32,9 @@ extension MIDITrack {
     internal class Impl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
         //    typealias Iterator = MIDIIterator
         //    typealias Element = Iterator.Element
-        typealias Element = MIDIEvent
         public typealias Timestamp = MIDITimestamp
-        
+        typealias Element = MIDIEvent<Timestamp>
+
         let ref : MusicTrack
         private var _parent: MIDISequenceImpl? = nil
         
@@ -108,9 +108,9 @@ extension MIDITrack {
             fatalError()
         }
         
-        final var startTime : MIDITimestamp {
+        final var startTime : Timestamp {
             get {
-                return MIDITimestamp(base: parent._impl, beats: _offsetTime)
+                return Timestamp(base: parent._impl, beats: _offsetTime)
             }
             set {
                 _offsetTime = newValue.beats
@@ -126,8 +126,16 @@ extension MIDITrack {
             }
         }
         
-        final func makeIterator() -> AnyIterator<MIDIEvent> {
-            return AnyIterator(MIDIIterator(self))
+        final func makeIterator() -> AnyIterator<MIDIEvent<Timestamp>> {
+            let i = MIDIIterator(self)
+            let s = self.parentImpl
+            return AnyIterator {
+                i.next().map {
+                    let t = Timestamp(base: s, beats: $0.ts)
+                    return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
+                }
+
+            }
         }
         
         final var hashValue: Int {
@@ -216,7 +224,7 @@ extension MIDITrack {
             }
         }
         
-        final var duration : MIDITimestamp.Stride {
+        final var duration : Timestamp.Stride {
             get {
                 return get(.length)
                 
@@ -224,6 +232,10 @@ extension MIDITrack {
             set {
                 set(.length, to: newValue)
             }
+        }
+        
+        final func insert(_ event: MIDIEvent<Timestamp>) {
+            
         }
         
         final func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
@@ -282,22 +294,22 @@ extension MIDITrack {
             guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
             let s = Set(elements)
             
-            let i = MIDIIterator(self, timerange: range)
-            while let n = i.next() {
-                if s.contains(n) {
-                    i.remove()
-                }
-            }
+//            let i = MIDIIterator(self, timerange: range)
+//            while let n = i.next() {
+//                if s.contains(n) {
+//                    i.remove()
+//                }
+//            }
         }
         
         final func remove(_ timerange: Range<Timestamp>, predicate: ((Element) -> Bool)? = nil) {
-            let i = MIDIIterator(self, timerange: timerange)
-            while let n = i.next() {
-                let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
-                if timerange.contains(t) || (predicate.map { $0(n) } ?? false) {
-                    i.remove()
-                }
-            }
+//            let i = MIDIIterator(self, timerange: timerange)
+//            while let n = i.next() {
+//                let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
+//                if timerange.contains(t) || (predicate.map { $0(n) } ?? false) {
+//                    i.remove()
+//                }
+//            }
         }
         
 //        final func remove() {

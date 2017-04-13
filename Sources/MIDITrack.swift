@@ -11,8 +11,9 @@ import AVFoundation
 import struct AudioToolbox.MusicPlayer.MusicTrackLoopInfo
 
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
-    public typealias Element = MIDIEvent
+    
     public typealias Timestamp = MIDITimestamp
+    public typealias Element = MIDIEvent<Timestamp>
 
     public init() {
         _impl = Impl()

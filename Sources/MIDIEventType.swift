@@ -9,6 +9,107 @@
 import AudioToolbox.MusicPlayer
 
 
+public protocol TimestampType : Comparable, Strideable {
+    var beats: MusicTimeStamp { get }
+}
+
+extension MIDITimestamp : TimestampType { }
+
+public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
+    
+    case note(Timestamp, MIDINoteMessage)
+    
+    public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
+        switch type {
+        case .note:
+            self = .note(timestamp, MIDINoteMessage(data: data))
+        default:
+            fatalError()
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case let .note(ts, e):
+            return ".note(timestamp: \(ts), \(e))"
+        default: fatalError()
+        }
+    }
+    
+    public var data : Data {
+        switch self {
+        case let .note(_, e):
+            return Data(encode: e)
+        default:
+            fatalError()
+        }
+    }
+    
+    public var type : MIDIEventType {
+        switch self {
+        case .note: return .note
+        default: fatalError()
+        }
+    }
+    
+    public var timestamp: Timestamp {
+        switch self {
+        case let .note(ts, _):
+            return ts
+        default:
+            fatalError()
+        }
+    }
+
+    public var hashValue: Int {
+        switch self {
+        case let .note(ts, e):
+            fatalError()
+        default:
+            fatalError()
+        }
+    }
+    
+//    var event : MIDIEvent<Timestamp> {
+//        switch self {
+//        case let .note(ts, e):
+//            return MIDIEvent(timestamp: ts, type: .note, data: Data(encode: e))
+//        default:
+//            fatalError()
+//        }
+//    }
+    
+//    public func insert(to track: MIDITrack, at timestamp: MusicTimeStamp) {
+//        switch self {
+//        case let .note(ts, e):
+//            var cpy = e
+//            MusicTrackNewMIDINoteEvent(track._impl.ref, at, &e)
+//        default: fatalError()midi
+//        }
+//    }
+    
+    public func advanced(by n: Timestamp.Stride) -> MIDIEvent<Timestamp> {
+        return MIDIEvent(timestamp: timestamp.advanced(by: n), type: type, data: data)
+    }
+
+    public func distance(to other: MIDIEvent) -> Timestamp.Stride {
+        return timestamp.distance(to: other.timestamp)
+    }
+
+    
+    public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
+        switch (lhs, rhs) {
+        case let (.note(rt, re), .note(lt, le)):
+            return rt == lt && re == le
+        default:
+            fatalError()
+        }
+    }
+
+    public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
+        return lhs.timestamp < rhs.timestamp
+    }
+}
 
 public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
 
@@ -41,7 +142,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
     public var rawValue : UInt32 {
         switch self {
         case .note :
-            return kMusicEventType_ExtendedNote
+            return kMusicEventType_MIDINoteMessage
         default: fatalError()
         }
     }
