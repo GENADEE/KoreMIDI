@@ -126,7 +126,7 @@ extension MIDITrack {
             }
         }
         
-        final func makeIterator() -> AnyIterator<MIDIEvent<Timestamp>> {
+        final func makeIterator() -> AnyIterator<Element> {
             let i = MIDIIterator(self)
             let s = self.parentImpl
             return AnyIterator {
@@ -233,7 +233,7 @@ extension MIDITrack {
             }
         }
         
-        final func insert(_ element: MIDIEvent<Timestamp>) {
+        final func insert(_ element: Element) {
             switch element {
             
             case .extendedNote(let ts, var e):
