@@ -22,9 +22,9 @@ extension Range where Bound == MIDITimestamp {
 }
 
 
-public class MIDIIterator : IteratorProtocol {
+public class MIDIIterator<Event : MIDIEventConvertible> : IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
-    public typealias Element = MIDIEvent
+    public typealias Element = Event
     
     internal init(_ content: MIDITrack.Impl, timerange: Range<Timestamp>? = nil) {
         self._content = content
@@ -46,7 +46,7 @@ public class MIDIIterator : IteratorProtocol {
         DisposeMusicEventIterator(_ref)
     }
     
-    public final var current: Element? {
+    private final var _current: MIDIEvent? {
         return MIDIIteratorGetCurrent(ref: _ref)
     }
     
@@ -55,28 +55,31 @@ public class MIDIIterator : IteratorProtocol {
             fatalError()
         }
         set {
-//            assert(current! == element)
+            //            assert(current! == element)
             fatalError()
             
         }
     }
-
+    
     public func remove() {
         //
     }
     
     public func next() -> Element? {
-        defer {
+        while let event = _current {
+            if let e = Element(event: event) {
+                return e
+            }
             _move()
         }
-        return current
+        return nil
     }
-
+    
     private var timestamp: Timestamp? {
-//        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
+        //        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
         fatalError()
     }
-
+    
     private func _seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(_ref, timestamp.beats)
     }
@@ -84,7 +87,7 @@ public class MIDIIterator : IteratorProtocol {
     private func _move() {
         MusicEventIteratorNextEvent(_ref)
     }
-
+    
     
     private let _ref: MusicEventIterator
     private let _content: MIDITrack.Impl
@@ -93,39 +96,39 @@ public class MIDIIterator : IteratorProtocol {
 }
 
 
-class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
-    final override func next() -> Element? {
-        while let n = super.next() {
-            if n.type == Event.type {
-                return n
-            }
-        }
-        return nil
-    }
-}
+//class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
+//    final override func next() -> Element? {
+//        while let n = super.next() {
+//            if n.type == Event.type {
+//                return n
+//            }
+//        }
+//        return nil
+//    }
+//}
 
 
 
 
 //class MIDITrackFilteringIterator : MIDIIterator {
 //    public init(_ content: MIDITrack, timerange: Range<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
-//        
+//
 //    }
 //}
 
 //struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
-//    
+//
 //    let content: MIDITrack
 //    let timerange: Range<MIDITimestamp>?
-//    
+//
 //    init(content: MIDITrack, timerange: Range<MIDITimestamp>? = nil) {
 //        self.content = content
 //        self.timerange = timerange
 //    }
-//    
+//
 //    func makeIterator() -> AnyIterator<Element> {
 //        let i = MIDIIterator(content, timerange: timerange)
-//        
+//
 //        return AnyIterator {
 //            while let n = i.next() {
 //                if let nn = n as? Element {

@@ -9,6 +9,14 @@
 import Foundation
 import AudioToolbox
 
+//protocol Temporal {
+//    associatedtype Timestamp : Comparable, Strideable
+//}
+
+//struct Event<Element : Temporan> {
+//    
+//}
+
 public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible, CustomStringConvertible {
     public typealias Timestamp = MusicTimeStamp
     public let timestamp: Timestamp
@@ -22,6 +30,11 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible,
     
     }
     
+    /// Comparison is based on timestamp
+    public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
+        return lhs.timestamp < rhs.timestamp
+    }
+    
     public var description : String {
         switch type {
         case .note:
@@ -29,12 +42,7 @@ public struct MIDIEvent : Equatable, Comparable, Hashable, MIDIEventConvertible,
         default: fatalError()
         }
     }
-    
-    /// Comparison is based on timestamp
-    public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
-        return lhs.timestamp < rhs.timestamp
-    }
-    
+
     public var hashValue: Int {
         return (type.hashValue << 16) | timestamp.hashValue
     }
