@@ -233,8 +233,28 @@ extension MIDITrack {
             }
         }
         
-        final func insert(_ event: MIDIEvent<Timestamp>) {
+        final func insert(_ element: MIDIEvent<Timestamp>) {
+            switch element {
             
+            case .extendedNote(let ts, var e):
+                MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e)
+            case .extendedTempo(let ts, let e):
+                MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm)
+            case .user(let ts, var e):
+                MusicTrackNewUserEvent(ref, ts.beats, &e)
+            case .meta(let ts, var e):
+                MusicTrackNewMetaEvent(ref, ts.beats, &e)
+            case .note(let ts, var e):
+                MusicTrackNewMIDINoteEvent(ref, ts.beats, &e)
+            case .channel(let ts, var e):
+                MusicTrackNewMIDIChannelEvent(ref, ts.beats, &e)
+            case .rawData(let ts, var e):
+                MusicTrackNewMIDIRawDataEvent(ref, ts.beats, &e)
+            case .parameter(let ts, var e):
+                MusicTrackNewParameterEvent(ref, ts.beats, &e)
+            case .auPreset(let ts, var e):
+                MusicTrackNewAUPresetEvent(ref, ts.beats, &e)
+            }
         }
         
         final func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {

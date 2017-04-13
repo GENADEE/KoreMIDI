@@ -6,155 +6,107 @@
 //
 //
 
-import Foundation
 import AudioToolbox.MusicPlayer
 
-
-public protocol Test : Hashable, Comparable {
-    
-}
-
-public protocol MIDIEventConvertible : Hashable, Comparable {
-    static var type : MIDIEventType { get }
-//    init?(event: MIDIEvent)
-    init(data: Data)
-
-    func insert(to: MIDITrack, at timestamp: MusicTimeStamp)
-}
-
-extension MIDIEventConvertible {
-    public func insert(to track: MIDITrack, at: MIDITimestamp) {
-        insert(to: track, at: at.beats)
+extension ExtendedNoteOnEvent : Comparable, Hashable, CustomStringConvertible {
+    public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
+        return lhs.instrumentID == rhs.instrumentID &&
+            lhs.groupID == rhs.groupID &&
+            lhs.duration == rhs.duration
     }
 
-}
-//extension ExtendedNoteOnEvent: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .extendedNote else { return nil }
-//        self = event.data.decode()
-//    }
-//    
-//    public var hashValue: Int {
-//        return groupID.hashValue
-//    }
-//    
-//    func insert(to: MIDITrackImpl, at timestamp: MIDITimestamp) {
-//        var copy = self
-//        MusicTrackNewExtendedNoteEvent(to.ref, timestamp.beats, &copy)
-//    }
-//    
-//    public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
-//        return lhs.instrumentID == rhs.instrumentID &&
-//            lhs.groupID == rhs.groupID &&
-//            lhs.duration == rhs.duration //&&
-//        //         lhs.extendedParams == rhs.extendedParams
-//    }
-//    
-//    public static func <(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
-//        return lhs.groupID < rhs.groupID && lhs.instrumentID < rhs.instrumentID
-//    }
-//
-//}
-//
-//
-//
-//
-////
-//// MARK: ExtendedTempoEvent
-////
-//
-//extension ExtendedTempoEvent: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .extendedTempo else { return nil }
-//        self = event.decode()
-//    }
-//    public var hashValue: Int {
-//        return bpm.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        MusicTrackNewExtendedTempoEvent(track, at, bpm)
-//    }
-//    
-//    public static func ==(lhs: ExtendedTempoEvent, rhs: ExtendedTempoEvent) -> Bool {
-//        return lhs.bpm == rhs.bpm
-//    }
-//    
-//    public static func <(lhs: ExtendedTempoEvent, rhs: ExtendedTempoEvent) -> Bool {
-//        return lhs.bpm < rhs.bpm
-//    }
-//
-//}
-//
-//
-////
-//// MARK: MusicEventUserData
-////
-//
-//extension MusicEventUserData: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .user else { return nil }
-//        self = event.decode()
-//    }
-//    
-//    public var hashValue: Int {
-//        return length.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewUserEvent(track, at, &copy)
-//    }
-//    
-//    public func ==(lhs: MusicEventUserData, rhs: MusicEventUserData) -> Bool {
-//        return lhs.length == rhs.length && lhs.data == rhs.data
-//    }
-//    
-//    public func <(lhs: MusicEventUserData, rhs: MusicEventUserData) -> Bool {
-//        return lhs.length < rhs.length
-//    }
-//}
-//
-//
-//
-////
-//// MARK: MIDIMetaEvent
-////
-//
-//extension MIDIMetaEvent: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .meta else { return nil }
-//        self = event.decode()
-//    }
-//    public var hashValue: Int {
-//        return metaEventType.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewMetaEvent(track, at, &copy)
-//    }
-//}
-//
-//public func ==(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
-//    return lhs.metaEventType == rhs.metaEventType &&
-//        lhs.dataLength == rhs.dataLength &&
-//        lhs.data == rhs.data
-//}
-//
-//public func <(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
-//    return lhs.metaEventType < rhs.metaEventType
-//}
+    public static func <(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
+        return lhs.groupID < rhs.groupID && lhs.instrumentID < rhs.instrumentID
+    }
+    public var description: String {
+        return ""
+    }
 
-//
-// MARK: MIDINoteMessage
-//
+    public var hashValue: Int {
+        return groupID.hashValue
+    }
+}
+
+///
+/// MARK: ExtendedTempoEvent
+///
+
+extension ExtendedTempoEvent : Comparable, Hashable, CustomStringConvertible {
+    public var hashValue: Int {
+        return bpm.hashValue
+    }
+
+    public static func ==(lhs: ExtendedTempoEvent, rhs: ExtendedTempoEvent) -> Bool {
+        return lhs.bpm == rhs.bpm
+    }
+
+    public static func <(lhs: ExtendedTempoEvent, rhs: ExtendedTempoEvent) -> Bool {
+        return lhs.bpm < rhs.bpm
+    }
+
+    public var description: String {
+        return ""
+    }
+}
+
+
+///
+/// MARK: MusicEventUserData
+///
+
+extension MusicEventUserData : Comparable, Hashable, CustomStringConvertible {
+
+    public var hashValue: Int {
+        return length.hashValue
+    }
+
+    static public func ==(lhs: MusicEventUserData, rhs: MusicEventUserData) -> Bool {
+        return lhs.length == rhs.length && lhs.data == rhs.data
+    }
+
+    static public func <(lhs: MusicEventUserData, rhs: MusicEventUserData) -> Bool {
+        return lhs.length < rhs.length
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
+
+///
+/// MARK: MIDIMetaEvent
+///
+
+extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
+
+    public var hashValue: Int {
+        return metaEventType.hashValue
+    }
+
+    public static func ==(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
+        return lhs.metaEventType == rhs.metaEventType &&
+            lhs.dataLength == rhs.dataLength &&
+            lhs.data == rhs.data
+    }
+    
+    public static func <(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
+        return lhs.metaEventType < rhs.metaEventType
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
+
+///
+/// MARK: MIDINoteMessage
+///
 extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
     
     public var description : String {
         return "note: \(note), duration: \(duration)"
     }
-
+    
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return lhs.duration == rhs.duration &&
             lhs.note == rhs.note &&
@@ -172,142 +124,91 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
     }
 }
 
-extension MIDINoteMessage : MIDIEventConvertible {
+///
+/// MARK: MIDIChannelMessage
+///
 
-    public init(data: Data) {
-//        guard event.type == .note else { return nil }
-        self = data.decode()
+extension MIDIChannelMessage: Comparable, Hashable, CustomStringConvertible {
+    public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
+        return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }
     
-    public static var type : MIDIEventType { return .note }
-
-
-    public func insert(to track: MIDITrack, at: MusicTimeStamp) {
-        var copy = self
-        print(track._impl.ref)
-        MusicTrackNewMIDINoteEvent(track._impl.ref, at, &copy)
+    public static func <(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
+        return lhs.status < rhs.status
     }
-
+    public var hashValue: Int {
+        return status.hashValue
+    }
+    
+    public var description: String {
+        return "cc: \(status): [\(data1), \(data2)]"
+    }
 }
 
+///
+/// MARK: MIDIRawData
+///
 
+extension MIDIRawData: Comparable, Hashable, CustomStringConvertible {
+    public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
+        return lhs.length == rhs.length && lhs.data == rhs.data
+    }
+    
+    public static func <(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
+        return lhs.length < rhs.length
+    }
+    public var hashValue: Int {
+        return length.hashValue
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
 
+///
+/// MARK: ParameterEvent
+///
 
-////
-//// MARK: MIDIChannelMessage
-////
-//
-//extension MIDIChannelMessage: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .channelMessage else { return nil }
-//        self = event.decode()
-//    }
-//    
-//    public var hashValue: Int {
-//        return status.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewMIDIChannelEvent(track, at, &copy)
-//    }
-//}
-//
-//public func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
-//    return lhs.status == rhs.status &&
-//        lhs.data1 == rhs.data1 &&
-//        lhs.data2 == rhs.data2
-//}
-//
-//public func <(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
-//    return lhs.status < rhs.status
-//}
-//
-////
-//// MARK: MIDIRawData
-////
-//
-//extension MIDIRawData: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .rawData else { return nil }
-//        self = event.decode()
-//    }
-//    public var hashValue: Int {
-//        return length.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewMIDIRawDataEvent(track, at, &copy)
-//    }
-//}
-//
-//public func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
-//    return lhs.length == rhs.length && lhs.data == rhs.data
-//}
-//
-//public func <(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
-//    return lhs.length < rhs.length
-//}
-//
-////
-//// MARK: ParameterEvent
-////
-//
-//extension ParameterEvent: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .parameter else { return nil }
-//        self = event.decode()
-//    }
-//    
-//    public var hashValue: Int {
-//        return scope.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewParameterEvent(track, at, &copy)
-//    }
-//}
-//
-//public func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
-//    return lhs.parameterID == rhs.parameterID &&
-//        lhs.scope == rhs.scope &&
-//        lhs.element == rhs.element &&
-//        lhs.value == rhs.value
-//}
-//
-//public func <(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
-//    return lhs.scope < rhs.scope && lhs.parameterID < rhs.parameterID
-//}
-//
-////
-//// MARK: AUPresetEvent
-////
-//
-//extension AUPresetEvent: MIDIEventConvertible {
-//    init?(event: MIDIEvent) {
-//        guard event.type == .auPreset else { return nil }
-//        self = event.decode()
-//    }
-//    
-//    public var hashValue: Int {
-//        return scope.hashValue
-//    }
-//    
-//    func add(to track: MusicTrack, at timestamp: MusicTimeStamp) {
-//        var copy = self
-//        MusicTrackNewAUPresetEvent(track, timestamp, &copy)
-//    }
-//}
-//
-//public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
-//    return lhs.scope == rhs.scope &&
-//        lhs.element == rhs.element &&
-//        lhs.preset.toOpaque() == rhs.preset.toOpaque()
-//}
-//
-//public func <(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
-//    return lhs.scope < rhs.scope
-//}
+extension ParameterEvent: Comparable, Hashable, CustomStringConvertible {
+    public static func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
+        return lhs.parameterID == rhs.parameterID &&
+            lhs.scope == rhs.scope &&
+            lhs.element == rhs.element &&
+            lhs.value == rhs.value
+    }
+    
+    public static func <(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
+        return lhs.scope < rhs.scope && lhs.parameterID < rhs.parameterID
+    }
+    public var hashValue: Int {
+        return scope.hashValue
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
 
+///
+/// MARK: AUPresetEvent
+///
+
+extension AUPresetEvent: Comparable, Hashable, CustomStringConvertible {
+    static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
+        return lhs.scope == rhs.scope &&
+            lhs.element == rhs.element &&
+            lhs.preset.toOpaque() == rhs.preset.toOpaque()
+    }
+    
+    static public func <(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
+        return lhs.scope < rhs.scope
+    }
+    public var hashValue: Int {
+        return scope.hashValue
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
