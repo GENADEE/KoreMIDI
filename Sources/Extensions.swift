@@ -78,3 +78,17 @@ extension Data {
         return withUnsafeBytes { $0.pointee }
     }
 }
+
+
+extension Sequence where Iterator.Element : Comparable {
+    func range() -> Range<Iterator.Element>? {
+        var min : Iterator.Element? = nil
+        var max : Iterator.Element? = nil
+        for e in self {
+            min = Swift.min(e, min ?? e)
+            max = Swift.max(e, max ?? e)
+        }
+        return min.map { $0..<max! }
+    }
+}
+

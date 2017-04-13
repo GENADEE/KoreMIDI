@@ -37,6 +37,4 @@ internal enum MIDITrackProp : RawRepresentable {
         case .resolution: return kSequenceTrackProperty_TimeResolution
         }
     }
-    
-
 }

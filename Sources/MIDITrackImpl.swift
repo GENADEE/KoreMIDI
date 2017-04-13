@@ -322,9 +322,9 @@ extension MIDITrack {
     }
 }
 
-final class MIDIEventTrackImpl<Element : MIDIEventConvertible> : MIDITrack.Impl {
-    
-}
+//final class MIDIEventTrackImpl<Element : MIDIEventConvertible> : MIDITrack.Impl {
+//    
+//}
 
 
 

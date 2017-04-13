@@ -8,15 +8,15 @@
 
 import AudioToolbox.MusicPlayer
 
-public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, CustomStringConvertible, Strideable {
+public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
     
     public let timestamp: Timestamp
     
-    internal let _msg: Element
+    internal let _msg: MIDINoteMessage
     
-    internal init(timestamp: MIDITimestamp, msg: Element) {
+    internal init(timestamp: Timestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp
         self._msg = msg
     }
@@ -34,7 +34,7 @@ public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, Cu
     }
     
     public var hashValue: Int {
-        return timestamp.hashValue ^ Element.type.hashValue
+        return timestamp.hashValue ^ _msg.hashValue
     }
     
     public var description: String {
@@ -42,19 +42,19 @@ public struct MIDINote <Element : MIDIEventConvertible>: Equatable, Hashable, Cu
     }
 }
 
-extension MIDINote where Element == MIDINoteMessage {
-    public var timerange: Range<Timestamp> {
-        return timestamp..<endstamp
-    }
-    public var endstamp: Timestamp {
-        return timestamp + duration
-    }
-
-    public var duration: Stride {
-        return Stride(_msg.duration)
-    }
-    
-    public var note: UInt8 {
-        return _msg.note
-    }
-}
+//extension MIDINote where Element == MIDINoteMessage {
+//    public var timerange: Range<Timestamp> {
+//        return timestamp..<endstamp
+//    }
+//    public var endstamp: Timestamp {
+//        return timestamp + duration
+//    }
+//
+//    public var duration: Stride {
+//        return Stride(_msg.duration)
+//    }
+//    
+//    public var note: UInt8 {
+//        return _msg.note
+//    }
+//}
