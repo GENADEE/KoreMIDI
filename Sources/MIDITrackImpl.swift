@@ -318,35 +318,25 @@ extension MIDITrack {
             guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
             let s = Set(elements)
             
-            let i = MIDIIterator(self, timerange: range.lowerBound.beats..<range.upperBound.beats)
+            remove(range) {
+                s.contains($0)
+            }
+        }
+        
+        final func remove(_ timerange: Range<Timestamp>,
+                          predicate: (Element) -> Bool) {
+            let t = timerange.lowerBound.beats..<timerange.upperBound.beats
+            let i = MIDIIterator(self, timerange: t)
             
             while let n = i.next() {
                 let ts = Timestamp(base: parentImpl, beats: n.timestamp)
                 let e = Element(timestamp: ts, type: n.type, data: n.data)
-                if s.contains(e) {
+
+                if predicate(e) {
                     i.remove()
                 }
             }
         }
-        
-        final func remove(_ timerange: Range<Timestamp>, predicate: ((Element) -> Bool)? = nil) {
-//            let i = MIDIIterator(self, timerange: timerange)
-//            while let n = i.next() {
-//                let t = MIDITimestamp(base: parentImpl, beats: n.timestamp)
-//                if timerange.contains(t) || (predicate.map { $0(n) } ?? false) {
-//                    i.remove()
-//                }
-//            }
-        }
-        
-//        final func remove() {
-//            
-//        }
-        
-//        internal final func callback(timestamp: MusicTimeStamp, data: MusicEventUserData, range: Range<MusicTimeStamp>) {
-//            
-//        }
-        
     }
 }
 

@@ -43,15 +43,17 @@ func test() {
     
 //    print(s.startTime!, s.endTime!.beats)
 }
-test()
+//test()
 
 func custom() {
     var track = MIDITrack()
     let m = MIDINoteMessage(note: 60, duration: 20)
-    track.insert(.note(0, m))
+    track.insert(.note(10, m))
 
     
 }
+
+custom()
 
 
 

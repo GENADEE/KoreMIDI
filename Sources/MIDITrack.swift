@@ -191,7 +191,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
     
     mutating func remove(_ timerange: Range<Timestamp>) {
         _ensureUnique()
-        _impl.remove(timerange)
+        _impl.remove(timerange) { _ in true }
     }
     
     internal init(seq: MIDISequenceImpl) {

@@ -6,9 +6,7 @@
 //
 //
 
-import Foundation
 import AudioToolbox
-
 
 public protocol TimestampType : Comparable, Strideable, Hashable {
     var beats: MusicTimeStamp { get }
