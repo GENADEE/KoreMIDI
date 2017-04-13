@@ -16,15 +16,16 @@ public protocol TimestampType : Comparable, Strideable {
 extension MIDITimestamp : TimestampType { }
 
 public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
+    public typealias Stride = Timestamp.Stride
     
-    case note(Timestamp, MIDINoteMessage)
+    case note(Timestamp, MIDINoteMessage), other
     
     public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
         switch type {
         case .note:
             self = .note(timestamp, MIDINoteMessage(data: data))
         default:
-            fatalError()
+            self = .other
         }
     }
     
@@ -32,7 +33,7 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
         switch self {
         case let .note(ts, e):
             return ".note(timestamp: \(ts), \(e))"
-        default: fatalError()
+        default: return "other"
         }
     }
     
@@ -41,7 +42,7 @@ public enum MIDIEvent<Timestamp: Comparable & Strideable & Hashable & TimestampT
         case let .note(_, e):
             return Data(encode: e)
         default:
-            fatalError()
+            return Data()
         }
     }
     
@@ -118,15 +119,25 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
     public init?(rawValue: MusicEventType) {
         switch rawValue {
 //        case kMusicEventType_NULL: fatalError()
-        case kMusicEventType_ExtendedNote: self = .extendedNote
-        case kMusicEventType_ExtendedTempo: fatalError()
-        case kMusicEventType_User: fatalError()
-        case kMusicEventType_Meta: fatalError()
-        case kMusicEventType_MIDINoteMessage: self = .note
-        case kMusicEventType_MIDIChannelMessage: fatalError()
-        case kMusicEventType_MIDIRawData: fatalError()
-        case kMusicEventType_Parameter: fatalError()
-        case kMusicEventType_AUPreset: fatalError()
+        case kMusicEventType_ExtendedNote:
+            self = .extendedNote
+        case kMusicEventType_ExtendedTempo:
+            self = .extendedTempo
+            
+        case kMusicEventType_User:
+            self = .user
+        case kMusicEventType_Meta:
+            self = .meta
+        case kMusicEventType_MIDINoteMessage:
+            self = .note
+        case kMusicEventType_MIDIChannelMessage:
+            self = .channel
+        case kMusicEventType_MIDIRawData:
+            self = .rawData
+        case kMusicEventType_Parameter:
+            self = .parameter
+        case kMusicEventType_AUPreset:
+            self = .auPreset
         default: fatalError()
         }
     }
@@ -134,61 +145,77 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
     public var description : String {
         switch self {
         case .extendedNote: return ".extendedNote"
+        
         case .note: return ".note"
-        default: fatalError()
+        default: return "other"
         }
     }
     
     public var rawValue : UInt32 {
         switch self {
-        case .note :
+        case .extendedNote:
+            return kMusicEventType_ExtendedNote
+        case .extendedTempo:
+            return kMusicEventType_ExtendedTempo
+        case .user:
+            return kMusicEventType_User
+        case .meta:
+            return kMusicEventType_Meta
+        case .note:
             return kMusicEventType_MIDINoteMessage
-        default: fatalError()
+        case .channel:
+            return kMusicEventType_MIDIChannelMessage
+        case .rawData:
+            return kMusicEventType_MIDIRawData
+        case .parameter:
+            return kMusicEventType_Parameter
+        case .auPreset:
+            return kMusicEventType_AUPreset
         }
     }
     
-    init<T: MIDIEventConvertible>(type: T.Type) {
-        //    let types: [T.Type: ATMIDIType] = [:]
-        //    switch type {
-        //      case MIDIChannelMessage.self: break
-        //      default: break
-        //    }
-        //    switch type {
-        //      case MIDIChannelMessage.self: break
-        //      default: break
-        //    }
-        
-        if type == ExtendedNoteOnEvent.self {
-            self = .extendedNote
-        }
-        else if type == ExtendedTempoEvent.self {
-            self = .extendedTempo
-        }
-        else if type == MusicEventUserData.self {
-            self = .user
-        }
-        else if type == MIDIMetaEvent.self {
-            self = .meta
-        }
-        else if type == MIDINoteMessage.self {
-            self = .note
-        }
-        else if type == MIDIChannelMessage.self {
-            self = .channel
-        }
-        else if type == MIDIRawData.self {
-            self = .rawData
-        }
-        else if type == ParameterEvent.self {
-            self = .parameter
-        }
-        else if type == AUPresetEvent.self {
-            self = .auPreset
-        }
-        else {
-            fatalError()
-        }
-    }
+//    init<T: MIDIEventConvertible>(type: T.Type) {
+//        //    let types: [T.Type: ATMIDIType] = [:]
+//        //    switch type {
+//        //      case MIDIChannelMessage.self: break
+//        //      default: break
+//        //    }
+//        //    switch type {
+//        //      case MIDIChannelMessage.self: break
+//        //      default: break
+//        //    }
+//        
+//        if type == ExtendedNoteOnEvent.self {
+//            self = .extendedNote
+//        }
+//        else if type == ExtendedTempoEvent.self {
+//            self = .extendedTempo
+//        }
+//        else if type == MusicEventUserData.self {
+//            self = .user
+//        }
+//        else if type == MIDIMetaEvent.self {
+//            self = .meta
+//        }
+//        else if type == MIDINoteMessage.self {
+//            self = .note
+//        }
+//        else if type == MIDIChannelMessage.self {
+//            self = .channel
+//        }
+//        else if type == MIDIRawData.self {
+//            self = .rawData
+//        }
+//        else if type == ParameterEvent.self {
+//            self = .parameter
+//        }
+//        else if type == AUPresetEvent.self {
+//            self = .auPreset
+//        }
+//        else {
+//            fatalError()
+//        }
+//    }
 }
 
 

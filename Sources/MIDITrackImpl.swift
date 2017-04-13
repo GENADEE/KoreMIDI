@@ -134,7 +134,6 @@ extension MIDITrack {
                     let t = Timestamp(base: s, beats: $0.ts)
                     return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
                 }
-
             }
         }
         
