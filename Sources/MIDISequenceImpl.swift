@@ -9,11 +9,20 @@
 import AudioToolbox.MusicPlayer
 
 
-
+struct SequenceNotification {
+    let sequence: MIDISequenceImpl
+    let track: MIDITrack.Impl
+    let ts: MusicTimeStamp
+    let event: MusicEventUserData
+    let ts2: MusicTimeStamp
+    let ts3: MusicTimeStamp
+}
 
 ///
 /// MIDISequence
 ///
+
+
 internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
     internal typealias Index = Int
@@ -36,7 +45,6 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
     internal init(import data: Data) {
         ref = MIDISequenceImport(data)
-//        MusicSequenceSetUserCallback(ref, MIDISequenceImpl.callback, <#T##inClientData: UnsafeMutableRawPointer?##UnsafeMutableRawPointer?#>)
     }
     
     internal func copy() -> MIDISequenceImpl {
@@ -44,7 +52,6 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     }
     
     deinit {
-        MusicSequenceSetUserCallback(ref, nil, nil)
         DisposeMusicSequence(ref)
     }
     
@@ -74,8 +81,8 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return MIDISequenceExport(ref: ref)
     }
     
-    internal func save(to: URL) {
-        fatalError()
+    internal func save(to url: URL) throws {
+        try export().write(to: url)
     }
     
     internal var type : MusicSequenceType {
@@ -89,10 +96,6 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     
 //    func remove
     
-    internal var startIndex: Index {
-        return 0
-    }
-    
     internal var count: IndexDistance {
         return MusicSequenceGetTrackCount(ref: ref)
     }
@@ -105,8 +108,12 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return lazy.map { $0.endTime }.reduce(combine: Swift.max)
     }
     
+    internal var startIndex: Index {
+        return 0
+    }
+    
     internal var endIndex : Index {
-        return startIndex + count
+        return count
     }
     
     internal func index(after i: Index) -> Index {
@@ -117,20 +124,39 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return MIDITrack(seq: self, no: index)
     }
     
-    private func _registerCallback() {
-        var c = self
-        MusicSequenceSetUserCallback(ref, MIDISequenceImpl._callback, &c)
-    }
-    
-    private static let _callback: MusicSequenceUserCallback = {
-        ref, seq, mt, timestamp, userData, timestamp2, timestamp3 in
-        // Cタイプ関数なのでselfを使えません
-        //let mySelf: Sequencer = bridge(obj)
-        let impl = unsafeBitCast(ref, to: MIDISequenceImpl.self)
-//        for listener in mySelf.midiListeners {
-//            OperationQueue.main.addOperation({
-//                listener.midiSequenceDidFinish()
-//            })
-//        }
-    }
+    /*
+     typedef CALLBACK_API_C(void,MusicSequenceUserCallback)(
+     void *inClientData,
+     MusicSequence inSequence,
+     MusicTrack inTrack,
+     MusicTimeStamp inEventTime,
+     const MusicEventUserData *inEventData,
+     MusicTimeStamp inStartSliceBeat,
+     MusicTimeStamp inEndSliceBeat
+     );
+ */
+//    func reg(fun: (MIDISequenceImpl, MIDITrack.Impl, MusicTimeStamp, MusicEventUserData, Range<MusicTimeStamp>)) {
+//        
+//    }
+//    
+//    func register() {
+//        
+//    }
+//    
+//    
+//    internal func register(_ callback: @escaping MusicSequenceUserCallback) {
+//        var c = self
+//        MusicSequenceSetUserCallback(ref, callback, &c)
+//    }
+//    
+//    private func unregister() {
+//        MusicSequenceSetUserCallback(ref, nil, nil)
+//    }
+
+//    private func _registerCallback() {
+//        var c = self
+//        MusicSequenceSetUserCallback(ref, MIDISequenceImpl._callback, &c)
+//    }
+
+
 }

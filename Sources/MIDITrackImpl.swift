@@ -302,9 +302,13 @@ extension MIDITrack {
             }
         }
         
-        final func remove() {
-            
-        }
+//        final func remove() {
+//            
+//        }
+        
+//        internal final func callback(timestamp: MusicTimeStamp, data: MusicEventUserData, range: Range<MusicTimeStamp>) {
+//            
+//        }
         
     }
 }

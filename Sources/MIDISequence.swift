@@ -102,16 +102,29 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
     
     private mutating func _ensureUnique() {
-        if !isKnownUniquelyReferenced(&_impl) {
-            _impl = _impl.copy()
-        }
+        guard isKnownUniquelyReferenced(&_impl) else { return }
+        _impl = _impl.copy()
     }
     
     internal init(impl: MIDISequenceImpl) {
         _impl = impl
     }
-    
+
     internal private(set) var _impl: MIDISequenceImpl
+    
+//    private func _registerCallback() {
+//        _impl.register {
+//            self._ensureUnique()
+//            
+//        }
+//    }
+    
+//    private static let _callback: MusicSequenceUserCallback = {
+//        // adapted from r9midisequencer
+//        ref, seq, mt, timestamp, userData, startTime, endTime in
+//        let impl = unsafeBitCast(ref, to: MIDISequenceImpl.self)
+//        assert(impl.ref == ref)
+//    }
 }
 
 
