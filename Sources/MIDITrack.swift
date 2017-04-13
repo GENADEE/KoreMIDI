@@ -125,6 +125,12 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _impl.insert(element)
     }
     
+    mutating
+    public func insert(_ element: MIDIEvent<MusicTimeStamp>) {
+        _ensureUnique()
+        _impl.insert(element)
+    }
+    
 //    mutating func insert(_ element: Element) {
 //        _ensureUnique()
 //        

@@ -46,19 +46,13 @@ func test() {
 test()
 
 func custom() {
-    let track = MIDITrack()
-    let m = MIDINoteMessage(channel: 0, note: 60, velocity: 100, releaseVelocity: 0, duration: 20)
-    //
-//    m.insert(to: track, at: 10)
-//    m.insert(to: track, at: 100)
-    //
-    for e in track {
-        print(e)
-    }
+    var track = MIDITrack()
+    let m = MIDINoteMessage(note: 60, duration: 20)
+    track.insert(.note(0, m))
 
-    print(track)
+    
 }
-//print(Array(track))
+
 
 
 

@@ -256,6 +256,13 @@ extension MIDITrack {
                 MusicTrackNewAUPresetEvent(ref, ts.beats, &e)
             }
         }
+
+        final public func insert(_ element: MIDIEvent<MusicTimeStamp>) {
+            insert(element.map {
+                Timestamp(base: self.parentImpl, beats: $0)
+            })
+        }
+        
         
         final func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
             MusicTrackMoveEvents(ref,

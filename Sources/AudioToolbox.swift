@@ -99,7 +99,6 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 //    return out
 //}
 
-
 ///
 /// Iterators
 ///
@@ -120,12 +119,6 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
-//    var r: MusicEventIterator? = nil
-//    return OSResult(fun:
-//        NewMusicEventIterator(ref, &r)
-//    }) {
-//        r!
-//    }
     var r: MusicEventIterator? = nil
     OSAssert(NewMusicEventIterator(ref, &r))
     return r!

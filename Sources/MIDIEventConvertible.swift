@@ -103,6 +103,10 @@ extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
 ///
 extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
     
+    init(note: UInt8, duration: Float32) {
+        self.init(channel: 0, note: note, velocity: 100, releaseVelocity: 0, duration: duration)
+    }
+
     public var description : String {
         return "note: \(note), duration: \(duration)"
     }
