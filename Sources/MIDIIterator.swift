@@ -62,8 +62,11 @@ public class MIDIIterator: IteratorProtocol {
         }
     }
     
-    public func remove() {
-        //
+    public func remove() -> Element? {
+        defer {
+            MusicEventIteratorDeleteEvent(_ref)
+        }
+        return _current
     }
     
     public func next() -> Element? {
@@ -75,8 +78,7 @@ public class MIDIIterator: IteratorProtocol {
     }
     
     private var timestamp: Timestamp? {
-        //        return MIDITimestamp(base: content.par, beats: current?.timestamp ?? 0)
-        fatalError()
+        return _current?.timestamp
     }
     
     private func _seek(to timestamp: Timestamp) {
@@ -93,27 +95,6 @@ public class MIDIIterator: IteratorProtocol {
     
     private let _timerange: Range<Timestamp>?
 }
-
-
-//class MIDIEventIterator<Event : MIDIEventConvertible> : MIDIIterator {
-//    final override func next() -> Element? {
-//        while let n = super.next() {
-//            if n.type == Event.type {
-//                return n
-//            }
-//        }
-//        return nil
-//    }
-//}
-
-
-
-
-//class MIDITrackFilteringIterator : MIDIIterator {
-//    public init(_ content: MIDITrack, timerange: Range<MIDITimestamp>? = nil, predicate: (Element) -> Bool) {
-//
-//    }
-//}
 
 //struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
 //
