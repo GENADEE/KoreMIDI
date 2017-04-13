@@ -49,7 +49,7 @@ func custom() {
     var track = MIDITrack()
     let m = MIDINoteMessage(note: 60, duration: 20)
     track.insert(.note(10, m))
-
+    
     
 }
 

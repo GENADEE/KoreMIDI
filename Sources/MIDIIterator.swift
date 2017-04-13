@@ -15,9 +15,9 @@ protocol List : Sequence {
 }
 
 extension Range where Bound == MIDITimestamp {
-    init(base: MIDITimestamp.Base, timerange: Range<MusicTimeStamp>) {
-        lowerBound = MIDITimestamp(base: base, beats: timerange.lowerBound)
-        upperBound = MIDITimestamp(base: base, beats: timerange.upperBound)
+    init(timerange: Range<MusicTimeStamp>) {
+        lowerBound = MIDITimestamp(beats: timerange.lowerBound)
+        upperBound = MIDITimestamp(beats: timerange.upperBound)
     }
 }
 

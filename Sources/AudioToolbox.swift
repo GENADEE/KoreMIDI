@@ -39,13 +39,13 @@ func MIDISequenceImport(_ data: Data) -> MusicSequence {
 
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence) -> Data {
-//    MusicSequenceFileCreateData(ref, .midiType, 0, )
+    //    MusicSequenceFileCreateData(ref, .midiType, 0, )
     fatalError()
-//    MusicSequenceFileCreateData(ref, .midiType, .eraseFile)
-//    let seq = MIDISequenceCreate()
-//    let url = URL(fileURLWithPath: path) as CFURL
-//    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
-//    return seq
+    //    MusicSequenceFileCreateData(ref, .midiType, .eraseFile)
+    //    let seq = MIDISequenceCreate()
+    //    let url = URL(fileURLWithPath: path) as CFURL
+    //    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
+    //    return seq
 }
 
 //public func MusicSequenceFileCreateData(_ inSequence: MusicSequence, _ inFileType: MusicSequenceFileTypeID, _ inFlags: MusicSequenceFileFlags, _ inResolution: Int16, _ outData: UnsafeMutablePointer<Unmanaged<CFData>?>) -> OSStatus
@@ -60,7 +60,7 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
 @inline(__always) internal
 func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
     var r : MusicTrack? = nil
-   OSAssert(MusicSequenceGetIndTrack(ref, UInt32(no), &r))
+    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(no), &r))
     return r!
 }
 
@@ -105,7 +105,7 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
 
 //enum OSResult<T> {
 //    case ok(T), err(OSStatus)
-//    
+//
 //    public init(fun: @autoclosure () -> OSStatus, ok: @autoclosure () -> T) {
 //        let e = fun()
 //        if e == noErr {
@@ -137,9 +137,9 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MusicTimeStamp
         OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
         return Bool(bool)
     }
-
+    
     guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
-
+    
     var timestamp: Double = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
@@ -169,12 +169,12 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
     var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
     var size: UInt32 = 0
     OSAssert(MusicTrackGetProperty(ref, prop.rawValue, ptr, &size))
-//    fatalError("ownership")
+    //    fatalError("ownership")
     defer {
         ptr.deinitialize()
         ptr.deallocate(capacity: 1)
     }
-      return ptr.pointee
+    return ptr.pointee
 }
 
 @inline(__always) internal
@@ -182,7 +182,6 @@ func MIDITrackSetProperty<T>(ref: MusicTrack, prop: MIDITrackProp, to value: T) 
     var cpy = value
     OSAssert(MusicTrackSetProperty(ref, prop.rawValue, &cpy, UInt32(MemoryLayout<T>.size)))
 }
-
 
 @inline(__always) internal
 func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, subdivisor: UInt32) -> CABarBeatTime {
@@ -197,5 +196,4 @@ func MusicSequenceGetTempoTrack(ref: MusicSequence) -> MusicTrack {
     OSAssert(MusicSequenceGetTempoTrack(ref, &out))
     return out!
 }
-
 

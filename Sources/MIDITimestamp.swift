@@ -24,34 +24,38 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     public typealias Stride = MusicTimeStamp
 
     public let beats : MusicTimeStamp
-    private weak var base : Base! = nil
+//    private weak var base : Base! = nil
     
-    var seconds: Float64 {
-        return MusicSequenceBeatsToSeconds(ref: base.ref, beats: beats)
-    }
+//    var seconds: Float64 {
+//        return MusicSequenceBeatsToSeconds(ref: base.ref, beats: beats)
+//    }
 
-    internal init(base: Base, beats: MusicTimeStamp) {
-        self.base = base
+//    internal init(base: Base, beats: MusicTimeStamp) {
+////        self.base = base
+//        self.beats = beats
+//    }
+//    
+//    internal init(base: Base, beats: CABarBeatTime) {
+////        self.base = base
+////        self.beats = beats
+//        fatalError()
+//    }
+    
+    internal init(beats: MusicTimeStamp) {
         self.beats = beats
     }
-    
-    internal init(base: Base, beats: CABarBeatTime) {
-//        self.base = base
-//        self.beats = beats
-        fatalError()
-    }
-    
+
     public var description: String {
-        return "\(beatTime())"
+        return "\(beats)"
     }
     
     public static func ==(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
-        assert(lhs.base == rhs.base)
+//        assert(lhs.base == rhs.base)
         return lhs.beats == rhs.beats
     }
     
     public static func <(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
-        assert(lhs.base == rhs.base)
+//        assert(lhs.base == rhs.base)
         return lhs.beats < rhs.beats
     }
     
@@ -59,12 +63,12 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
         return beats.hashValue
     }
     
-    public func beatTime(for subdivisor: UInt32 = 4) -> CABarBeatTime {
-        return MusicSequenceBeatsToBarBeatTime(ref: base.ref, beats: beats, subdivisor: subdivisor)
-    }
+//    public func beatTime(for subdivisor: UInt32 = 4) -> CABarBeatTime {
+//        return MusicSequenceBeatsToBarBeatTime(ref: base.ref, beats: beats, subdivisor: subdivisor)
+//    }
     
     public func advanced(by n: Stride) -> MIDITimestamp {
-        return MIDITimestamp(base: base, beats: beats + n)
+        return MIDITimestamp(beats: beats + n)
     }
     
     public func distance(to other: MIDITimestamp) -> Stride {
@@ -72,12 +76,12 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     }
     
     public static func +(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
-        assert(lhs.base == rhs.base)
-        return MIDITimestamp(base: lhs.base, beats: lhs.beats + rhs.beats)
+//        assert(lhs.base == rhs.base)
+        return MIDITimestamp(beats: lhs.beats + rhs.beats)
     }
     
     public static prefix func -(_ value: MIDITimestamp) -> MIDITimestamp {
-        return MIDITimestamp(base: value.base, beats: -value.beats)
+        return MIDITimestamp(beats: -value.beats)
     }
     
     public static func -(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
