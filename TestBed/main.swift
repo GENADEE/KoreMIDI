@@ -50,7 +50,10 @@ func custom() {
     let m = MIDINoteMessage(note: 60, duration: 20)
     track.insert(.note(10, m))
     
-    
+    print(track)
+//    for e in track {
+//        print(e)
+//    }
 }
 
 custom()

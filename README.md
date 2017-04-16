@@ -5,8 +5,10 @@ Collections in KoreMIDI are generally copy-on-write, i.e. following the semantic
 
 ```
 
-enum MIDIEvent <Timestamp> TimestampType> : Comarapble, Strideable, Hashable, CustomStringConvertible {
-    
+
+
+enum MIDIEvent <Timestamp> : Comparable, Strideable, Hashable, CustomStringConvertible {
+    case 
 }
 
 public protocol Temporal {
@@ -14,8 +16,6 @@ public protocol Temporal {
 }
 
 public protocol TimeSeries : Sequence, Temporal {
-
-
     var startTime: Timestamp { get }
     var endTime : Timestamp { get }
 
