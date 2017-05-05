@@ -14,9 +14,8 @@ func tee<T>(_ obj: T) -> T {
 }
 
 extension Range {
-    func union(_ other: Range<Bound>) -> Range<Bound>{
-        let s = [lowerBound, upperBound, other.lowerBound, other.upperBound].sorted()
-        return s.first!..<s.last!
+    func union(_ other: Range) -> Range<Bound>{
+        return Swift.min(lowerBound, other.lowerBound)..<Swift.max(upperBound, other.upperBound)
     }
 }
 
@@ -54,7 +53,7 @@ extension Sequence {
     func reduce(combine: (Iterator.Element, Iterator.Element) throws -> Iterator.Element) rethrows -> Iterator.Element? {
         var g = makeIterator()
         guard var accu = g.next() else { return nil }
-        
+
         while let next = g.next() {
             accu = try combine(accu, next)
         }
@@ -71,7 +70,7 @@ extension CABarBeatTime : CustomStringConvertible {
 extension Data {
     init<T>(encode: T) {
         var cpy = encode
-        self.init(bytes: withUnsafePointer(to: &cpy) { $0 }, count: MemoryLayout<T>.size)
+        self.init(bytes: &cpy, count: MemoryLayout<T>.size)
     }
     
     func decode<T>() -> T {

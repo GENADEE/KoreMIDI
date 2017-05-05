@@ -64,19 +64,19 @@ func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
     return r!
 }
 
-@inline(__always) internal
-func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
-    var out: Float64 = 0
-    OSAssert(MusicSequenceGetSecondsForBeats(ref, beats, &out))
-    return out
-}
+//@inline(__always) internal
+//func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
+//    var out: Float64 = 0
+//    OSAssert(MusicSequenceGetSecondsForBeats(ref, beats, &out))
+//    return out
+//}
 
-@inline(__always) internal
-func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
-    var out: MusicTimeStamp = 0
-    OSAssert(MusicSequenceGetBeatsForSeconds(ref, seconds, &out))
-    return out
-}
+//@inline(__always) internal
+//func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
+//    var out: MusicTimeStamp = 0
+//    OSAssert(MusicSequenceGetBeatsForSeconds(ref, seconds, &out))
+//    return out
+//}
 
 @inline(__always) internal
 func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {

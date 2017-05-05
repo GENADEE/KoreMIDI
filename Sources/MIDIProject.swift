@@ -6,13 +6,15 @@
 //
 //
 
-import Foundation
+import Cocoa
 
-//class MIDIProject {
-//    let sequence: MIDISequence
-//    
-//    
-//}
+class MIDIProject : NSDocument {
+    let sequence: MIDISequence
+    
+    init(url: URL) {
+        sequence = MIDISequence(import: url)
+    }
+}
 
 //class MIDIProject {
 //    let sequence : MIDISequence

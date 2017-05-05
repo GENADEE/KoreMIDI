@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sources/MIDISequenceImpl.swift"
-            timestampString = "513811504.781482"
+            timestampString = "515634328.042393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "MIDISequenceImpl"
             landmarkType = "3">
          </BreakpointContent>

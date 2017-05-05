@@ -49,6 +49,8 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         }
     }
     
+    
+    
     public func dict() -> NSDictionary {
         return MusicSequenceGetInfoDictionary(_impl.ref) as NSDictionary
     }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AudioToolbox
+import AVFoundation
 
 func test() {
     
@@ -49,11 +49,18 @@ func custom() {
     var track = MIDITrack()
     let m = MIDINoteMessage(note: 60, duration: 20)
     track.insert(.note(10, m))
+//    MIDISequenceImport(d)
+    let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
+    let seq = MIDISequenceImport(url)
+//    let p = MIDIPlayer(sequence: seq)
+    let q = try! AVMIDIPlayer(contentsOf: url, soundBankURL: nil)
+    q.prepareToPlay()
+    q.play {
+        print("dne")
+    }
     
+    usleep(500 * 1000000)
     print(track)
-//    for e in track {
-//        print(e)
-//    }
 }
 
 custom()

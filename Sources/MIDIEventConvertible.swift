@@ -8,6 +8,7 @@
 
 import AudioToolbox.MusicPlayer
 
+
 extension ExtendedNoteOnEvent : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
         return lhs.instrumentID == rhs.instrumentID &&
@@ -132,7 +133,7 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDIChannelMessage
 ///
 
-extension MIDIChannelMessage: Comparable, Hashable, CustomStringConvertible {
+extension MIDIChannelMessage : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }
@@ -153,7 +154,7 @@ extension MIDIChannelMessage: Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDIRawData
 ///
 
-extension MIDIRawData: Comparable, Hashable, CustomStringConvertible {
+extension MIDIRawData : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length == rhs.length && lhs.data == rhs.data
     }
@@ -174,7 +175,7 @@ extension MIDIRawData: Comparable, Hashable, CustomStringConvertible {
 /// MARK: ParameterEvent
 ///
 
-extension ParameterEvent: Comparable, Hashable, CustomStringConvertible {
+extension ParameterEvent : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
         return lhs.parameterID == rhs.parameterID &&
             lhs.scope == rhs.scope &&
@@ -198,7 +199,7 @@ extension ParameterEvent: Comparable, Hashable, CustomStringConvertible {
 /// MARK: AUPresetEvent
 ///
 
-extension AUPresetEvent: Comparable, Hashable, CustomStringConvertible {
+extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
     static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope == rhs.scope &&
             lhs.element == rhs.element &&

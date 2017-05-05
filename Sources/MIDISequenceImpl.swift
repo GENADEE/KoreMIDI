@@ -30,21 +30,27 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     internal typealias Element = MIDITrack
     
     internal let ref : MusicSequence
+
+    let clock : Clock
     
     internal init() {
         ref = MIDISequenceCreate()
+        clock = Clock(sequence: ref)
     }
-    
+
     internal init(for track: MIDITrack.Impl) {
         ref = MusicTrackGetSequence(track.ref)
+        clock = Clock(sequence: ref)
     }
     
     internal init(import url: URL) {
         ref = MIDISequenceImport(url)
+        clock = Clock(sequence: ref)
     }
     
     internal init(import data: Data) {
         ref = MIDISequenceImport(data)
+        clock = Clock(sequence: ref)
     }
     
     internal func copy() -> MIDISequenceImpl {
