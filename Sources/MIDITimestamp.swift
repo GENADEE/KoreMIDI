@@ -14,11 +14,12 @@ protocol DefaultConstructible {
     
 }
 
+
 protocol HasExtrema : DefaultConstructible {
     static var min: Self { get }
     static var max: Self { get }
 }
-
+/*
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
     internal typealias Base = MIDISequenceImpl
     public typealias Stride = MusicTimeStamp
@@ -87,5 +88,5 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     public static func -(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
         return lhs + (-rhs)
     }
-}
+}*/
 

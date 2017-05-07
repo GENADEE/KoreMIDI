@@ -8,7 +8,7 @@
 
 import AudioToolbox.MusicPlayer
 
-public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection {
+public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection, RandomAccessCollection {
 
     public typealias Index = Int
     public typealias IndexDistance = Index
@@ -49,14 +49,16 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         }
     }
     
-    
-    
     public func dict() -> NSDictionary {
         return MusicSequenceGetInfoDictionary(_impl.ref) as NSDictionary
     }
 
     public func index(after i: Index) -> Index {
         return i + 1
+    }
+
+    public func index(before i: Index) -> Index {
+        return i - 1
     }
 
     public var startTime : Timestamp? {

@@ -12,7 +12,7 @@ public protocol TimestampType : Comparable, Strideable, Hashable {
     var beats: MusicTimeStamp { get }
 }
 
-extension MIDITimestamp : TimestampType { }
+//extension MIDITimestamp : TimestampType { }
 
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Stride = Timestamp.Stride
@@ -77,50 +77,35 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         }
     }
     
-    public var timestamp : Timestamp {
+    private var _serialize  : (timestamp: Timestamp, data : Data) {
         switch self {
-        case let .extendedNote(ts, _):
-            return ts
-        case let .extendedTempo(ts, _):
-            return ts
-        case let .user(ts, _):
-            return ts
-        case let .meta(ts, _):
-            return ts
-        case let .note(ts, _):
-            return ts
-        case let .channel(ts, _):
-            return ts
-        case let .rawData(ts, _):
-            return ts
-        case let .parameter(ts, _):
-            return ts
-        case let .auPreset(ts, _):
-            return ts
+        case let .extendedNote(ts, data):
+            return (ts, Data(encode: data))
+        case let .extendedTempo(ts, data):
+            return (ts, Data(encode: data))
+        case let .user(ts, data):
+            return (ts, Data(encode: data))
+        case let .meta(ts, data):
+            return (ts, Data(encode: data))
+        case let .note(ts, data):
+            return (ts, Data(encode: data))
+        case let .channel(ts, data):
+            return (ts, Data(encode: data))
+        case let .rawData(ts, data):
+            return (ts, Data(encode: data))
+        case let .parameter(ts, data):
+            return (ts, Data(encode: data))
+        case let .auPreset(ts, data):
+            return (ts, Data(encode: data))
         }
     }
     
+    public var timestamp : Timestamp {
+        return _serialize.timestamp
+    }
+    
     public var data : Data {
-        switch self {
-        case let .extendedNote(_, data):
-            return Data(encode: data)
-        case let .extendedTempo(_, data):
-            return Data(encode: data)
-        case let .user(_, data):
-            return Data(encode: data)
-        case let .meta(_, data):
-            return Data(encode: data)
-        case let .note(_, data):
-            return Data(encode: data)
-        case let .channel(_, data):
-            return Data(encode: data)
-        case let .rawData(_, data):
-            return Data(encode: data)
-        case let .parameter(_, data):
-            return Data(encode: data)
-        case let .auPreset(_, data):
-            return Data(encode: data)
-        }
+        return _serialize.data
     }
     
     public var type : MIDIEventType {

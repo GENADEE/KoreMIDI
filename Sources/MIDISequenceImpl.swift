@@ -28,6 +28,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     internal typealias Index = Int
     internal typealias IndexDistance = Index
     internal typealias Element = MIDITrack
+    internal typealias Timestamp = Clock.Timestamp
     
     internal let ref : MusicSequence
 
@@ -108,11 +109,11 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         return MusicSequenceGetTrackCount(ref: ref)
     }
     
-    internal var startTime : MIDITimestamp? {
+    internal var startTime : Timestamp? {
         return lazy.map { $0.startTime }.reduce(combine: Swift.min)
     }
 
-    internal var endTime : MIDITimestamp? {
+    internal var endTime : Timestamp? {
         return lazy.map { $0.endTime }.reduce(combine: Swift.max)
     }
     

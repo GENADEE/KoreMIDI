@@ -6,47 +6,34 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
-
 import AudioToolbox
-
-//extension CAClockTime {
-//    var hostTime: {
-//        
-//    }
-//}
-
-
-
-//extension NSObjectProtocol : Hashable {
-//    var hashValue : Int {
-//        return hash
-//    }
-//    
-//    static func ==(lhs: NSObjectProtocol, rhs: NSObjectProtocol) -> Bool {
-//        return lhs.isEqual(rhs)
-//    }
-//}
-
 
 public final class Clock: Equatable {
     
     public enum Status { case stopped, running }
     
-    public struct Timestamp : Comparable, Strideable, CustomStringConvertible {
+    public struct Timestamp : Comparable, Strideable, CustomStringConvertible, Hashable {
         public typealias Stride = CAClockSeconds.Stride
         
         fileprivate let parent: Clock
+        private let time : CAClockTime
         
-        public let seconds: CAClockSeconds
+        public var seconds: CAClockSeconds {
+            fatalError()
+        }
         
-        internal init(parent: Clock, seconds: CAClockSeconds) {
+        internal init(parent: Clock, time: CAClockTime) {
             self.parent = parent
-            self.seconds = seconds
+            self.time = time
+        }
+        
+        public var hashValue : Int {
+            return seconds.hashValue
         }
         
         public func distance(to other: Timestamp) -> Stride {
-            return seconds.distance(to: other.seconds)
+//            return time.distance(to: other.time)
+            fatalError()
         }
         
         public var description: String {
@@ -54,20 +41,27 @@ public final class Clock: Equatable {
         }
         
         public func advanced(by n: Stride) -> Timestamp {
-            return Timestamp(parent: parent, seconds: seconds.advanced(by: n))
+//            return Timestamp(parent: parent, seconds: seconds.advanced(by: n))
+            fatalError()
         }
         
         public static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
-            return lhs.seconds == rhs.seconds
+//            return lhs.seconds == rhs.seconds
+            fatalError()
         }
         
         public static func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
-            return lhs.seconds < rhs.seconds
+//            return lhs.seconds < rhs.seconds
+            fatalError()
         }
         
         var hostTime : Float64 {
+            var `in` = time
+//            CAClockTranslateTime(ref, &time, <#T##inOutputTimeFormat: CAClockTimeFormat##CAClockTimeFormat#>, <#T##outTime: UnsafeMutablePointer<CAClockTime>##UnsafeMutablePointer<CAClockTime>#>)
+//            time.time
             fatalError()
             //            return parent.translate(self, fmt: .hostTime)
+            
         }
         
         var samples : Float64 {
@@ -175,7 +169,7 @@ public final class Clock: Equatable {
         }
     }
     
-    public var smptFormat :  CAClockSMPTEFormat {
+    public var smpteFormat :  CAClockSMPTEFormat {
         get {
             return get(prop: .smpteFormat)
         }
@@ -220,7 +214,7 @@ public final class Clock: Equatable {
         }
     }
     
-    var tempoMap : [CATempoMapEntry] {
+    public var tempoMap : [CATempoMapEntry] {
         get {
             return get(prop: .tempoMap)
         }
@@ -229,7 +223,7 @@ public final class Clock: Equatable {
         }
     }
     
-    var meterTrack : [CAMeterTrackEntry] {
+    public var meterTrack : [CAMeterTrackEntry] {
         get {
             return get(prop: .meterTrack)
         }

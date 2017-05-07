@@ -51,7 +51,7 @@ func custom() {
     track.insert(.note(10, m))
 //    MIDISequenceImport(d)
     let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
-    let seq = MIDISequenceImport(url)
+//    let seq = MIDISequenceImport(url)
 //    let p = MIDIPlayer(sequence: seq)
     let q = try! AVMIDIPlayer(contentsOf: url, soundBankURL: nil)
     q.prepareToPlay()
@@ -63,7 +63,11 @@ func custom() {
     print(track)
 }
 
-custom()
+func tst() {
+    
+}
+
+
 
 
 

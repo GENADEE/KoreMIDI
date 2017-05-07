@@ -10,9 +10,11 @@ import AVFoundation
 
 import struct AudioToolbox.MusicPlayer.MusicTrackLoopInfo
 
+extension Clock.Timestamp : TimestampType  { }
+
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
     
-    public typealias Timestamp = MIDITimestamp
+    public typealias Timestamp = Clock.Timestamp
     public typealias Element = MIDIEvent<Timestamp>
 
     public init() {

@@ -32,7 +32,7 @@ extension MIDITrack {
     internal final class Impl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
         //    typealias Iterator = MIDIIterator
         //    typealias Element = Iterator.Element
-        public typealias Timestamp = MIDITimestamp
+        public typealias Timestamp = Clock.Timestamp
         typealias Element = MIDIEvent<Timestamp>
 
         let ref : MusicTrack
@@ -135,6 +135,7 @@ extension MIDITrack {
 
             return AnyIterator {
                 i.next().map {
+                    Timestamp(parent: <#T##Clock#>, time: <#T##CAClockTime#>)
                     let t = Timestamp(beats: $0.timestamp)
                     return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
                 }

@@ -153,7 +153,12 @@
 		37F70AAA1EBCBFD10008536E /* Drafts */ = {
 			isa = PBXGroup;
 			children = (
+				371120031E9863870037DFFA /* Edit.swift */,
+				373BE4331E98238500DC1E15 /* Timer.swift */,
+				OBJ_13 /* KoreMIDI.swift */,
 				37371FA01E9B251F00829B24 /* TimeSeries.swift */,
+				37E24EB21EA14BF8006C957B /* OSStatus.swift */,
+				37B150011E98059100CBDB07 /* Classifier.swift */,
 			);
 			name = Drafts;
 			sourceTree = "<group>";
@@ -201,28 +206,23 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				37F70AAA1EBCBFD10008536E /* Drafts */,
 				37CDEFC51E9972390005B509 /* MIDIEvent.swift */,
 				37F70AA71EBBE9E20008536E /* Clock.swift */,
 				OBJ_15 /* MIDIEventType.swift */,
-				37F70AAA1EBCBFD10008536E /* Drafts */,
-				37E24EB21EA14BF8006C957B /* OSStatus.swift */,
 				37E24EAA1E9FEB25006C957B /* MIDIEventConvertible.swift */,
 				OBJ_11 /* Extensions.swift */,
 				OBJ_8 /* AudioToolbox.swift */,
 				OBJ_9 /* MIDIPlayer.swift */,
 				OBJ_18 /* MIDITrack.swift */,
-				371120031E9863870037DFFA /* Edit.swift */,
 				373BE44C1E9835D600DC1E15 /* MIDITrackImpl.swift */,
 				OBJ_12 /* MIDIIterator.swift */,
 				37CDEFC11E996D440005B509 /* MIDISlice.swift */,
 				OBJ_19 /* MIDITrackProperty.swift */,
-				OBJ_13 /* KoreMIDI.swift */,
-				373BE4331E98238500DC1E15 /* Timer.swift */,
 				373BE4171E98154600DC1E15 /* MIDINote.swift */,
 				37371FA31E9B2B5200829B24 /* MIDIPitch.swift */,
 				OBJ_16 /* MIDISequence.swift */,
 				373BE4491E98344000DC1E15 /* MIDISequenceImpl.swift */,
-				37B150011E98059100CBDB07 /* Classifier.swift */,
 				OBJ_20 /* MIDITimestamp.swift */,
 				371120011E985E420037DFFA /* MIDIProject.swift */,
 			);
