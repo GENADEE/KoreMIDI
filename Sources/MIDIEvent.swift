@@ -15,7 +15,7 @@ public protocol TimestampType : Comparable, Strideable, Hashable {
 
 extension Data {
     func decode() -> MIDIRawData {
-        let len: UInt32 = decode()
+//        let len: UInt32 = decode()
         fatalError()
 //        return MIDIRawData(length: len, data: 0)
         

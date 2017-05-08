@@ -25,10 +25,15 @@ import AudioToolbox.MusicPlayer
 //}
 
 
+//struct WeakRef<Element : AnyObject> {
+//    private(set) weak var ref : Element?
+//    init(ref: Element) {
+//        self.ref = ref
+//    }
+//}
+
 
 extension MIDITrack {
-    
-    
     internal final class Impl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
         //    typealias Iterator = MIDIIterator
         //    typealias Element = Iterator.Element
@@ -195,7 +200,6 @@ extension MIDITrack {
         
         private func _set<T>(_ prop: MIDITrackProp, to value: T) {
             return MIDITrackSetProperty(ref: ref, prop: prop, to: value)
-            
         }
         
         internal subscript(element element: Element) -> Element {
@@ -235,10 +239,10 @@ extension MIDITrack {
         }
 
         func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
-            MusicTrackMoveEvents(ref,
-                                 timerange.lowerBound.beats,
-                                 timerange.upperBound.beats,
-                                 timestamp.beats)
+            OSAssert(MusicTrackMoveEvents(ref,
+                                          timerange.lowerBound.beats,
+                                          timerange.upperBound.beats,
+                                          timestamp.beats))
         }
         
         func load(from other: Impl) {
@@ -247,9 +251,9 @@ extension MIDITrack {
         }
         
         func clear(_ timerange: Range<Timestamp>) {
-            MusicTrackClear(ref,
-                            timerange.lowerBound.beats,
-                            timerange.upperBound.beats)
+            OSAssert(MusicTrackClear(ref,
+                                     timerange.lowerBound.beats,
+                                     timerange.upperBound.beats))
         }
         
         func clearAll() {
@@ -257,31 +261,31 @@ extension MIDITrack {
         }
         
         func cut(_ timerange: Range<Timestamp>) {
-            MusicTrackCut(ref,
-                          timerange.lowerBound.beats,
-                          timerange.upperBound.beats)
+            OSAssert(MusicTrackCut(ref,
+                                   timerange.lowerBound.beats,
+                                   timerange.upperBound.beats))
         }
         
         func copyInsert(from other: Impl,
                               in timerange: Range<Timestamp>? = nil,
                               at timestamp: Timestamp? = nil) {
             let tr = timerange ?? other.timerange
-            MusicTrackCopyInsert(other.ref,
-                                 tr.lowerBound.beats,
-                                 tr.upperBound.beats,
-                                 ref,
-                                 timestamp?.beats ?? 0)
+            OSAssert(MusicTrackCopyInsert(other.ref,
+                                          tr.lowerBound.beats,
+                                          tr.upperBound.beats,
+                                          ref,
+                                          timestamp?.beats ?? 0))
         }
         
         func merge(with other: Impl,
                          in timerange: Range<Timestamp>? = nil,
                          at timestamp: Timestamp? = nil) {
             let tr = timerange ?? other.timerange
-            MusicTrackMerge(other.ref,
-                            tr.lowerBound.beats,
-                            tr.upperBound.beats,
-                            ref,
-                            (timestamp ?? 0).beats)
+            OSAssert(MusicTrackMerge(other.ref,
+                                     tr.lowerBound.beats,
+                                     tr.upperBound.beats,
+                                     ref,
+                                     (timestamp ?? 0).beats))
         }
         
         func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {

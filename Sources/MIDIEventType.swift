@@ -9,6 +9,8 @@
 import AudioToolbox.MusicPlayer
 
 public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
+    
+    // ExtendedControlEvent
     case extendedNote, extendedTempo, user, meta, note, channel, rawData, parameter, auPreset
 
     public init(rawValue: MusicEventType) {

@@ -24,7 +24,7 @@ struct SequenceNotification {
 
 
 internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
-    
+    internal typealias Impl = MIDISequenceImpl
     internal typealias Index = Int
     internal typealias IndexDistance = Index
     internal typealias Element = MIDITrack
@@ -54,8 +54,8 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
         clock = Clock(sequence: ref)
     }
     
-    internal func copy() -> MIDISequenceImpl {
-        return MIDISequenceImpl(import: export())
+    internal func copy() -> Impl {
+        return Impl(import: export())
     }
     
     deinit {

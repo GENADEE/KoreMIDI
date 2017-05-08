@@ -13,22 +13,22 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias Index = Int
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
-
+    typealias Impl = MIDISequenceImpl
     public typealias Timestamp = Element.Timestamp
 //    func copy() -> MIDISequence {
 //        return MIDISequence(import: export())
 //    }
 
     public init() {
-        _impl = MIDISequenceImpl()
+        _impl = Impl()
     }
     
     public init(import url: URL) {
-        _impl = MIDISequenceImpl(import: url)
+        _impl = Impl(import: url)
     }
     
     public init(import data: Data) {
-        _impl = MIDISequenceImpl(import: data)
+        _impl = Impl(import: data)
     }
     
     public var startIndex: Index {
@@ -114,11 +114,11 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         _impl = _impl.copy()
     }
     
-    internal init(impl: MIDISequenceImpl) {
+    internal init(impl: Impl) {
         _impl = impl
     }
 
-    internal private(set) var _impl: MIDISequenceImpl
+    internal private(set) var _impl: Impl
     
 //    private func _registerCallback() {
 //        _impl.register {

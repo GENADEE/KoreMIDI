@@ -217,3 +217,26 @@ extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
         return ""
     }
 }
+
+extension ExtendedControlEvent : Comparable, Hashable, CustomStringConvertible {
+    static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
+//        return lhs.scope == rhs.scope &&
+//            lhs.element == rhs.element &&
+//            lhs.preset.toOpaque() == rhs.preset.toOpaque()
+        fatalError()
+    }
+    
+    static public func <(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
+//        return lhs.scope < rhs.scope
+        fatalError()
+    }
+    public var hashValue: Int {
+//        return scope.hashValue
+        fatalError()
+    }
+    
+    public var description: String {
+        return ""
+    }
+}
+
