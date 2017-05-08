@@ -12,84 +12,84 @@ public final class Clock: Equatable {
     
     public enum Status { case stopped, running }
     
-    public struct Timestamp : Comparable, Strideable, CustomStringConvertible, Hashable {
-        public typealias Stride = CAClockSeconds.Stride
-        
-        fileprivate let parent: Clock
-        private let time : CAClockTime
-        
-        public var seconds: CAClockSeconds {
-            fatalError()
-        }
-        
-        internal init(parent: Clock, time: CAClockTime) {
-            self.parent = parent
-            self.time = time
-        }
-        
-        public var hashValue : Int {
-            return seconds.hashValue
-        }
-        
-        public func distance(to other: Timestamp) -> Stride {
-//            return time.distance(to: other.time)
-            fatalError()
-        }
-        
-        public var description: String {
-            return "\(seconds) seconds"
-        }
-        
-        public func advanced(by n: Stride) -> Timestamp {
-//            return Timestamp(parent: parent, seconds: seconds.advanced(by: n))
-            fatalError()
-        }
-        
-        public static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
-//            return lhs.seconds == rhs.seconds
-            fatalError()
-        }
-        
-        public static func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
-//            return lhs.seconds < rhs.seconds
-            fatalError()
-        }
-        
-        var hostTime : Float64 {
-            var `in` = time
-//            CAClockTranslateTime(ref, &time, <#T##inOutputTimeFormat: CAClockTimeFormat##CAClockTimeFormat#>, <#T##outTime: UnsafeMutablePointer<CAClockTime>##UnsafeMutablePointer<CAClockTime>#>)
-//            time.time
-            fatalError()
-            //            return parent.translate(self, fmt: .hostTime)
-            
-        }
-        
-        var samples : Float64 {
-            fatalError()
-            //            return parent.translate(self, fmt: .samples)
-        }
-        
-        var beats : Float64 {
-            fatalError()
-            //            return parent.translate(self, fmt: .beats)
-        }
-        
-//        var seconds // relative position on media timeline
-        
-        var smpteSeconds : Float64 {
-            fatalError()
-//            return parent.translate(self, fmt: .smpteSeconds)
-        }
-        
-        var smpteTime : SMPTETime {
-//            return parent.translate(self, fmt: .smpteTime)
-            fatalError()
-        }
-        
-        var absoluteSeconds : Float64 {
-            fatalError()
-        }
-    }
+//    public struct Timestamp : Comparable, Strideable, CustomStringConvertible, Hashable {
+//        public typealias Stride = CAClockSeconds.Stride
+//        
+//        fileprivate let parent: Clock
+//        private let time : CAClockTime
+//        
+//        public var seconds: CAClockSeconds {
+//            fatalError()
+//        }
+//        
+//        internal init(parent: Clock, time: CAClockTime) {
+//            self.parent = parent
+//            self.time = time
+//        }
+//        
+//        public var hashValue : Int {
+//            return seconds.hashValue
+//        }
+//        
+//        public func distance(to other: Timestamp) -> Stride {
+////            return time.distance(to: other.time)
+//            fatalError()
+//        }
+//        
+//        public var description: String {
+//            return "\(seconds) seconds"
+//        }
+//        
+//        public func advanced(by n: Stride) -> Timestamp {
+////            return Timestamp(parent: parent, seconds: seconds.advanced(by: n))
+//            fatalError()
+//        }
+//        
+//        public static func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
+////            return lhs.seconds == rhs.seconds
+//            fatalError()
+//        }
+//        
+//        public static func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
+////            return lhs.seconds < rhs.seconds
+//            fatalError()
+//        }
+//        
+//        var hostTime : Float64 {
+//            var `in` = time
+////            CAClockTranslateTime(ref, &time, <#T##inOutputTimeFormat: CAClockTimeFormat##CAClockTimeFormat#>, <#T##outTime: UnsafeMutablePointer<CAClockTime>##UnsafeMutablePointer<CAClockTime>#>)
+////            time.time
+//            fatalError()
+//            //            return parent.translate(self, fmt: .hostTime)
+//            
+//        }
+//        
+//        var samples : Float64 {
+//            fatalError()
+//            //            return parent.translate(self, fmt: .samples)
+//        }
+//        
+//        var beats : Float64 {
+//            fatalError()
+//            //            return parent.translate(self, fmt: .beats)
+//        }
+//        
+////        var seconds // relative position on media timeline
+//        
+//        var smpteSeconds : Float64 {
+//            fatalError()
+////            return parent.translate(self, fmt: .smpteSeconds)
+//        }
+//        
+//        var smpteTime : SMPTETime {
+////            return parent.translate(self, fmt: .smpteTime)
+//            fatalError()
+//        }
+//        
+//        var absoluteSeconds : Float64 {
+//            fatalError()
+//        }
+//    }
     
     fileprivate let ref: CAClockRef
     

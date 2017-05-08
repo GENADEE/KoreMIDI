@@ -13,7 +13,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias Index = Int
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
-    typealias Impl = MIDISequenceImpl
+
     public typealias Timestamp = Element.Timestamp
 //    func copy() -> MIDISequence {
 //        return MIDISequence(import: export())

@@ -41,18 +41,18 @@ extension MIDITrack {
         typealias Element = MIDIEvent<Timestamp>
 
         let ref : MusicTrack
-        private var _parent: MIDISequenceImpl? = nil
+        private var _parent: MIDISequence.Impl? = nil
         
         var parent : MIDISequence {
             return MIDISequence(impl: parentImpl)
         }
         
-        init(tempoTrack seq: MIDISequenceImpl) {
+        init(tempoTrack seq: MIDISequence.Impl) {
             self.ref = MusicSequenceGetTempoTrack(ref: seq.ref)
         }
         
-        var parentImpl : MIDISequenceImpl {
-            return _parent ?? MIDISequenceImpl(for: self)
+        var parentImpl : MIDISequence.Impl {
+            return _parent ?? MIDISequence.Impl(for: self)
         }
         
         var isParentUnique : Bool {
@@ -60,7 +60,7 @@ extension MIDITrack {
         }
         
         init() {
-            let s = MIDISequenceImpl()
+            let s = MIDISequence.Impl()
             ref = MIDITrackCreate(ref: s.ref)
             
             _parent = s
@@ -76,12 +76,12 @@ extension MIDITrack {
             return lhs === rhs || lhs.elementsEqual(rhs)
         }
         
-        init(parent: MIDISequenceImpl) {
+        init(parent: MIDISequence.Impl) {
             ref = MIDITrackCreate(ref: parent.ref)
             _parent = parent
         }
         
-        init(parent: MIDISequenceImpl, no: Int) {
+        init(parent: MIDISequence.Impl, no: Int) {
             _parent = parent
             ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
         }

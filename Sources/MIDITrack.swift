@@ -170,11 +170,11 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _impl.remove(timerange) { _ in true }
     }
     
-    internal init(seq: MIDISequenceImpl) {
+    internal init(seq: MIDISequence.Impl) {
         _impl = Impl(parent: seq)
     }
     
-    internal init(seq: MIDISequenceImpl, no: Int) {
+    internal init(seq: MIDISequence.Impl, no: Int) {
         _impl = Impl(parent: seq, no: no)
     }
     
