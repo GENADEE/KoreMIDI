@@ -14,12 +14,6 @@ protocol DefaultConstructible {
     
 }
 
-
-protocol HasExtrema : DefaultConstructible {
-    static var min: Self { get }
-    static var max: Self { get }
-}
-
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral {
 
     public typealias Stride = MusicTimeStamp
@@ -27,6 +21,10 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
 
     /// note that beats are independent of tempo changes
     public let beats : MusicTimeStamp
+    
+    public init() {
+        self = 0
+    }
 
     public init(floatLiteral value: LiteralType) {
         self.beats = value
