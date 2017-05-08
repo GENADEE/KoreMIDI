@@ -289,7 +289,7 @@ extension MIDITrack {
                             tr.lowerBound.beats,
                             tr.upperBound.beats,
                             ref,
-                            timestamp?.beats ?? 0)
+                            (timestamp ?? 0).beats)
         }
         
         func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {

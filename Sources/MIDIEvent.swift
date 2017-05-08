@@ -12,8 +12,6 @@ public protocol TimestampType : Comparable, Strideable, Hashable {
     var beats: MusicTimeStamp { get }
 }
 
-//extension MIDITimestamp : TimestampType { }
-
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Stride = Timestamp.Stride
     
@@ -42,7 +40,8 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         case .channel:
             self = .channel(timestamp, data.decode())
         case .rawData:
-            self = .rawData(timestamp, data.decode())
+            fatalError("this is fundamentally broken since the struct is variable size")
+//            self = .rawData(timestamp, data.decode())
         case .parameter:
             self = .parameter(timestamp, data.decode())
         case .auPreset:
@@ -109,26 +108,7 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
     }
     
     public var type : MIDIEventType {
-        switch self {
-        case .extendedNote:
-            return .extendedNote
-        case .extendedTempo:
-            return .extendedTempo
-        case .user:
-            return .user
-        case .meta:
-            return .meta
-        case .note:
-            return .note
-        case .channel:
-            return .channel
-        case .rawData:
-            return .rawData
-        case .parameter:
-            return .parameter
-        case .auPreset:
-            return .auPreset
-        }
+        return MIDIEventType(event: self)
     }
     
     public var hashValue: Int {
