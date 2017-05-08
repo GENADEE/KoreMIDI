@@ -181,17 +181,28 @@ func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     return out!
 }
 
+//@inline(__always) internal
+//func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
+//    var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
+//    var size: UInt32 = 0
+//    OSAssert(MusicTrackGetProperty(ref, prop.rawValue, ptr, &size))
+//    //    fatalError("ownership")
+//    defer {
+//        ptr.deinitialize()
+//        ptr.deallocate(capacity: 1)
+//    }
+//    return ptr.pointee
+//}
+
 @inline(__always) internal
 func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
-    var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
+    var d = Data(capacity: MemoryLayout<T>.size)
     var size: UInt32 = 0
-    OSAssert(MusicTrackGetProperty(ref, prop.rawValue, ptr, &size))
-    //    fatalError("ownership")
-    defer {
-        ptr.deinitialize()
-        ptr.deallocate(capacity: 1)
+    d.withUnsafeMutableBytes {
+        OSAssert(MusicTrackGetProperty(ref, prop.rawValue, $0, &size))
     }
-    return ptr.pointee
+    
+    return d.decode()
 }
 
 @inline(__always) internal

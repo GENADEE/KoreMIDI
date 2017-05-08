@@ -210,8 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				37F70AAA1EBCBFD10008536E /* Drafts */,
-				37CDEFC51E9972390005B509 /* MIDIEvent.swift */,
 				OBJ_15 /* MIDIEventType.swift */,
+				37CDEFC51E9972390005B509 /* MIDIEvent.swift */,
 				37E24EAA1E9FEB25006C957B /* MIDIEventConvertible.swift */,
 				37371FA31E9B2B5200829B24 /* MIDIPitch.swift */,
 				373BE4171E98154600DC1E15 /* MIDINote.swift */,

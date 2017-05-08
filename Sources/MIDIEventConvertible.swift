@@ -56,6 +56,13 @@ extension ExtendedTempoEvent : Comparable, Hashable, CustomStringConvertible {
 ///
 
 extension MusicEventUserData : Comparable, Hashable, CustomStringConvertible {
+    
+//    init(data: Data) {
+//        let length : UInt32 = data.decode()
+//        let sub = data[from: MemoryLayout<UInt32>.size]
+//
+//        
+//    }
 
     public var hashValue: Int {
         return length.hashValue

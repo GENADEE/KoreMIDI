@@ -14,8 +14,7 @@ struct SequenceNotification {
     let track: MIDITrack.Impl
     let ts: MusicTimeStamp
     let event: MusicEventUserData
-    let ts2: MusicTimeStamp
-    let ts3: MusicTimeStamp
+    let range: Range<MusicTimeStamp>
 }
 
 ///
@@ -62,14 +61,14 @@ extension MIDISequence {
             DisposeMusicSequence(ref)
         }
         
-        
-        
-        //    private static var callback: MusicSequenceUserCallback {
-        //        get {
-        //            fatalError()
-        //        }
-        //    }
-        //
+        private static var callback: MusicSequenceUserCallback {
+            get {
+                fatalError()
+            }
+            set {
+                
+            }
+        }
         internal static func ==(lhs: Impl, rhs: Impl) -> Bool {
             return lhs === rhs || lhs.elementsEqual(rhs)
         }

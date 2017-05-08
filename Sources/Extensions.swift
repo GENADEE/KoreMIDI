@@ -76,6 +76,10 @@ extension Data {
     func decode<T>() -> T {
         return withUnsafeBytes { $0.pointee }
     }
+    
+    subscript(from index: Index) -> Data {
+        return subdata(in: index..<endIndex)
+    }
 }
 
 
