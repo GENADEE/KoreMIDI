@@ -7,9 +7,19 @@
 //
 
 import AudioToolbox
+import Foundation
 
 public protocol TimestampType : Comparable, Strideable, Hashable {
     var beats: MusicTimeStamp { get }
+}
+
+extension Data {
+    func decode() -> MIDIRawData {
+        let len: UInt32 = decode()
+        fatalError()
+//        return MIDIRawData(length: len, data: 0)
+        
+    }
 }
 
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
@@ -27,75 +37,45 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
     
     public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
         switch type {
-        case .extendedNote:
-            self = .extendedNote(timestamp, data.decode())
-        case .extendedTempo:
-            self = .extendedTempo(timestamp, data.decode())
-        case .user:
-            self = .user(timestamp, data.decode())
-        case .meta:
-            self = .meta(timestamp, data.decode())
-        case .note:
-            self = .note(timestamp, data.decode())
-        case .channel:
-            self = .channel(timestamp, data.decode())
+        case .extendedNote: self = .extendedNote(timestamp, data.decode())
+        case .extendedTempo: self = .extendedTempo(timestamp, data.decode())
+        case .user: self = .user(timestamp, data.decode())
+        case .meta: self = .meta(timestamp, data.decode())
+        case .note: self = .note(timestamp, data.decode())
+        case .channel: self = .channel(timestamp, data.decode())
         case .rawData:
             fatalError("this is fundamentally broken since the struct is variable size")
 //            self = .rawData(timestamp, data.decode())
-        case .parameter:
-            self = .parameter(timestamp, data.decode())
-        case .auPreset:
-            self = .auPreset(timestamp, data.decode())
+        case .parameter: self = .parameter(timestamp, data.decode())
+        case .auPreset: self = .auPreset(timestamp, data.decode())
         }
     }
     
-//    func map<U : TimestampType>(transform: (Timestamp) -> U) -> MIDIEvent<U> {
-//        return MIDIEvent(timestamp: transform(timestamp), type: type, data: data)
-//    }
-//    
     public var description : String {
         switch self {
-        case let .extendedNote(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .extendedTempo(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .user(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .meta(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .note(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .channel(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .rawData(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .parameter(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
-        case let .auPreset(ts, e):
-            return "\(type)(timestamp: \(ts), \(e))"
+        case let .extendedNote(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .extendedTempo(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .user(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .meta(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .note(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .channel(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .rawData(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .parameter(ts, e): return "\(type)(timestamp: \(ts), \(e))"
+        case let .auPreset(ts, e): return "\(type)(timestamp: \(ts), \(e))"
         }
     }
     
     private var _serialize  : (timestamp: Timestamp, data : Data) {
         switch self {
-        case let .extendedNote(ts, data):
-            return (ts, Data(encode: data))
-        case let .extendedTempo(ts, data):
-            return (ts, Data(encode: data))
-        case let .user(ts, data):
-            return (ts, Data(encode: data))
-        case let .meta(ts, data):
-            return (ts, Data(encode: data))
-        case let .note(ts, data):
-            return (ts, Data(encode: data))
-        case let .channel(ts, data):
-            return (ts, Data(encode: data))
-        case let .rawData(ts, data):
-            return (ts, Data(encode: data))
-        case let .parameter(ts, data):
-            return (ts, Data(encode: data))
-        case let .auPreset(ts, data):
-            return (ts, Data(encode: data))
+        case let .extendedNote(ts, data): return (ts, Data(encode: data))
+        case let .extendedTempo(ts, data): return (ts, Data(encode: data))
+        case let .user(ts, data): return (ts, Data(encode: data))
+        case let .meta(ts, data): return (ts, Data(encode: data))
+        case let .note(ts, data): return (ts, Data(encode: data))
+        case let .channel(ts, data): return (ts, Data(encode: data))
+        case let .rawData(ts, data): return (ts, Data(encode: data))
+        case let .parameter(ts, data): return (ts, Data(encode: data))
+        case let .auPreset(ts, data): return (ts, Data(encode: data))
         }
     }
     

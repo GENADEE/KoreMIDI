@@ -156,7 +156,7 @@ extension Double : TimestampType {
 }
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MusicTimeStamp>? {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MIDITimestamp>? {
     func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
         var bool : DarwinBoolean = false
         OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
@@ -165,14 +165,14 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MusicTimeStamp
     
     guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
     
-    var timestamp: Double = 0
+    var timestamp: Float64 = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
     
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))
-    return MIDIEvent(timestamp: timestamp,
+    return MIDIEvent(timestamp: MIDITimestamp(beats: timestamp),
                      type: MIDIEventType(rawValue: type),
                      data: d)
 }

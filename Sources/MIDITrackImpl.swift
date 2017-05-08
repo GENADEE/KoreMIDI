@@ -131,15 +131,7 @@ extension MIDITrack {
         }
         
         func makeIterator() -> AnyIterator<Element> {
-            let i = MIDIIterator(self)
-
-            return AnyIterator {
-                i.next().map {
-//                    Timestamp(parent: <#T##Clock#>, time: <#T##CAClockTime#>)
-                    let t = Timestamp(beats: $0.timestamp)
-                    return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
-                }
-            }
+            return AnyIterator(MIDIIterator(self))
         }
         
         var hashValue: Int {
@@ -302,16 +294,13 @@ extension MIDITrack {
         }
         
         func remove(_ timerange: Range<Timestamp>,
-                          predicate: (Element) -> Bool) {
-            let t = timerange.lowerBound.beats..<timerange.upperBound.beats
-            let i = MIDIIterator(self, timerange: t)
+                    predicate: (Element) -> Bool) {
+
+            let i = MIDIIterator(self, timerange: timerange)
             
             while let n = i.next() {
-                let ts = Timestamp(beats: n.timestamp)
-                let e = Element(timestamp: ts, type: n.type, data: n.data)
-
-                if predicate(e) {
-                    i.remove()
+                if predicate(n) {
+                    _ = i.remove()
                 }
             }
         }
