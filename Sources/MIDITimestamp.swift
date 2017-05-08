@@ -19,54 +19,42 @@ protocol HasExtrema : DefaultConstructible {
     static var min: Self { get }
     static var max: Self { get }
 }
-/*
-public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible {
-    internal typealias Base = MIDISequenceImpl
+
+public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral {
+
     public typealias Stride = MusicTimeStamp
+    public typealias LiteralType = MusicTimeStamp
 
+    /// note that beats are independent of tempo changes
     public let beats : MusicTimeStamp
-//    private weak var base : Base! = nil
-    
-//    var seconds: Float64 {
-//        return MusicSequenceBeatsToSeconds(ref: base.ref, beats: beats)
-//    }
 
-//    internal init(base: Base, beats: MusicTimeStamp) {
-////        self.base = base
-//        self.beats = beats
-//    }
-//    
-//    internal init(base: Base, beats: CABarBeatTime) {
-////        self.base = base
-////        self.beats = beats
-//        fatalError()
-//    }
+    public init(floatLiteral value: LiteralType) {
+        self.beats = value
+    }
     
-    internal init(beats: MusicTimeStamp) {
+    public init(beats: LiteralType) {
         self.beats = beats
+    }
+    
+    public init(integerLiteral value: Int) {
+        self.beats = MusicTimeStamp(value)
     }
 
     public var description: String {
-        return "\(beats)"
+        return "beats: \(beats)"
     }
     
     public static func ==(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
-//        assert(lhs.base == rhs.base)
         return lhs.beats == rhs.beats
     }
     
     public static func <(lhs: MIDITimestamp, rhs: MIDITimestamp) -> Bool {
-//        assert(lhs.base == rhs.base)
         return lhs.beats < rhs.beats
     }
     
     public var hashValue: Int {
         return beats.hashValue
     }
-    
-//    public func beatTime(for subdivisor: UInt32 = 4) -> CABarBeatTime {
-//        return MusicSequenceBeatsToBarBeatTime(ref: base.ref, beats: beats, subdivisor: subdivisor)
-//    }
     
     public func advanced(by n: Stride) -> MIDITimestamp {
         return MIDITimestamp(beats: beats + n)
@@ -77,7 +65,6 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     }
     
     public static func +(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
-//        assert(lhs.base == rhs.base)
         return MIDITimestamp(beats: lhs.beats + rhs.beats)
     }
     
@@ -88,5 +75,5 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
     public static func -(lhs: MIDITimestamp, rhs: MIDITimestamp) -> MIDITimestamp {
         return lhs + (-rhs)
     }
-}*/
+}
 

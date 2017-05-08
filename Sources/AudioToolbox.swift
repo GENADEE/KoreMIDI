@@ -64,6 +64,31 @@ func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
     return r!
 }
 
+@inline(__always) internal
+func MusicSequenceInsert<T : TimestampType>(ref: MusicSequence, event: MIDIEvent<T>) -> OSStatus {
+    switch event {
+    case .extendedNote(let ts, var e):
+        return MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e)
+    case .extendedTempo(let ts, let e):
+        return MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm)
+    case .user(let ts, var e):
+        return MusicTrackNewUserEvent(ref, ts.beats, &e)
+    case .meta(let ts, var e):
+        return MusicTrackNewMetaEvent(ref, ts.beats, &e)
+    case .note(let ts, var e):
+        return MusicTrackNewMIDINoteEvent(ref, ts.beats, &e)
+    case .channel(let ts, var e):
+        return MusicTrackNewMIDIChannelEvent(ref, ts.beats, &e)
+    case .rawData(let ts, var e):
+        return MusicTrackNewMIDIRawDataEvent(ref, ts.beats, &e)
+    case .parameter(let ts, var e):
+        return MusicTrackNewParameterEvent(ref, ts.beats, &e)
+    case .auPreset(let ts, var e):
+        return MusicTrackNewAUPresetEvent(ref, ts.beats, &e)
+    }
+}
+
+
 //@inline(__always) internal
 //func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
 //    var out: Float64 = 0

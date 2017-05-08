@@ -50,10 +50,10 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         }
     }
     
-    func map<U : TimestampType>(transform: (Timestamp) -> U) -> MIDIEvent<U> {
-        return MIDIEvent<U>(timestamp: transform(timestamp), type: type, data: data)
-    }
-    
+//    func map<U : TimestampType>(transform: (Timestamp) -> U) -> MIDIEvent<U> {
+//        return MIDIEvent(timestamp: transform(timestamp), type: type, data: data)
+//    }
+//    
     public var description : String {
         switch self {
         case let .extendedNote(ts, e):

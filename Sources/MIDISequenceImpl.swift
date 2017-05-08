@@ -28,7 +28,7 @@ internal final class MIDISequenceImpl : Collection, Hashable, Comparable {
     internal typealias Index = Int
     internal typealias IndexDistance = Index
     internal typealias Element = MIDITrack
-    internal typealias Timestamp = Clock.Timestamp
+    internal typealias Timestamp = MIDITimestamp
     
     internal let ref : MusicSequence
 

@@ -32,7 +32,7 @@ extension MIDITrack {
     internal final class Impl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
         //    typealias Iterator = MIDIIterator
         //    typealias Element = Iterator.Element
-        public typealias Timestamp = Clock.Timestamp
+        public typealias Timestamp = MIDITimestamp
         typealias Element = MIDIEvent<Timestamp>
 
         let ref : MusicTrack
@@ -135,7 +135,7 @@ extension MIDITrack {
 
             return AnyIterator {
                 i.next().map {
-                    Timestamp(parent: <#T##Clock#>, time: <#T##CAClockTime#>)
+//                    Timestamp(parent: <#T##Clock#>, time: <#T##CAClockTime#>)
                     let t = Timestamp(beats: $0.timestamp)
                     return MIDIEvent(timestamp: t, type: $0.type, data: $0.data)
                 }
@@ -239,37 +239,9 @@ extension MIDITrack {
         }
         
         func insert(_ element: Element) {
-            switch element {
-            case .extendedNote(let ts, var e):
-                OSAssert(MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e))
-            case .extendedTempo(let ts, let e):
-                OSAssert(MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm))
-            case .user(let ts, var e):
-                OSAssert(MusicTrackNewUserEvent(ref, ts.beats, &e))
-            case .meta(let ts, var e):
-                OSAssert(MusicTrackNewMetaEvent(ref, ts.beats, &e))
-            case .note(let ts, var e):
-                OSAssert(MusicTrackNewMIDINoteEvent(ref, ts.beats, &e))
-            case .channel(let ts, var e):
-                OSAssert(MusicTrackNewMIDIChannelEvent(ref, ts.beats, &e))
-            case .rawData(let ts, var e):
-                OSAssert(MusicTrackNewMIDIRawDataEvent(ref, ts.beats, &e))
-            case .parameter(let ts, var e):
-                OSAssert(MusicTrackNewParameterEvent(ref, ts.beats, &e))
-            case .auPreset(let ts, var e):
-                OSAssert(MusicTrackNewAUPresetEvent(ref, ts.beats, &e))
-            }
+            OSAssert(MusicSequenceInsert(ref: ref, event: element))
         }
 
-        public func insert(_ element: MIDIEvent<MusicTimeStamp>) {
-            let e : MIDIEvent<Timestamp> = element.map {
-                Timestamp(beats: $0)
-            }
-            
-            insert(e)
-        }
-        
-        
         func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
             MusicTrackMoveEvents(ref,
                                  timerange.lowerBound.beats,
@@ -323,10 +295,10 @@ extension MIDITrack {
         func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
             guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
             let s = Set(elements)
-
-            remove(range) {
-                s.contains($0)
-            }
+            fatalError()
+//            remove(range) {
+//                s.contains($0)
+//            }
         }
         
         func remove(_ timerange: Range<Timestamp>,

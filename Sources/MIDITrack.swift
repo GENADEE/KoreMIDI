@@ -10,11 +10,11 @@ import AVFoundation
 
 import struct AudioToolbox.MusicPlayer.MusicTrackLoopInfo
 
-extension Clock.Timestamp : TimestampType  { }
+extension MIDITimestamp : TimestampType  { }
 
 public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible {
     
-    public typealias Timestamp = Clock.Timestamp
+    public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent<Timestamp>
 
     public init() {
@@ -125,12 +125,7 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         _ensureUnique()
         _impl.insert(element)
     }
-    
-    public mutating func insert(_ element: MIDIEvent<MusicTimeStamp>) {
-        _ensureUnique()
-        _impl.insert(element)
-    }
-    
+        
 //    mutating func insert(_ element: Element) {
 //        _ensureUnique()
 //        
