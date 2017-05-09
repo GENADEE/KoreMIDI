@@ -6,7 +6,12 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
+import AudioToolbox
+
+enum MetaEvent {
+    
+}
+
 /*
 namespace AudioSynthesis.Midi
     {
