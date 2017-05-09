@@ -14,9 +14,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
     public typealias Timestamp = Element.Timestamp
-//    func copy() -> MIDISequence {
-//        return MIDISequence(import: export())
-//    }
 
     public init() {
         _impl = Impl()
@@ -90,7 +87,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return _impl.export()
     }
     
-    public func save(to url: URL) throws {
+    public func save(to url: URL) {
         try _impl.save(to: url)
     }
     

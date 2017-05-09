@@ -82,7 +82,8 @@ extension MIDISequence {
         }
         
         internal var hashValue: Int {
-            return hashValue()
+//            return hashValue()
+                fatalError()
         }
         
         internal func export() -> Data {

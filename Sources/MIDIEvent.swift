@@ -20,6 +20,13 @@ extension Data {
 //        return MIDIRawData(length: len, data: 0)
         
     }
+    
+//    init(encode: inout MIDIRawData) {
+//        self.init(capacity: Int(encode.length))
+//        withUnsafeBytes(of: &encode.data) {
+//            
+//        }
+//    }
 }
 
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {

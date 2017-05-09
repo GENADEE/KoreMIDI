@@ -47,7 +47,6 @@ func MIDISequenceExport(ref: MusicSequence) -> Data {
 func MIDISequenceExport(ref: MusicSequence, to url: URL) {
     MusicSequenceFileCreate(ref, url as CFURL, .midiType, .eraseFile, 960)
     fatalError()
-    
 }
 
 @inline(__always) internal
@@ -79,6 +78,12 @@ func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent<MIDITimestamp>) ->
     }
 }
 
+@inline(__always) internal
+func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MIDITimestamp, subdivisor: UInt32) -> CABarBeatTime {
+    var t = CABarBeatTime()
+    OSAssert(MusicSequenceBeatsToBarBeatTime(ref, beats.beats, subdivisor, &t))
+    return t
+}
 
 //@inline(__always) internal
 //func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
@@ -108,30 +113,10 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
     return out!
 }
 
-//@inline(__always) internal
-//func MusicSequenceSetSequenceType(ref: MusicSequence, type: MIDIS)  {
-//    var out: MusicSequenceType = .beats
-//    MusicSequenceGetSequenceType(ref, &out)
-//    return out
-//}
 
 ///
 /// Iterators
 ///
-
-//enum OSResult<T> {
-//    case ok(T), err(OSStatus)
-//
-//    public init(fun: @autoclosure () -> OSStatus, ok: @autoclosure () -> T) {
-//        let e = fun()
-//        if e == noErr {
-//            self = .ok(ok())
-//        }
-//        else {
-//            self = .err(e)
-//        }
-//    }
-//}
 
 @inline(__always) internal
 func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
@@ -208,13 +193,6 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
 func MIDITrackSetProperty<T>(ref: MusicTrack, prop: MIDITrackProp, to value: T) {
     var cpy = value
     OSAssert(MusicTrackSetProperty(ref, prop.rawValue, &cpy, UInt32(MemoryLayout<T>.size)))
-}
-
-@inline(__always) internal
-func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MusicTimeStamp, subdivisor: UInt32) -> CABarBeatTime {
-    var t = CABarBeatTime()
-    OSAssert(MusicSequenceBeatsToBarBeatTime(ref, beats, subdivisor, &t))
-    return t
 }
 
 @inline(__always) internal

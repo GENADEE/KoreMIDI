@@ -19,11 +19,11 @@ extension Range {
     }
 }
 
-extension Sequence where Iterator.Element : Hashable {
-    func hashValue() -> Int {
-        fatalError()
-    }
-}
+//extension Sequence where Iterator.Element : Hashable {
+//    func hashValue() -> Int {
+//        fatalError()
+//    }
+//}
 
 extension Strideable {
     static func +(lhs: Self, rhs: Stride) -> Self {
@@ -61,9 +61,14 @@ extension Sequence {
     }
 }
 
-extension CABarBeatTime : CustomStringConvertible {
+extension CABarBeatTime : CustomStringConvertible, Equatable {
     public var description : String {
         return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
+    }
+    
+    public static func ==(lhs: CABarBeatTime, rhs: CABarBeatTime) -> Bool {
+        return lhs.bar == rhs.bar && lhs.beat == rhs.beat &&
+               lhs.subbeat == rhs.subbeat && lhs.subbeatDivisor == rhs.subbeatDivisor
     }
 }
 
@@ -77,9 +82,9 @@ extension Data {
         return withUnsafeBytes { $0.pointee }
     }
     
-    subscript(from index: Index) -> Data {
-        return subdata(in: index..<endIndex)
-    }
+//    subscript(from index: Index) -> Data {
+//        return subdata(in: index..<endIndex)
+//    }
 }
 
 
