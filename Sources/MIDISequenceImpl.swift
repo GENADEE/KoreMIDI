@@ -89,18 +89,25 @@ extension MIDISequence {
             return MIDISequenceExport(ref: ref)
         }
         
-        internal func save(to url: URL) throws {
-            try export().write(to: url)
+        internal func save(to url: URL) {
+            MIDISequenceExport(ref: ref, to: url)
         }
         
-        internal var type : MusicSequenceType {
-            get {
-                return MusicSequenceGetSequenceType(ref: ref)
-            }
-            //        set {
-            //            MusicSequenceSetSequenceType(ref, newValue)
-            //        }
-        }
+//        func _validate() {
+//            guard _type != .beats else { return }
+//            _type = .beats
+//        }
+//
+//        private var _type : MusicSequenceType {
+//            get {
+//                return MusicSequenceGetSequenceType(ref: ref)
+//            }
+//            set {
+//                assert(newValue == .beats)
+//                guard _type != newValue else { return }
+//                MusicSequenceSetSequenceType(ref, newValue)
+//            }
+//        }
         
         //    func remove
         

@@ -40,16 +40,15 @@ func MIDISequenceImport(_ data: Data) -> MusicSequence {
 
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence) -> Data {
-    //    MusicSequenceFileCreateData(ref, .midiType, 0, )
     fatalError()
-    //    MusicSequenceFileCreateData(ref, .midiType, .eraseFile)
-    //    let seq = MIDISequenceCreate()
-    //    let url = URL(fileURLWithPath: path) as CFURL
-    //    MusicSequenceFileLoad(seq, url, .midiType, .smf_ChannelsToTracks)
-    //    return seq
 }
 
-//public func MusicSequenceFileCreateData(_ inSequence: MusicSequence, _ inFileType: MusicSequenceFileTypeID, _ inFlags: MusicSequenceFileFlags, _ inResolution: Int16, _ outData: UnsafeMutablePointer<Unmanaged<CFData>?>) -> OSStatus
+@inline(__always) internal
+func MIDISequenceExport(ref: MusicSequence, to url: URL) {
+    MusicSequenceFileCreate(ref, url as CFURL, .midiType, .eraseFile, 960)
+    fatalError()
+    
+}
 
 @inline(__always) internal
 func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {

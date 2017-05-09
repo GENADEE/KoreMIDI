@@ -74,15 +74,6 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         fatalError()
     }
 
-    public var type : MusicSequenceType {
-        get {
-            return _impl.type
-        }
-//        set {
-//            MusicSequenceSetSequenceType(ref, newValue)
-//        }
-    }
-
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs._impl == rhs._impl
     }

@@ -9,7 +9,7 @@
 import AudioToolbox.MusicPlayer
 
 public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable {
-    public typealias Timestamp = MIDITimeStamp
+    public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
     
     public let timestamp: Timestamp
