@@ -71,7 +71,10 @@ func tst() {
     }
 }
 
-tst()
+var s = MIDISequence()
+for t in s {
+    print(t)
+}
 
 
 

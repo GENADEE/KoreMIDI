@@ -110,7 +110,7 @@ extension MIDITrack {
                 opts.append("muted")
             }
             
-            return "MIDITrackImpl(in:\(timerange), \(opts), \(map { $0 }))"
+            return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
         }
         
         subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
