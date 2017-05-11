@@ -11,7 +11,7 @@ import AudioToolbox.MusicPlayer
 public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeReplaceableCollection, RandomAccessCollection {
 
     public typealias Index = Int
-    public typealias IndexDistance = Index
+
     public typealias Element = MIDITrack
     public typealias Timestamp = Element.Timestamp
 
@@ -57,11 +57,11 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         return i - 1
     }
 
-    public var startTime : Timestamp? {
+    public var startTime : Timestamp {
         return _impl.startTime
     }
 
-    public var endTime : Timestamp? {
+    public var endTime : Timestamp {
         return _impl.endTime
     }
 
@@ -71,6 +71,10 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         fatalError()
     }
 
+//    public static func ===(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+//        return lhs.elementsEqual(rhs) { $0 === $1 }
+//    }
+    
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs._impl == rhs._impl
     }
@@ -88,7 +92,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     }
     
     public func save(to url: URL) {
-        try _impl.save(to: url)
+        _impl.save(to: url)
     }
     
 //    public var tempoTrack : MIDITrackImpl {

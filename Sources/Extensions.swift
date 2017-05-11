@@ -65,10 +65,10 @@ extension CABarBeatTime : CustomStringConvertible, Equatable {
     public var description : String {
         return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
     }
-    
+
     public static func ==(lhs: CABarBeatTime, rhs: CABarBeatTime) -> Bool {
         return lhs.bar == rhs.bar && lhs.beat == rhs.beat &&
-               lhs.subbeat == rhs.subbeat && lhs.subbeatDivisor == rhs.subbeatDivisor
+            lhs.subbeat == rhs.subbeat && lhs.subbeatDivisor == rhs.subbeatDivisor
     }
 }
 
@@ -77,14 +77,14 @@ extension Data {
         var cpy = encode
         self.init(bytes: &cpy, count: MemoryLayout<T>.size)
     }
-    
+
     func decode<T>() -> T {
         return withUnsafeBytes { $0.pointee }
     }
-    
-//    subscript(from index: Index) -> Data {
-//        return subdata(in: index..<endIndex)
-//    }
+
+    //    subscript(from index: Index) -> Data {
+    //        return subdata(in: index..<endIndex)
+    //    }
 }
 
 

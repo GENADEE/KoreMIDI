@@ -31,26 +31,26 @@ extension MIDISequence {
         
         internal let ref : MusicSequence
         
-        let clock : Clock
+//        let clock : Clock
         
         internal init() {
             ref = MIDISequenceCreate()
-            clock = Clock(sequence: ref)
+//            clock = Clock(sequence: ref)
         }
         
         internal init(for track: MIDITrack.Impl) {
             ref = MusicTrackGetSequence(track.ref)
-            clock = Clock(sequence: ref)
+//            clock = Clock(sequence: ref)
         }
         
         internal init(import url: URL) {
             ref = MIDISequenceImport(url)
-            clock = Clock(sequence: ref)
+//            clock = Clock(sequence: ref)
         }
         
         internal init(import data: Data) {
             ref = MIDISequenceImport(data)
-            clock = Clock(sequence: ref)
+//            clock = Clock(sequence: ref)
         }
         
         internal func copy() -> Impl {
@@ -116,12 +116,12 @@ extension MIDISequence {
             return MusicSequenceGetTrackCount(ref: ref)
         }
         
-        internal var startTime : Timestamp? {
-            return lazy.map { $0.startTime }.reduce(combine: Swift.min)
+        internal var startTime : Timestamp {
+            return lazy.map { $0.startTime }.reduce(combine: Swift.min) ?? 0
         }
         
-        internal var endTime : Timestamp? {
-            return lazy.map { $0.endTime }.reduce(combine: Swift.max)
+        internal var endTime : Timestamp {
+            return lazy.map { $0.endTime }.reduce(combine: Swift.max) ?? 0
         }
         
         internal var startIndex: Index {

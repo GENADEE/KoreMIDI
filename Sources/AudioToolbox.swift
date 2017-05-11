@@ -138,14 +138,14 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MIDITimestamp>
         OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
         return Bool(bool)
     }
-    
+
     guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
-    
+
     var timestamp: Float64 = 0
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
-    
+
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))
     return MIDIEvent(timestamp: MIDITimestamp(beats: timestamp),
@@ -161,7 +161,7 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MIDITimestamp>
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
     OSAssert(MusicSequenceNewTrack(ref, &out))
-    
+
     return out!
 }
 
@@ -185,7 +185,7 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
     d.withUnsafeMutableBytes {
         OSAssert(MusicTrackGetProperty(ref, prop.rawValue, $0, &size))
     }
-    
+
     return d.decode()
 }
 

@@ -65,16 +65,18 @@ func custom() {
 
 func tst() {
     let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/hypersphere/logic5.4.mid")
-    let s = MIDISequence(import: url)
-    for e in s {
-        print(e)
-    }
+    var s = MIDISequence(import: url)
+    
+//    for var e in s {
+//        
+//        print(e.insert(.note(10, MIDINoteMessage(note: 0, duration: 0.5))))
+//    }
 }
 
-var s = MIDISequence()
-for t in s {
-    print(t)
-}
+//var s = MIDISequence()
+//for t in s {
+//    print(t)
+//}
 
 
 

@@ -56,10 +56,10 @@ extension ExtendedTempoEvent : Comparable, Hashable, CustomStringConvertible {
 ///
 
 extension MusicEventUserData : Comparable, Hashable, CustomStringConvertible {
-    
-//    init(data: Data) {
-//        
-//    }
+
+    //    init(data: Data) {
+    //
+    //    }
 
     public var hashValue: Int {
         return length.hashValue
@@ -72,7 +72,7 @@ extension MusicEventUserData : Comparable, Hashable, CustomStringConvertible {
     static public func <(lhs: MusicEventUserData, rhs: MusicEventUserData) -> Bool {
         return lhs.length < rhs.length
     }
-    
+
     public var description: String {
         return ""
     }
@@ -93,11 +93,11 @@ extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
             lhs.dataLength == rhs.dataLength &&
             lhs.data == rhs.data
     }
-    
+
     public static func <(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
         return lhs.metaEventType < rhs.metaEventType
     }
-    
+
     public var description: String {
         return ""
     }
@@ -107,7 +107,7 @@ extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDINoteMessage
 ///
 extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
-    
+
     init(note: UInt8, duration: Float32) {
         self.init(channel: 0, note: note, velocity: 100, releaseVelocity: 0, duration: duration)
     }
@@ -115,7 +115,7 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
     public var description : String {
         return "note: \(note), duration: \(duration)"
     }
-    
+
     public static func ==(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return lhs.duration == rhs.duration &&
             lhs.note == rhs.note &&
@@ -123,11 +123,11 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
             lhs.velocity == rhs.velocity &&
             lhs.releaseVelocity == rhs.releaseVelocity
     }
-    
+
     public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
         return lhs.note < rhs.note
     }
-    
+
     public var hashValue: Int {
         return channel.hashValue ^ note.hashValue
     }
@@ -141,14 +141,14 @@ extension MIDIChannelMessage : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }
-    
+
     public static func <(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status < rhs.status
     }
     public var hashValue: Int {
         return status.hashValue
     }
-    
+
     public var description: String {
         return "cc: \(status): [\(data1), \(data2)]"
     }
@@ -162,14 +162,14 @@ extension MIDIRawData : Comparable, Hashable, CustomStringConvertible {
     public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length == rhs.length && lhs.data == rhs.data
     }
-    
+
     public static func <(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length < rhs.length
     }
     public var hashValue: Int {
         return length.hashValue
     }
-    
+
     public var description: String {
         return ""
     }
@@ -186,14 +186,14 @@ extension ParameterEvent : Comparable, Hashable, CustomStringConvertible {
             lhs.element == rhs.element &&
             lhs.value == rhs.value
     }
-    
+
     public static func <(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
         return lhs.scope < rhs.scope && lhs.parameterID < rhs.parameterID
     }
     public var hashValue: Int {
         return scope.hashValue
     }
-    
+
     public var description: String {
         return ""
     }
@@ -209,14 +209,14 @@ extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
             lhs.element == rhs.element &&
             lhs.preset.toOpaque() == rhs.preset.toOpaque()
     }
-    
+
     static public func <(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope < rhs.scope
     }
     public var hashValue: Int {
         return scope.hashValue
     }
-    
+
     public var description: String {
         return ""
     }
@@ -224,18 +224,18 @@ extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
 
 extension ExtendedControlEvent : Comparable, Hashable, CustomStringConvertible {
     static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
-//        return lhs.scope == rhs.scope &&
-//            lhs.element == rhs.element &&
-//            lhs.preset.toOpaque() == rhs.preset.toOpaque()
+        //        return lhs.scope == rhs.scope &&
+        //            lhs.element == rhs.element &&
+        //            lhs.preset.toOpaque() == rhs.preset.toOpaque()
         fatalError()
     }
-    
+
     static public func <(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
-//        return lhs.scope < rhs.scope
+        //        return lhs.scope < rhs.scope
         fatalError()
     }
     public var hashValue: Int {
-//        return scope.hashValue
+        //        return scope.hashValue
         fatalError()
     }
     

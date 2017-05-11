@@ -15,23 +15,23 @@ public protocol TimestampType : Comparable, Strideable, Hashable {
 
 extension Data {
     func decode() -> MIDIRawData {
-//        let len: UInt32 = decode()
+        //        let len: UInt32 = decode()
         fatalError()
-//        return MIDIRawData(length: len, data: 0)
-        
+        //        return MIDIRawData(length: len, data: 0)
+
     }
-    
-//    init(encode: inout MIDIRawData) {
-//        self.init(capacity: Int(encode.length))
-//        withUnsafeBytes(of: &encode.data) {
-//            
-//        }
-//    }
+
+    //    init(encode: inout MIDIRawData) {
+    //        self.init(capacity: Int(encode.length))
+    //        withUnsafeBytes(of: &encode.data) {
+    //
+    //        }
+    //    }
 }
 
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Stride = Timestamp.Stride
-    
+
     case extendedNote(Timestamp, ExtendedNoteOnEvent)
     case extendedTempo(Timestamp, ExtendedTempoEvent)
     case user(Timestamp, MusicEventUserData)
@@ -41,8 +41,8 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
     case rawData(Timestamp, MIDIRawData)
     case parameter(Timestamp, ParameterEvent)
     case auPreset(Timestamp, AUPresetEvent)
-    
-    public init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
+
+    internal init(timestamp: Timestamp, type: MIDIEventType, data: Data) {
         switch type {
         case .extendedNote: self = .extendedNote(timestamp, data.decode())
         case .extendedTempo: self = .extendedTempo(timestamp, data.decode())
@@ -52,12 +52,12 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         case .channel: self = .channel(timestamp, data.decode())
         case .rawData:
             fatalError("this is fundamentally broken since the struct is variable size")
-//            self = .rawData(timestamp, data.decode())
+        //            self = .rawData(timestamp, data.decode())
         case .parameter: self = .parameter(timestamp, data.decode())
         case .auPreset: self = .auPreset(timestamp, data.decode())
         }
     }
-    
+
     public var description : String {
         switch self {
         case let .extendedNote(ts, e): return "\(type)(timestamp: \(ts), \(e))"
@@ -71,7 +71,7 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         case let .auPreset(ts, e): return "\(type)(timestamp: \(ts), \(e))"
         }
     }
-    
+
     private var _serialize  : (timestamp: Timestamp, data : Data) {
         switch self {
         case let .extendedNote(ts, data): return (ts, Data(encode: data))
@@ -85,37 +85,37 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         case let .auPreset(ts, data): return (ts, Data(encode: data))
         }
     }
-    
+
     public var timestamp : Timestamp {
         return _serialize.timestamp
     }
-    
+
     public var data : Data {
         return _serialize.data
     }
-    
+
     public var type : MIDIEventType {
         return MIDIEventType(event: self)
     }
-    
+
     public var hashValue: Int {
         return timestamp.hashValue ^ type.hashValue
     }
-    
+
     public func advanced(by n: Stride) -> MIDIEvent<Timestamp> {
         return MIDIEvent(timestamp: timestamp.advanced(by: n), type: type, data: data)
     }
-    
+
     public func distance(to other: MIDIEvent) -> Stride {
         return timestamp.distance(to: other.timestamp)
     }
-    
+
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp == rhs.timestamp &&
-                lhs.type == rhs.type &&
-                lhs.data == rhs.data
+            lhs.type == rhs.type &&
+            lhs.data == rhs.data
     }
-    
+
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp < rhs.timestamp
     }

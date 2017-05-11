@@ -8,11 +8,19 @@
 
 import Cocoa
 
+class _MIDIEvent : NSData {
+
+}
+
 class MIDIProject : NSDocument {
+
     let sequence: MIDISequence
-    
+    let url : URL
+
     init(url: URL) {
-        sequence = MIDISequence(import: url)
+        self.url = url
+        self.sequence = MIDISequence(import: url)
+        super.init()
     }
 }
 

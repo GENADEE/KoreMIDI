@@ -10,9 +10,9 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 internal enum MIDITrackProp : RawRepresentable {
-    
+
     case loopInfo, offsetTime, muted, soloed, automatedParams, length, resolution
-    
+
     public init?(rawValue: UInt32) {
         switch rawValue {
         case kSequenceTrackProperty_LoopInfo: self = .loopInfo
@@ -25,7 +25,7 @@ internal enum MIDITrackProp : RawRepresentable {
         default: fatalError()
         }
     }
-    
+
     public var rawValue : UInt32 {
         switch self {
         case .loopInfo: return kSequenceTrackProperty_LoopInfo
