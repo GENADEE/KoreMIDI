@@ -9,7 +9,7 @@
 import AudioToolbox.MusicPlayer
 
 public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
-    
+
     // ExtendedControlEvent
     case extendedNote, extendedTempo, user, meta, note, channel, rawData, parameter, auPreset
 
@@ -27,7 +27,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
         default: fatalError()
         }
     }
-    
+
     public var description : String {
         switch self {
         case .extendedNote: return ".extendedNote"
@@ -41,7 +41,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
         case .auPreset: return ".auPreset"
         }
     }
-    
+
     init<T: TimestampType>(event: MIDIEvent<T>) {
         switch event {
         case .extendedNote: self = .extendedNote
@@ -55,7 +55,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
         case .auPreset: self = .auPreset
         }
     }
-    
+
     public var rawValue : MusicEventType {
         switch self {
         case .extendedNote: return kMusicEventType_ExtendedNote

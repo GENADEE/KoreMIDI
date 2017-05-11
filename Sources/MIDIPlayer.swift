@@ -19,7 +19,6 @@ class MIDIPlayer {
     private var _isDirty : Bool = true
     private let _bank : URL?
 
-
     init(sequence: MIDISequence, bank: URL? = nil) {
         self.sequence = sequence
         self._bank = bank

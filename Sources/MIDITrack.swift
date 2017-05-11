@@ -186,6 +186,6 @@ public struct MIDITrack : Sequence, Equatable, Hashable, CustomStringConvertible
         if _impl.isParentUnique { return }
         _impl = _impl.copy()
     }
-
+    
     internal var _impl : Impl
 }

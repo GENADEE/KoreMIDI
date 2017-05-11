@@ -18,19 +18,19 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
     public init() {
         _impl = Impl()
     }
-    
+
     public init(import url: URL) {
         _impl = Impl(import: url)
     }
-    
+
     public init(import data: Data) {
         _impl = Impl(import: data)
     }
-    
+
     public var startIndex: Index {
         return _impl.startIndex
     }
-    
+
     public var endIndex : Index {
         return _impl.endIndex
     }
@@ -44,7 +44,7 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
             let value = self[index]
         }
     }
-    
+
     public func dict() -> NSDictionary {
         return MusicSequenceGetInfoDictionary(_impl.ref) as NSDictionary
     }
@@ -71,59 +71,59 @@ public struct MIDISequence : MutableCollection, Comparable, Hashable, RangeRepla
         fatalError()
     }
 
-//    public static func ===(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
-//        return lhs.elementsEqual(rhs) { $0 === $1 }
-//    }
-    
+    //    public static func ===(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
+    //        return lhs.elementsEqual(rhs) { $0 === $1 }
+    //    }
+
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs._impl == rhs._impl
     }
-    
+
     public static func <(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs._impl < rhs._impl
     }
-    
+
     public var hashValue: Int {
         return _impl.hashValue
     }
-    
+
     public func export() -> Data {
         return _impl.export()
     }
-    
+
     public func save(to url: URL) {
         _impl.save(to: url)
     }
-    
-//    public var tempoTrack : MIDITrackImpl {
-//        return MIDITrackImpl(tempoTrack: self)
-//
-//    }
-    
+
+    //    public var tempoTrack : MIDITrackImpl {
+    //        return MIDITrackImpl(tempoTrack: self)
+    //
+    //    }
+
     private mutating func _ensureUnique() {
         guard isKnownUniquelyReferenced(&_impl) else { return }
         _impl = _impl.copy()
     }
-    
+
     internal init(impl: Impl) {
         _impl = impl
     }
 
     internal private(set) var _impl: Impl
-    
-//    private func _registerCallback() {
-//        _impl.register {
-//            self._ensureUnique()
-//            
-//        }
-//    }
-    
-//    private static let _callback: MusicSequenceUserCallback = {
-//        // adapted from r9midisequencer
-//        ref, seq, mt, timestamp, userData, startTime, endTime in
-//        let impl = unsafeBitCast(ref, to: MIDISequenceImpl.self)
-//        assert(impl.ref == ref)
-//    }
+
+    //    private func _registerCallback() {
+    //        _impl.register {
+    //            self._ensureUnique()
+    //
+    //        }
+    //    }
+
+    //    private static let _callback: MusicSequenceUserCallback = {
+    //        // adapted from r9midisequencer
+    //        ref, seq, mt, timestamp, userData, startTime, endTime in
+    //        let impl = unsafeBitCast(ref, to: MIDISequenceImpl.self)
+    //        assert(impl.ref == ref)
+    //    }
 }
 
 

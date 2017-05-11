@@ -301,7 +301,7 @@ extension MIDITrack {
                     predicate: (Element) -> Bool) {
             
             let i = MIDIIterator(self, timerange: timerange)
-
+            
             while let n = i.next() {
                 if predicate(n) {
                     _ = i.remove()
