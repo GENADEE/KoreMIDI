@@ -9,7 +9,15 @@
 import AudioToolbox.MusicPlayer
 
 
-extension ExtendedNoteOnEvent : Comparable, Hashable, CustomStringConvertible {
+
+protocol MIDIEventConvertible {
+
+}
+
+
+
+
+extension ExtendedNoteOnEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
         return lhs.instrumentID == rhs.instrumentID &&
             lhs.groupID == rhs.groupID &&
@@ -82,7 +90,7 @@ extension MusicEventUserData : Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDIMetaEvent
 ///
 
-extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
+extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
 
     public var hashValue: Int {
         return metaEventType.hashValue
@@ -103,10 +111,11 @@ extension MIDIMetaEvent : Comparable, Hashable, CustomStringConvertible {
     }
 }
 
+//extension MIDINoteMessage : MIDIEventConvertible  {}
 ///
 /// MARK: MIDINoteMessage
 ///
-extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
+extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
 
     init(note: UInt8, duration: Float32) {
         self.init(channel: 0, note: note, velocity: 100, releaseVelocity: 0, duration: duration)
@@ -137,7 +146,7 @@ extension MIDINoteMessage : Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDIChannelMessage
 ///
 
-extension MIDIChannelMessage : Comparable, Hashable, CustomStringConvertible {
+extension MIDIChannelMessage : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }
@@ -158,7 +167,7 @@ extension MIDIChannelMessage : Comparable, Hashable, CustomStringConvertible {
 /// MARK: MIDIRawData
 ///
 
-extension MIDIRawData : Comparable, Hashable, CustomStringConvertible {
+extension MIDIRawData : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length == rhs.length && lhs.data == rhs.data
     }
@@ -179,7 +188,7 @@ extension MIDIRawData : Comparable, Hashable, CustomStringConvertible {
 /// MARK: ParameterEvent
 ///
 
-extension ParameterEvent : Comparable, Hashable, CustomStringConvertible {
+extension ParameterEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     public static func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
         return lhs.parameterID == rhs.parameterID &&
             lhs.scope == rhs.scope &&
@@ -203,7 +212,7 @@ extension ParameterEvent : Comparable, Hashable, CustomStringConvertible {
 /// MARK: AUPresetEvent
 ///
 
-extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
+extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope == rhs.scope &&
             lhs.element == rhs.element &&
@@ -222,7 +231,7 @@ extension AUPresetEvent : Comparable, Hashable, CustomStringConvertible {
     }
 }
 
-extension ExtendedControlEvent : Comparable, Hashable, CustomStringConvertible {
+extension ExtendedControlEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
         //        return lhs.scope == rhs.scope &&
         //            lhs.element == rhs.element &&

@@ -20,13 +20,6 @@ extension Data {
         //        return MIDIRawData(length: len, data: 0)
 
     }
-
-    //    init(encode: inout MIDIRawData) {
-    //        self.init(capacity: Int(encode.length))
-    //        withUnsafeBytes(of: &encode.data) {
-    //
-    //        }
-    //    }
 }
 
 public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
@@ -111,13 +104,12 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
     }
 
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
-        return lhs.timestamp == rhs.timestamp &&
-            lhs.type == rhs.type &&
-            lhs.data == rhs.data
+        return lhs._serialize == rhs._serialize &&
+            lhs.type == rhs.type
+
     }
 
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs.timestamp < rhs.timestamp
     }
 }
-

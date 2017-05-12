@@ -45,7 +45,7 @@ func MIDISequenceExport(ref: MusicSequence) -> Data {
 
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence, to url: URL) {
-    MusicSequenceFileCreate(ref, url as CFURL, .midiType, .eraseFile, 960)
+    OSAssert(MusicSequenceFileCreate(ref, url as CFURL, .midiType, .eraseFile, 960))
     fatalError()
 }
 
@@ -113,7 +113,6 @@ func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
     return out!
 }
 
-
 ///
 /// Iterators
 ///
@@ -164,19 +163,6 @@ func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
 
     return out!
 }
-
-//@inline(__always) internal
-//func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
-//    var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
-//    var size: UInt32 = 0
-//    OSAssert(MusicTrackGetProperty(ref, prop.rawValue, ptr, &size))
-//    //    fatalError("ownership")
-//    defer {
-//        ptr.deinitialize()
-//        ptr.deallocate(capacity: 1)
-//    }
-//    return ptr.pointee
-//}
 
 @inline(__always) internal
 func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {

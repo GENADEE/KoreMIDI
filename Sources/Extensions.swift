@@ -25,6 +25,8 @@ extension Range {
 //    }
 //}
 
+
+
 extension Strideable {
     static func +(lhs: Self, rhs: Stride) -> Self {
         return lhs.advanced(by: rhs)
@@ -78,6 +80,7 @@ extension Data {
         self.init(bytes: &cpy, count: MemoryLayout<T>.size)
     }
 
+    @inline(__always)
     func decode<T>() -> T {
         return withUnsafeBytes { $0.pointee }
     }

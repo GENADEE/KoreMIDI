@@ -117,11 +117,11 @@ extension MIDISequence {
         }
 
         internal var startTime : Timestamp {
-            return lazy.map { $0.startTime }.reduce(combine: Swift.min) ?? 0
+            return lazy.map { $0.startTime }.reduce(0, Swift.min)
         }
 
         internal var endTime : Timestamp {
-            return lazy.map { $0.endTime }.reduce(combine: Swift.max) ?? 0
+            return lazy.map { $0.endTime }.reduce(0, Swift.max)
         }
 
         internal var startIndex: Index {

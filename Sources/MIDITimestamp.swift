@@ -11,7 +11,6 @@ import AudioToolbox.MusicPlayer
 
 protocol DefaultConstructible {
     init()
-
 }
 
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral {
