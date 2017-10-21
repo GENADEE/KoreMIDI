@@ -87,7 +87,8 @@ func test() {
 test()
 
 func custom() {
-    var track = MIDITrack()
+    var seq = MIDISequence()
+    var track = MIDITrack(parent : seq)
     let m = MIDINoteMessage(note: 60, duration: 20)
     track.insert(.note(10.0, m))
 //    MIDISequenceImport(d)

@@ -35,23 +35,17 @@ import AudioToolbox.MusicPlayer
 
 //extension MIDITrack {
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-    //    typealias Iterator = MIDIIterator
-    //    typealias Element = Iterator.Element
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent<Timestamp>
 
-    internal let ref : MusicTrack
+    internal final let ref : MusicTrack
 
-    unowned let parent: MIDISequence
+    unowned final let parent: MIDISequence
 
     //        var parent : MIDISequence {
     //            return MIDISequence(impl: parentImpl)
     //        }
 
-    public init(tempo parent: MIDISequence) {
-        self.parent = parent
-        self.ref = MusicSequenceGetTempoTrack(ref: parent.ref)
-    }
 
     //        var parentImpl : MIDISequence {
     //            return _parent ?? MIDISequence(for: self)
@@ -61,14 +55,14 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     //            return _parent == nil
     //        }
 
-    public init() {
-        parent = MIDISequence()
-        ref = MIDITrackCreate(ref: parent.ref)
-
-        //            _parent = s
-        //        ref = M
-        //        parent = nil
-    }
+//    public init() {
+//        parent = MIDISequence()
+//        ref = MIDITrackCreate(ref: parent.ref)
+//
+//        //            _parent = s
+//        //        ref = M
+//        //        parent = nil
+//    }
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -89,7 +83,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     }
 
     public func copy() -> MIDITrack {
-        let cpy = MIDITrack()
+        let cpy = MIDITrack(parent : parent)
         cpy.copyInsert(from: self)
         return cpy
     }
@@ -300,15 +294,21 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
             }
         }
     }
+
+    fileprivate init(tempo parent: MIDISequence) {
+        self.parent = parent
+        self.ref = MusicSequenceGetTempoTrack(ref: parent.ref)
+    }
 }
 //}
 
 
+class MIDITempoTrack : MIDITrack {
+    public override init(parent: MIDISequence) {
+        super.init(tempo : parent)
+    }
+}
 
-
-//final class MIDIEventTrackImpl<Element : MIDIEventConvertible> : MIDITrack.Impl {
-//    
-//}
 
 
 
