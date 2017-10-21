@@ -44,8 +44,13 @@ func MIDISequenceExport(ref: MusicSequence) -> Data {
 }
 
 @inline(__always) internal
-func MIDISequenceExport(ref: MusicSequence, to url: URL) {
-    OSAssert(MusicSequenceFileCreate(ref, url as CFURL, .midiType, .eraseFile, 960))
+func MIDISequenceSave(ref: MusicSequence,
+                        to url: URL,
+                        resolution : Int16 = 960) {
+    OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
+                                     .midiType,
+                                     .eraseFile,
+                                     resolution))
     fatalError()
 }
 
@@ -57,9 +62,9 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
 }
 
 @inline(__always) internal
-func MusicSequenceGetIndTrack(ref: MusicSequence, no: Int) -> MusicTrack {
+func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
     var r : MusicTrack? = nil
-    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(no), &r))
+    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
     return r!
 }
 

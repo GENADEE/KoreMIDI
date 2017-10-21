@@ -33,283 +33,278 @@ import AudioToolbox.MusicPlayer
 //}
 
 
-extension MIDITrack {
-    internal final class Impl : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-        //    typealias Iterator = MIDIIterator
-        //    typealias Element = Iterator.Element
-        public typealias Timestamp = MIDITimestamp
-        typealias Element = MIDIEvent<Timestamp>
+//extension MIDITrack {
+public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
+    //    typealias Iterator = MIDIIterator
+    //    typealias Element = Iterator.Element
+    public typealias Timestamp = MIDITimestamp
+    public typealias Element = MIDIEvent<Timestamp>
 
-        let ref : MusicTrack
-        private var _parent: MIDISequence.Impl? = nil
+    internal let ref : MusicTrack
 
-        var parent : MIDISequence {
-            return MIDISequence(impl: parentImpl)
+    unowned let parent: MIDISequence
+
+    //        var parent : MIDISequence {
+    //            return MIDISequence(impl: parentImpl)
+    //        }
+
+    public init(tempo parent: MIDISequence) {
+        self.parent = parent
+        self.ref = MusicSequenceGetTempoTrack(ref: parent.ref)
+    }
+
+    //        var parentImpl : MIDISequence {
+    //            return _parent ?? MIDISequence(for: self)
+    //        }
+
+    //        var isParentUnique : Bool {
+    //            return _parent == nil
+    //        }
+
+    public init() {
+        parent = MIDISequence()
+        ref = MIDITrackCreate(ref: parent.ref)
+
+        //            _parent = s
+        //        ref = M
+        //        parent = nil
+    }
+
+    public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
+        return lhs.ref == rhs.ref
+    }
+
+    public static func ==(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
+        return lhs === rhs || lhs.elementsEqual(rhs)
+    }
+
+    public init(parent: MIDISequence) {
+        ref = MIDITrackCreate(ref: parent.ref)
+        self.parent = parent
+    }
+
+    public init(parent: MIDISequence, no: Int) {
+        self.parent = parent
+        ref = MusicSequenceGetTrack(ref: parent.ref, at: no)
+    }
+
+    public func copy() -> MIDITrack {
+        let cpy = MIDITrack()
+        cpy.copyInsert(from: self)
+        return cpy
+    }
+
+    public final var timerange: Range<Timestamp> {
+        return startTime..<endTime
+    }
+
+    public static func <(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
+        return lhs.ref.hashValue < rhs.ref.hashValue
+    }
+
+    public final var description: String {
+        var opts: [String] = []
+        if soloed {
+            opts.append("soloed")
         }
 
-        init(tempoTrack seq: MIDISequence.Impl) {
-            self.ref = MusicSequenceGetTempoTrack(ref: seq.ref)
+        if muted {
+            opts.append("muted")
         }
 
-        var parentImpl : MIDISequence.Impl {
-            return _parent ?? MIDISequence.Impl(for: self)
+        return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
+    }
+
+    public subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
+        fatalError()
+    }
+
+    public final var startTime : Timestamp {
+        get {
+            return Timestamp(beats: _offsetTime)
         }
-
-        var isParentUnique : Bool {
-            return _parent == nil
+        set {
+            _offsetTime = newValue.beats
         }
+    }
 
-        init() {
-            let s = MIDISequence.Impl()
-            ref = MIDITrackCreate(ref: s.ref)
-
-            _parent = s
-            //        ref = M
-            //        parent = nil
+    public final var endTime : Timestamp {
+        get {
+            return startTime.advanced(by: duration)
         }
-
-        static func ===(lhs: Impl, rhs: Impl) -> Bool {
-            return lhs.ref == rhs.ref
+        set {
+            duration = _offsetTime + newValue.beats
         }
+    }
 
-        static func ==(lhs: Impl, rhs: Impl) -> Bool {
-            return lhs === rhs || lhs.elementsEqual(rhs)
+    public final func makeIterator() -> AnyIterator<Element> {
+        return AnyIterator(MIDIIterator(self))
+    }
+
+    public final var hashValue: Int {
+        return ref.hashValue
+    }
+
+    public final var loopInfo : MusicTrackLoopInfo {
+        get {
+            return self[.loopInfo]
         }
-
-        init(parent: MIDISequence.Impl) {
-            ref = MIDITrackCreate(ref: parent.ref)
-            _parent = parent
+        set {
+            self[.loopInfo] = newValue
         }
+    }
 
-        init(parent: MIDISequence.Impl, no: Int) {
-            _parent = parent
-            ref = MusicSequenceGetIndTrack(ref: parent.ref, no: no)
+    public final var muted : Bool {
+        get {
+            let ret : DarwinBoolean = self[.muted]
+            return ret.boolValue
         }
-
-        func copy() -> Impl {
-            let cpy = Impl()
-            cpy.copyInsert(from: self)
-            return cpy
+        set {
+            self[.muted] = DarwinBoolean(newValue)
         }
+    }
 
-        var timerange: Range<Timestamp> {
-            return startTime..<endTime
+    public final var soloed : Bool {
+        get {
+            let ret : DarwinBoolean = self[.soloed]
+            return ret.boolValue
         }
-
-        static func <(lhs: Impl, rhs: Impl) -> Bool {
-            return lhs.ref.hashValue < rhs.ref.hashValue
+        set {
+            self[.soloed] = DarwinBoolean(newValue)
         }
+    }
 
-        var description: String {
-            var opts: [String] = []
-            if soloed.boolValue {
-                opts.append("soloed")
-            }
-
-            if muted.boolValue {
-                opts.append("muted")
-            }
-
-            return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
+    public final var automatedParameters : UInt32 {
+        get {
+            return self[.automatedParams]
         }
-
-        subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
-            fatalError()
+        set {
+            self[.automatedParams] = newValue
         }
+    }
 
-        var startTime : Timestamp {
-            get {
-                return Timestamp(beats: _offsetTime)
-            }
-            set {
-                _offsetTime = newValue.beats
-            }
+    public final var timeResolution : Int16 {
+        get {
+            return self[.resolution]
         }
-
-        var endTime : Timestamp {
-            get {
-                return startTime.advanced(by: duration)
-            }
-            set {
-                duration = _offsetTime + newValue.beats
-            }
+        set {
+            self[.resolution] = newValue
         }
+    }
 
-        func makeIterator() -> AnyIterator<Element> {
-            return AnyIterator(MIDIIterator(self))
-        }
-
-        var hashValue: Int {
-            return ref.hashValue
-        }
-
-        var loopInfo : MusicTrackLoopInfo {
-            get {
-                return _get(.loopInfo)
-            }
-            set {
-                _set(.loopInfo, to: newValue)
-            }
-        }
-
-        var muted : DarwinBoolean {
-            get {
-                return _get(.muted)
-            }
-            set {
-                _set(.muted, to: newValue)
-            }
-        }
-
-        var soloed : DarwinBoolean {
-            get {
-                return _get(.soloed)
-            }
-            set {
-                _set(.soloed, to: newValue)
-            }
-        }
-
-        var automatedParameters : UInt32 {
-            get {
-                return _get(.automatedParams)
-            }
-            set {
-                _set(.automatedParams, to: newValue)
-            }
-        }
-
-        var timeResolution : Int16 {
-            get {
-                return _get(.resolution)
-            }
-            set {
-                _set(.resolution, to: newValue)
-            }
-        }
-
-        func timestamp(after t: Timestamp) -> Timestamp {
-            fatalError()
-        }
+    public final func timestamp(after t: Timestamp) -> Timestamp {
+        fatalError()
+    }
 
 
-        private func _get<T>(_ prop: MIDITrackProp) -> T {
+    private subscript <T>(_ prop: MIDITrackProp) -> T {
+        get {
             return MIDITrackGetProperty(ref: ref, prop: prop)
         }
-
-
-        private func _set<T>(_ prop: MIDITrackProp, to value: T) {
-            return MIDITrackSetProperty(ref: ref, prop: prop, to: value)
+        set {
+            MIDITrackSetProperty(ref: ref, prop: prop, to: newValue)
         }
+    }
 
-        internal subscript(element element: Element) -> Element {
-            get {
-                fatalError()
-            }
-            set {
-                //            guard element != newValue else { return }
-                //            let i = MIDIIterator(self, timerange: element.timerange)
-                //            i[element] = newValue
-                fatalError()
-            }
+    private var _offsetTime : MusicTimeStamp {
+        get {
+            //            let offset = self[.offsetTime]
+            return self[.offsetTime]
         }
-
-        private var _offsetTime : MusicTimeStamp {
-            get {
-                //            let offset = self[.offsetTime]
-                return _get(.offsetTime)
-            }
-            set {
-                _set(.offsetTime, to: newValue)
-            }
+        set {
+            self[.offsetTime] = newValue
         }
+    }
 
-        var duration : Timestamp.Stride {
-            get {
-                return _get(.length)
+    public final var duration : Timestamp.Stride {
+        get {
+            return self[.length]
 
-            }
-            set {
-                _set(.length, to: newValue)
-            }
         }
-
-        func insert(_ element: Element) {
-            OSAssert(MusicSequenceInsert(ref: ref, event: element))
+        set {
+            self[.length] = newValue
         }
+    }
 
-        func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
-            OSAssert(MusicTrackMoveEvents(ref,
-                                          timerange.lowerBound.beats,
-                                          timerange.upperBound.beats,
-                                          timestamp.beats))
-        }
+    final func insert(_ element: Element) {
+        OSAssert(MusicSequenceInsert(ref: ref, event: element))
+    }
 
-        func load(from other: Impl) {
-            clearAll()
-            copyInsert(from: other, in: other.timerange, at: other.startTime)
-        }
+    func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
+        OSAssert(MusicTrackMoveEvents(ref,
+                                      timerange.lowerBound.beats,
+                                      timerange.upperBound.beats,
+                                      timestamp.beats))
+    }
 
-        func clear(_ timerange: Range<Timestamp>) {
-            OSAssert(MusicTrackClear(ref,
-                                     timerange.lowerBound.beats,
-                                     timerange.upperBound.beats))
-        }
+    func load(from other: MIDITrack) {
+        clearAll()
+        copyInsert(from: other, in: other.timerange, at: other.startTime)
+    }
 
-        func clearAll() {
-            clear(timerange)
-        }
+    func clear(_ timerange: Range<Timestamp>) {
+        OSAssert(MusicTrackClear(ref,
+                                 timerange.lowerBound.beats,
+                                 timerange.upperBound.beats))
+    }
 
-        func cut(_ timerange: Range<Timestamp>) {
-            OSAssert(MusicTrackCut(ref,
-                                   timerange.lowerBound.beats,
-                                   timerange.upperBound.beats))
-        }
+    func clearAll() {
+        clear(timerange)
+    }
 
-        func copyInsert(from other: Impl,
-                        in timerange: Range<Timestamp>? = nil,
-                        at timestamp: Timestamp? = nil) {
-            let tr = timerange ?? other.timerange
-            OSAssert(MusicTrackCopyInsert(other.ref,
-                                          tr.lowerBound.beats,
-                                          tr.upperBound.beats,
-                                          ref,
-                                          timestamp?.beats ?? 0))
-        }
+    func cut(_ timerange: Range<Timestamp>) {
+        OSAssert(MusicTrackCut(ref,
+                               timerange.lowerBound.beats,
+                               timerange.upperBound.beats))
+    }
 
-        func merge(with other: Impl,
-                   in timerange: Range<Timestamp>? = nil,
-                   at timestamp: Timestamp? = nil) {
-            let tr = timerange ?? other.timerange
-            OSAssert(MusicTrackMerge(other.ref,
-                                     tr.lowerBound.beats,
-                                     tr.upperBound.beats,
-                                     ref,
-                                     (timestamp ?? 0).beats))
-        }
+    func copyInsert(from other: MIDITrack,
+                    in timerange: Range<Timestamp>? = nil,
+                    at timestamp: Timestamp? = nil) {
+        let tr = timerange ?? other.timerange
+        OSAssert(MusicTrackCopyInsert(other.ref,
+                                      tr.lowerBound.beats,
+                                      tr.upperBound.beats,
+                                      ref,
+                                      timestamp?.beats ?? 0))
+    }
 
-        func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
-            guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
-            let s = Set(elements)
-            fatalError()
-            //            remove(range) {
-            //                s.contains($0)
-            //            }
-        }
+    func merge(with other: MIDITrack,
+               in timerange: Range<Timestamp>? = nil,
+               at timestamp: Timestamp? = nil) {
+        let tr = timerange ?? other.timerange
+        OSAssert(MusicTrackMerge(other.ref,
+                                 tr.lowerBound.beats,
+                                 tr.upperBound.beats,
+                                 ref,
+                                 (timestamp ?? 0).beats))
+    }
 
-        func remove(_ timerange: Range<Timestamp>,
-                    predicate: (Element) -> Bool) {
-            
-            let i = MIDIIterator(self, timerange: timerange)
-            
-            while let n = i.next() {
-                if predicate(n) {
-                    _ = i.remove()
-                }
+    func remove<S : Sequence>(_ elements: S) where S.Iterator.Element == Element {
+        guard let range = (elements.lazy.map { $0.timestamp }.range()) else { return }
+        let s = Set(elements)
+        fatalError()
+        //            remove(range) {
+        //                s.contains($0)
+        //            }
+    }
+
+    func remove(_ timerange: Range<Timestamp>,
+                predicate: (Element) -> Bool) {
+
+        let i = MIDIIterator(self, timerange: timerange)
+
+        while let n = i.next() {
+            if predicate(n) {
+                _ = i.remove()
             }
         }
     }
 }
+//}
+
+
+
 
 //final class MIDIEventTrackImpl<Element : MIDIEventConvertible> : MIDITrack.Impl {
 //    
