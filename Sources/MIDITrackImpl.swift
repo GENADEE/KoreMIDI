@@ -202,7 +202,6 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 
     private var _offsetTime : MusicTimeStamp {
         get {
-            //            let offset = self[.offsetTime]
             return self[.offsetTime]
         }
         set {

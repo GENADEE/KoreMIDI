@@ -69,17 +69,17 @@ func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
 }
 
 @inline(__always) internal
-func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent<MIDITimestamp>) -> OSStatus {
+func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent<MIDITimestamp>) {
     switch event {
-    case .extendedNote(let ts, var e): return MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e)
-    case .extendedTempo(let ts, let e): return MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm)
-    case .user(let ts, var e): return MusicTrackNewUserEvent(ref, ts.beats, &e)
-    case .meta(let ts, var e): return MusicTrackNewMetaEvent(ref, ts.beats, &e)
-    case .note(let ts, var e): return MusicTrackNewMIDINoteEvent(ref, ts.beats, &e)
-    case .channel(let ts, var e): return MusicTrackNewMIDIChannelEvent(ref, ts.beats, &e)
-    case .rawData(let ts, var e): return MusicTrackNewMIDIRawDataEvent(ref, ts.beats, &e)
-    case .parameter(let ts, var e): return MusicTrackNewParameterEvent(ref, ts.beats, &e)
-    case .auPreset(let ts, var e): return MusicTrackNewAUPresetEvent(ref, ts.beats, &e)
+    case .extendedNote(let ts, var e): OSAssert(MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e))
+    case .extendedTempo(let ts, let e): OSAssert(MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm))
+    case .user(let ts, var e): OSAssert(MusicTrackNewUserEvent(ref, ts.beats, &e))
+    case .meta(let ts, var e): OSAssert(MusicTrackNewMetaEvent(ref, ts.beats, &e))
+    case .note(let ts, var e): OSAssert(MusicTrackNewMIDINoteEvent(ref, ts.beats, &e))
+    case .channel(let ts, var e): OSAssert(MusicTrackNewMIDIChannelEvent(ref, ts.beats, &e))
+    case .rawData(let ts, var e): OSAssert(MusicTrackNewMIDIRawDataEvent(ref, ts.beats, &e))
+    case .parameter(let ts, var e): OSAssert(MusicTrackNewParameterEvent(ref, ts.beats, &e))
+    case .auPreset(let ts, var e): OSAssert(MusicTrackNewAUPresetEvent(ref, ts.beats, &e))
     }
 }
 

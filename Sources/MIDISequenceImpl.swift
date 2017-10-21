@@ -21,14 +21,16 @@ struct SequenceNotification {
 /// MIDISequence
 ///
 
-public final class MIDISequence : Collection, Hashable, Comparable {
+public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     public typealias Index = Int
     public typealias IndexDistance = Index
     public typealias Element = MIDITrack
     public typealias Timestamp = MIDITimestamp
 
-    public let tempo: MIDITrack
+    public var tempo: MIDITrack {
+        return .init(parent : self)
+    }
 
     internal let ref : MusicSequence
 
@@ -140,6 +142,10 @@ public final class MIDISequence : Collection, Hashable, Comparable {
 
     public func index(after i: Index) -> Index {
         return i + 1
+    }
+
+    public func index(before i: Index) -> Index {
+        return i - 1
     }
 
     public subscript(index: Index) -> Element {
