@@ -5,9 +5,6 @@
 //  Created by Adam Nemecek on 10/22/17.
 //
 
-import Foundation
-
-
 public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, Strideable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
@@ -39,3 +36,5 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
         return timestamp.distance(to: other.timestamp)
     }
 }
+
+

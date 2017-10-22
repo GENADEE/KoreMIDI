@@ -50,7 +50,7 @@ func MIDISequenceExport(ref: MusicSequence,
 @inline(__always) internal
 func MIDISequenceSave(ref: MusicSequence,
                         to url: URL,
-                        resolution : Int16 = 960) {
+                        resolution: Int16 = 960) {
 
     OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
                                      .midiType,

@@ -52,6 +52,7 @@ func test() {
 //    var notes : [NoteEvent]
 
     //let notes : [MIDINote] = []
+
     //
     for (i,track) in s.enumerated() {
         
