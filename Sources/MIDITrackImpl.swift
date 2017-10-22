@@ -40,7 +40,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 
     internal final let ref : MusicTrack
 
-    unowned final let parent: MIDISequence
+    public final let parent: MIDISequence
 
     //        var parent : MIDISequence {
     //            return MIDISequence(impl: parentImpl)
@@ -82,7 +82,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         ref = MusicSequenceGetTrack(ref: parent.ref, at: no)
     }
 
-    public func copy() -> MIDITrack {
+    public final func copy() -> MIDITrack {
         let cpy = MIDITrack(parent : parent)
         cpy.copyInsert(from: self)
         return cpy
@@ -109,7 +109,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
     }
 
-    public subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
+    public final subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
         fatalError()
     }
 
@@ -220,7 +220,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     }
 
     final func insert(_ element: Element) {
-        OSAssert(MusicSequenceInsert(ref: ref, event: element))
+        MusicSequenceInsert(ref: ref, event: element)
     }
 
     func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {
@@ -285,7 +285,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     func remove(_ timerange: Range<Timestamp>,
                 predicate: (Element) -> Bool) {
 
-        let i = MIDIIterator(self, timerange: timerange)
+        let i = MIDIRangeIterator(self, timerange: timerange)
 
         while let n = i.next() {
             if predicate(n) {

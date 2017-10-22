@@ -14,9 +14,6 @@ protocol MIDIEventConvertible {
 
 }
 
-
-
-
 extension ExtendedNoteOnEvent : Comparable, Hashable, CustomStringConvertible, MIDIEventConvertible {
     public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
         return lhs.instrumentID == rhs.instrumentID &&

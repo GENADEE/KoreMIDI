@@ -21,17 +21,17 @@ extension Range where Bound == MIDITimestamp {
     }
 }
 
-public final class MIDIIterator: IteratorProtocol {
+public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent<Timestamp>
 
-    internal init(_ content: MIDITrack, timerange: Range<Timestamp>? = nil) {
+    internal init(_ content: MIDITrack) {
         self._content = content
         self._ref = MIDIIteratorCreate(ref : content.ref)
-        self._timerange = timerange
-        timerange.map {
-            self._seek(to: $0.lowerBound)
-        }
+        //self._timerange = timerange
+//        timerange.map {
+//            self._seek(to: $0.lowerBound)
+//        }
     }
 
     deinit {
@@ -39,13 +39,14 @@ public final class MIDIIterator: IteratorProtocol {
     }
 
     private var _current: Element? {
-        if let e : Element = MIDIIteratorGetCurrent(ref: _ref) {
-            if let r = _timerange, !r.contains(e.timestamp) {
-                return nil
-            }
-            return e
-        }
-        return nil
+        return MIDIIteratorGetCurrent(ref: _ref)
+//        if let e : Element = MIDIIteratorGetCurrent(ref: _ref) {
+//            if let r = _timerange, !r.contains(e.timestamp) {
+//                return nil
+//            }
+//            return e
+//        }
+//        return nil
     }
 
     internal func remove() -> Element? {
@@ -63,11 +64,11 @@ public final class MIDIIterator: IteratorProtocol {
         return nil
     }
 
-    private func _seek(to timestamp: Timestamp) {
+    fileprivate func _seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(_ref, timestamp.beats)
     }
 
-    private func _move() {
+    fileprivate func _move() {
         MusicEventIteratorNextEvent(_ref)
     }
 
@@ -75,7 +76,21 @@ public final class MIDIIterator: IteratorProtocol {
     private let _ref: MusicEventIterator
     private let _content: MIDITrack
 
-    private let _timerange: Range<Timestamp>?
+//    private let _timerange: Range<Timestamp>?
+}
+
+class MIDIRangeIterator : MIDIIterator {
+    let timerange : Range<Timestamp>
+
+    internal init(_ content: MIDITrack, timerange: Range<Timestamp>) {
+        self.timerange = timerange
+        super.init(content)
+        _seek(to: timerange.lowerBound)
+    }
+
+    public override func next() -> Element? {
+        fatalError()
+    }
 }
 
 //struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {

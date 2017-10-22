@@ -113,3 +113,14 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         return lhs.timestamp < rhs.timestamp
     }
 }
+
+//extension MIDIEvent  : Codable {
+//    public init(from decoder: Decoder) throws {
+//        fatalError()
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//
+//    }
+//}
+
