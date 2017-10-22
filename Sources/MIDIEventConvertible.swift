@@ -31,7 +31,7 @@ extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConv
     }
 
     public var description: String {
-        return ""
+        return "instrumentID: \(instrumentID), groupID: \(groupID), duration: \(duration)"
     }
 
     public var hashValue: Int {
@@ -53,7 +53,7 @@ extension ExtendedTempoEvent : Hashable, CustomStringConvertible {
     }
 
     public var description: String {
-        return ""
+        return "bpm: \(bpm)"
     }
 
     public func insert(to ref: MusicTrack, at timestamp: Double) {
@@ -76,7 +76,7 @@ extension MusicEventUserData : Hashable, CustomStringConvertible {
     }
 
     public var description: String {
-        return ""
+        return "data: \(data)"
     }
 
     internal func insert(to ref: MIDITrack, at timestamp: Double) {
@@ -107,7 +107,7 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     }
 
     public var description: String {
-        return ""
+        return "metaEventType: \(metaEventType)"
     }
 
     internal func insert(to ref: MIDITrack, at timestamp: Double) {
@@ -146,7 +146,7 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
     }
 
     public var hashValue: Int {
-        return channel.hashValue ^ note.hashValue
+        return note.hashValue
     }
 }
 

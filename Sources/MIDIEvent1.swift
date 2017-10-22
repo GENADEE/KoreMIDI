@@ -16,7 +16,7 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
     public let event: Event
 
     public var description: String {
-        fatalError()
+        return "\(type(of: self))(timestamp: \(timestamp), \(event)"
     }
 
     public var hashValue: Int {
@@ -24,7 +24,7 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
     }
 
     public static func ==(lhs: MIDIEvent1, rhs: MIDIEvent1) -> Bool {
-        return lhs.timestamp == rhs.timestamp
+        return lhs.timestamp == rhs.timestamp && lhs.event == rhs.event
     }
 
     public static func <(lhs: MIDIEvent1, rhs: MIDIEvent1) -> Bool {
