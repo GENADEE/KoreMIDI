@@ -37,7 +37,7 @@ extension TimeSeries {
 }
 
 @inline(__always)
-func withCopy<T, Result>(of value : T, body: (UnsafePointer<T> -> throws Result)) {
+func withCopy<T, Result>(of value : T, body: (UnsafePointer<T>) -> Result) {
     var cpy = value
-    return withUnsafePointer(to: &cpy, body)
+    withUnsafePointer(to: &cpy, body)
 }
