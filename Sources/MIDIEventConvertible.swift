@@ -9,23 +9,26 @@
 import AudioToolbox.MusicPlayer
 
 public protocol MIDIEventConvertible : Hashable {
-    associatedtype Timestamp = Double
-    func insert(to ref: MusicTrack, at timestamp: Timestamp)
+
 }
 
-extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
+internal protocol MIDITrackEvent {
+    associatedtype Timestamp = Double
+    func insert(to ref: MIDITrack, at timestamp: Timestamp)
+}
+
+extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     public static func ==(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
         return lhs.instrumentID == rhs.instrumentID &&
             lhs.groupID == rhs.groupID &&
             lhs.duration == rhs.duration
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
         var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
-//        }
+        _ = withUnsafePointer(to: &cpy) {
+            MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, $0)
+        }
     }
 
 //    public static func <(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
@@ -60,6 +63,10 @@ extension ExtendedTempoEvent : Hashable, CustomStringConvertible {
     public var description: String {
         return ""
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        MusicTrackNewExtendedTempoEvent(ref, timestamp, bpm)
+    }
 }
 
 
@@ -88,13 +95,19 @@ extension MusicEventUserData : Hashable, CustomStringConvertible {
     public var description: String {
         return ""
     }
+
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewUserEvent(ref.ref, timestamp, $0)
+        }
+    }
 }
 
 ///
 /// MARK: MIDIMetaEvent
 ///
 
-extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
     public var hashValue: Int {
         return metaEventType.hashValue
@@ -114,20 +127,18 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
         return ""
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
-        var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewMIDINoteEvent(ref, at, $0)
-//        }
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewMetaEvent(ref.ref, timestamp, $0)
+        }
     }
 }
 
-//extension MIDINoteMessage : MIDIEventConvertible  {}
+//extension MIDINoteMessage : MIDIEventConvertible, MIDITrackEvent  {}
 ///
 /// MARK: MIDINoteMessage
 ///
-extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
     init(note: UInt8, duration: Float32) {
         self.init(channel: 0, note: note, velocity: 100, releaseVelocity: 0, duration: duration)
@@ -145,12 +156,10 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
             lhs.releaseVelocity == rhs.releaseVelocity
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
-        var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
-//        }
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewMIDINoteEvent(ref.ref, timestamp, $0)
+        }
     }
 
 //    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
@@ -166,7 +175,7 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
 /// MARK: MIDIChannelMessage
 ///
 
-extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }
@@ -182,12 +191,10 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
         return "cc: \(status): [\(data1), \(data2)]"
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
-        var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
-//        }
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewMIDIChannelEvent(ref.ref, timestamp, $0)
+        }
     }
 }
 
@@ -195,7 +202,7 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIRawData
 ///
 
-extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length == rhs.length && lhs.data == rhs.data
     }
@@ -211,12 +218,10 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible 
         return ""
     }
 
-    public func insert(to ref: MusicTrack, at timestamp : Double) {
-        var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewMIDIRawDataEvent(ref, at, $0)
-//        }
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewMIDIRawDataEvent(ref.ref, timestamp, $0)
+        }
     }
 }
 
@@ -224,7 +229,7 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible 
 /// MARK: ParameterEvent
 ///
 
-extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     public static func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
         return lhs.parameterID == rhs.parameterID &&
             lhs.scope == rhs.scope &&
@@ -243,12 +248,10 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
         return ""
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
-        var cpy = self
-        fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
-//        }
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
+        withCopy(of: self) {
+            MusicTrackNewParameterEvent(ref.ref, timestamp, $0)
+        }
     }
 
 }
@@ -257,7 +260,7 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
 /// MARK: AUPresetEvent
 ///
 
-extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope == rhs.scope &&
             lhs.element == rhs.element &&
@@ -275,16 +278,17 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
         return ""
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
         var cpy = self
         fatalError()
-//        _ = withUnsafePointer(to: &cpy) {
-//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
-//        }
+        //        _ = withUnsafePointer(to: &cpy) {
+        //            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+        //        }
     }
+
 }
 
-extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
+extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
         //        return lhs.scope == rhs.scope &&
         //            lhs.element == rhs.element &&
@@ -305,13 +309,14 @@ extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventCon
         return ""
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
+    internal func insert(to ref: MIDITrack, at timestamp: Double) {
         var cpy = self
         fatalError()
         //        _ = withUnsafePointer(to: &cpy) {
         //            MusicTrackNewExtendedNoteEvent(ref, at, $0)
         //        }
     }
+
 
 }
 

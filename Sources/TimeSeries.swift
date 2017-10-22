@@ -35,3 +35,9 @@ extension TimeSeries {
         return startTime.distance(to: endTime)
     }
 }
+
+@inline(__always)
+func withCopy<T, Result>(of value : T, body: (UnsafePointer<T> -> throws Result)) {
+    var cpy = value
+    return withUnsafePointer(to: &cpy, body)
+}
