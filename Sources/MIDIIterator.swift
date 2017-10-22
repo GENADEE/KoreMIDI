@@ -23,7 +23,7 @@ extension Range where Bound == MIDITimestamp {
 
 public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
-    public typealias Element = MIDIEvent<Timestamp>
+    public typealias Element = MIDIEvent
 
     internal init(_ content: MIDITrack) {
         self._content = content

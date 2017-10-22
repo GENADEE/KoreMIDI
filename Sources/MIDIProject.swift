@@ -52,7 +52,7 @@ extension Data {
 
 
 extension MIDIPacket {
-    init(event: MIDIEvent<MIDITimestamp>) {
+    init(event: MIDIEvent) {
         switch event {
         case let .note(ts, e):
             self.init(Data(encode: e), timestamp: MIDITimeStamp(ts.beats))

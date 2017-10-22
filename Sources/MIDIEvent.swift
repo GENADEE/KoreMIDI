@@ -9,9 +9,9 @@
 import AudioToolbox
 import Foundation
 
-public protocol TimestampType : Comparable, Strideable, Hashable {
-    var beats: MusicTimeStamp { get }
-}
+//public protocol TimestampType : Comparable, Strideable, Hashable {
+//    var beats: MusicTimeStamp { get }
+//}
 
 extension Data {
     func decode() -> MIDIRawData {
@@ -22,7 +22,8 @@ extension Data {
     }
 }
 
-public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashable, CustomStringConvertible {
+public enum MIDIEvent : Comparable, Strideable, Hashable, CustomStringConvertible {
+    public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
 
     case extendedNote(Timestamp, ExtendedNoteOnEvent)
@@ -95,7 +96,7 @@ public enum MIDIEvent<Timestamp: TimestampType> : Comparable, Strideable, Hashab
         return timestamp.hashValue ^ type.hashValue
     }
 
-    public func advanced(by n: Stride) -> MIDIEvent<Timestamp> {
+    public func advanced(by n: Stride) -> MIDIEvent {
         return MIDIEvent(timestamp: timestamp.advanced(by: n), type: type, data: data)
     }
 

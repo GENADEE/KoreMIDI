@@ -69,7 +69,7 @@ func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
 }
 
 @inline(__always) internal
-func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent<MIDITimestamp>) {
+func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent) {
     switch event {
     case .extendedNote(let ts, var e): OSAssert(MusicTrackNewExtendedNoteEvent(ref, ts.beats, &e))
     case .extendedTempo(let ts, let e): OSAssert(MusicTrackNewExtendedTempoEvent(ref, ts.beats, e.bpm))
@@ -111,12 +111,12 @@ func MusicSequenceGetSequenceType(ref: MusicSequence) -> MusicSequenceType {
     return out
 }
 
-@inline(__always) internal
-func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
-    var out: MusicSequence? = nil
-    OSAssert(MusicTrackGetSequence(track, &out))
-    return out!
-}
+//@inline(__always) internal
+//func MusicTrackGetSequence(_ track: MusicTrack) -> MusicSequence {
+//    var out: MusicSequence? = nil
+//    OSAssert(MusicTrackGetSequence(track, &out))
+//    return out!
+//}
 
 ///
 /// Iterators
@@ -129,14 +129,14 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
     return r!
 }
 
-extension Double : TimestampType {
-    public var beats : MusicTimeStamp {
-        return MusicTimeStamp(self)
-    }
-}
+//extension Double : TimestampType {
+//    public var beats : MusicTimeStamp {
+//        return MusicTimeStamp(self)
+//    }
+//}
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MIDITimestamp>? {
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
     @inline(__always)
     func MIDIIteratorHasCurrent() -> Bool {
         var bool : DarwinBoolean = false

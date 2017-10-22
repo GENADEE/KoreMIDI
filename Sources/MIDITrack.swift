@@ -26,11 +26,10 @@ import AudioToolbox.MusicPlayer
 
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
-    public typealias Element = MIDIEvent<Timestamp>
+    public typealias Element = MIDIEvent
 
     public final let sequence: MIDISequence
     internal final let ref : MusicTrack
-
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -40,14 +39,18 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         return lhs === rhs || lhs.elementsEqual(rhs)
     }
 
+    public static func <(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
+        return lhs.ref.hashValue < rhs.ref.hashValue
+    }
+
     public init(sequence: MIDISequence) {
-        ref = MIDITrackCreate(ref: sequence.ref)
         self.sequence = sequence
+        self.ref = MIDITrackCreate(ref: sequence.ref)
     }
 
     internal init(sequence: MIDISequence, no: Int) {
         self.sequence = sequence
-        ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
+        self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
     }
 
     public final func copy() -> MIDITrack {
@@ -58,10 +61,6 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 
     public final var timerange: Range<Timestamp> {
         return startTime..<endTime
-    }
-
-    public static func <(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
-        return lhs.ref.hashValue < rhs.ref.hashValue
     }
 
     public final var description: String {
@@ -266,7 +265,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 
 
 class MIDITempoTrack : MIDITrack {
-    public override init(sequence: MIDISequence) {
+    internal override init(sequence: MIDISequence) {
         super.init(tempo : sequence)
     }
 }

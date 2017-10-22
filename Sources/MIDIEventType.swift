@@ -42,7 +42,7 @@ public enum MIDIEventType : RawRepresentable, CustomStringConvertible {
         }
     }
 
-    init<T: TimestampType>(event: MIDIEvent<T>) {
+    init(event: MIDIEvent) {
         switch event {
         case .extendedNote: self = .extendedNote
         case .extendedTempo: self = .extendedTempo

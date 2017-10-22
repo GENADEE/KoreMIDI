@@ -20,7 +20,6 @@
 		373BE4251E9816F800DC1E15 /* AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* AudioToolbox.swift */; };
 		373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
-		373BE4291E9816F800DC1E15 /* _MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* _MIDITrack.swift */; };
 		373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDIIterator.swift */; };
 		373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
 		373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
@@ -56,7 +55,6 @@
 		OBJ_37 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
 		OBJ_39 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
 		OBJ_40 /* _MIDISequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* _MIDISequence.swift */; };
-		OBJ_42 /* _MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* _MIDITrack.swift */; };
 		OBJ_43 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
 		OBJ_44 /* MIDITimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* MIDITimestamp.swift */; };
 		OBJ_51 /* KoreMIDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* KoreMIDITests.swift */; };
@@ -109,7 +107,6 @@
 		OBJ_13 /* KoreMIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDI.swift; sourceTree = "<group>"; };
 		OBJ_15 /* MIDIEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEventType.swift; sourceTree = "<group>"; };
 		OBJ_16 /* _MIDISequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _MIDISequence.swift; sourceTree = "<group>"; };
-		OBJ_18 /* _MIDITrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _MIDITrack.swift; sourceTree = "<group>"; };
 		OBJ_19 /* MIDITrackProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackProperty.swift; sourceTree = "<group>"; };
 		OBJ_20 /* MIDITimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITimestamp.swift; sourceTree = "<group>"; };
 		OBJ_23 /* KoreMIDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDITests.swift; sourceTree = "<group>"; };
@@ -156,7 +153,6 @@
 		37ED23FC1EC61B4E0024E438 /* MIDITrack */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_18 /* _MIDITrack.swift */,
 				373BE44C1E9835D600DC1E15 /* MIDITrack.swift */,
 				OBJ_12 /* MIDIIterator.swift */,
 				OBJ_19 /* MIDITrackProperty.swift */,
@@ -358,7 +354,6 @@
 				371120051E9863870037DFFA /* Edit.swift in Sources */,
 				373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */,
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
-				373BE4291E9816F800DC1E15 /* _MIDITrack.swift in Sources */,
 				373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */,
 				373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */,
 				373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */,
@@ -393,7 +388,6 @@
 				37D0B4501EC0F099005A8A61 /* Enums.swift in Sources */,
 				37B14FFE1E97F5A200CBDB07 /* README.md in Sources */,
 				371120041E9863870037DFFA /* Edit.swift in Sources */,
-				OBJ_42 /* _MIDITrack.swift in Sources */,
 				373BE4341E98238500DC1E15 /* Timer.swift in Sources */,
 				37371FA41E9B2B5200829B24 /* MIDIPitch.swift in Sources */,
 				OBJ_43 /* MIDITrackProperty.swift in Sources */,

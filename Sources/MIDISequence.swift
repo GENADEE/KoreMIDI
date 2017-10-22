@@ -5,17 +5,8 @@
 //  Created by Adam Nemecek on 4/7/17.
 //
 //
-
-import AudioToolbox.MusicPlayer
-
-
-struct SequenceNotification {
-    let sequence: MIDISequence
-    let track: MIDITrack
-    let ts: MusicTimeStamp
-    let event: MusicEventUserData
-    let range: Range<MusicTimeStamp>
-}
+import Foundation
+import AVFoundation
 
 ///
 /// MIDISequence
@@ -28,7 +19,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     public typealias Element = MIDITrack
     public typealias Timestamp = MIDITimestamp
 
-    var tempo: MIDITrack {
+    public var tempo: MIDITrack {
         fatalError()
     }
 
@@ -38,28 +29,14 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     public init() {
         ref = MIDISequenceCreate()
-        //tempo = .init(parent: self)
-//        tempo =
-        fatalError()
-        //            clock = Clock(sequence: ref)
     }
-
-//    public init(for track: MIDITrack) {
-//        ref = MusicTrackGetSequence(track.ref)
-//        fatalError()
-//        //            clock = Clock(sequence: ref)
-//    }
 
     public init(import url: URL) {
         ref = MIDISequenceImport(url)
-        fatalError()
-        //            clock = Clock(sequence: ref)
     }
 
     public init(import data: Data) {
         ref = MIDISequenceImport(data)
-        fatalError()
-//        tempo =
     }
 
     public func copy() -> MIDISequence {
@@ -91,8 +68,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     public var hashValue: Int {
-        //            return hashValue()
-        fatalError()
+        return ref.hashValue
     }
 
     public func export() -> Data {
