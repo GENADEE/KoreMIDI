@@ -32,6 +32,7 @@
 		373BE44B1E98346800DC1E15 /* MIDISequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4491E98344000DC1E15 /* MIDISequence.swift */; };
 		373BE44D1E9835D600DC1E15 /* MIDITrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE44C1E9835D600DC1E15 /* MIDITrack.swift */; };
 		3757417C1F9D0ADC006768FE /* MIDIEvent1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3757417B1F9D0ADC006768FE /* MIDIEvent1.swift */; };
+		3757417D1F9D0B85006768FE /* MIDIEvent1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3757417B1F9D0ADC006768FE /* MIDIEvent1.swift */; };
 		376C0B8E1E9B398F00249775 /* Stuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376C0B8D1E9B398F00249775 /* Stuff.swift */; };
 		37B14FFE1E97F5A200CBDB07 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 37B14FFD1E97F5A200CBDB07 /* README.md */; };
 		37B150021E98059100CBDB07 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B150011E98059100CBDB07 /* Classifier.swift */; };
@@ -333,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3757417D1F9D0B85006768FE /* MIDIEvent1.swift in Sources */,
 				37D0B4511EC15B13005A8A61 /* Enums.swift in Sources */,
 				37E24EAC1E9FEB57006C957B /* MIDIEventConvertible.swift in Sources */,
 				37371FA51E9B2BE500829B24 /* MIDIPitch.swift in Sources */,

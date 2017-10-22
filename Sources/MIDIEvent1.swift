@@ -30,4 +30,13 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
     public static func <(lhs: MIDIEvent1, rhs: MIDIEvent1) -> Bool {
         return lhs.timestamp < rhs.timestamp
     }
+
+    public func advanced(by n: Stride) -> MIDIEvent1 {
+        return MIDIEvent1(timestamp: timestamp.advanced(by: n), event: event)
+    }
+
+    public func distance(to other: MIDIEvent1) -> Stride {
+        return timestamp.distance(to: other.timestamp)
+    }
+
 }
