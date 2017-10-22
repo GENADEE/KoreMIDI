@@ -36,5 +36,3 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
         return timestamp.distance(to: other.timestamp)
     }
 }
-
-

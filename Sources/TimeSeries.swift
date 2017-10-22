@@ -36,7 +36,7 @@ extension TimeSeries {
     }
 }
 
-@inline(__always)
+@inline(__always) @discardableResult
 func withCopy<T, Result>(of value : T, body: (UnsafePointer<T>) -> Result) -> Result {
     var copy = value
     return withUnsafePointer(to: &copy) {
