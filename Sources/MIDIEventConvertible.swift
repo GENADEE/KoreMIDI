@@ -8,10 +8,9 @@
 
 import AudioToolbox.MusicPlayer
 
-
-
 public protocol MIDIEventConvertible : Hashable {
-
+    associatedtype Timestamp = Double
+    func insert(to ref: MusicTrack, at timestamp: Timestamp)
 }
 
 extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
@@ -19,6 +18,14 @@ extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConv
         return lhs.instrumentID == rhs.instrumentID &&
             lhs.groupID == rhs.groupID &&
             lhs.duration == rhs.duration
+    }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+//        }
     }
 
 //    public static func <(lhs: ExtendedNoteOnEvent, rhs: ExtendedNoteOnEvent) -> Bool {
@@ -106,6 +113,14 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     public var description: String {
         return ""
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewMIDINoteEvent(ref, at, $0)
+//        }
+    }
 }
 
 //extension MIDINoteMessage : MIDIEventConvertible  {}
@@ -128,6 +143,14 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
             lhs.channel == rhs.channel &&
             lhs.velocity == rhs.velocity &&
             lhs.releaseVelocity == rhs.releaseVelocity
+    }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+//        }
     }
 
 //    public static func <(lhs: MIDINoteMessage, rhs: MIDINoteMessage) -> Bool {
@@ -158,6 +181,14 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
     public var description: String {
         return "cc: \(status): [\(data1), \(data2)]"
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+//        }
+    }
 }
 
 ///
@@ -178,6 +209,14 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible 
 
     public var description: String {
         return ""
+    }
+
+    public func insert(to ref: MusicTrack, at timestamp : Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewMIDIRawDataEvent(ref, at, $0)
+//        }
     }
 }
 
@@ -203,6 +242,15 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
     public var description: String {
         return ""
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+//        }
+    }
+
 }
 
 ///
@@ -226,6 +274,14 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     public var description: String {
         return ""
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+//        _ = withUnsafePointer(to: &cpy) {
+//            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+//        }
+    }
 }
 
 extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible {
@@ -248,5 +304,14 @@ extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventCon
     public var description: String {
         return ""
     }
+
+    public func insert(to ref: MusicTrack, at timestamp: Double) {
+        var cpy = self
+        fatalError()
+        //        _ = withUnsafePointer(to: &cpy) {
+        //            MusicTrackNewExtendedNoteEvent(ref, at, $0)
+        //        }
+    }
+
 }
 
