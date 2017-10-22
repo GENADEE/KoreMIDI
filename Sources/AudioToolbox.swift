@@ -180,6 +180,15 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
     return d.decode()
 }
 
+
+@inline(__always) internal
+func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Bool {
+    var out : DarwinBoolean = false
+    var size: UInt32 = 0
+    OSAssert(MusicTrackGetProperty(ref, prop, &out, &size))
+    return out.boolValue
+}
+
 @inline(__always) internal
 func MIDITrackSetProperty<T>(ref: MusicTrack, prop: MIDITrackProp, to value: T) {
     var cpy = value

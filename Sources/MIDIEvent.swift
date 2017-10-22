@@ -18,7 +18,6 @@ extension Data {
         //        let len: UInt32 = decode()
         fatalError()
         //        return MIDIRawData(length: len, data: 0)
-
     }
 }
 

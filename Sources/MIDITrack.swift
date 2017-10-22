@@ -98,8 +98,8 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         }
     }
 
-    public final func makeIterator() -> AnyIterator<Element> {
-        return AnyIterator(MIDIIterator(self))
+    public final func makeIterator() -> MIDIIterator {
+        return .init(self)
     }
 
     public final var hashValue: Int {
