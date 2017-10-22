@@ -38,5 +38,4 @@ public struct MIDIEvent1<Event : MIDIEventConvertible> : Comparable, Hashable, S
     public func distance(to other: MIDIEvent1) -> Stride {
         return timestamp.distance(to: other.timestamp)
     }
-
 }

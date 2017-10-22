@@ -39,19 +39,23 @@ func MIDISequenceImport(_ data: Data) -> MusicSequence {
 }
 
 @inline(__always) internal
-func MIDISequenceExport(ref: MusicSequence) -> Data {
+func MIDISequenceExport(ref: MusicSequence,
+                        resolution : Int16 = 960) -> Data {
+    var data : CFData? = nil
+    //OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
     fatalError()
+    return data! as Data
 }
 
 @inline(__always) internal
 func MIDISequenceSave(ref: MusicSequence,
                         to url: URL,
                         resolution : Int16 = 960) {
+
     OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
                                      .midiType,
                                      .eraseFile,
                                      resolution))
-    fatalError()
 }
 
 @inline(__always) internal
