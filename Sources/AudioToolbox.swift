@@ -166,7 +166,6 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent<MIDITimestamp>
 func MIDITrackCreate(ref: MusicSequence) -> MusicTrack {
     var out : MusicTrack? = nil
     OSAssert(MusicSequenceNewTrack(ref, &out))
-
     return out!
 }
 

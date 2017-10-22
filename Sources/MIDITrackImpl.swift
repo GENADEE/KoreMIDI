@@ -24,47 +24,13 @@ import AudioToolbox.MusicPlayer
 //
 //}
 
-
-//struct WeakRef<Element : AnyObject> {
-//    private(set) weak var ref : Element?
-//    init(ref: Element) {
-//        self.ref = ref
-//    }
-//}
-
-
-//extension MIDITrack {
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent<Timestamp>
 
-
-
     public final let sequence: MIDISequence
-
     internal final let ref : MusicTrack
 
-    //        var parent : MIDISequence {
-    //            return MIDISequence(impl: parentImpl)
-    //        }
-
-
-    //        var parentImpl : MIDISequence {
-    //            return _parent ?? MIDISequence(for: self)
-    //        }
-
-    //        var isParentUnique : Bool {
-    //            return _parent == nil
-    //        }
-
-//    public init() {
-//        parent = MIDISequence()
-//        ref = MIDITrackCreate(ref: parent.ref)
-//
-//        //            _parent = s
-//        //        ref = M
-//        //        parent = nil
-//    }
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -111,7 +77,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
     }
 
-    public final subscript(timerange timerange: Range<Timestamp>) -> AnyIterator<Element> {
+    public final subscript(timerange timerange: Range<Timestamp>) -> MIDIRangeIterator {
         fatalError()
     }
 

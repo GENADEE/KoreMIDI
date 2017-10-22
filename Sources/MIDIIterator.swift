@@ -28,17 +28,13 @@ public class MIDIIterator: IteratorProtocol {
     internal init(_ content: MIDITrack) {
         self._content = content
         self._ref = MIDIIteratorCreate(ref : content.ref)
-        //self._timerange = timerange
-//        timerange.map {
-//            self._seek(to: $0.lowerBound)
-//        }
     }
 
     deinit {
         DisposeMusicEventIterator(_ref)
     }
 
-    private var _current: Element? {
+    public var current: Element? {
         return MIDIIteratorGetCurrent(ref: _ref)
 //        if let e : Element = MIDIIteratorGetCurrent(ref: _ref) {
 //            if let r = _timerange, !r.contains(e.timestamp) {
@@ -53,18 +49,17 @@ public class MIDIIterator: IteratorProtocol {
         defer {
             MusicEventIteratorDeleteEvent(_ref)
         }
-        return _current
+        return current
     }
 
     public func next() -> Element? {
-        while let event = _current {
+        defer {
             _move()
-            return event
         }
-        return nil
+        return current
     }
 
-    fileprivate func _seek(to timestamp: Timestamp) {
+    public func seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(_ref, timestamp.beats)
     }
 
@@ -79,13 +74,13 @@ public class MIDIIterator: IteratorProtocol {
 //    private let _timerange: Range<Timestamp>?
 }
 
-class MIDIRangeIterator : MIDIIterator {
-    let timerange : Range<Timestamp>
+public class MIDIRangeIterator : MIDIIterator {
+    public let timerange : Range<Timestamp>
 
     internal init(_ content: MIDITrack, timerange: Range<Timestamp>) {
         self.timerange = timerange
         super.init(content)
-        _seek(to: timerange.lowerBound)
+        seek(to: timerange.lowerBound)
     }
 
     public override func next() -> Element? {
