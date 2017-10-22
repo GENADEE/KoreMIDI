@@ -7,6 +7,10 @@ Collections in KoreMIDI are generally copy-on-write, i.e. following the semantic
 note that you never need event -> packet since you aren't sending the events directly
 
 ```
+let sequence = 
+```
+
+```
 
 
 

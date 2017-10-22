@@ -38,9 +38,11 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent<Timestamp>
 
-    internal final let ref : MusicTrack
 
-    public final let parent: MIDISequence
+
+    public final let sequence: MIDISequence
+
+    internal final let ref : MusicTrack
 
     //        var parent : MIDISequence {
     //            return MIDISequence(impl: parentImpl)
@@ -72,18 +74,18 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         return lhs === rhs || lhs.elementsEqual(rhs)
     }
 
-    public init(parent: MIDISequence) {
-        ref = MIDITrackCreate(ref: parent.ref)
-        self.parent = parent
+    public init(sequence: MIDISequence) {
+        ref = MIDITrackCreate(ref: sequence.ref)
+        self.sequence = sequence
     }
 
-    public init(parent: MIDISequence, no: Int) {
-        self.parent = parent
-        ref = MusicSequenceGetTrack(ref: parent.ref, at: no)
+    public init(sequence: MIDISequence, no: Int) {
+        self.sequence = sequence
+        ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
     }
 
     public final func copy() -> MIDITrack {
-        let cpy = MIDITrack(parent : parent)
+        let cpy = MIDITrack(sequence : sequence)
         cpy.copyInsert(from: self)
         return cpy
     }
@@ -294,17 +296,17 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         }
     }
 
-    fileprivate init(tempo parent: MIDISequence) {
-        self.parent = parent
-        self.ref = MusicSequenceGetTempoTrack(ref: parent.ref)
+    fileprivate init(tempo sequence: MIDISequence) {
+        self.sequence = sequence
+        self.ref = MusicSequenceGetTempoTrack(ref: sequence.ref)
     }
 }
 //}
 
 
 class MIDITempoTrack : MIDITrack {
-    public override init(parent: MIDISequence) {
-        super.init(tempo : parent)
+    public override init(sequence: MIDISequence) {
+        super.init(tempo : sequence)
     }
 }
 

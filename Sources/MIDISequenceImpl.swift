@@ -28,8 +28,8 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     public typealias Element = MIDITrack
     public typealias Timestamp = MIDITimestamp
 
-    public var tempo: MIDITrack {
-        return .init(parent : self)
+    var tempo: MIDITrack {
+        fatalError()
     }
 
     internal let ref : MusicSequence
@@ -38,16 +38,17 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     public init() {
         ref = MIDISequenceCreate()
+        //tempo = .init(parent: self)
 //        tempo =
         fatalError()
         //            clock = Clock(sequence: ref)
     }
 
-    public init(for track: MIDITrack) {
-        ref = MusicTrackGetSequence(track.ref)
-        fatalError()
-        //            clock = Clock(sequence: ref)
-    }
+//    public init(for track: MIDITrack) {
+//        ref = MusicTrackGetSequence(track.ref)
+//        fatalError()
+//        //            clock = Clock(sequence: ref)
+//    }
 
     public init(import url: URL) {
         ref = MIDISequenceImport(url)
@@ -149,7 +150,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     public subscript(index: Index) -> Element {
-        return MIDITrack(parent: self, no: index)
+        return MIDITrack(sequence: self, no: index)
     }
 
 
