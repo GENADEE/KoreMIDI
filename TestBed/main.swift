@@ -15,6 +15,7 @@ struct NoteEvent : CustomStringConvertible {
     let duration : Float32
     let track : Int
     let velocity : UInt8
+
     init(event : MIDITrack.Element, track : Int) {
         switch event {
         case let .note(ts, data):
