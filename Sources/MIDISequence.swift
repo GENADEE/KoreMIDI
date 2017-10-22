@@ -25,18 +25,16 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     internal let ref : MusicSequence
 
-    //        let clock : Clock
-
     public init() {
-        ref = MIDISequenceCreate()
+        self.ref = MIDISequenceCreate()
     }
 
     public init(import url: URL) {
-        ref = MIDISequenceImport(url)
+        self.ref = MIDISequenceImport(url)
     }
 
     public init(import data: Data) {
-        ref = MIDISequenceImport(data)
+        self.ref = MIDISequenceImport(data)
     }
 
     public func copy() -> MIDISequence {
