@@ -22,7 +22,6 @@
 		373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
 		373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDIIterator.swift */; };
 		373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
-		373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
 		373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BE4171E98154600DC1E15 /* MIDINote.swift */; };
 		373BE4311E9816F800DC1E15 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B150011E98059100CBDB07 /* Classifier.swift */; };
 		373BE4321E9816F800DC1E15 /* MIDITimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* MIDITimestamp.swift */; };
@@ -51,7 +50,6 @@
 		OBJ_33 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* MIDIPlayer.swift */; };
 		OBJ_35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Extensions.swift */; };
 		OBJ_36 /* MIDIIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* MIDIIterator.swift */; };
-		OBJ_37 /* KoreMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* KoreMIDI.swift */; };
 		OBJ_39 /* MIDIEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MIDIEventType.swift */; };
 		OBJ_43 /* MIDITrackProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* MIDITrackProperty.swift */; };
 		OBJ_44 /* MIDITimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* MIDITimestamp.swift */; };
@@ -102,7 +100,6 @@
 		37F70AA71EBBE9E20008536E /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_12 /* MIDIIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIIterator.swift; sourceTree = "<group>"; };
-		OBJ_13 /* KoreMIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDI.swift; sourceTree = "<group>"; };
 		OBJ_15 /* MIDIEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEventType.swift; sourceTree = "<group>"; };
 		OBJ_19 /* MIDITrackProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackProperty.swift; sourceTree = "<group>"; };
 		OBJ_20 /* MIDITimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITimestamp.swift; sourceTree = "<group>"; };
@@ -170,7 +167,6 @@
 			children = (
 				371120031E9863870037DFFA /* Edit.swift */,
 				373BE4331E98238500DC1E15 /* Timer.swift */,
-				OBJ_13 /* KoreMIDI.swift */,
 				37371FA01E9B251F00829B24 /* TimeSeries.swift */,
 				37E24EB21EA14BF8006C957B /* OSStatus.swift */,
 				37B150011E98059100CBDB07 /* Classifier.swift */,
@@ -352,7 +348,6 @@
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
 				373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */,
 				373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */,
-				373BE42E1E9816F800DC1E15 /* KoreMIDI.swift in Sources */,
 				373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */,
 				373BE4311E9816F800DC1E15 /* Classifier.swift in Sources */,
 				373BE4321E9816F800DC1E15 /* MIDITimestamp.swift in Sources */,
@@ -375,7 +370,6 @@
 				OBJ_35 /* Extensions.swift in Sources */,
 				OBJ_36 /* MIDIIterator.swift in Sources */,
 				373BE44A1E98344000DC1E15 /* MIDISequence.swift in Sources */,
-				OBJ_37 /* KoreMIDI.swift in Sources */,
 				OBJ_39 /* MIDIEventType.swift in Sources */,
 				37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */,
 				37D0B4501EC0F099005A8A61 /* Enums.swift in Sources */,

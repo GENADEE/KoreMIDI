@@ -8,31 +8,45 @@
 
 import AVFoundation
 
-struct MIDIBank {
-    let path : String
-}
+//struct MIDIBank {
+//    let path : String
+//}
 
-class MIDIPlayer {
+//enum Status {
+//    case
+//}
+
+public class MIDIPlayer {
     let sequence : MIDISequence
 
-    private var _player: AVMIDIPlayer? = nil
-    private var _isDirty : Bool = true
-    private let _bank : URL?
+    private var player: AVMIDIPlayer
+    private var isDirty : Bool = true
+    private let bank : URL?
 
-    init(sequence: MIDISequence, bank: URL? = nil) {
+    public init?(sequence: MIDISequence, bank: URL? = nil) {
         self.sequence = sequence
-        self._bank = bank
+        self.bank = bank
+        do {
+            player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: bank)
+        }
+        catch {
+            return nil
+        }
     }
 
     private func reload() {
-        if _isDirty {
-            _player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: _bank)
-            _isDirty = false
-        }
-
+        player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: bank)
     }
 
-    func prepareToPlay() {
-        _player?.prepareToPlay()
+    public func play(_ callback: @escaping () -> () = {}) {
+        player.play(callback)
+    }
+
+    public func prepareToPlay() {
+        player.prepareToPlay()
+    }
+
+    public var currentPosition : TimeInterval {
+        return player.currentPosition
     }
 }

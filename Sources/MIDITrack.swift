@@ -182,7 +182,8 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     }
 
     final func insert(_ element: Element) {
-        MusicSequenceInsert(ref: ref, event: element)
+        fatalError()
+//        MusicSequenceInsert(ref: ref, event: element)
     }
 
     func move(_ timerange: Range<Timestamp>, to timestamp: Timestamp) {

@@ -10,11 +10,11 @@ import Foundation
 
 public struct MIDIPitch : Comparable, Hashable, RawRepresentable, Strideable {
     public typealias Interval = Int
-    private static let range = 0..<UInt8.max
+    private static let range = 0..<Int8.max
 
-    public let rawValue: UInt8
+    public let rawValue: Int8
 
-    public init?(rawValue: UInt8) {
+    public init?(rawValue: Int8) {
         self.rawValue = rawValue
     }
 

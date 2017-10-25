@@ -9,11 +9,6 @@
 import Foundation
 import AudioToolbox
 
-protocol List : Sequence {
-    var head: Iterator.Element? { get }
-    var tail: SubSequence { get }
-}
-
 extension Range where Bound == MIDITimestamp {
     init(timerange: Range<MusicTimeStamp>) {
         lowerBound = MIDITimestamp(beats: timerange.lowerBound)

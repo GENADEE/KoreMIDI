@@ -13,20 +13,15 @@ public protocol Temporal {
 }
 
 public protocol TimeSeries : Sequence, Temporal {
-
-    
     var startTime : Timestamp { get }
     var endTime : Timestamp { get }
 
     var duration : Timestamp.Stride { get }
-    
     func timestamp(after t: Timestamp) -> Timestamp
-    
     //    subscript(timerange: Range<Timestamp>) -> SubSequence { get }
 }
 
 protocol MutableTimeSeries : TimeSeries {
-    
     subscript(timerange: Range<Timestamp>) -> SubSequence { get set }
 }
 
@@ -37,7 +32,7 @@ extension TimeSeries {
 }
 
 @inline(__always) @discardableResult
-func withCopy<T, Result>(of value : T, body: (UnsafePointer<T>) -> Result) -> Result {
+func withCopy<T, Result>(of value: T, body: (UnsafePointer<T>) -> Result) -> Result {
     var copy = value
     return withUnsafePointer(to: &copy) {
         body($0)
