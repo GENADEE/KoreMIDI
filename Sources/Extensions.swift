@@ -69,8 +69,10 @@ extension CABarBeatTime : CustomStringConvertible, Equatable {
     }
 
     public static func ==(lhs: CABarBeatTime, rhs: CABarBeatTime) -> Bool {
-        return lhs.bar == rhs.bar && lhs.beat == rhs.beat &&
-            lhs.subbeat == rhs.subbeat && lhs.subbeatDivisor == rhs.subbeatDivisor
+        return lhs.bar == rhs.bar &&
+            lhs.beat == rhs.beat &&
+            lhs.subbeat == rhs.subbeat &&
+            lhs.subbeatDivisor == rhs.subbeatDivisor
     }
 }
 

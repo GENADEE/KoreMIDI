@@ -56,8 +56,8 @@ extension ExtendedTempoEvent : Hashable, CustomStringConvertible, MIDIEventConve
         return "bpm: \(bpm)"
     }
 
-    public func insert(to ref: MusicTrack, at timestamp: Double) {
-        MusicTrackNewExtendedTempoEvent(ref, timestamp, bpm)
+    public func insert(to ref: MIDITrack, at timestamp: Double) {
+        MusicTrackNewExtendedTempoEvent(ref.ref, timestamp, bpm)
     }
 }
 

@@ -16,6 +16,12 @@ import AVFoundation
 //    case
 //}
 
+extension AVMIDIPlayer {
+    convenience init(sequence: MIDISequence, soundBankURL: URL? = nil) throws {
+        try self.init(data: sequence.export(), soundBankURL: soundBankURL)
+    }
+}
+
 public class MIDIPlayer {
     let sequence : MIDISequence
 
@@ -26,16 +32,14 @@ public class MIDIPlayer {
     public init?(sequence: MIDISequence, bank: URL? = nil) {
         self.sequence = sequence
         self.bank = bank
-        do {
-            player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: bank)
-        }
-        catch {
-            return nil
-        }
+
+        guard let player = try? AVMIDIPlayer(sequence: sequence, soundBankURL: bank) else { return nil }
+        self.player = player
     }
 
+
     private func reload() {
-        player = try! AVMIDIPlayer(data: sequence.export(), soundBankURL: bank)
+        player = try! AVMIDIPlayer(sequence: sequence, soundBankURL: bank)
     }
 
     public func play(_ callback: @escaping () -> () = {}) {

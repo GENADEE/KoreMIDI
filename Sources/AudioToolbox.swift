@@ -41,10 +41,15 @@ func MIDISequenceImport(_ data: Data) -> MusicSequence {
 @inline(__always) internal
 func MIDISequenceExport(ref: MusicSequence,
                         resolution : Int16 = 960) -> Data {
-    var data : CFData? = nil
-    //OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
-    fatalError()
-    return data! as Data
+    var data : Unmanaged<CFData>? = nil
+    OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
+//    fatalError()
+    //todo retained or unretained
+//    if let data = data {
+        return data!.takeUnretainedValue() as Data
+//    }
+//
+//    return nil
 }
 
 @inline(__always) internal
