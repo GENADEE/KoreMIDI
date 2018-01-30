@@ -42,7 +42,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     internal private(set) lazy var tempo = MIDITempoTrack(sequence: self)
 
-
     internal let ref: MusicSequence
 
     public init() {

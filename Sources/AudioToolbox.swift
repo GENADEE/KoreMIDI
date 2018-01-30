@@ -38,7 +38,8 @@ func MIDISequenceImport(_ url: URL) -> MusicSequence {
 @inline(__always) internal
 func MIDISequenceImport(_ data: Data) -> MusicSequence {
     let seq = MIDISequenceCreate()
-    OSAssert(MusicSequenceFileLoadData(seq, data as CFData, .midiType, .smf_ChannelsToTracks))
+    OSAssert(MusicSequenceFileLoadData(seq, data as CFData,
+                                       .midiType, .smf_ChannelsToTracks))
     return seq
 }
 

@@ -28,7 +28,8 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent
 
-    private final weak var sequence: MIDISequence?
+    /// this needs to be a strong reference because sequence need to be around as long as track ref is around
+    private final let sequence: MIDISequence
     internal final let ref : MusicTrack
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
@@ -118,7 +119,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public final var muted : Bool {
         get {
             let ret : DarwinBoolean = self[.muted]
-            return ret.boolValue
+            return Bool(ret)
         }
         set {
             self[.muted] = DarwinBoolean(newValue)
