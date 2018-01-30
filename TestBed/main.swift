@@ -108,9 +108,13 @@ func custom() {
     print(track)
 }
 
+
+
 func tst() {
     let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/hypersphere/logic5.4.mid")
     var s = MIDISequence(import: url)
+
+
     
 //    for var e in s {
 //        

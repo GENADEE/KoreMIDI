@@ -8,6 +8,15 @@
 import Foundation
 import AVFoundation
 
+//extension Array where Element == MIDITrack {
+//    fileprivate init(ref: MusicSequence) {
+//        let count = MusicSequenceGetTrackCount(ref: ref)
+//        self = (0..<count).map {
+//            MusicSequence
+//        }
+//    }
+//}
+
 ///
 /// MIDISequence
 ///
@@ -19,14 +28,15 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     public typealias Element = MIDITrack
     public typealias Timestamp = MIDITimestamp
 
-    public var tempo: MIDITrack {
-        fatalError()
-    }
+    private var content: [MIDITrack] = []
+
+//    private(set) var tempo: MIDITrack
 
     internal let ref : MusicSequence
 
     public init() {
         self.ref = MIDISequenceCreate()
+//        tempo = MIDITempoTrack(sequence: self)
     }
 
     public init(import url: URL) {

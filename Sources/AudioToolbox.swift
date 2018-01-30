@@ -43,13 +43,7 @@ func MIDISequenceExport(ref: MusicSequence,
                         resolution : Int16 = 960) -> Data {
     var data : Unmanaged<CFData>? = nil
     OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
-//    fatalError()
-    //todo retained or unretained
-//    if let data = data {
-        return data!.takeUnretainedValue() as Data
-//    }
-//
-//    return nil
+    return data!.takeUnretainedValue() as Data
 }
 
 @inline(__always) internal
