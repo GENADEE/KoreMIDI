@@ -30,14 +30,18 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     private var content: [MIDITrack] = []
 
-//    private(set) var tempo: MIDITrack
+//    internal private(set) var _tempo: MIDITempoTrack! = nil
+    internal private(set) lazy var tempo = MIDITempoTrack(sequence: self)
+//        return
+//    }
 
-    internal let ref : MusicSequence
+
+    internal let ref: MusicSequence
 
     public init() {
         self.ref = MIDISequenceCreate()
         self.content = Array(parent: self)
-//        tempo = MIDITempoTrack(sequence: self)
+//        _tempo = MIDITempoTrack(sequence: self)
     }
 
     public init(import url: URL) {
