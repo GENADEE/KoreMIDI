@@ -139,15 +139,17 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 //}
 
 @inline(__always) internal
-func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
-    @inline(__always)
-    func MIDIIteratorHasCurrent() -> Bool {
-        var bool : DarwinBoolean = false
-        OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
-        return Bool(bool)
-    }
+func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
+    var bool : DarwinBoolean = false
+    OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
+    return Bool(bool)
+}
 
-    guard MIDIIteratorHasCurrent() else { return nil }
+
+@inline(__always) internal
+func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
+
+    guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
 
     var timestamp: Float64 = 0
     var type: MusicEventType = 0

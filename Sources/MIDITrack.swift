@@ -73,7 +73,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
             opts.append("muted")
         }
 
-        return "MIDITrackImpl(in:\(timerange), \(map { $0 }))"
+        return "MIDITrack(in:\(timerange), \(map { $0 }))"
     }
 
     public final subscript(timerange timerange: Range<Timestamp>) -> MIDIRangeIterator {
