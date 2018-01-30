@@ -40,10 +40,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     private var content: [MIDITrack] = []
 
-//    internal private(set) var _tempo: MIDITempoTrack! = nil
     internal private(set) lazy var tempo = MIDITempoTrack(sequence: self)
-//        return
-//    }
 
 
     internal let ref: MusicSequence
@@ -139,7 +136,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
         return 0
     }
 
-    public var endIndex : Index {
+    public var endIndex: Index {
         return count
     }
 
@@ -155,8 +152,5 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
         return content[index]
     }
 }
-
-
-
 
 

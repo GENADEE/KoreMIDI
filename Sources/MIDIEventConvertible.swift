@@ -8,13 +8,15 @@
 
 import AudioToolbox.MusicPlayer
 
-public protocol MIDIEventConvertible : Hashable {
+public protocol MIDIEventConvertible {
 
 }
 
 internal protocol MIDITrackEvent : MIDIEventConvertible {
     associatedtype Timestamp = Double
     func insert(to ref: MIDITrack, at timestamp: Timestamp)
+
+    var type: MIDIEventType { get }
 }
 
 extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
@@ -37,6 +39,10 @@ extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConv
     public var hashValue: Int {
         return groupID.hashValue
     }
+
+    public var type: MIDIEventType {
+        return .extendedNote
+    }
 }
 
 ///
@@ -58,6 +64,10 @@ extension ExtendedTempoEvent : Hashable, CustomStringConvertible, MIDIEventConve
 
     public func insert(to ref: MIDITrack, at timestamp: Double) {
         MusicTrackNewExtendedTempoEvent(ref.ref, timestamp, bpm)
+    }
+
+    public var type: MIDIEventType {
+        return .extendedTempo
     }
 }
 
@@ -82,6 +92,10 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
         withCopy(of: self) {
             MusicTrackNewUserEvent(ref.ref, timestamp, $0)
         }
+    }
+
+    public var type: MIDIEventType {
+        return .user
     }
 }
 
@@ -109,6 +123,10 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
         withCopy(of: self) {
             MusicTrackNewMetaEvent(ref.ref, timestamp, $0)
         }
+    }
+
+    public var type: MIDIEventType {
+        return .meta
     }
 }
 
@@ -142,6 +160,11 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
             MusicTrackNewMIDINoteEvent(ref.ref, timestamp, $0)
         }
     }
+
+    public var type: MIDIEventType {
+        return .note
+    }
+
 }
 
 ///
@@ -166,6 +189,11 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
             MusicTrackNewMIDIChannelEvent(ref.ref, timestamp, $0)
         }
     }
+
+    public var type: MIDIEventType {
+        return .channel
+    }
+
 }
 
 ///
@@ -190,6 +218,11 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible,
             MusicTrackNewMIDIRawDataEvent(ref.ref, timestamp, $0)
         }
     }
+
+    public var type: MIDIEventType {
+        return .rawData
+    }
+
 }
 
 ///
@@ -217,6 +250,11 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
             MusicTrackNewParameterEvent(ref.ref, timestamp, $0)
         }
     }
+
+    public var type: MIDIEventType {
+        return .parameter
+    }
+
 }
 
 ///
@@ -243,6 +281,11 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
             MusicTrackNewAUPresetEvent(ref.ref, timestamp, $0)
         }
     }
+
+    public var type: MIDIEventType {
+        return .auPreset
+    }
+
 }
 
 extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
@@ -269,5 +312,10 @@ extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventCon
 //            MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, $0)
 //        }
     }
+
+    public var type: MIDIEventType {
+        fatalError()
+    }
+
 }
 

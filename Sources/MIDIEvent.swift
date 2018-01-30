@@ -52,6 +52,10 @@ public enum MIDIEvent : Comparable, Strideable, Hashable, CustomStringConvertibl
         }
     }
 
+    init<Event: MIDITrackEvent>(timestamp: Timestamp, event: Event) {
+        self.init(timestamp: timestamp, type: event.type, data: Data(encode: event))
+    }
+
     public var description : String {
         switch self {
         case let .extendedNote(ts, e): return "\(type)(timestamp: \(ts), \(e))"
