@@ -17,6 +17,16 @@ extension Array where Element == MIDITrack {
     }
 }
 
+extension Sequence {
+    public func min<T: Comparable>(by: (Iterator.Element) -> T) -> Iterator.Element? {
+        return self.min { by($0) < by($1) }
+    }
+
+    public func max<T: Comparable>(by: (Iterator.Element) -> T) -> Iterator.Element? {
+        return self.max { by($0) < by($1) }
+    }
+}
+
 ///
 /// MIDISequence
 ///
@@ -118,11 +128,11 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     public var startTime : Timestamp {
-        return lazy.map { $0.startTime }.reduce(0, Swift.min)
+        return self.min { $0.startTime }?.startTime ?? 0
     }
 
     public var endTime : Timestamp {
-        return lazy.map { $0.endTime }.reduce(0, Swift.max)
+        return self.max { $0.endTime }?.endTime ?? 0
     }
 
     public var startIndex: Index {

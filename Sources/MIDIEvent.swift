@@ -89,8 +89,17 @@ public enum MIDIEvent : Comparable, Strideable, Hashable, CustomStringConvertibl
     }
 
     public var type : MIDIEventType {
-//        return MIDIEventType(event: self)
-        fatalError()
+        switch self {
+        case .extendedNote: return .extendedNote
+        case .extendedTempo: return .extendedTempo
+        case .user: return .user
+        case .meta: return .meta
+        case .note: return .note
+        case .channel: return .channel
+        case .rawData: return .rawData
+        case .parameter: return .parameter
+        case .auPreset: return .auPreset
+        }
     }
 
     public var hashValue: Int {
