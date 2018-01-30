@@ -13,6 +13,10 @@ func OSAssert(_ err: OSStatus, function: String = #function) {
     assert(err == noErr, "Error (osstatus: \(err)) in \(function)")
 }
 
+func with<T>(_ apply: (T) -> ()) {
+
+}
+
 ///
 /// Sequences
 ///

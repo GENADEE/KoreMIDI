@@ -29,7 +29,7 @@ class MIDIProject : NSDocument {
 //}
 //
 //class MIDIProjectController : MIDIProject {
-//    
+//
 //}
 
 extension MIDIPacketList {

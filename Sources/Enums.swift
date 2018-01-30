@@ -123,7 +123,7 @@ namespace AudioSynthesis.Midi
             MonoMode = 0x7E,
             PolyMode = 0x7F
         }
-        
+
         //static helper methods and constants
         public static class MidiHelper
         {

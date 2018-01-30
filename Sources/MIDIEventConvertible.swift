@@ -258,7 +258,7 @@ extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventCon
         //        return scope.hashValue
         fatalError()
     }
-    
+
     public var description: String {
         return ""
     }

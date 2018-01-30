@@ -39,9 +39,8 @@ public protocol TimeSeries : Sequence, Temporal {
 struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, Comparable {
     typealias Index = Int
     typealias Element = MIDITrackain
-    
 
-    
+
     /// Create a new sequence
     init()
 
@@ -53,7 +52,7 @@ struct MIDISequence : MutableCollection, RangeReplaceableCollection, Hashable, C
 
     /// 
     var type : MusicSequenceType { get }
-    
+
     /// export sequence as data
     func export() -> Data
 
@@ -90,9 +89,9 @@ struct MIDITrack : Sequence, Hashable, Equatable {
     var soloed : Bool { get set }
     var automatedParams : Bool { get set }
     var timeResolution : Int { get set } 
-    
+
     mutating func move(_ timerange: Range<MIDITimestamp>, to timestamp: MIDITimestamp)
-    
+
 }
 ```
 

@@ -47,7 +47,7 @@ func test() {
     let path = "/Users/adamnemecek/Code/hypersphere/ngrid.io/_final/sandstorm.5track.mid"
     //"/Users/adamnemecek/midi/darude-sandstorm.mid"
     let url = URL(fileURLWithPath: path)
-    
+
     let s = MIDISequence(import: url)
 //    var notes : [NoteEvent]
 
@@ -55,7 +55,7 @@ func test() {
 
     //
     for (i,track) in s.enumerated() {
-        
+
         for note in track {
             switch note {
             case let .note(ts, data):
@@ -68,7 +68,7 @@ func test() {
 //        print(track.duration, track.startTime)
     }
     Swift.print("return ret;\n}")
-    
+
 //    for (i, track) in s.enumerated() {
 //        print(i, track)
 //        //    track[note] = note
@@ -76,14 +76,14 @@ func test() {
 
 //    print(s.dict())
 
-    
+
 //    var track = s[4]
-    
-    
+
+
     //print(s.start)
     //print("duration", track.duration)
     //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
-    
+
 //    print(s.startTime!, s.endTime!.beats)
 }
 test()
@@ -103,7 +103,7 @@ func custom() {
     q.play {
         print("dne")
     }
-    
+
     usleep(500 * 1000000)
     print(track)
 }
@@ -114,10 +114,8 @@ func tst() {
     let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/hypersphere/logic5.4.mid")
     var s = MIDISequence(import: url)
 
-
-    
 //    for var e in s {
-//        
+//
 //        print(e.insert(.note(10, MIDINoteMessage(note: 0, duration: 0.5))))
 //    }
 }

@@ -9,9 +9,9 @@
 import AudioToolbox
 
 public final class Clock: Equatable {
-    
+
     public enum Status { case stopped, running }
-    
+
     //    public struct Timestamp : Comparable, Strideable, CustomStringConvertible, Hashable {
     //        public typealias Stride = CAClockSeconds.Stride
     //
@@ -90,9 +90,9 @@ public final class Clock: Equatable {
     //            fatalError()
     //        }
     //    }
-    
+
     fileprivate let ref: CAClockRef
-    
+
     internal init(sequence : MusicSequence) {
         var r: CAClockRef? = nil
         CAClockNew(0, &r)
@@ -100,28 +100,28 @@ public final class Clock: Equatable {
         armed = false
         status = .stopped
     }
-    
+
     deinit {
         CAClockDispose(ref)
     }
-    
+
     private func get<T>(prop: CAClockPropertyID) -> T {
         var ptr = UnsafeMutablePointer<T>.allocate(capacity: 1)
         var size : UInt32 = 0
         CAClockGetProperty(ref, prop, &size, ptr)
-        
+
         defer {
             ptr.deallocate(capacity: 1)
         }
-        
+
         return ptr.pointee
     }
-    
+
     private func set<T>(prop: CAClockPropertyID, value: T) {
         var v = value
         CAClockSetProperty(ref, prop, UInt32(MemoryLayout<T>.size), &v)
     }
-    
+
     public var playRate : Float64 {
         get {
             var f: Float64 = 0
@@ -132,7 +132,7 @@ public final class Clock: Equatable {
             CAClockSetPlayRate(ref, newValue)
         }
     }
-    
+
     public var internalTimebase : CAClockTimebase {
         get {
             return get(prop: .internalTimebase)
@@ -141,7 +141,7 @@ public final class Clock: Equatable {
             set(prop: .internalTimebase, value: newValue)
         }
     }
-    
+
     public var timebaseSource : AudioDeviceID /* or AudioUit */ {
         get {
             return get(prop: .timebaseSource)
@@ -150,7 +150,7 @@ public final class Clock: Equatable {
             set(prop: .timebaseSource, value: newValue)
         }
     }
-    
+
     public var syncMode : CAClockSyncMode {
         get {
             return get(prop: .syncMode)
@@ -159,7 +159,7 @@ public final class Clock: Equatable {
             set(prop: .syncMode, value: newValue)
         }
     }
-    
+
     public var syncSource : MIDIEndpointRef {
         get {
             return get(prop: .syncSource)
@@ -168,7 +168,7 @@ public final class Clock: Equatable {
             set(prop: .syncSource, value: newValue)
         }
     }
-    
+
     public var smpteFormat :  CAClockSMPTEFormat {
         get {
             return get(prop: .smpteFormat)
@@ -177,7 +177,7 @@ public final class Clock: Equatable {
             set(prop: .smpteFormat, value: newValue)
         }
     }
-    
+
     public var smpteOffset : CAClockSeconds {
         get {
             return get(prop: .smpteOffset)
@@ -186,7 +186,7 @@ public final class Clock: Equatable {
             set(prop: .smpteOffset, value: newValue)
         }
     }
-    
+
     public var clockDestionations: [MIDIEndpointRef] {
         get {
             return get(prop: .midiClockDestinations)
@@ -195,7 +195,7 @@ public final class Clock: Equatable {
             set(prop: .midiClockDestinations, value: newValue)
         }
     }
-    
+
     public var mtcDestinations : [MIDIEndpointRef] {
         get {
             return get(prop: .mtcDestinations)
@@ -204,7 +204,7 @@ public final class Clock: Equatable {
             set(prop: .mtcDestinations, value: newValue)
         }
     }
-    
+
     public var mtcFreewheelTime : CAClockSeconds {
         get {
             return get(prop: .mtcFreewheelTime)
@@ -213,7 +213,7 @@ public final class Clock: Equatable {
             set(prop: .mtcFreewheelTime, value: newValue)
         }
     }
-    
+
     public var tempoMap : [CATempoMapEntry] {
         get {
             return get(prop: .tempoMap)
@@ -222,7 +222,7 @@ public final class Clock: Equatable {
             set(prop: .tempoMap, value: newValue)
         }
     }
-    
+
     public var meterTrack : [CAMeterTrackEntry] {
         get {
             return get(prop: .meterTrack)
@@ -231,7 +231,7 @@ public final class Clock: Equatable {
             set(prop: .meterTrack, value: newValue)
         }
     }
-    
+
     public var status : Status {
         didSet {
             guard oldValue != status else { return }
@@ -243,7 +243,7 @@ public final class Clock: Equatable {
             }
         }
     }
-    
+
     public var currentTempo : CAClockTempo {
         get {
             var t = CAClockTempo()
@@ -254,7 +254,7 @@ public final class Clock: Equatable {
             CAClockSetCurrentTempo(ref, newValue, nil)
         }
     }
-    
+
     public var currentTime : CAClockTime {
         get {
             var time = CAClockTime()
@@ -304,7 +304,7 @@ public final class Clock: Equatable {
     //        listeners[o] = listener
     //        return o
     //    }
-    
+
     public var armed : Bool {
         didSet {
             guard oldValue != armed else { return }
@@ -316,7 +316,7 @@ public final class Clock: Equatable {
             }
         }
     }
-    
+
     public static func ==(lhs: Clock, rhs: Clock) -> Bool {
         return lhs.ref == rhs.ref
     }
