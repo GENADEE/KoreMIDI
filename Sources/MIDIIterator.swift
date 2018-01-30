@@ -6,15 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import Foundation
 import AudioToolbox
-
-extension Range where Bound == MIDITimestamp {
-    init(timerange: Range<MusicTimeStamp>) {
-        lowerBound = MIDITimestamp(beats: timerange.lowerBound)
-        upperBound = MIDITimestamp(beats: timerange.upperBound)
-    }
-}
 
 public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp

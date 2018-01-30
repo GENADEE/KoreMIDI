@@ -50,6 +50,23 @@ public class MIDIPlayer {
         player.prepareToPlay()
     }
 
+    public func stop() {
+        player.stop()
+    }
+
+    public var rate: Float {
+        get {
+            return player.rate
+        }
+        set {
+            player.rate = newValue
+        }
+    }
+
+    public var isPlaying: Bool {
+        return player.isPlaying
+    }
+
     public var currentPosition : TimeInterval {
         return player.currentPosition
     }

@@ -70,14 +70,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
         DisposeMusicSequence(ref)
     }
 
-    private static var callback: MusicSequenceUserCallback {
-        get {
-            fatalError()
-        }
-        set {
-
-        }
-    }
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs === rhs || lhs.elementsEqual(rhs)
     }
