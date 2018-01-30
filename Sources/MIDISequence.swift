@@ -8,14 +8,14 @@
 import Foundation
 import AVFoundation
 
-//extension Array where Element == MIDITrack {
-//    fileprivate init(ref: MusicSequence) {
-//        let count = MusicSequenceGetTrackCount(ref: ref)
-//        self = (0..<count).map {
-//            MusicSequence
-//        }
-//    }
-//}
+extension Array where Element == MIDITrack {
+    fileprivate init(parent: MIDISequence) {
+        let count = MusicSequenceGetTrackCount(ref: parent.ref)
+        self = (0..<count).map {
+            MIDITrack(sequence: parent, no: $0)
+        }
+    }
+}
 
 ///
 /// MIDISequence
@@ -36,15 +36,18 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     public init() {
         self.ref = MIDISequenceCreate()
+        self.content = Array(parent: self)
 //        tempo = MIDITempoTrack(sequence: self)
     }
 
     public init(import url: URL) {
         self.ref = MIDISequenceImport(url)
+        self.content = Array(parent: self)
     }
 
     public init(import data: Data) {
         self.ref = MIDISequenceImport(data)
+        self.content = Array(parent: self)
     }
 
     public func copy() -> MIDISequence {
@@ -52,6 +55,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     deinit {
+        content = []
         DisposeMusicSequence(ref)
     }
 
@@ -106,7 +110,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     //    func remove
 
     public var count: IndexDistance {
-        return MusicSequenceGetTrackCount(ref: ref)
+        return content.count
     }
 
     public var startTime : Timestamp {
@@ -134,45 +138,8 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     public subscript(index: Index) -> Element {
-        return MIDITrack(sequence: self, no: index)
+        return content[index]
     }
-
-
-    /*
-     typedef CALLBACK_API_C(void,MusicSequenceUserCallback)(
-     void *inClientData,
-     MusicSequence inSequence,
-     MusicTrack inTrack,
-     MusicTimeStamp inEventTime,
-     const MusicEventUserData *inEventData,
-     MusicTimeStamp inStartSliceBeat,
-     MusicTimeStamp inEndSliceBeat
-     );
-     */
-    //    func reg(fun: (MIDISequenceImpl, MIDITrack.Impl, MusicTimeStamp, MusicEventUserData, Range<MusicTimeStamp>)) {
-    //
-    //    }
-    //
-    //    func register() {
-    //
-    //    }
-    //
-    //
-    //    internal func register(_ callback: @escaping MusicSequenceUserCallback) {
-    //        var c = self
-    //        MusicSequenceSetUserCallback(ref, callback, &c)
-    //    }
-    //
-    //    private func unregister() {
-    //        MusicSequenceSetUserCallback(ref, nil, nil)
-    //    }
-
-    //    private func _registerCallback() {
-    //        var c = self
-    //        MusicSequenceSetUserCallback(ref, MIDISequenceImpl._callback, &c)
-    //    }
-
-
 }
 
 

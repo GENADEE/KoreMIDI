@@ -28,7 +28,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent
 
-    public final let sequence: MIDISequence
+    private final weak var sequence: MIDISequence?
     internal final let ref : MusicTrack
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
@@ -53,12 +53,12 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
     }
 
-    public final func copy() -> MIDITrack {
-        let cpy = MIDITrack(sequence : sequence)
-        cpy.copyInsert(from: self)
-        return cpy
-    }
-
+//    public final func copy() -> MIDITrack {
+//        let cpy = MIDITrack(sequence : sequence!)
+//        cpy.copyInsert(from: self)
+//        return cpy
+//    }
+//
     public final var timerange: Range<Timestamp> {
         return startTime..<endTime
     }
