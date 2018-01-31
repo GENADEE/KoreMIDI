@@ -109,6 +109,25 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 
 extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
+    enum Subtype: UInt8 {
+        case sequenceNumber = 0x00,
+        textEvent = 0x01,
+        copyrightNotice = 0x02,
+        trackSequenceName = 0x03,
+        instrumentName  = 0x04,
+        lyricText = 0x05,
+        markerText              = 0x06,
+        cuePoint                = 0x07,
+        MIDIChannelPrefix       = 0x20,
+        endOfTrack              = 0x2F,
+        tempoSetting            = 0x51,
+        SMPTEOffset             = 0x54,
+        timeSignature           = 0x58,
+        keySignature            = 0x59,
+        sequencerSpecificEvent  = 0x7F,
+        invalid                    = 0x66
+    }
+
     public var hashValue: Int {
         return metaEventType.hashValue
     }
@@ -176,6 +195,15 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
 ///
 
 extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+
+    enum Subtype : UInt {
+        case polyphonicKeyPressure        = 0xA0,
+        controlChange                = 0xB0,
+        programChange                = 0xC0,
+        channelPressure                = 0xD0,
+        pitchBendChange                = 0xE0
+    }
+
     public static func ==(lhs: MIDIChannelMessage, rhs: MIDIChannelMessage) -> Bool {
         return lhs.status == rhs.status && lhs.data1 == rhs.data1 && lhs.data2 == rhs.data2
     }

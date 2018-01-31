@@ -8,9 +8,6 @@
 
 import AudioToolbox
 
-enum MetaEvent {
-    
-}
 
 /*
 namespace AudioSynthesis.Midi

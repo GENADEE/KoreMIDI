@@ -9,10 +9,11 @@
 import Foundation
 import AudioToolbox.MusicPlayer
 
-public struct MIDITempoTrack {
-//    typealias Element =
-    
-    init(ref: MIDISequence) {
-//        ref = MusicSequenceGetTempoTrack(ref: ref.ref)
-    }
-}
+//public struct MIDITempoTrack {
+////    typealias Element =
+//
+//    init(ref: MIDISequence) {
+////        ref = MusicSequenceGetTempoTrack(ref: ref.ref)
+//    }
+//}
+

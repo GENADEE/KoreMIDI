@@ -20,9 +20,10 @@ import AudioToolbox.MusicPlayer
 //                                    timestamp: MusicTimeStamp,
 //                                    userdata: UnsafePointer<MusicEventUserData>,
 //                                    timestamp2: MusicTimeStamp,
-//                                    timestamp3: MusicTimeStamp) {
+//                                    timestamp3: Musi  cTimeStamp) {
 //
 //}
+
 
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
