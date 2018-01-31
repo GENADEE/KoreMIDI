@@ -24,6 +24,8 @@
 		372588E62022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */; };
 		372588E8202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
 		372588E9202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
+		372588EE20223DBB00F8AF32 /* MIDIMetaEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 372588ED20223DBB00F8AF32 /* MIDIMetaEvent.m */; };
+		372588EF20223DBB00F8AF32 /* MIDIMetaEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 372588ED20223DBB00F8AF32 /* MIDIMetaEvent.m */; };
 		37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA21E9B264C00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA41E9B2B5200829B24 /* MIDIPitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA31E9B2B5200829B24 /* MIDIPitch.swift */; };
@@ -102,6 +104,10 @@
 		372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCopyrightEvent.swift; sourceTree = "<group>"; };
 		372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCuePointEvent.swift; sourceTree = "<group>"; };
 		372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaTimeSignatureEvent.swift; sourceTree = "<group>"; };
+		372588EA20223DBA00F8AF32 /* KoreMIDI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KoreMIDI-Bridging-Header.h"; sourceTree = "<group>"; };
+		372588EB20223DBB00F8AF32 /* TestBed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestBed-Bridging-Header.h"; sourceTree = "<group>"; };
+		372588EC20223DBB00F8AF32 /* MIDIMetaEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIMetaEvent.h; sourceTree = "<group>"; };
+		372588ED20223DBB00F8AF32 /* MIDIMetaEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIDIMetaEvent.m; sourceTree = "<group>"; };
 		37371FA01E9B251F00829B24 /* TimeSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeries.swift; sourceTree = "<group>"; };
 		37371FA31E9B2B5200829B24 /* MIDIPitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIPitch.swift; sourceTree = "<group>"; };
 		373BE4171E98154600DC1E15 /* MIDINote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDINote.swift; sourceTree = "<group>"; };
@@ -125,7 +131,7 @@
 		OBJ_19 /* MIDITrackProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrackProperty.swift; sourceTree = "<group>"; };
 		OBJ_20 /* MIDITimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITimestamp.swift; sourceTree = "<group>"; };
 		OBJ_23 /* KoreMIDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreMIDITests.swift; sourceTree = "<group>"; };
-		OBJ_25 /* KoreMIDI */ = {isa = PBXFileReference; lastKnownFileType = text; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_25 /* KoreMIDI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = KoreMIDI; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_26 /* KoreMIDITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = KoreMIDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_8 /* AudioToolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioToolbox.swift; sourceTree = "<group>"; };
@@ -163,6 +169,10 @@
 				372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */,
 				372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */,
 				372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */,
+				372588EC20223DBB00F8AF32 /* MIDIMetaEvent.h */,
+				372588ED20223DBB00F8AF32 /* MIDIMetaEvent.m */,
+				372588EA20223DBA00F8AF32 /* KoreMIDI-Bridging-Header.h */,
+				372588EB20223DBB00F8AF32 /* TestBed-Bridging-Header.h */,
 			);
 			name = "Meta Events";
 			sourceTree = "<group>";
@@ -337,8 +347,11 @@
 				TargetAttributes = {
 					373BE41C1E9816D300DC1E15 = {
 						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+					};
+					OBJ_27 = {
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
@@ -379,6 +392,7 @@
 				372588DF20222A5A00F8AF32 /* SoundFont.swift in Sources */,
 				373BE44B1E98346800DC1E15 /* MIDISequence.swift in Sources */,
 				373BE4351E9823A900DC1E15 /* Timer.swift in Sources */,
+				372588EF20223DBB00F8AF32 /* MIDIMetaEvent.m in Sources */,
 				373BE4241E9816F800DC1E15 /* Extensions.swift in Sources */,
 				37CDEFC71E9972390005B509 /* MIDIEvent.swift in Sources */,
 				373BE4251E9816F800DC1E15 /* AudioToolbox.swift in Sources */,
@@ -416,6 +430,7 @@
 				372588DE20222A5A00F8AF32 /* SoundFont.swift in Sources */,
 				OBJ_36 /* MIDIIterator.swift in Sources */,
 				373BE44A1E98344000DC1E15 /* MIDISequence.swift in Sources */,
+				372588EE20223DBB00F8AF32 /* MIDIMetaEvent.m in Sources */,
 				OBJ_39 /* MIDIEventType.swift in Sources */,
 				37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */,
 				37D0B4501EC0F099005A8A61 /* Enums.swift in Sources */,
@@ -492,9 +507,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/TestBed-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
@@ -533,9 +551,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/TestBed-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
@@ -544,6 +564,7 @@
 		OBJ_29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -555,6 +576,9 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/KoreMIDI-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = KoreMIDI;
 			};
 			name = Debug;
@@ -609,6 +633,7 @@
 		OBJ_30 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -620,6 +645,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/KoreMIDI-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = KoreMIDI;
 			};
 			name = Release;
