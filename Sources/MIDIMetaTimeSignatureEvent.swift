@@ -30,7 +30,21 @@ extension AudioToolbox.MIDIMetaEvent {
     }
 }
 
-struct MIDIMetaEvent2 {
+extension AudioToolbox.MIDIMetaEvent {
+    static var headerSize: Int {
+        return MemoryLayout<AudioToolbox.MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
+    }
+
+    var dynamicSize: Int {
+        return AudioToolbox.MIDIMetaEvent.headerSize + Int(dataLength)
+    }
+}
+
+internal protocol MIDIMetaEventType {
+    var size: Int { get }
+}
+
+internal struct MIDIMetaEvent2 {
     enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
         textEvent = 0x01,
@@ -52,10 +66,10 @@ struct MIDIMetaEvent2 {
 
     private var data: Data
 
-    
+
 
     init(type: Subtype, data: Data) {
-        let header = MemoryLayout<AudioToolbox.MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
+        let header = AudioToolbox.MIDIMetaEvent.headerSize
         let alloc = header + data.count
         fatalError()
     }
