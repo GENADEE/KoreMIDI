@@ -7,6 +7,7 @@
 
 #import "MIDIMetaEvent.h"
 
-@implementation MIDIMetaEvent1
+//@implementation MIDIMetaEvent1
+//
+//@end
 
-@end

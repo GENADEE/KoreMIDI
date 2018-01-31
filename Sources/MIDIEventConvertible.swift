@@ -133,6 +133,7 @@ extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEv
     }
 
     public static func ==(lhs: AudioToolbox.MIDIMetaEvent, rhs: AudioToolbox.MIDIMetaEvent) -> Bool {
+
         return lhs.metaEventType == rhs.metaEventType &&
             lhs.dataLength == rhs.dataLength &&
             lhs.data == rhs.data

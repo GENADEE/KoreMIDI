@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface MIDIMetaEvent1 : NSObject
 
-@end
+
