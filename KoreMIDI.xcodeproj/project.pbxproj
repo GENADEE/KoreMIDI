@@ -18,6 +18,12 @@
 		372588DC2022228100F8AF32 /* MIDITempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588DA2022228100F8AF32 /* MIDITempoTrack.swift */; };
 		372588DE20222A5A00F8AF32 /* SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588DD20222A5A00F8AF32 /* SoundFont.swift */; };
 		372588DF20222A5A00F8AF32 /* SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588DD20222A5A00F8AF32 /* SoundFont.swift */; };
+		372588E22022368000F8AF32 /* MIDIMetaCopyrightEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */; };
+		372588E32022368000F8AF32 /* MIDIMetaCopyrightEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */; };
+		372588E52022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */; };
+		372588E62022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */; };
+		372588E8202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
+		372588E9202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
 		37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA21E9B264C00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA41E9B2B5200829B24 /* MIDIPitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA31E9B2B5200829B24 /* MIDIPitch.swift */; };
@@ -93,6 +99,9 @@
 		372588BE2021108C00F8AF32 /* MIDITrack2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITrack2.swift; sourceTree = "<group>"; };
 		372588DA2022228100F8AF32 /* MIDITempoTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDITempoTrack.swift; sourceTree = "<group>"; };
 		372588DD20222A5A00F8AF32 /* SoundFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundFont.swift; sourceTree = "<group>"; };
+		372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCopyrightEvent.swift; sourceTree = "<group>"; };
+		372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCuePointEvent.swift; sourceTree = "<group>"; };
+		372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaTimeSignatureEvent.swift; sourceTree = "<group>"; };
 		37371FA01E9B251F00829B24 /* TimeSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeries.swift; sourceTree = "<group>"; };
 		37371FA31E9B2B5200829B24 /* MIDIPitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIPitch.swift; sourceTree = "<group>"; };
 		373BE4171E98154600DC1E15 /* MIDINote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDINote.swift; sourceTree = "<group>"; };
@@ -148,6 +157,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372588E02022365300F8AF32 /* Meta Events */ = {
+			isa = PBXGroup;
+			children = (
+				372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */,
+				372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */,
+				372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */,
+			);
+			name = "Meta Events";
+			sourceTree = "<group>";
+		};
 		373BE41E1E9816D300DC1E15 /* TestBed */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +264,7 @@
 				372588DD20222A5A00F8AF32 /* SoundFont.swift */,
 				OBJ_11 /* Extensions.swift */,
 				OBJ_9 /* MIDIPlayer.swift */,
+				372588E02022365300F8AF32 /* Meta Events */,
 				37ED23FC1EC61B4E0024E438 /* MIDITrack */,
 				37ED23FD1EC61B770024E438 /* MIDISequence */,
 				OBJ_20 /* MIDITimestamp.swift */,
@@ -366,6 +386,7 @@
 				373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */,
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
 				373BE42C1E9816F800DC1E15 /* MIDIIterator.swift in Sources */,
+				372588E32022368000F8AF32 /* MIDIMetaCopyrightEvent.swift in Sources */,
 				373BE42D1E9816F800DC1E15 /* MIDITrackProperty.swift in Sources */,
 				373BE42F1E9816F800DC1E15 /* MIDINote.swift in Sources */,
 				373BE4311E9816F800DC1E15 /* Classifier.swift in Sources */,
@@ -373,6 +394,8 @@
 				373BE4321E9816F800DC1E15 /* MIDITimestamp.swift in Sources */,
 				373BE4201E9816D300DC1E15 /* main.swift in Sources */,
 				37F70AA91EBBE9E20008536E /* Clock.swift in Sources */,
+				372588E9202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */,
+				372588E62022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +423,7 @@
 				371120041E9863870037DFFA /* Edit.swift in Sources */,
 				373BE4341E98238500DC1E15 /* Timer.swift in Sources */,
 				3757417C1F9D0ADC006768FE /* MIDIEvent1.swift in Sources */,
+				372588E22022368000F8AF32 /* MIDIMetaCopyrightEvent.swift in Sources */,
 				37371FA41E9B2B5200829B24 /* MIDIPitch.swift in Sources */,
 				OBJ_43 /* MIDITrackProperty.swift in Sources */,
 				37E24EAB1E9FEB25006C957B /* MIDIEventConvertible.swift in Sources */,
@@ -407,6 +431,8 @@
 				OBJ_44 /* MIDITimestamp.swift in Sources */,
 				37E24EB31EA14BF8006C957B /* OSStatus.swift in Sources */,
 				37F70AA81EBBE9E20008536E /* Clock.swift in Sources */,
+				372588E8202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */,
+				372588E52022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

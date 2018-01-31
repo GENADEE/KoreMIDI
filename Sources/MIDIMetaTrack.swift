@@ -11,34 +11,32 @@ import AudioToolbox.MusicPlayer
 //
 //}
 
-public enum MetaEvent {
 
+public enum MIDIMetaEvent {
+    func insert(to track: MIDIMetaTrack) {
+
+    }
 }
 
 
-//public class MIDIMetaTrack: Sequence, Equatable, Hashable {
-//    public typealias Element = MetaEvent
-//
-////    public enum Event {'
-////
-////    }
-//    public func makeIterator() -> Element {
-//        fatalError()
-//    }
-//
-//    public static func ==(lhs: MIDIMetaTrack, rhs: MIDIMetaTrack) -> Bool {
-//        fatalError()
-//    }
-//
-//    public var hashValue: Int {
-//        fatalError()
-//    }
-//}
 
-class Track<Event> {
+public class MIDIMetaTrack: Sequence, Equatable, Hashable {
+    public typealias Element = MIDIMetaEvent
 
+//    public enum Event {'
+//
+//    }
+    public func makeIterator() -> AnyIterator<Element> {
+        fatalError()
+    }
+
+    public static func ==(lhs: MIDIMetaTrack, rhs: MIDIMetaTrack) -> Bool {
+        fatalError()
+    }
+
+    public var hashValue: Int {
+        fatalError()
+    }
 }
 
-class MIDITrack2 {
 
-}

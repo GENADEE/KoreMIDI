@@ -107,7 +107,7 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIMetaEvent
 ///
 
-extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
     enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
@@ -132,7 +132,7 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
         return metaEventType.hashValue
     }
 
-    public static func ==(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
+    public static func ==(lhs: AudioToolbox.MIDIMetaEvent, rhs: AudioToolbox.MIDIMetaEvent) -> Bool {
         return lhs.metaEventType == rhs.metaEventType &&
             lhs.dataLength == rhs.dataLength &&
             lhs.data == rhs.data
@@ -158,8 +158,12 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
 ///
 extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
-    init(note: UInt8, duration: Float32) {
-        self.init(channel: 0, note: note, velocity: 100, releaseVelocity: 0, duration: duration)
+    init(note: UInt8, duration: Float32, velocity: UInt8 = 100) {
+        self.init(channel: 0,
+                  note: note,
+                  velocity: velocity,
+                  releaseVelocity: 0,
+                  duration: duration)
     }
 
     public var description : String {
