@@ -48,7 +48,7 @@ public struct TempoEvent: CustomStringConvertible, Equatable, Comparable, Hashab
     }
 }
 
-public class MIDITempoTrack2 : Hashable {
+public class MIDITempoTrack2 : Hashable, Sequence {
 
     public typealias Element = TempoEvent
 
@@ -60,11 +60,19 @@ public class MIDITempoTrack2 : Hashable {
         ref = MusicSequenceGetTempoTrack(ref: sequence.ref)
     }
 
+    public static func == (lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
+        return lhs.elementsEqual(rhs)
+    }
+
+    public static func === (lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
+        return lhs.ref == rhs.ref || lhs == rhs
+    }
+
     public var hashValue: Int {
         fatalError()
     }
 
-    public static func == (lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
+    public func makeIterator() -> AnyIterator<Element> {
         fatalError()
     }
 

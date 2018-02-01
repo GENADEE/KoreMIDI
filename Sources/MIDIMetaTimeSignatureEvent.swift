@@ -26,12 +26,12 @@ extension DynamicSizeMessage {
 }
 
 extension AudioToolbox.MIDIMetaEvent: DynamicSizeMessage {
-    static var staticSize: Int {
+    public static var staticSize: Int {
         return MemoryLayout<AudioToolbox.MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
     }
 
-    var dynamicSize: Int {
-        return Int(dataLength)
+    public var dynamicSize: Int {
+        return max(Int(dataLength), 1)
     }
 }
 
