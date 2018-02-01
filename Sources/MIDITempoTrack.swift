@@ -10,11 +10,11 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 
-protocol MIDITrackType : Sequence, Hashable {
+public protocol MIDITrackType : Sequence, Hashable {
 
 }
 
-protocol MIDITrackEventType {
+public protocol MIDITrackEventType {
     associatedtype Track : MIDITrackType
     associatedtype Timestamp: Strideable
 
@@ -22,12 +22,12 @@ protocol MIDITrackEventType {
     func insert(to track: Track)
 }
 
-public struct TempoEvent: CustomStringConvertible, Equatable, Comparable, Hashable {
-    let timestamp: MIDITimestamp
+public struct TempoEvent: CustomStringConvertible, Equatable, Comparable, Hashable, MIDITrackEventType {
+    public let timestamp: MIDITimestamp
     private let msg: ExtendedTempoEvent
 
     public var description: String {
-        return ""
+        return "TempoEvent(bpm: \(msg.bpm)"
     }
 
     public var hashValue: Int {
@@ -38,17 +38,16 @@ public struct TempoEvent: CustomStringConvertible, Equatable, Comparable, Hashab
         return lhs.msg.bpm == rhs.msg.bpm
     }
 
-
     public static func <(lhs: TempoEvent, rhs: TempoEvent) -> Bool {
         return lhs.timestamp < rhs.timestamp
     }
 
-    func insert(to track: MIDITempoTrack2) {
+    public func insert(to track: MIDITempoTrack2) {
         MusicTrackNewExtendedTempoEvent(track.ref, timestamp.beats, msg.bpm)
     }
 }
 
-public class MIDITempoTrack2 : Hashable, Sequence {
+public class MIDITempoTrack2 : Hashable, Sequence, MIDITrackType {
 
     public typealias Element = TempoEvent
 
