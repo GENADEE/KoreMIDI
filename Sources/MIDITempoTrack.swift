@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox.MusicPlayer
 
 
-public protocol MIDITrackType : Sequence, Hashable {
+public protocol MIDITrackType : Sequence, Hashable where Iterator.Element : MIDITrackEventType {
 
 }
 
@@ -54,17 +54,17 @@ public class MIDITempoTrack2 : Hashable, Sequence, MIDITrackType {
     private final let sequence: MIDISequence
     internal final let ref : MusicTrack
 
-    init(sequence: MIDISequence) {
+    internal init(sequence: MIDISequence) {
         self.sequence = sequence
         ref = MusicSequenceGetTempoTrack(ref: sequence.ref)
     }
 
-    public static func == (lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
+    public static func ==(lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
         return lhs.elementsEqual(rhs)
     }
 
-    public static func === (lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
-        return lhs.ref == rhs.ref || lhs == rhs
+    public static func ===(lhs: MIDITempoTrack2, rhs: MIDITempoTrack2) -> Bool {
+        return lhs.ref == rhs.ref
     }
 
     public var hashValue: Int {

@@ -122,7 +122,6 @@ public enum MIDIEvent : Comparable, Strideable, Hashable, CustomStringConvertibl
     public static func ==(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {
         return lhs._serialize == rhs._serialize &&
             lhs.type == rhs.type
-
     }
 
     public static func <(lhs: MIDIEvent, rhs: MIDIEvent) -> Bool {

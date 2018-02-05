@@ -24,6 +24,22 @@
 		372588E62022368900F8AF32 /* MIDIMetaCuePointEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */; };
 		372588E8202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
 		372588E9202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */; };
+		372588F12022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F02022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift */; };
+		372588F22022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F02022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift */; };
+		372588F42022BB6200F8AF32 /* MetaEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F32022BB6200F8AF32 /* MetaEvents.swift */; };
+		372588F52022BB6200F8AF32 /* MetaEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F32022BB6200F8AF32 /* MetaEvents.swift */; };
+		372588F820236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F720236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift */; };
+		372588F920236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588F720236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift */; };
+		372588FB20236EF700F8AF32 /* MIDIControlChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588FA20236EF700F8AF32 /* MIDIControlChangeEvent.swift */; };
+		372588FC20236EF700F8AF32 /* MIDIControlChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588FA20236EF700F8AF32 /* MIDIControlChangeEvent.swift */; };
+		372588FE20236F0600F8AF32 /* MIDIProgramChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588FD20236F0600F8AF32 /* MIDIProgramChangeEvent.swift */; };
+		372588FF20236F0600F8AF32 /* MIDIProgramChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372588FD20236F0600F8AF32 /* MIDIProgramChangeEvent.swift */; };
+		37258901202373D300F8AF32 /* MIDIChannelPressureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37258900202373D300F8AF32 /* MIDIChannelPressureEvent.swift */; };
+		37258902202373D300F8AF32 /* MIDIChannelPressureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37258900202373D300F8AF32 /* MIDIChannelPressureEvent.swift */; };
+		37258904202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37258903202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift */; };
+		37258905202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37258903202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift */; };
+		3725890720237F7300F8AF32 /* ChannelEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725890620237F7300F8AF32 /* ChannelEvent.swift */; };
+		3725890820237F7300F8AF32 /* ChannelEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725890620237F7300F8AF32 /* ChannelEvent.swift */; };
 		37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA21E9B264C00829B24 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA01E9B251F00829B24 /* TimeSeries.swift */; };
 		37371FA41E9B2B5200829B24 /* MIDIPitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37371FA31E9B2B5200829B24 /* MIDIPitch.swift */; };
@@ -102,6 +118,14 @@
 		372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCopyrightEvent.swift; sourceTree = "<group>"; };
 		372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaCuePointEvent.swift; sourceTree = "<group>"; };
 		372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaTimeSignatureEvent.swift; sourceTree = "<group>"; };
+		372588F02022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMetaInstrumentNameEvent.swift; sourceTree = "<group>"; };
+		372588F32022BB6200F8AF32 /* MetaEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaEvents.swift; sourceTree = "<group>"; };
+		372588F720236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIPolyphonicKeyPressureEvent.swift; sourceTree = "<group>"; };
+		372588FA20236EF700F8AF32 /* MIDIControlChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIControlChangeEvent.swift; sourceTree = "<group>"; };
+		372588FD20236F0600F8AF32 /* MIDIProgramChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIProgramChangeEvent.swift; sourceTree = "<group>"; };
+		37258900202373D300F8AF32 /* MIDIChannelPressureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIChannelPressureEvent.swift; sourceTree = "<group>"; };
+		37258903202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIPitchBendChangeEvent.swift; sourceTree = "<group>"; };
+		3725890620237F7300F8AF32 /* ChannelEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelEvent.swift; sourceTree = "<group>"; };
 		37371FA01E9B251F00829B24 /* TimeSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeries.swift; sourceTree = "<group>"; };
 		37371FA31E9B2B5200829B24 /* MIDIPitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIPitch.swift; sourceTree = "<group>"; };
 		373BE4171E98154600DC1E15 /* MIDINote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDINote.swift; sourceTree = "<group>"; };
@@ -161,11 +185,26 @@
 			isa = PBXGroup;
 			children = (
 				372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */,
+				372588F32022BB6200F8AF32 /* MetaEvents.swift */,
 				372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */,
+				372588F02022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift */,
 				372588E7202236DA00F8AF32 /* MIDIMetaTimeSignatureEvent.swift */,
 				372588DA2022228100F8AF32 /* MIDITempoTrack.swift */,
 			);
 			name = v2;
+			sourceTree = "<group>";
+		};
+		372588F620236ECD00F8AF32 /* Channel Events */ = {
+			isa = PBXGroup;
+			children = (
+				372588F720236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift */,
+				3725890620237F7300F8AF32 /* ChannelEvent.swift */,
+				372588FA20236EF700F8AF32 /* MIDIControlChangeEvent.swift */,
+				37258900202373D300F8AF32 /* MIDIChannelPressureEvent.swift */,
+				37258903202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift */,
+				372588FD20236F0600F8AF32 /* MIDIProgramChangeEvent.swift */,
+			);
+			name = "Channel Events";
 			sourceTree = "<group>";
 		};
 		373BE41E1E9816D300DC1E15 /* TestBed */ = {
@@ -262,6 +301,7 @@
 				373BE4171E98154600DC1E15 /* MIDINote.swift */,
 				37F70AA71EBBE9E20008536E /* Clock.swift */,
 				372588DD20222A5A00F8AF32 /* SoundFont.swift */,
+				372588F620236ECD00F8AF32 /* Channel Events */,
 				OBJ_11 /* Extensions.swift */,
 				OBJ_9 /* MIDIPlayer.swift */,
 				372588E02022365300F8AF32 /* v2 */,
@@ -372,10 +412,13 @@
 				3757417D1F9D0B85006768FE /* MIDIEvent1.swift in Sources */,
 				37D0B4511EC15B13005A8A61 /* Enums.swift in Sources */,
 				37E24EAC1E9FEB57006C957B /* MIDIEventConvertible.swift in Sources */,
+				372588F920236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */,
+				37258905202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */,
 				37371FA51E9B2BE500829B24 /* MIDIPitch.swift in Sources */,
 				37371FA21E9B264C00829B24 /* TimeSeries.swift in Sources */,
 				372588BD20210EAC00F8AF32 /* MIDIMetaTrack.swift in Sources */,
 				37CDEFC91E99732B0005B509 /* MIDITrack.swift in Sources */,
+				372588F52022BB6200F8AF32 /* MetaEvents.swift in Sources */,
 				372588C02021108C00F8AF32 /* MIDITrack2.swift in Sources */,
 				37CDEFCB1E99732B0005B509 /* MIDIProject.swift in Sources */,
 				376C0B8E1E9B398F00249775 /* Stuff.swift in Sources */,
@@ -383,8 +426,13 @@
 				373BE44B1E98346800DC1E15 /* MIDISequence.swift in Sources */,
 				373BE4351E9823A900DC1E15 /* Timer.swift in Sources */,
 				373BE4241E9816F800DC1E15 /* Extensions.swift in Sources */,
+				372588F22022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift in Sources */,
+				372588FC20236EF700F8AF32 /* MIDIControlChangeEvent.swift in Sources */,
 				37CDEFC71E9972390005B509 /* MIDIEvent.swift in Sources */,
 				373BE4251E9816F800DC1E15 /* AudioToolbox.swift in Sources */,
+				37258902202373D300F8AF32 /* MIDIChannelPressureEvent.swift in Sources */,
+				3725890820237F7300F8AF32 /* ChannelEvent.swift in Sources */,
+				372588FF20236F0600F8AF32 /* MIDIProgramChangeEvent.swift in Sources */,
 				371120051E9863870037DFFA /* Edit.swift in Sources */,
 				373BE4261E9816F800DC1E15 /* MIDIPlayer.swift in Sources */,
 				373BE4271E9816F800DC1E15 /* MIDIEventType.swift in Sources */,
@@ -409,10 +457,13 @@
 				373BE44D1E9835D600DC1E15 /* MIDITrack.swift in Sources */,
 				373BE4181E98154600DC1E15 /* MIDINote.swift in Sources */,
 				371120021E985E420037DFFA /* MIDIProject.swift in Sources */,
+				372588F820236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */,
+				37258904202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */,
 				37B150021E98059100CBDB07 /* Classifier.swift in Sources */,
 				OBJ_32 /* AudioToolbox.swift in Sources */,
 				372588BC20210EAC00F8AF32 /* MIDIMetaTrack.swift in Sources */,
 				37CDEFC61E9972390005B509 /* MIDIEvent.swift in Sources */,
+				372588F42022BB6200F8AF32 /* MetaEvents.swift in Sources */,
 				372588BF2021108C00F8AF32 /* MIDITrack2.swift in Sources */,
 				OBJ_33 /* MIDIPlayer.swift in Sources */,
 				OBJ_35 /* Extensions.swift in Sources */,
@@ -420,8 +471,13 @@
 				OBJ_36 /* MIDIIterator.swift in Sources */,
 				373BE44A1E98344000DC1E15 /* MIDISequence.swift in Sources */,
 				OBJ_39 /* MIDIEventType.swift in Sources */,
+				372588F12022B98500F8AF32 /* MIDIMetaInstrumentNameEvent.swift in Sources */,
+				372588FB20236EF700F8AF32 /* MIDIControlChangeEvent.swift in Sources */,
 				37371FA11E9B251F00829B24 /* TimeSeries.swift in Sources */,
 				37D0B4501EC0F099005A8A61 /* Enums.swift in Sources */,
+				37258901202373D300F8AF32 /* MIDIChannelPressureEvent.swift in Sources */,
+				3725890720237F7300F8AF32 /* ChannelEvent.swift in Sources */,
+				372588FE20236F0600F8AF32 /* MIDIProgramChangeEvent.swift in Sources */,
 				37B14FFE1E97F5A200CBDB07 /* README.md in Sources */,
 				371120041E9863870037DFFA /* Edit.swift in Sources */,
 				373BE4341E98238500DC1E15 /* Timer.swift in Sources */,
