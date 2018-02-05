@@ -21,7 +21,7 @@ public protocol MIDITrackEventType {
     var timestamp: Timestamp { get }
     func insert(to track: Track)
 }
-
+/// timing event
 public struct TempoEvent: CustomStringConvertible, Equatable, Comparable, Hashable, MIDITrackEventType {
     public let timestamp: MIDITimestamp
     private let msg: ExtendedTempoEvent

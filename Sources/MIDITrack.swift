@@ -25,6 +25,14 @@ import AudioToolbox.MusicPlayer
 //}
 
 
+public class Instrument {
+    let name: String
+
+    init(name: String) {
+        fatalError()
+    }
+}
+
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIEvent
@@ -61,6 +69,11 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 //        return cpy
 //    }
 //
+
+    public var instrument: Instrument {
+        fatalError()
+    }
+
     public final var timerange: Range<Timestamp> {
         return startTime..<endTime
     }
@@ -82,7 +95,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         fatalError()
     }
 
-    public final var startTime : Timestamp {
+    public final var startTime: Timestamp {
         get {
             return Timestamp(beats: _offsetTime)
         }
@@ -91,7 +104,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         }
     }
 
-    public final var endTime : Timestamp {
+    public final var endTime: Timestamp {
         get {
             return startTime.advanced(by: duration)
         }

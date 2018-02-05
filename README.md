@@ -3,6 +3,10 @@
 This project as a wrapper around the AudioToolbox framework and tries to make it look like AVFoundation.
 Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
 
+* http://www.onicos.com/staff/iz/formats/midi-event.html
+* http://www.somascape.org/midi/tech/mfile.html
+
+Note In the above description, note data refers to all MIDI events (Channel MIDI messages), whereas timing related events refers to the following Meta events : Marker, Cue Point, Tempo, SMPTE Offset, Time Signature, and Key Signature. Key Signature events are not strictly timing related, though they fall into this group. These Meta events are all detailed later.
 
 note that you never need event -> packet since you aren't sending the events directly
 

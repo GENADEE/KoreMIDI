@@ -144,4 +144,14 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 }
 
+extension MIDISequence : Encodable {
+    public convenience init(from decoder: Decoder) throws {
+        fatalError()
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        fatalError()
+    }
+}
+
 

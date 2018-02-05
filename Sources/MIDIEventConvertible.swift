@@ -111,19 +111,19 @@ extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEv
 
     enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
-        textEvent = 0x01,
-        copyrightNotice = 0x02,
-        trackSequenceName = 0x03,
-        instrumentName  = 0x04,
-        lyricText = 0x05,
-        markerText              = 0x06,
-        cuePoint                = 0x07,
+        textEvent = 0x01, // text
+        copyrightNotice = 0x02, // text
+        trackSequenceName = 0x03, // text
+        instrumentName  = 0x04, // per track, text
+        lyricText = 0x05, // text
+        markerText              = 0x06, // timed, text
+        cuePoint                = 0x07, // timed, text
         MIDIChannelPrefix       = 0x20,
         endOfTrack              = 0x2F,
-        tempoSetting            = 0x51,
-        SMPTEOffset             = 0x54,
-        timeSignature           = 0x58,
-        keySignature            = 0x59,
+        tempoSetting            = 0x51, // timed
+        SMPTEOffset             = 0x54, // timed
+        timeSignature           = 0x58, // timed
+        keySignature            = 0x59, // timed
         sequencerSpecificEvent  = 0x7F,
         invalid                    = 0x66
     }

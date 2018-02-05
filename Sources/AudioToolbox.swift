@@ -150,6 +150,77 @@ func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
     return Bool(bool)
 }
 
+extension UnsafeRawBufferPointer : Equatable {
+    public static func ==(lhs: UnsafeRawBufferPointer, rhs: UnsafeRawBufferPointer) -> Bool {
+        return lhs.count == rhs.count && lhs.elementsEqual(rhs)
+    }
+}
+
+internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
+    let timestamp: MIDITimestamp
+    let type: MIDIEventType
+    let data: UnsafeRawBufferPointer
+
+    init?(ref: MusicEventIterator) {
+        guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
+
+        var timestamp: Float64 = 0
+        var type: MusicEventType = 0
+        var data : UnsafeRawPointer? = nil
+        var size : UInt32 = 0
+
+        OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
+
+        self.timestamp = MIDITimestamp(beats: timestamp)
+        self.type = MIDIEventType(rawValue: type)
+        self.data = UnsafeRawBufferPointer(start: data!, count: Int(size))
+    }
+
+    var hashValue: Int {
+        return timestamp.hashValue
+    }
+
+    static func ==(lhs: MIDIEventPointer, rhs: MIDIEventPointer) -> Bool {
+        return lhs.timestamp == rhs.timestamp &&
+            lhs.type == rhs.type &&
+            lhs.data == rhs.data
+    }
+
+    static func <(lhs: MIDIEventPointer, rhs: MIDIEventPointer) -> Bool {
+        return lhs.timestamp < rhs.timestamp
+    }
+}
+
+//internal struct MIDIEventPointer2<T> : Equatable {
+//    let timestamp: MIDITimestamp
+//    let type: MIDIEventType
+//    let pointer: UnsafeRawBufferPointer
+//
+//    init?(ref: MusicEventIterator) {
+//        guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
+//
+//        var timestamp: Float64 = 0
+//        var type: MusicEventType = 0
+//        var data : UnsafeRawPointer? = nil
+//        var size : UInt32 = 0
+//
+//        OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
+//
+//        self.timestamp = MIDITimestamp(beats: timestamp)
+//        self.type = MIDIEventType(rawValue: type)
+//        self.pointer = UnsafeRawBufferPointer(start: data!, count: Int(size))
+//    }
+//
+//    static func ==(lhs: MIDIEventPointer2, rhs: MIDIEventPointer2) -> Bool {
+//        return lhs.timestamp == rhs.timestamp &&
+//            lhs.type == rhs.type &&
+//            lhs.pointer == rhs.pointer
+//    }
+//
+//    static func <(lhs: MIDIEventPointer2, rhs: MIDIEventPointer2) -> Bool {
+//        return lhs.timestamp < rhs.timestamp
+//    }
+//}
 
 @inline(__always) internal
 func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
@@ -163,6 +234,8 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
 
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))
+
+
     return MIDIEvent(timestamp: MIDITimestamp(beats: timestamp),
                      type: MIDIEventType(rawValue: type),
                      data: d)
