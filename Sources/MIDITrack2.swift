@@ -66,10 +66,10 @@ public enum ChannelEvent : Comparable, Strideable, Hashable, CustomStringConvert
         }
     }
 
-    func insert(to track: MIDITrack) {
-        switch self {
-        case let .note(ts, e): e.insert(to: track, at: ts.beats)
-        case let .channel(ts, e): e.insert(to: track, at: ts.beats)
-        }
-    }
+//    func insert(to track: MIDITrack) {
+//        switch self {
+//        case let .note(ts, e): e.insert(to: track, at: ts.beats)
+//        case let .channel(ts, e): e.insert(to: track, at: ts.beats)
+//        }
+//    }
 }
