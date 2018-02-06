@@ -103,24 +103,66 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIMetaEvent
 ///
 
+//extension UnsafeMutablePointer where Pointee == MIDIMetaEvent {
+//
+//}
+
+
+extension UnsafeMutablePointer {
+    @inline(__always)
+    init(bytes: Int) {
+        let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: bytes)
+        self = ptr.withMemoryRebound(to: Pointee.self, capacity: 1) { $0 }
+    }
+}
 
 extension UnsafePointer where Pointee == MIDIMetaEvent {
     init(metaEventType: UInt8, string: String) {
         let staticSize = MemoryLayout<MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
-        let dynamicSize = string.count
+        let dynamicSize = max(string.count, 1)
         let capacity = staticSize + dynamicSize
 
-        let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: capacity)
+        let ptr = UnsafeMutablePointer<MIDIMetaEvent>(bytes: capacity)
 
-        let p = ptr.withMemoryRebound(to: MIDIMetaEvent.self, capacity: 1) { (pointer: UnsafeMutablePointer<MIDIMetaEvent>) -> (UnsafeMutablePointer<MIDIMetaEvent>) in
-            pointer.pointee.metaEventType = metaEventType
-            pointer.pointee.dataLength = UInt32(dynamicSize)
-            _ = withUnsafeMutableBytes(of: &pointer.pointee.data) {
-                memcpy($0.baseAddress!, string, dynamicSize)
-            }
-            return pointer
+        ptr.pointee.metaEventType = metaEventType
+        ptr.pointee.dataLength = UInt32(dynamicSize)
+        _ = withUnsafeMutableBytes(of: &ptr.pointee.data) {
+            memcpy($0.baseAddress!, string, dynamicSize)
         }
-        self.init(p)
+        self.init(ptr)
+    }
+}
+
+extension UnsafePointer where Pointee == MusicEventUserData {
+    init(string: String) {
+        let staticSize = MemoryLayout<MusicEventUserData>.size - MemoryLayout<UInt8>.size
+        let dynamicSize = max(string.count, 1)
+        let capacity = staticSize + dynamicSize
+
+        let ptr = UnsafeMutablePointer<MusicEventUserData>(bytes: capacity)
+
+        ptr.pointee.length = UInt32(dynamicSize)
+        _ = withUnsafeMutableBytes(of: &ptr.pointee.data) {
+            memcpy($0.baseAddress!, string, dynamicSize)
+        }
+        self.init(ptr)
+    }
+}
+
+extension UnsafePointer where Pointee == MIDIRawData {
+    init(string: String) {
+        let staticSize = MemoryLayout<MIDIRawData>.size - MemoryLayout<UInt8>.size
+        let dynamicSize = max(string.count, 1)
+        let capacity = staticSize + dynamicSize
+
+        let ptr = UnsafeMutablePointer<MIDIRawData>(bytes: capacity)
+
+        ptr.pointee.length = UInt32(dynamicSize)
+        _ = withUnsafeMutableBytes(of: &ptr.pointee.data) {
+            memcpy($0.baseAddress!, string, dynamicSize)
+        }
+
+        self.init(ptr)
     }
 }
 
@@ -282,7 +324,7 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
     }
 
     public var hashValue: Int {
-        return scope.hashValue
+        return parameterID.hashValue
     }
 
     public var description: String {
@@ -296,7 +338,6 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
     public var type: MIDIEventType {
         return .parameter
     }
-
 }
 
 ///
