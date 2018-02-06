@@ -16,10 +16,8 @@ public protocol MIDIEventConvertible {
  If this flag is set the resultant Sequence will contain a tempo track, 1 track for each MIDI Channel that is found in the SMF, 1 track for SysEx or MetaEvents -
  */
 
-internal protocol MIDITrackEvent : MIDIEventConvertible {
-//    associatedtype Timestamp = Double
+internal protocol MIDITrackEvent { //}: MIDIEventConvertible {
     mutating func insert(to ref: MIDITrack, at timestamp: Double)
-
     var type: MIDIEventType { get }
 }
 
@@ -175,7 +173,7 @@ extension UnsafePointer where Pointee == MIDIRawData {
 }
 
 
-extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDITrackEvent {
 
     enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
@@ -222,7 +220,7 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
 ///
 /// MARK: MIDINoteMessage
 ///
-extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDITrackEvent {
 
     init(note: UInt8, duration: Float32, velocity: UInt8 = 100) {
         self.init(channel: 0,
@@ -261,7 +259,7 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
 /// MARK: MIDIChannelMessage
 ///
 
-extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDITrackEvent {
 
     enum Subtype : UInt {
         case polyphonicKeyPressure        = 0xA0,
@@ -296,7 +294,7 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIRawData
 ///
 
-extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension MIDIRawData : Hashable, CustomStringConvertible, MIDITrackEvent {
     public static func ==(lhs: MIDIRawData, rhs: MIDIRawData) -> Bool {
         return lhs.length == rhs.length && lhs.data == rhs.data
     }
@@ -322,7 +320,7 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible,
 /// MARK: ParameterEvent
 ///
 
-extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension ParameterEvent : Hashable, CustomStringConvertible, MIDITrackEvent {
     public static func ==(lhs: ParameterEvent, rhs: ParameterEvent) -> Bool {
         return lhs.parameterID == rhs.parameterID &&
             lhs.scope == rhs.scope &&
@@ -351,7 +349,7 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
 /// MARK: AUPresetEvent
 ///
 
-extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension AUPresetEvent : Hashable, CustomStringConvertible, MIDITrackEvent {
     static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope == rhs.scope &&
             lhs.element == rhs.element &&
@@ -373,10 +371,9 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     public var type: MIDIEventType {
         return .auPreset
     }
-
 }
 
-extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDITrackEvent {
     static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
         //        return lhs.scope == rhs.scope && lhs.element == rhs.element
         //        return lhs.scope == rhs.scope &&

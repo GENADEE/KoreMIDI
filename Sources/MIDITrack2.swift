@@ -8,22 +8,18 @@
 import Foundation
 import AudioToolbox
 
-protocol EventType {
-    associatedtype Timestamp: Comparable
-    var timestamp: Timestamp { get }
-}
 
-enum ChanEvent {
-    case controlChange(MIDIChannelMessage)
-
-    case programChange(MIDIChannelMessage)
-
-    case pitchBend(MIDIChannelMessage)
-
-    case channelPressure(MIDIChannelMessage)
-
-    case aftertouch(MIDIChannelMessage)
-}
+//enum ChanEvent {
+//    case controlChange(MIDIChannelMessage)
+//
+//    case programChange(MIDIChannelMessage)
+//
+//    case pitchBend(MIDIChannelMessage)
+//
+//    case channelPressure(MIDIChannelMessage)
+//
+//    case aftertouch(MIDIChannelMessage)
+//}
 
 class MIDIDrumTrack {
 

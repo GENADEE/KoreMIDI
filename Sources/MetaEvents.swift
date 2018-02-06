@@ -7,16 +7,21 @@
 
 import Foundation
 
-public protocol MIDITextEventType {
+public protocol EventType : Comparable {
+    associatedtype Timestamp: Strideable
+    var timestamp: Timestamp { get }
+}
+
+extension EventType {
+    public static func <(lhs: Self, rhs: Self) -> Bool {
+        return lhs.timestamp < rhs.timestamp
+    }
+}
+
+public protocol MIDITextEventType : EventType {
     var timestamp: MIDITimestamp { get }
     var text: String { get }
 }
-
-//public protocol MIKMIDIMetaTextEvent : MIKMIDIMetaEvent, MIDITrackEventType {
-//
-//}
-
-
 
 extension String {
     public init(_ buffer: UnsafeRawBufferPointer) {
