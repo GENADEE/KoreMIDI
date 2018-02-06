@@ -119,7 +119,7 @@ extension UnsafeMutablePointer {
 extension UnsafePointer where Pointee == MIDIMetaEvent {
     init(metaEventType: UInt8, string: String) {
         let staticSize = MemoryLayout<MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
-        let dynamicSize = max(string.count, 1)
+        let dynamicSize = string.count
         let capacity = staticSize + dynamicSize
         let ptr = UnsafeMutablePointer<MIDIMetaEvent>(bytes: capacity)
 
@@ -138,7 +138,7 @@ extension UnsafePointer where Pointee == MIDIMetaEvent {
 extension UnsafePointer where Pointee == MusicEventUserData {
     init(string: String) {
         let staticSize = MemoryLayout<MusicEventUserData>.size - MemoryLayout<UInt8>.size
-        let dynamicSize = max(string.count, 1)
+        let dynamicSize = string.count
         let capacity = staticSize + dynamicSize
 
         let ptr = UnsafeMutablePointer<MusicEventUserData>(bytes: capacity)
@@ -154,7 +154,7 @@ extension UnsafePointer where Pointee == MusicEventUserData {
 extension UnsafePointer where Pointee == MIDIRawData {
     init(string: String) {
         let staticSize = MemoryLayout<MIDIRawData>.size - MemoryLayout<UInt8>.size
-        let dynamicSize = max(string.count, 1)
+        let dynamicSize = string.count
         let capacity = staticSize + dynamicSize
 
         let ptr = UnsafeMutablePointer<MIDIRawData>(bytes: capacity)
