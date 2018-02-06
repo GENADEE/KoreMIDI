@@ -107,6 +107,8 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIMetaEvent
 ///
 
+
+
 extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
     enum Subtype: UInt8 {

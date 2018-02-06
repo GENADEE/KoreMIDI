@@ -15,6 +15,7 @@ public protocol MIKMIDIMetaTextEvent : MIKMIDIMetaEvent, MIDITrackEventType {
 
 }
 
+
 extension String {
     public init(_ buffer: UnsafeRawBufferPointer) {
         let bytes = [UInt8](buffer) + [0]

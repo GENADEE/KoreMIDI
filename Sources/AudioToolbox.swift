@@ -177,6 +177,13 @@ internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
         self.data = UnsafeRawBufferPointer(start: data!, count: Int(size))
     }
 
+    init(timestamp: MIDITimestamp, type: MIDIEventType, data: inout String) {
+        self.timestamp = timestamp
+        self.type = type
+
+        self.data = withUnsafeBytes(of: &data) { $0 }
+    }
+
     var hashValue: Int {
         return timestamp.hashValue
     }
