@@ -15,11 +15,74 @@ public protocol MIKMIDIMetaTextEvent : MIKMIDIMetaEvent, MIDITrackEventType {
 
 }
 
-struct MIDIMetaTextEvent {
-    let timestamp: MIDITimestamp
+extension String {
+    public init(_ buffer: UnsafeRawBufferPointer) {
+        let bytes = [UInt8](buffer) + [0]
+        self.init(cString: bytes)
+    }
 
-    init(ptr: UnsafePointer<Int>) {
-        fatalError()
+    internal init(event: MIDIEventPointer) {
+        self.init(event.data)
+    }
+}
+
+public struct MIDIMetaTextEvent : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
+    }
+}
+
+public struct MIDICopyrightEvent : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
+    }
+}
+
+public struct MIDIInstrumentName : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
+    }
+}
+
+public struct MIDILyricEvent : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
+    }
+}
+
+public struct MIDIMarkerEvent : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
+    }
+}
+
+public struct MIDICueEvent : Equatable, Hashable {
+    let timestamp: MIDITimestamp
+    let text: String
+
+    internal init(event: MIDIEventPointer) {
+        self.timestamp = event.timestamp
+        self.text = String(event: event)
     }
 }
 

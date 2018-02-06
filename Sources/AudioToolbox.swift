@@ -161,13 +161,14 @@ internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
     let type: MIDIEventType
     let data: UnsafeRawBufferPointer
 
+    @inline(__always)
     init?(ref: MusicEventIterator) {
         guard MIDIIteratorHasCurrent(ref: ref) else { return nil }
 
         var timestamp: Float64 = 0
         var type: MusicEventType = 0
-        var data : UnsafeRawPointer? = nil
-        var size : UInt32 = 0
+        var data: UnsafeRawPointer? = nil
+        var size: UInt32 = 0
 
         OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
 

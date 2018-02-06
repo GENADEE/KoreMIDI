@@ -25,10 +25,18 @@ import AudioToolbox.MusicPlayer
 //}
 
 
-public class Instrument {
-    let name: String
+public final class InstrumentName: Equatable, CustomStringConvertible {
+    private let name: String
 
-    init(name: String) {
+    internal init(name: String) {
+        fatalError()
+    }
+
+    public var description: String {
+        return name
+    }
+
+    public static func ==(lhs: InstrumentName, rhs: InstrumentName) -> Bool {
         fatalError()
     }
 }
@@ -70,7 +78,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 //    }
 //
 
-    public var instrument: Instrument {
+    public var instrument: InstrumentName {
         fatalError()
     }
 

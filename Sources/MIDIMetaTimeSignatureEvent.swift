@@ -45,6 +45,7 @@ extension Data {
     }
 }
 
+
 internal struct MIDIMetaEvent2<M: DynamicSizeMessage> {
 
     /// I hate this structure a lot, it's impossible to do cleanly.

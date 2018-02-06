@@ -37,7 +37,6 @@ public class MIDIPlayer {
         self.player = player
     }
 
-
     private func reload() {
         player = try! AVMIDIPlayer(sequence: sequence, soundBankURL: bank)
     }
