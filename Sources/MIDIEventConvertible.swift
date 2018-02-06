@@ -121,10 +121,12 @@ extension UnsafePointer where Pointee == MIDIMetaEvent {
         let staticSize = MemoryLayout<MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
         let dynamicSize = max(string.count, 1)
         let capacity = staticSize + dynamicSize
-
         let ptr = UnsafeMutablePointer<MIDIMetaEvent>(bytes: capacity)
 
         ptr.pointee.metaEventType = metaEventType
+        ptr.pointee.unused1 = 0
+        ptr.pointee.unused2 = 0
+        ptr.pointee.unused3 = 0
         ptr.pointee.dataLength = UInt32(dynamicSize)
         _ = withUnsafeMutableBytes(of: &ptr.pointee.data) {
             memcpy($0.baseAddress!, string, dynamicSize)
@@ -193,7 +195,6 @@ extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     }
 
     public static func ==(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
-
         return lhs.metaEventType == rhs.metaEventType &&
             lhs.dataLength == rhs.dataLength &&
             lhs.data == rhs.data

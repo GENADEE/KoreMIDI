@@ -17,6 +17,8 @@ internal protocol StaticSizeMessage {
 }
 internal protocol DynamicSizeMessage : StaticSizeMessage {
     var dynamicSize: Int { get }
+
+//    var data: (UInt8) { get set }
 }
 
 extension DynamicSizeMessage {
