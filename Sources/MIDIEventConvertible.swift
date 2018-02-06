@@ -17,8 +17,8 @@ public protocol MIDIEventConvertible {
  */
 
 internal protocol MIDITrackEvent : MIDIEventConvertible {
-    associatedtype Timestamp = Double
-    mutating func insert(to ref: MIDITrack, at timestamp: Timestamp)
+//    associatedtype Timestamp = Double
+    mutating func insert(to ref: MIDITrack, at timestamp: Double)
 
     var type: MIDIEventType { get }
 }
@@ -107,6 +107,12 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 //
 //}
 
+
+extension UnsafeMutablePointer where Pointee : MIDITrackEvent {
+    mutating func insert(to ref: MIDITrack, at timestamp: Double) {
+        pointee.insert(to: ref, at: timestamp)
+    }
+}
 
 extension UnsafeMutablePointer {
     @inline(__always)
