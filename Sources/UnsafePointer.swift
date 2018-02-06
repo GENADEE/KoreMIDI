@@ -14,7 +14,16 @@ import AudioToolbox.MusicPlayer
 //    func insert(to ref: MIDITrack, at timestamp: Double)
 //}
 
-
+//extension UnsafePointer where Pointee : MIDITrackEvent {
+//    func insert(to ref: MIDITrack, at timestamp: Double) {
+//        switch pointee.self {
+//        case ExtendedNoteOnEvent.self:
+//            MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, self)
+//        default:
+//            fatalError()
+//        }
+//    }
+//}
 
 //extension ExtendedNoteOnEvent : EventPointer {
 //    internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {

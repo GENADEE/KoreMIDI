@@ -13,7 +13,7 @@ public protocol MIDIEventConvertible {
 }
 
 /*
-If this flag is set the resultant Sequence will contain a tempo track, 1 track for each MIDI Channel that is found in the SMF, 1 track for SysEx or MetaEvents -
+ If this flag is set the resultant Sequence will contain a tempo track, 1 track for each MIDI Channel that is found in the SMF, 1 track for SysEx or MetaEvents -
  */
 
 internal protocol MIDITrackEvent : MIDIEventConvertible {
@@ -31,9 +31,7 @@ extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConv
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
         MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, &self)
-
     }
 
     public var description: String {
@@ -41,7 +39,7 @@ extension ExtendedNoteOnEvent : Hashable, CustomStringConvertible, MIDIEventConv
     }
 
     public var hashValue: Int {
-        return groupID.hashValue
+        return instrumentID.hashValue
     }
 
     public var type: MIDIEventType {
@@ -93,9 +91,7 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewUserEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewUserEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
@@ -107,6 +103,26 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 /// MARK: MIDIMetaEvent
 ///
 
+
+extension UnsafePointer where Pointee == AudioToolbox.MIDIMetaEvent {
+    init(metaEventType: UInt8, string: String) {
+        let staticSize = MemoryLayout<AudioToolbox.MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
+        let dynamicSize = string.count
+        let capacity = staticSize + dynamicSize
+
+        let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: capacity)
+
+        let p = ptr.withMemoryRebound(to: AudioToolbox.MIDIMetaEvent.self, capacity: 1) { (pointer: UnsafeMutablePointer<AudioToolbox.MIDIMetaEvent>) -> (UnsafeMutablePointer<AudioToolbox.MIDIMetaEvent>) in
+            pointer.pointee.metaEventType = metaEventType
+            pointer.pointee.dataLength = UInt32(dynamicSize)
+            _ = withUnsafeMutableBytes(of: &pointer.pointee.data) {
+                memcpy($0.baseAddress!, string, dynamicSize)
+            }
+            return pointer
+        }
+        self.init(p)
+    }
+}
 
 
 extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
@@ -146,9 +162,7 @@ extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEv
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewMetaEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewMetaEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
@@ -186,15 +200,12 @@ extension MIDINoteMessage : Hashable, CustomStringConvertible, MIDIEventConverti
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewMIDINoteEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewMIDINoteEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
         return .note
     }
-
 }
 
 ///
@@ -224,15 +235,12 @@ extension MIDIChannelMessage : Hashable, CustomStringConvertible, MIDIEventConve
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewMIDIChannelEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewMIDIChannelEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
         return .channel
     }
-
 }
 
 ///
@@ -253,15 +261,12 @@ extension MIDIRawData : Hashable, CustomStringConvertible, MIDIEventConvertible,
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewMIDIRawDataEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewMIDIRawDataEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
         return .rawData
     }
-
 }
 
 ///
@@ -285,9 +290,7 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewParameterEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewParameterEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
@@ -303,8 +306,8 @@ extension ParameterEvent : Hashable, CustomStringConvertible, MIDIEventConvertib
 extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     static public func ==(lhs: AUPresetEvent, rhs: AUPresetEvent) -> Bool {
         return lhs.scope == rhs.scope &&
-                lhs.element == rhs.element &&
-                lhs.preset.toOpaque() == rhs.preset.toOpaque()
+            lhs.element == rhs.element &&
+            lhs.preset.toOpaque() == rhs.preset.toOpaque()
     }
 
     public var hashValue: Int {
@@ -316,9 +319,7 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
     }
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
-
-            MusicTrackNewAUPresetEvent(ref.ref, timestamp, &self)
-
+        MusicTrackNewAUPresetEvent(ref.ref, timestamp, &self)
     }
 
     public var type: MIDIEventType {
@@ -329,7 +330,7 @@ extension AUPresetEvent : Hashable, CustomStringConvertible, MIDIEventConvertibl
 
 extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
     static public func ==(lhs: ExtendedControlEvent, rhs: ExtendedControlEvent) -> Bool {
-//        return lhs.scope == rhs.scope && lhs.element == rhs.element
+        //        return lhs.scope == rhs.scope && lhs.element == rhs.element
         //        return lhs.scope == rhs.scope &&
         //            lhs.element == rhs.element &&
         //            lhs.preset.toOpaque() == rhs.preset.toOpaque()
@@ -347,9 +348,9 @@ extension ExtendedControlEvent : Hashable, CustomStringConvertible, MIDIEventCon
 
     internal mutating func insert(to ref: MIDITrack, at timestamp: Double) {
         fatalError()
-//        withCopy(of: self) {
-//            MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, $0)
-//        }
+        //        withCopy(of: self) {
+        //            MusicTrackNewExtendedNoteEvent(ref.ref, timestamp, $0)
+        //        }
     }
 
     public var type: MIDIEventType {
