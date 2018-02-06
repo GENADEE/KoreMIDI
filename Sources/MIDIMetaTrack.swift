@@ -12,11 +12,11 @@ import AudioToolbox.MusicPlayer
 //}
 
 
-public enum MIDIMetaEvent {
-    func insert(to track: MIDIMetaTrack) {
-
-    }
-}
+//public enum MIDIMetaEvent {
+//    func insert(to track: MIDIMetaTrack) {
+//
+//    }
+//}
 
 
 

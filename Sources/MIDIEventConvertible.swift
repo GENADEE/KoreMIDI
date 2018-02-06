@@ -104,15 +104,15 @@ extension MusicEventUserData : Hashable, CustomStringConvertible, MIDIEventConve
 ///
 
 
-extension UnsafePointer where Pointee == AudioToolbox.MIDIMetaEvent {
+extension UnsafePointer where Pointee == MIDIMetaEvent {
     init(metaEventType: UInt8, string: String) {
-        let staticSize = MemoryLayout<AudioToolbox.MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
+        let staticSize = MemoryLayout<MIDIMetaEvent>.size - MemoryLayout<UInt8>.size
         let dynamicSize = string.count
         let capacity = staticSize + dynamicSize
 
         let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: capacity)
 
-        let p = ptr.withMemoryRebound(to: AudioToolbox.MIDIMetaEvent.self, capacity: 1) { (pointer: UnsafeMutablePointer<AudioToolbox.MIDIMetaEvent>) -> (UnsafeMutablePointer<AudioToolbox.MIDIMetaEvent>) in
+        let p = ptr.withMemoryRebound(to: MIDIMetaEvent.self, capacity: 1) { (pointer: UnsafeMutablePointer<MIDIMetaEvent>) -> (UnsafeMutablePointer<MIDIMetaEvent>) in
             pointer.pointee.metaEventType = metaEventType
             pointer.pointee.dataLength = UInt32(dynamicSize)
             _ = withUnsafeMutableBytes(of: &pointer.pointee.data) {
@@ -125,7 +125,7 @@ extension UnsafePointer where Pointee == AudioToolbox.MIDIMetaEvent {
 }
 
 
-extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
+extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEventConvertible, MIDITrackEvent {
 
     enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
@@ -150,7 +150,7 @@ extension AudioToolbox.MIDIMetaEvent : Hashable, CustomStringConvertible, MIDIEv
         return metaEventType.hashValue
     }
 
-    public static func ==(lhs: AudioToolbox.MIDIMetaEvent, rhs: AudioToolbox.MIDIMetaEvent) -> Bool {
+    public static func ==(lhs: MIDIMetaEvent, rhs: MIDIMetaEvent) -> Bool {
 
         return lhs.metaEventType == rhs.metaEventType &&
             lhs.dataLength == rhs.dataLength &&
