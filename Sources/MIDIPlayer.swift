@@ -25,6 +25,7 @@ extension AVMIDIPlayer {
 public class MIDIPlayer {
     var sequence : MIDISequence {
         didSet {
+            guard oldValue != sequence else { return }
             reload()
         }
     }
@@ -40,8 +41,6 @@ public class MIDIPlayer {
         self.bank = bank
         self.player = player
     }
-
-
 
     private func reload() {
         player = try! AVMIDIPlayer(sequence: sequence, soundBankURL: bank)

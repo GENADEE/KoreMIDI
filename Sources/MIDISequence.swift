@@ -145,12 +145,19 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 }
 
 extension MIDISequence : Encodable {
+    private enum CodingKeys : String, CodingKey {
+        case content = "content"
+    }
+
     public convenience init(from decoder: Decoder) throws {
-        fatalError()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let data = try container.decode(Data.self, forKey: .content)
+        self.init(import: data)
     }
 
     public func encode(to encoder: Encoder) throws {
-        fatalError()
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(export(), forKey: .content)
     }
 }
 

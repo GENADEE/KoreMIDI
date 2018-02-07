@@ -16,23 +16,23 @@ enum ChannelEvent2 {
 
 }
 
-protocol CCEvent : Comparable {
-    associatedtype Timestamp: Strideable
-    var timestamp: Timestamp { get }
+//protocol CCEvent : Comparable {
+//    associatedtype Timestamp: Strideable
+//    var timestamp: Timestamp { get }
+//
+//}
+//
+//extension CCEvent {
+//    static func <(lhs: Self, rhs: Self) -> Bool {
+//        return lhs.timestamp < rhs.timestamp
+//    }
+//}
 
-}
-
-extension CCEvent {
-    static func <(lhs: Self, rhs: Self) -> Bool {
-        return lhs.timestamp < rhs.timestamp
-    }
-}
-
-struct AfterTouch : CCEvent {
-    let timestamp: MIDITimestamp
-    let note: MIDIPitch
-    let pressure : Int8
-}
+//struct AfterTouch : CCEvent {
+//    let timestamp: MIDITimestamp
+//    let note: MIDIPitch
+//    let pressure : Int8
+//}
 
 //struct ProgramChange : CCEvent {
 //    let timestamp: MIDITimestamp

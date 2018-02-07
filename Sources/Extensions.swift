@@ -63,6 +63,20 @@ extension Sequence {
     }
 }
 
+//
+//extension Sequence {
+//    func reduce<E: DefaultConstructible>(combine: (E, Iterator.Element) throws -> Iterator.Element) rethrows -> Iterator.Element? {
+//        var g = makeIterator()
+//        guard var accu = g.next() else { return nil }
+//
+//        while let next = g.next() {
+//            accu = try combine(accu, next)
+//        }
+//        return accu
+//    }
+//}
+
+
 extension CABarBeatTime : CustomStringConvertible, Equatable {
     public var description : String {
         return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
