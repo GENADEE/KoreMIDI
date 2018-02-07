@@ -63,6 +63,8 @@
 		3757417C1F9D0ADC006768FE /* MIDIEvent1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3757417B1F9D0ADC006768FE /* MIDIEvent1.swift */; };
 		3757417D1F9D0B85006768FE /* MIDIEvent1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3757417B1F9D0ADC006768FE /* MIDIEvent1.swift */; };
 		376C0B8E1E9B398F00249775 /* Stuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376C0B8D1E9B398F00249775 /* Stuff.swift */; };
+		37739163202B72E500C25E87 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37739162202B72E500C25E87 /* EventType.swift */; };
+		37739164202B72E500C25E87 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37739162202B72E500C25E87 /* EventType.swift */; };
 		3786FE212029724E0030AFBF /* UnsafePointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786FE202029724E0030AFBF /* UnsafePointer.swift */; };
 		3786FE222029EAA30030AFBF /* UnsafePointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786FE202029724E0030AFBF /* UnsafePointer.swift */; };
 		37B14FFE1E97F5A200CBDB07 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 37B14FFD1E97F5A200CBDB07 /* README.md */; };
@@ -138,6 +140,7 @@
 		373BE44C1E9835D600DC1E15 /* MIDITrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDITrack.swift; sourceTree = "<group>"; };
 		3757417B1F9D0ADC006768FE /* MIDIEvent1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIEvent1.swift; sourceTree = "<group>"; };
 		376C0B8D1E9B398F00249775 /* Stuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stuff.swift; sourceTree = "<group>"; };
+		37739162202B72E500C25E87 /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		3786FE202029724E0030AFBF /* UnsafePointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafePointer.swift; sourceTree = "<group>"; };
 		37B14FFD1E97F5A200CBDB07 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		37B150011E98059100CBDB07 /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 		372588E02022365300F8AF32 /* v2 */ = {
 			isa = PBXGroup;
 			children = (
+				37739162202B72E500C25E87 /* EventType.swift */,
 				372588E12022368000F8AF32 /* MIDIMetaCopyrightEvent.swift */,
 				372588F32022BB6200F8AF32 /* MetaEvents.swift */,
 				372588E42022368900F8AF32 /* MIDIMetaCuePointEvent.swift */,
@@ -419,6 +423,7 @@
 				37E24EAC1E9FEB57006C957B /* MIDIEventConvertible.swift in Sources */,
 				372588F920236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */,
 				37258905202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */,
+				37739164202B72E500C25E87 /* EventType.swift in Sources */,
 				37371FA51E9B2BE500829B24 /* MIDIPitch.swift in Sources */,
 				37371FA21E9B264C00829B24 /* TimeSeries.swift in Sources */,
 				372588BD20210EAC00F8AF32 /* MIDIMetaTrack.swift in Sources */,
@@ -465,6 +470,7 @@
 				372588F820236EE600F8AF32 /* MIDIPolyphonicKeyPressureEvent.swift in Sources */,
 				37258904202373E100F8AF32 /* MIDIPitchBendChangeEvent.swift in Sources */,
 				37B150021E98059100CBDB07 /* Classifier.swift in Sources */,
+				37739163202B72E500C25E87 /* EventType.swift in Sources */,
 				OBJ_32 /* AudioToolbox.swift in Sources */,
 				372588BC20210EAC00F8AF32 /* MIDIMetaTrack.swift in Sources */,
 				37CDEFC61E9972390005B509 /* MIDIEvent.swift in Sources */,

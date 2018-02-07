@@ -7,19 +7,9 @@
 
 import Foundation
 
-public protocol EventType : Comparable {
-    associatedtype Timestamp: Strideable
-    var timestamp: Timestamp { get }
-}
 
-extension EventType {
-    public static func <(lhs: Self, rhs: Self) -> Bool {
-        return lhs.timestamp < rhs.timestamp
-    }
-}
 
 public protocol MIDITextEventType : EventType {
-    var timestamp: MIDITimestamp { get }
     var text: String { get }
 }
 
