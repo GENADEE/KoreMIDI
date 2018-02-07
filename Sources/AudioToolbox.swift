@@ -156,7 +156,7 @@ extension UnsafeRawBufferPointer : Equatable {
     }
 }
 
-internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
+internal struct MIDIRawEvent : EventType {
     let timestamp: MIDITimestamp
     let type: MIDIEventType
     let data: UnsafeRawBufferPointer
@@ -184,22 +184,14 @@ internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
         self.data = withUnsafeBytes(of: &data) { $0 }
     }
 
-    var hashValue: Int {
-        return timestamp.hashValue
-    }
-
-    static func ==(lhs: MIDIEventPointer, rhs: MIDIEventPointer) -> Bool {
+    static func ==(lhs: MIDIRawEvent, rhs: MIDIRawEvent) -> Bool {
         return lhs.timestamp == rhs.timestamp &&
             lhs.type == rhs.type &&
             lhs.data == rhs.data
     }
-
-    static func <(lhs: MIDIEventPointer, rhs: MIDIEventPointer) -> Bool {
-        return lhs.timestamp < rhs.timestamp
-    }
 }
 
-//internal struct MIDIEventPointer2<T> : Equatable {
+//internal struct MIDIRawEvent2<T> : Equatable {
 //    let timestamp: MIDITimestamp
 //    let type: MIDIEventType
 //    let pointer: UnsafeRawBufferPointer
@@ -219,13 +211,13 @@ internal struct MIDIEventPointer : Equatable, Comparable, Hashable {
 //        self.pointer = UnsafeRawBufferPointer(start: data!, count: Int(size))
 //    }
 //
-//    static func ==(lhs: MIDIEventPointer2, rhs: MIDIEventPointer2) -> Bool {
+//    static func ==(lhs: MIDIRawEvent2, rhs: MIDIRawEvent2) -> Bool {
 //        return lhs.timestamp == rhs.timestamp &&
 //            lhs.type == rhs.type &&
 //            lhs.pointer == rhs.pointer
 //    }
 //
-//    static func <(lhs: MIDIEventPointer2, rhs: MIDIEventPointer2) -> Bool {
+//    static func <(lhs: MIDIRawEvent2, rhs: MIDIRawEvent2) -> Bool {
 //        return lhs.timestamp < rhs.timestamp
 //    }
 //}

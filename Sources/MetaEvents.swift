@@ -7,7 +7,9 @@
 
 import Foundation
 
-
+//internal protocol MIDIMetaEventType {
+//
+//}
 
 public protocol MIDITextEventType : EventType {
     var text: String { get }
@@ -19,7 +21,7 @@ extension String {
         self.init(cString: bytes)
     }
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.init(event.data)
     }
 }
@@ -28,27 +30,30 @@ public struct MIDIMetaTextEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
 }
 
-public struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType {
+internal struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
 }
 
-public struct MIDIInstrumentName : Equatable, Hashable, MIDITextEventType {
+///
+/// at the beginning of each track
+///
+internal struct MIDIInstrumentName : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
@@ -58,7 +63,7 @@ public struct MIDILyricEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
@@ -68,7 +73,7 @@ public struct MIDIMarkerEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
@@ -78,7 +83,7 @@ public struct MIDICueEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
 
-    internal init(event: MIDIEventPointer) {
+    internal init(event: MIDIRawEvent) {
         self.timestamp = event.timestamp
         self.text = String(event: event)
     }
