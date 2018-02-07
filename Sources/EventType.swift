@@ -6,7 +6,7 @@
 //
 
 public protocol EventType : Comparable, Hashable {
-    associatedtype Timestamp: Strideable & Hashable
+    associatedtype Timestamp: Comparable & Hashable
     var timestamp: Timestamp { get }
 }
 

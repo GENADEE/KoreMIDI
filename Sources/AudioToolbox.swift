@@ -53,8 +53,8 @@ func MIDISequenceExport(ref: MusicSequence,
 
 @inline(__always) internal
 func MIDISequenceSave(ref: MusicSequence,
-                        to url: URL,
-                        resolution: Int16 = 960) {
+                      to url: URL,
+                      resolution: Int16 = 960) {
 
     OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
                                      .midiType,
@@ -156,7 +156,7 @@ extension UnsafeRawBufferPointer : Equatable {
     }
 }
 
-internal struct MIDIRawEvent : EventType {
+internal struct MIDIRawEvent : EventType, CustomStringConvertible {
     let timestamp: MIDITimestamp
     let type: MIDIEventType
     let data: UnsafeRawBufferPointer
@@ -175,6 +175,10 @@ internal struct MIDIRawEvent : EventType {
         self.timestamp = MIDITimestamp(beats: timestamp)
         self.type = MIDIEventType(rawValue: type)
         self.data = UnsafeRawBufferPointer(start: data!, count: Int(size))
+    }
+
+    var description: String {
+        return "\(timestamp)\(type)"
     }
 
     init(timestamp: MIDITimestamp, type: MIDIEventType, data: inout String) {

@@ -23,19 +23,25 @@ extension AVMIDIPlayer {
 }
 
 public class MIDIPlayer {
-    let sequence : MIDISequence
+    var sequence : MIDISequence {
+        didSet {
+            reload()
+        }
+    }
 
     private var player: AVMIDIPlayer
     private var isDirty : Bool = true
     private let bank : URL?
 
     public init?(sequence: MIDISequence, bank: URL? = nil) {
+        guard let player = try? AVMIDIPlayer(sequence: sequence, soundBankURL: bank) else { return nil }
+
         self.sequence = sequence
         self.bank = bank
-
-        guard let player = try? AVMIDIPlayer(sequence: sequence, soundBankURL: bank) else { return nil }
         self.player = player
     }
+
+
 
     private func reload() {
         player = try! AVMIDIPlayer(sequence: sequence, soundBankURL: bank)

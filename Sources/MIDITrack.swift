@@ -25,7 +25,7 @@ import AudioToolbox.MusicPlayer
 //}
 
 
-public final class InstrumentName: Equatable, CustomStringConvertible {
+public final class InstrumentName: Hashable, CustomStringConvertible {
     private let name: String
 
     internal init(name: String) {
@@ -36,7 +36,15 @@ public final class InstrumentName: Equatable, CustomStringConvertible {
         return name
     }
 
+    public var hashValue: Int {
+        return name.hashValue
+    }
+
     public static func ==(lhs: InstrumentName, rhs: InstrumentName) -> Bool {
+        fatalError()
+    }
+
+    internal init(ref: MusicTrack) {
         fatalError()
     }
 }
@@ -48,6 +56,14 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     /// this needs to be a strong reference because sequence need to be around as long as track ref is around
     private final let sequence: MIDISequence
     internal final let ref : MusicTrack
+//    let instrument: InstrumentName
+
+//    lazy var instrument: String = {
+//        first {
+//
+//        }
+//
+//    }()
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -64,11 +80,13 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public init(sequence: MIDISequence) {
         self.sequence = sequence
         self.ref = MIDITrackCreate(ref: sequence.ref)
+//        self.instrument = InstrumentName(ref: self.ref)
     }
 
     internal init(sequence: MIDISequence, no: Int) {
         self.sequence = sequence
         self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
+//        self.instrument = InstrumentName(ref: self.ref)
     }
 
 //    public final func copy() -> MIDITrack {
@@ -78,9 +96,6 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 //    }
 //
 
-    public var instrument: InstrumentName {
-        fatalError()
-    }
 
     public final var timerange: Range<Timestamp> {
         return startTime..<endTime
@@ -283,6 +298,7 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     fileprivate init(tempo sequence: MIDISequence) {
         self.sequence = sequence
         self.ref = MusicSequenceGetTempoTrack(ref: sequence.ref)
+//        self.instrument = InstrumentName(ref: self.ref)
     }
 }
 //}
