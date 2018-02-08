@@ -99,8 +99,16 @@ extension CABarBeatTime : Equatable, Hashable, CustomStringConvertible {
 }
 
 extension Data {
+    init<T>(noCopy: inout T, count: Int? = nil) {
+        self.init(bytesNoCopy: &noCopy,
+                  count: count ?? MemoryLayout<T>.size,
+                  deallocator: .none)
+    }
+
+
     init<T>(encode: T) {
         var cpy = encode
+
         self.init(bytes: &cpy, count: MemoryLayout<T>.size)
     }
 
