@@ -23,23 +23,16 @@ extension AVMIDIPlayer {
 }
 
 public class MIDIPlayer {
-    var sequence : MIDISequence {
-        didSet {
-            guard oldValue != sequence else { return }
-            reload()
-        }
-    }
-
     private var player: AVMIDIPlayer
-    private var isDirty : Bool = true
+//    private var isDirty : Bool = true
     private let bank : URL?
 
     public init?(sequence: MIDISequence, bank: URL? = nil) {
-        guard let player = try? AVMIDIPlayer(sequence: sequence, soundBankURL: bank) else { return nil }
-
+        guard let player = try? AVMIDIPlayer(sequence: sequence,
+                                             soundBankURL: bank) else { return nil }
+        self.player = player
         self.sequence = sequence
         self.bank = bank
-        self.player = player
     }
 
     private func reload() {
@@ -74,4 +67,55 @@ public class MIDIPlayer {
     public var currentPosition : TimeInterval {
         return player.currentPosition
     }
+
+    public var sequence : MIDISequence {
+        didSet {
+            guard oldValue != sequence else { return }
+            reload()
+        }
+    }
 }
+
+class MIDIPlayer2 : AVMIDIPlayer {
+    
+}
+
+
+//class MIDIPlayer2 {
+//    private let player: MusicPlayer
+//    var sequence: MIDISequence {
+//        didSet {
+//
+//        }
+//    }
+//
+//    var time: MusicTimeStamp {
+//        get {
+//            fatalError()
+//        }
+//        set {
+//            fatalError()
+//        }
+//    }
+//
+//    private init() {
+//        player = MIDIPlayerCreate()
+//        fatalError()
+//    }
+//
+//    static let shared = MIDIPlayer2()
+//
+//    deinit {
+//        DisposeMusicPlayer(player)
+//    }
+////    init(sequence: MIDISequence) {
+////
+////    }
+//
+//    public var isPlaying: Bool {
+//        fatalError()
+//    }
+//
+//
+//}
+

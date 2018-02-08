@@ -31,6 +31,10 @@ extension Strideable {
     static func +(lhs: Self, rhs: Stride) -> Self {
         return lhs.advanced(by: rhs)
     }
+
+    static func -(lhs: Self, rhs: Self) -> Stride {
+        return lhs.distance(to: rhs)
+    }
 }
 
 extension Int {
