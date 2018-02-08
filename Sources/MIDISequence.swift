@@ -144,7 +144,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 }
 
-extension MIDISequence : Encodable {
+extension MIDISequence : Codable {
     private enum CodingKeys : String, CodingKey {
         case content = "content"
     }

@@ -24,7 +24,6 @@ extension AVMIDIPlayer {
 
 public class MIDIPlayer {
     private var player: AVMIDIPlayer
-//    private var isDirty : Bool = true
     private let bank : URL?
 
     public init?(sequence: MIDISequence, bank: URL? = nil) {
