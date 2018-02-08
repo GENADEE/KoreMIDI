@@ -82,7 +82,6 @@ extension Sequence {
 
 
 extension CABarBeatTime : Equatable, Hashable, CustomStringConvertible {
-
     public static func ==(lhs: CABarBeatTime, rhs: CABarBeatTime) -> Bool {
         return lhs.bar == rhs.bar &&
             lhs.beat == rhs.beat &&
@@ -103,6 +102,10 @@ extension Data {
     init<T>(encode: T) {
         var cpy = encode
         self.init(bytes: &cpy, count: MemoryLayout<T>.size)
+    }
+
+    init<T>(encode: inout T) {
+        self.init(bytes: &encode, count: MemoryLayout<T>.size)
     }
 
     @inline(__always)
