@@ -81,16 +81,21 @@ extension Sequence {
 //}
 
 
-extension CABarBeatTime : CustomStringConvertible, Equatable {
-    public var description : String {
-        return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
-    }
+extension CABarBeatTime : Equatable, Hashable, CustomStringConvertible {
 
     public static func ==(lhs: CABarBeatTime, rhs: CABarBeatTime) -> Bool {
         return lhs.bar == rhs.bar &&
             lhs.beat == rhs.beat &&
             lhs.subbeat == rhs.subbeat &&
             lhs.subbeatDivisor == rhs.subbeatDivisor
+    }
+
+    public var hashValue: Int {
+        return bar.hashValue
+    }
+
+    public var description : String {
+        return "bar: \(bar), beat: \(beat), subbeat: \(subbeat), subbeatDivisor: \(subbeatDivisor)"
     }
 }
 

@@ -76,9 +76,11 @@ public class MIDIPlayer {
     }
 }
 
-class MIDIPlayer2 : AVMIDIPlayer {
-    
-}
+//class MIDIPlayer2 : AVMIDIPlayer {
+//    init(sequence: MIDISequence, bank: URL? = nil) {
+//
+//    }
+//}
 
 
 //class MIDIPlayer2 {
