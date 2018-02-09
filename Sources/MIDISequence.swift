@@ -69,6 +69,14 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
         DisposeMusicSequence(ref)
     }
 
+    public var lyrics: TextTrack<MIDILyricEvent> {
+        fatalError()
+    }
+
+    public var markers: TextTrack<MIDIMarkerEvent> {
+        fatalError()
+    }
+
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs === rhs || lhs.elementsEqual(rhs)
     }

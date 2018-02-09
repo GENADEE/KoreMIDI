@@ -26,6 +26,16 @@ extension String {
     }
 }
 
+public class TextTrack<Element: MIDITextEventType> : Sequence {
+    internal init(sequence: MIDISequence) {
+        fatalError()
+    }
+
+    public func makeIterator() -> AnyIterator<Element> {
+        fatalError()
+    }
+}
+
 public struct MIDIMetaTextEvent : Equatable, Hashable, MIDITextEventType {
     public let timestamp: MIDITimestamp
     public let text: String
