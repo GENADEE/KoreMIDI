@@ -70,11 +70,11 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     }
 
     public var lyrics: TextTrack<MIDILyricEvent> {
-        fatalError()
+        return TextTrack(sequence: self)
     }
 
     public var markers: TextTrack<MIDIMarkerEvent> {
-        fatalError()
+        return TextTrack(sequence: self)
     }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
