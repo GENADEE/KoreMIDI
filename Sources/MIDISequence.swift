@@ -31,7 +31,7 @@ extension Sequence {
 /// MIDISequence
 ///
 
-public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
+public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, Codable {
 
     public typealias Index = Int
     public typealias IndexDistance = Index
@@ -47,7 +47,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     public init() {
         self.ref = MIDISequenceCreate()
         self.content = Array(parent: self)
-
     }
 
     public init(import url: URL) {
@@ -150,9 +149,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
     public subscript(index: Index) -> Element {
         return content[index]
     }
-}
 
-extension MIDISequence : Codable {
     private enum CodingKeys : String, CodingKey {
         case content = "content"
     }

@@ -18,6 +18,12 @@ public struct MIDIPitch : Comparable, Hashable, RawRepresentable, Strideable {
         self.rawValue = rawValue
     }
 
+    public init(_ value: Int8) {
+        self.rawValue = value
+    }
+
+//    pulib
+
     public static func +(lhs: MIDIPitch, rhs: Interval) -> MIDIPitch {
         fatalError()
     }

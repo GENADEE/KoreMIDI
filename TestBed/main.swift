@@ -17,17 +17,18 @@ struct NoteEvent : CustomStringConvertible {
     let velocity : UInt8
 
     init(event : MIDITrack.Element, track : Int) {
-        switch event {
-        case let .note(ts, data):
-            self.timestamp = Float(ts.beats)
-            self.duration = data.duration
-            self.pitch = data.note
-            self.velocity = data.velocity
-            self.track = track
-            break
-        default:
-            fatalError()
-        }
+        fatalError()
+//        switch event {
+////        case let .note(ts, data):
+//            self.timestamp = Float(ts.beats)
+//            self.duration = data.duration
+//            self.pitch = data.note
+//            self.velocity = data.velocity
+//            self.track = track
+//            break
+//        default:
+//            fatalError()
+//        }
     }
 
     init(timestamp : Float, pitch : UInt8, duration : Float32, track : Int, velocity : UInt8) {
@@ -57,13 +58,13 @@ func test() {
     for (i,track) in s.enumerated() {
 
         for note in track {
-            switch note {
-            case let .note(ts, data):
-                let n = NoteEvent(event: note, track: i)
-                Swift.print("ret.append(\(n))")
-            default:
-                break
-            }
+//            switch note {
+//            case let .note(ts, data):
+//                let n = NoteEvent(event: note, track: i)
+//                Swift.print("ret.append(\(n))")
+//            default:
+//                break
+//            }
         }
 //        print(track.duration, track.startTime)
     }
@@ -94,7 +95,8 @@ func custom() {
 
     var track = MIDITrack(sequence : seq)
     let m = MIDINoteMessage(note: 60, duration: 20)
-    track.insert(.note(10.0, m))
+//    track.insert(.note(10.0, m))
+    
 //    MIDISequenceImport(d)
     let url = URL(fileURLWithPath: "/Users/adamnemecek/midi/darude-sandstorm.mid")
 //    let seq = MIDISequenceImport(url)

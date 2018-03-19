@@ -51,7 +51,7 @@ public final class InstrumentName: Hashable, CustomStringConvertible {
 
 public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp
-    public typealias Element = MIDIEvent
+    public typealias Element = MIDINote
 
     /// this needs to be a strong reference because sequence need to be around as long as track ref is around
     private final let sequence: MIDISequence
@@ -64,6 +64,10 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 //        }
 //
 //    }()
+
+//    func add(set: Set<>) {
+//
+//    }
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -289,9 +293,9 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         let i = MIDIRangeIterator(self, timerange: timerange)
 
         while let n = i.next() {
-            if predicate(n) {
-                _ = i.remove()
-            }
+//            if predicate(n) {
+//                _ = i.remove()
+//            }
         }
     }
 

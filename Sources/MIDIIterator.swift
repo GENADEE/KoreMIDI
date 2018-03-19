@@ -10,7 +10,7 @@ import AudioToolbox
 
 public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
-    public typealias Element = MIDIEvent
+    public typealias Element = MIDINote
 
     internal init(_ content: MIDITrack) {
         self.ref = MIDIIteratorCreate(ref : content.ref)
@@ -21,7 +21,8 @@ public class MIDIIterator: IteratorProtocol {
     }
 
     public var current: Element? {
-        return MIDIIteratorGetCurrent(ref: ref)
+        fatalError()
+//        return MIDIIteratorGetCurrent(ref: ref)
 //        if let e : Element = MIDIIteratorGetCurrent(ref: _ref) {
 //            if let r = _timerange, !r.contains(e.timestamp) {
 //                return nil
