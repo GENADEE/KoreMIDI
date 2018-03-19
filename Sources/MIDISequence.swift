@@ -40,14 +40,14 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
 
     private var content: [MIDITrack] = []
 
-    internal private(set) lazy var tempo = MIDITempoTrack(sequence: self)
+    public private(set) lazy var tempo = MIDITempoTrack(sequence: self)
 
     internal let ref: MusicSequence
 
     public init() {
         self.ref = MIDISequenceCreate()
         self.content = Array(parent: self)
-//        _tempo = MIDITempoTrack(sequence: self)
+
     }
 
     public init(import url: URL) {
@@ -69,13 +69,13 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable {
         DisposeMusicSequence(ref)
     }
 
-    public var lyrics: TextTrack<MIDILyricEvent> {
-        return TextTrack(sequence: self)
-    }
-
-    public var markers: TextTrack<MIDIMarkerEvent> {
-        return TextTrack(sequence: self)
-    }
+//    public var lyrics: TextTrack<MIDILyricEvent> {
+//        return TextTrack(sequence: self)
+//    }
+//
+//    public var markers: TextTrack<MIDIMarkerEvent> {
+//        return TextTrack(sequence: self)
+//    }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs === rhs || lhs.elementsEqual(rhs)

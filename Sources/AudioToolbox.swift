@@ -236,6 +236,15 @@ internal struct MIDIRawEvent : EventType, CustomStringConvertible {
 //    }
 //}
 
+struct EventPointer<Event> {
+
+    private let pointer: UnsafeRawPointer
+
+    init() {
+        fatalError()
+    }
+}
+
 @inline(__always) internal
 func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
 
@@ -245,6 +254,8 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
+
+
 
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))

@@ -304,8 +304,8 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
 //}
 
 
-class MIDITempoTrack : MIDITrack {
-    internal override init(sequence: MIDISequence) {
+public class MIDITempoTrack : MIDITrack {
+    public override init(sequence: MIDISequence) {
         super.init(tempo : sequence)
     }
 }

@@ -175,7 +175,7 @@ extension UnsafePointer where Pointee == MIDIRawData {
 
 extension MIDIMetaEvent : Hashable, CustomStringConvertible, MIDITrackEvent {
 
-    enum Subtype: UInt8 {
+    public enum Subtype: UInt8 {
         case sequenceNumber = 0x00,
         textEvent = 0x01, // text
         copyrightNotice = 0x02, // text

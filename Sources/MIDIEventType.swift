@@ -28,6 +28,20 @@ public enum MIDIEventType : RawRepresentable, Hashable, CustomStringConvertible 
         }
     }
 
+    public var rawValue : MusicEventType {
+        switch self {
+        case .extendedNote: return kMusicEventType_ExtendedNote
+        case .extendedTempo: return kMusicEventType_ExtendedTempo
+        case .user: return kMusicEventType_User
+        case .meta: return kMusicEventType_Meta
+        case .note: return kMusicEventType_MIDINoteMessage
+        case .channel: return kMusicEventType_MIDIChannelMessage
+        case .rawData: return kMusicEventType_MIDIRawData
+        case .parameter: return kMusicEventType_Parameter
+        case .auPreset: return kMusicEventType_AUPreset
+        }
+    }
+
     public var hashValue: Int {
         return rawValue.hashValue
     }
@@ -43,20 +57,6 @@ public enum MIDIEventType : RawRepresentable, Hashable, CustomStringConvertible 
         case .rawData: return ".rawData"
         case .parameter: return ".parameter"
         case .auPreset: return ".auPreset"
-        }
-    }
-
-    public var rawValue : MusicEventType {
-        switch self {
-        case .extendedNote: return kMusicEventType_ExtendedNote
-        case .extendedTempo: return kMusicEventType_ExtendedTempo
-        case .user: return kMusicEventType_User
-        case .meta: return kMusicEventType_Meta
-        case .note: return kMusicEventType_MIDINoteMessage
-        case .channel: return kMusicEventType_MIDIChannelMessage
-        case .rawData: return kMusicEventType_MIDIRawData
-        case .parameter: return kMusicEventType_Parameter
-        case .auPreset: return kMusicEventType_AUPreset
         }
     }
 }

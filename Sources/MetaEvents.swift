@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 //internal protocol MIDIMetaEventType {
 //
@@ -16,8 +17,9 @@ public protocol MIDITextEventType : EventType {
 
 }
 
-internal protocol MIDIMetaEventType {
-    static var byte: UInt8 { get }
+/// make internal
+public protocol MIDIMetaEventType {
+    static var byte: MIDIMetaEvent.Subtype { get }
 }
 
 extension String {
@@ -31,19 +33,27 @@ extension String {
     }
 }
 
-public class TextTrack<Element: MIDITextEventType> : Sequence {
+public class TextTrack<Element: MIDITextEventType & MIDIMetaEventType> : Sequence {
+    private let sequence: MIDISequence
+
     internal init(sequence: MIDISequence) {
         fatalError()
     }
 
     public func makeIterator() -> AnyIterator<Element> {
-        fatalError()
+//        Element
+//        var i = track.makeIterator()
+//        Element.byte
+        return AnyIterator {
+            nil
+        }
+
     }
 }
 
 public struct MIDIMetaTextEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
-        fatalError()
+    public static var byte: MIDIMetaEvent.Subtype {
+        return .textEvent
     }
 
     public let timestamp: MIDITimestamp
@@ -56,8 +66,8 @@ public struct MIDIMetaTextEvent : Equatable, Hashable, MIDITextEventType, MIDIMe
 }
 
 internal struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
-        fatalError()
+    static var byte: MIDIMetaEvent.Subtype {
+        return .copyrightNotice
     }
 
     public let timestamp: MIDITimestamp
@@ -73,8 +83,8 @@ internal struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType, MID
 /// at the beginning of each track
 ///
 internal struct MIDIInstrumentName : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
-        fatalError()
+    static var byte: MIDIMetaEvent.Subtype {
+        return .instrumentName
     }
 
     public let timestamp: MIDITimestamp
@@ -87,8 +97,8 @@ internal struct MIDIInstrumentName : Equatable, Hashable, MIDITextEventType, MID
 }
 
 public struct MIDILyricEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
-        fatalError()
+    public static var byte: MIDIMetaEvent.Subtype {
+        return .lyricText
     }
 
     public let timestamp: MIDITimestamp
@@ -101,8 +111,13 @@ public struct MIDILyricEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaE
 }
 
 public struct MIDIMarkerEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
+    public static func ==(lhs: MIDIMarkerEvent, rhs: MIDIMarkerEvent) -> Bool {
         fatalError()
+    }
+
+
+    public static var byte: MIDIMetaEvent.Subtype {
+        return .markerText
     }
 
     public let timestamp: MIDITimestamp
@@ -115,8 +130,8 @@ public struct MIDIMarkerEvent : Equatable, Hashable, MIDITextEventType, MIDIMeta
 }
 
 public struct MIDICueEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
-    static var byte: UInt8 {
-        fatalError()
+    public static var byte: MIDIMetaEvent.Subtype {
+        return .cuePoint
     }
 
     public let timestamp: MIDITimestamp
