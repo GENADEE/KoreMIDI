@@ -89,6 +89,21 @@ func test() {
 }
 test()
 
+func tt() {
+    let seq = MIDISequence()
+
+}
+
+enum Action {
+    case get, post, update, remove, select
+}
+
+class GPUTrack {
+
+}
+
+
+
 func custom() {
 
     var seq = MIDISequence()

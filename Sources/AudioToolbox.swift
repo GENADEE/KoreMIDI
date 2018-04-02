@@ -27,64 +27,7 @@ func MIDIPlayerCreate() -> MusicPlayer {
     fatalError()
 }
 
-///
-/// Sequences
-///
 
-@inline(__always) internal
-func MIDISequenceCreate() -> MusicSequence {
-    var ref : MusicSequence? = nil
-    OSAssert(NewMusicSequence(&ref))
-    return ref!
-}
-
-@inline(__always) internal
-func MIDISequenceImport(_ url: URL) -> MusicSequence {
-    let seq = MIDISequenceCreate()
-    OSAssert(MusicSequenceFileLoad(seq, url as CFURL, .midiType, .smf_ChannelsToTracks))
-    return seq
-}
-
-@inline(__always) internal
-func MIDISequenceImport(_ data: Data) -> MusicSequence {
-    let seq = MIDISequenceCreate()
-    OSAssert(MusicSequenceFileLoadData(seq, data as CFData,
-                                       .midiType, .smf_ChannelsToTracks))
-    return seq
-}
-
-@inline(__always) internal
-func MIDISequenceExport(ref: MusicSequence,
-                        resolution : Int16 = 960) -> Data {
-    var data : Unmanaged<CFData>? = nil
-    OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
-    return data!.takeUnretainedValue() as Data
-}
-
-@inline(__always) internal
-func MIDISequenceSave(ref: MusicSequence,
-                      to url: URL,
-                      resolution: Int16 = 960) {
-
-    OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
-                                     .midiType,
-                                     .eraseFile,
-                                     resolution))
-}
-
-@inline(__always) internal
-func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
-    var c: UInt32 = 0
-    OSAssert(MusicSequenceGetTrackCount(ref, &c))
-    return Int(c)
-}
-
-@inline(__always) internal
-func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
-    var r : MusicTrack? = nil
-    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
-    return r!
-}
 //
 //@inline(__always) internal
 //func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent) {
@@ -254,8 +197,6 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
     var type: MusicEventType = 0
     var data : UnsafeRawPointer? = nil
     var size : UInt32 = 0
-
-
 
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))

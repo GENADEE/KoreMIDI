@@ -29,6 +29,10 @@ public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConv
         self.beats = value
     }
 
+    public init(float: Float32) {
+        self.beats = MusicTimeStamp(float)
+    }
+
     public init(beats: LiteralType) {
         self.beats = beats
     }

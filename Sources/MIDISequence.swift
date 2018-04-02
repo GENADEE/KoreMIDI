@@ -100,6 +100,29 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         MIDISequenceSave(ref: ref, to: url)
     }
 
+    public var copyright: String? {
+        get{
+            fatalError()
+        }
+        set {
+            fatalError()
+        }
+    }
+
+    public var lyrics: MIDIMetaTrack<MIDILyricEvent> {
+        fatalError()
+    }
+
+    public var markers: MIDIMetaTrack<MIDIMarkerEvent> {
+        fatalError()
+    }
+
+    public var cues: MIDIMetaTrack<MIDICueEvent> {
+        fatalError()
+    }
+    
+
+
     //        func _validate() {
     //            guard _type != .beats else { return }
     //            _type = .beats
@@ -166,4 +189,63 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
     }
 }
 
+
+///
+/// Sequences
+///
+
+@inline(__always) fileprivate
+func MIDISequenceCreate() -> MusicSequence {
+    var ref : MusicSequence? = nil
+    OSAssert(NewMusicSequence(&ref))
+    return ref!
+}
+
+@inline(__always) fileprivate
+func MIDISequenceImport(_ url: URL) -> MusicSequence {
+    let seq = MIDISequenceCreate()
+    OSAssert(MusicSequenceFileLoad(seq, url as CFURL, .midiType, .smf_ChannelsToTracks))
+    return seq
+}
+
+@inline(__always) fileprivate
+func MIDISequenceImport(_ data: Data) -> MusicSequence {
+    let seq = MIDISequenceCreate()
+    OSAssert(MusicSequenceFileLoadData(seq, data as CFData,
+                                       .midiType, .smf_ChannelsToTracks))
+    return seq
+}
+
+@inline(__always) fileprivate
+func MIDISequenceExport(ref: MusicSequence,
+                        resolution : Int16 = 960) -> Data {
+    var data : Unmanaged<CFData>? = nil
+    OSAssert(MusicSequenceFileCreateData(ref, .midiType, .eraseFile, resolution, &data))
+    return data!.takeUnretainedValue() as Data
+}
+
+@inline(__always) fileprivate
+func MIDISequenceSave(ref: MusicSequence,
+                      to url: URL,
+                      resolution: Int16 = 960) {
+
+    OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
+                                     .midiType,
+                                     .eraseFile,
+                                     resolution))
+}
+
+@inline(__always) fileprivate
+func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
+    var c: UInt32 = 0
+    OSAssert(MusicSequenceGetTrackCount(ref, &c))
+    return Int(c)
+}
+
+@inline(__always) internal
+func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
+    var r : MusicTrack? = nil
+    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
+    return r!
+}
 

@@ -17,7 +17,7 @@ public protocol TimeSeries : Sequence, Temporal {
     var endTime : Timestamp { get }
 
     var duration : Timestamp.Stride { get }
-    func timestamp(after t: Timestamp) -> Timestamp
+//    func timestamp(after t: Timestamp) -> Timestamp
     //    subscript(timerange: Range<Timestamp>) -> SubSequence { get }
 }
 
@@ -37,4 +37,8 @@ func withCopy<T, Result>(of value: T, body: (UnsafePointer<T>) -> Result) -> Res
     return withUnsafePointer(to: &copy) {
         body($0)
     }
+}
+
+struct Cursor {
+
 }

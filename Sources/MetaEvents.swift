@@ -17,8 +17,8 @@ public protocol MIDITextEventType : EventType {
 
 }
 
-/// make internal
-public protocol MIDIMetaEventType {
+/// todo: make internal
+public protocol MIDIMetaEventType : Equatable {
     static var byte: MIDIMetaEvent.Subtype { get }
 }
 
@@ -30,24 +30,6 @@ extension String {
 
     internal init(event: MIDIRawEvent) {
         self.init(event.data)
-    }
-}
-
-public class TextTrack<Element: MIDITextEventType & MIDIMetaEventType> : Sequence {
-    private let sequence: MIDISequence
-
-    internal init(sequence: MIDISequence) {
-        fatalError()
-    }
-
-    public func makeIterator() -> AnyIterator<Element> {
-//        Element
-//        var i = track.makeIterator()
-//        Element.byte
-        return AnyIterator {
-            nil
-        }
-
     }
 }
 
@@ -65,7 +47,7 @@ public struct MIDIMetaTextEvent : Equatable, Hashable, MIDITextEventType, MIDIMe
     }
 }
 
-internal struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
+ struct MIDICopyrightEvent : Equatable, Hashable, MIDITextEventType, MIDIMetaEventType {
     static var byte: MIDIMetaEvent.Subtype {
         return .copyrightNotice
     }
@@ -114,7 +96,6 @@ public struct MIDIMarkerEvent : Equatable, Hashable, MIDITextEventType, MIDIMeta
     public static func ==(lhs: MIDIMarkerEvent, rhs: MIDIMarkerEvent) -> Bool {
         fatalError()
     }
-
 
     public static var byte: MIDIMetaEvent.Subtype {
         return .markerText

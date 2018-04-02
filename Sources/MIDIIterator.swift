@@ -6,22 +6,30 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import AudioToolbox
+import AVFoundation
 
 public class MIDIIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDINote
 
-    internal init(_ content: MIDITrack) {
+    internal init(_ content: MIDITrack, timestamp: Timestamp? = nil) {
         self.ref = MIDIIteratorCreate(ref : content.ref)
+        timestamp.map {
+            self.seek(to: $0)
+        }
     }
 
     deinit {
         DisposeMusicEventIterator(ref)
     }
 
-    public var current: Element? {
-        fatalError()
+    public final var current: Element? {
+        get {
+            fatalError()
+        }
+        set {
+            fatalError()
+        }
 //        return MIDIIteratorGetCurrent(ref: ref)
 //        if let e : Element = MIDIIteratorGetCurrent(ref: _ref) {
 //            if let r = _timerange, !r.contains(e.timestamp) {
@@ -41,19 +49,24 @@ public class MIDIIterator: IteratorProtocol {
 
     public func next() -> Element? {
         defer {
-            move()
+            fwd()
         }
         return current
     }
 
-    public func seek(to timestamp: Timestamp) {
+    public final func seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }
 
-    fileprivate func move() {
+    @inline(__always)
+    fileprivate func fwd() {
         MusicEventIteratorNextEvent(ref)
     }
 
+    @inline(__always)
+    fileprivate func bwd() {
+        MusicEventIteratorPreviousEvent(ref)
+    }
 
     private let ref: MusicEventIterator
 
@@ -67,11 +80,14 @@ public class MIDIRangeIterator : MIDIIterator {
     internal init(_ content: MIDITrack, timerange: Range<Timestamp>) {
         self.timerange = timerange
         super.init(content)
-        seek(to: timerange.lowerBound)
+        self.seek(to: timerange.lowerBound)
     }
 
     public override func next() -> Element? {
-        fatalError()
+        return super.next().flatMap {
+            guard self.timerange.contains($0.timestamp) else { return nil }
+            return $0
+        }
     }
 }
 

@@ -21,8 +21,20 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
         self.msg = msg
     }
 
-    var pitch: MIDIPitch {
+    public var pitch: MIDIPitch {
         return MIDIPitch(Int8(msg.note))
+    }
+
+    public var duration: Timestamp {
+        return Timestamp(float: msg.duration)
+    }
+
+    public var endstamp: Timestamp {
+        return timestamp + duration
+    }
+
+    public var timerange: Range<Timestamp> {
+        return timestamp..<endstamp
     }
 
     public func advanced(by n: Stride) -> MIDINote {

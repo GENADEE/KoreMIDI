@@ -49,7 +49,11 @@ public final class InstrumentName: Hashable, CustomStringConvertible {
     }
 }
 
-public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
+public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
+//    public func timestamp(after t: MIDITimestamp) -> MIDITimestamp {
+//        <#code#>
+//    }
+
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDINote
 
@@ -140,8 +144,9 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
         }
     }
 
-    public final func makeIterator() -> MIDIIterator {
-        return .init(self)
+    public final func makeIterator() -> AnyIterator<Element> { // MIDIIterator {
+        fatalError()
+//        return .init(self)
     }
 
     public final var hashValue: Int {
@@ -216,11 +221,26 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
     public final var duration : Timestamp.Stride {
         get {
             return self[.length]
-
         }
         set {
             self[.length] = newValue
         }
+    }
+
+    func filterMap(timerange: Range<Timestamp>,
+                   predicate:(Element) -> Bool,
+                   transform: (Element) -> Element) {
+        var i = MIDIRangeIterator(self, timerange: timerange)
+
+        var add: [Element] = []
+
+        while let n = i.next() {
+            if predicate(n) {
+                _ = i.remove()
+                add.append(transform(n))
+            }
+        }
+        
     }
 
     final func insert(_ element: Element) {
@@ -233,6 +253,12 @@ public class MIDITrack : Sequence, Equatable, Comparable, Hashable, CustomString
                                       timerange.lowerBound.beats,
                                       timerange.upperBound.beats,
                                       timestamp.beats))
+    }
+
+    func remove<S : SetAlgebra & TimeSeries>(elements: S) where S.Element == Element {
+//        var i = MIDIIterator(self, timestamp: elements.startTime)
+
+        fatalError()
     }
 
     func load(from other: MIDITrack) {

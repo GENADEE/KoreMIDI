@@ -6,7 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 public enum MIDIEventType : RawRepresentable, Hashable, CustomStringConvertible {
 
