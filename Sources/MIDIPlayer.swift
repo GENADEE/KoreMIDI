@@ -155,6 +155,16 @@ func MIDIPlayerCreate() -> MusicPlayer {
     return ref!
 }
 
+
+//@inline(__always) fileprivate
+//func MIDIPlayerIsPlaying(ref: MusicPlayer) -> Bool {
+//    var ret: DarwinBoolean = false
+//    OSAssert(MusicPlayerIsPlaying(ref, &ret))
+//    return Bool(ret)
+//
+//}
+
+
 //class MIDIPlayer2 : AVMIDIPlayer {
 //    init(sequence: MIDISequence, bank: URL? = nil) {
 //

@@ -46,21 +46,18 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
     public init() {
         self.ref = MIDISequenceCreate()
         self.tempo = MIDITempoTrack(sequence: ref)
-        self.content = Array(parent: self)
+        self.content = Array(parent: ref)
     }
 
     public init(import url: URL) {
         self.ref = MIDISequenceImport(url)
-//        self.content = Array(parent: self)
-        fatalError()
+        self.content = Array(parent: ref)
         self.tempo = MIDITempoTrack(sequence: ref)
-
     }
 
     public init(import data: Data) {
         self.ref = MIDISequenceImport(data)
-//        self.content = Array(parent: self)
-        fatalError()
+        self.content = Array(parent: ref)
         self.tempo = MIDITempoTrack(sequence: ref)
     }
 
@@ -255,8 +252,8 @@ func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
 }
 
 extension Array where Element == MIDITrack {
-    fileprivate init(parent: MIDISequence) {
-        let count = MusicSequenceGetTrackCount(ref: parent.ref)
+    fileprivate init(parent: MusicSequence) {
+        let count = MusicSequenceGetTrackCount(ref: ref)
         self = (0..<count).map {
             MIDITrack(sequence: parent, no: $0)
         }
