@@ -7,6 +7,17 @@
 
 import Foundation
 
-class MIDIDrumTrack {
 
+public struct MIDIDrumEvent {
+    public typealias Timestamp = MIDITimestamp
+}
+
+
+class MIDIDrumTrack {
+    public typealias Timestamp = MIDITimestamp
+    public let timestamp: Timestamp
+
+    internal init(timestamp: Timestamp, drum: Int8) {
+        fatalError()
+    }
 }

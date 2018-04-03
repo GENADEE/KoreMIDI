@@ -87,9 +87,9 @@ func MIDIIteratorCreate(ref: MusicTrack) -> MusicEventIterator {
 
 @inline(__always) internal
 func MIDIIteratorHasCurrent(ref: MusicEventIterator) -> Bool {
-    var bool : DarwinBoolean = false
-    OSAssert(MusicEventIteratorHasCurrentEvent(ref, &bool))
-    return Bool(bool)
+    var ret : DarwinBoolean = false
+    OSAssert(MusicEventIteratorHasCurrentEvent(ref, &ret))
+    return ret.boolValue
 }
 
 extension UnsafeRawBufferPointer : Equatable {
@@ -189,7 +189,6 @@ func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
 
     OSAssert(MusicEventIteratorGetEventInfo(ref, &timestamp, &type, &data, &size))
     let d = Data(bytes: data!, count: Int(size))
-
 
     return MIDIEvent(timestamp: MIDITimestamp(beats: timestamp),
                      type: MIDIEventType(rawValue: type),

@@ -24,8 +24,8 @@ public protocol MIDIMetaEventType : Equatable {
 
 extension String {
     public init(_ buffer: UnsafeRawBufferPointer) {
-        let bytes = [UInt8](buffer) + [0]
-        self.init(cString: bytes)
+        let cString = [UInt8](buffer) + [0]
+        self.init(cString: cString)
     }
 
     internal init(event: MIDIRawEvent) {

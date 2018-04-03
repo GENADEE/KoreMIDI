@@ -158,7 +158,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     public final var muted : Bool {
         get {
             let ret : DarwinBoolean = self[.muted]
-            return Bool(ret)
+            return ret.boolValue
         }
         set {
             self[.muted] = DarwinBoolean(newValue)
@@ -228,9 +228,12 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
         while let current = i.next() {
             if let mapped = transform(current) {
-                if current != mapped {
+                if current.timestamp != mapped.timestamp {
                     // change
                     _ = i.remove()
+                }
+                else {
+                    
                 }
 
 //                add.append(transform(n))
