@@ -93,7 +93,8 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
     internal init(sequence: MIDISequence, no: Int) {
         self.sequence = sequence
-        self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
+        fatalError("todo line below")
+//        self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
 //        self.instrument = InstrumentName(ref: self.ref)
     }
 
@@ -227,17 +228,24 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
         }
     }
 
-    func filterMap(timerange: Range<Timestamp>,
-                   predicate:(Element) -> Bool,
-                   transform: (Element) -> Element) {
+    func flatMap(timerange: Range<Timestamp>,
+                 transform: (Element) -> Element?) {
         var i = MIDIRangeIterator(self, timerange: timerange)
 
         var add: [Element] = []
 
-        while let n = i.next() {
-            if predicate(n) {
-                _ = i.remove()
-                add.append(transform(n))
+        while let current = i.next() {
+            if let mapped = transform(current) {
+                if current != mapped {
+                    // change
+                    _ = i.remove()
+                }
+
+//                add.append(transform(n))
+            }
+            else {
+                // remove current from iterator
+                
             }
         }
         
@@ -333,7 +341,11 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 }
 //}
 
-
+public class MIDITempoTrack : MIDITrack {
+    override init(sequence: MIDISequence) {
+        super.init(tempo : sequence)
+    }
+}
 
 
 

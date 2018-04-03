@@ -71,11 +71,21 @@ public class MIDISoundbankPlayer {
     }
 
     public var isPlaying: Bool {
-        return player.isPlaying
+        get {
+            return player.isPlaying
+        }
+//        set {
+//            player.isPlaying = newValue
+//        }
     }
 
     public var currentPosition : TimeInterval {
-        return player.currentPosition
+        get {
+            return player.currentPosition
+        }
+        set {
+            player.currentPosition = newValue
+        }
     }
 }
 
@@ -100,7 +110,7 @@ public class Player {
     }
 
     deinit {
-        DisposeMusicPlayer(content)
+        OSAssert(DisposeMusicPlayer(content))
     }
 
     public func play() {
@@ -113,10 +123,18 @@ public class Player {
 
     func preroll() {
         OSAssert(MusicPlayerPreroll(content))
-//        public func MusicPlayerGetBeatsForHostTime(_ inPlayer: MusicPlayer, _ inHostTime: UInt64, _ outBeats: UnsafeMutablePointer<MusicTimeStamp>) -> OSStatus
-//
-//        public func MusicPlayerGetHostTimeForBeats(_ inPlayer: MusicPlayer, _ inBeats: MusicTimeStamp, _ outHostTime: UnsafeMutablePointer<UInt64>) -> OSStatus
-//
+    }
+
+    func beats(for hosttime: UInt64) -> MusicTimeStamp {
+        var ret: MusicTimeStamp = 0
+        OSAssert(MusicPlayerGetBeatsForHostTime(content, hosttime, &ret))
+        return ret
+    }
+
+    func hosttime(for beats: MusicTimeStamp) -> UInt64 {
+        var ret: UInt64 = 0
+        OSAssert(MusicPlayerGetHostTimeForBeats(content, beats, &ret))
+        return ret
     }
 
     public var rate: Float {
