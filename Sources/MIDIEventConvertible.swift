@@ -6,7 +6,7 @@
 //
 //
 
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 public protocol MIDIEventConvertible {
 

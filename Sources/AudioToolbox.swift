@@ -18,17 +18,6 @@ func with<T>(_ apply: (T) -> ()) {
 }
 
 //
-// player
-//
-
-@inline(__always) internal
-func MIDIPlayerCreate() -> MusicPlayer {
-//    NewMusicPlayer
-    fatalError()
-}
-
-
-//
 //@inline(__always) internal
 //func MusicSequenceInsert(ref: MusicSequence, event: MIDIEvent) {
 //    switch event {

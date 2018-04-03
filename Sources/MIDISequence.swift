@@ -8,14 +8,7 @@
 import Foundation
 import AVFoundation
 
-extension Array where Element == MIDITrack {
-    fileprivate init(parent: MIDISequence) {
-        let count = MusicSequenceGetTrackCount(ref: parent.ref)
-        self = (0..<count).map {
-            MIDITrack(sequence: parent, no: $0)
-        }
-    }
-}
+
 
 extension Sequence {
     public func min<T: Comparable>(by: (Iterator.Element) -> T) -> Iterator.Element? {
@@ -26,6 +19,14 @@ extension Sequence {
         return self.max { by($0) < by($1) }
     }
 }
+
+public class MIDITempoTrack : MIDITrack {
+    fileprivate init(sequence: MusicSequence) {
+//        super.init(tempo : sequence)
+        fatalError()
+    }
+}
+
 
 ///
 /// MIDISequence
@@ -38,25 +39,29 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
     public typealias Element = MIDITrack
     public typealias Timestamp = MIDITimestamp
 
-    private var content: [MIDITrack] = []
-
-    public private(set) lazy var tempo = MIDITempoTrack(sequence: self)
-
+    public let tempo: MIDITempoTrack
     internal let ref: MusicSequence
+    private var content: [MIDITrack] = []
 
     public init() {
         self.ref = MIDISequenceCreate()
+        self.tempo = MIDITempoTrack(sequence: ref)
         self.content = Array(parent: self)
     }
 
     public init(import url: URL) {
         self.ref = MIDISequenceImport(url)
-        self.content = Array(parent: self)
+//        self.content = Array(parent: self)
+        fatalError()
+        self.tempo = MIDITempoTrack(sequence: ref)
+
     }
 
     public init(import data: Data) {
         self.ref = MIDISequenceImport(data)
-        self.content = Array(parent: self)
+//        self.content = Array(parent: self)
+        fatalError()
+        self.tempo = MIDITempoTrack(sequence: ref)
     }
 
     public func copy() -> MIDISequence {
@@ -120,7 +125,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
     public var cues: MIDIMetaTrack<MIDICueEvent> {
         fatalError()
     }
-    
+
 
 
     //        func _validate() {
@@ -247,5 +252,14 @@ func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
     var r : MusicTrack? = nil
     OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
     return r!
+}
+
+extension Array where Element == MIDITrack {
+    fileprivate init(parent: MIDISequence) {
+        let count = MusicSequenceGetTrackCount(ref: parent.ref)
+        self = (0..<count).map {
+            MIDITrack(sequence: parent, no: $0)
+        }
+    }
 }
 

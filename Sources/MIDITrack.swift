@@ -334,11 +334,6 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 //}
 
 
-public class MIDITempoTrack : MIDITrack {
-    public override init(sequence: MIDISequence) {
-        super.init(tempo : sequence)
-    }
-}
 
 
 
