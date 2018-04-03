@@ -50,19 +50,16 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
     public init() {
         self.ref = MIDISequenceCreate()
         self.content = Array(parent: self)
-
     }
 
     public init(import url: URL) {
         self.ref = MIDISequenceImport(url)
         self.content = Array(parent: self)
-//        self.tempo = MIDITempoTrack(sequence: self)
     }
 
     public init(import data: Data) {
         self.ref = MIDISequenceImport(data)
         self.content = Array(parent: self)
-//        self.tempo = MIDITempoTrack(sequence: self)
     }
 
     public func copy() -> MIDISequence {
@@ -73,14 +70,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         content = []
         DisposeMusicSequence(ref)
     }
-
-//    public var lyrics: TextTrack<MIDILyricEvent> {
-//        return TextTrack(sequence: self)
-//    }
-//
-//    public var markers: TextTrack<MIDIMarkerEvent> {
-//        return TextTrack(sequence: self)
-//    }
 
     public static func ==(lhs: MIDISequence, rhs: MIDISequence) -> Bool {
         return lhs === rhs || lhs.elementsEqual(rhs)
@@ -248,12 +237,6 @@ func MusicSequenceGetTrackCount(ref: MusicSequence) -> Int {
     return Int(c)
 }
 
-@inline(__always) fileprivate
-func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
-    var r : MusicTrack? = nil
-    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
-    return r!
-}
 
 extension Array where Element == MIDITrack {
     fileprivate init(parent: MIDISequence) {

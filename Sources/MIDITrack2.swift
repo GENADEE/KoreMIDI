@@ -21,9 +21,6 @@ import AudioToolbox
 //    case aftertouch(MIDIChannelMessage)
 //}
 
-class MIDIDrumTrack {
-
-}
 
 public enum ChannelEvent : Comparable, Strideable, Hashable, CustomStringConvertible {
     public typealias Timestamp = MIDITimestamp

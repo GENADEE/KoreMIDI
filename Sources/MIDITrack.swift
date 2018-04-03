@@ -93,18 +93,9 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
     internal init(sequence: MIDISequence, no: Int) {
         self.sequence = sequence
-        fatalError("todo line below")
-//        self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
+        self.ref = MusicSequenceGetTrack(ref: sequence.ref, at: no)
 //        self.instrument = InstrumentName(ref: self.ref)
     }
-
-//    public final func copy() -> MIDITrack {
-//        let cpy = MIDITrack(sequence : sequence!)
-//        cpy.copyInsert(from: self)
-//        return cpy
-//    }
-//
-
 
     public final var timerange: Range<Timestamp> {
         return startTime..<endTime
@@ -132,6 +123,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
             return Timestamp(beats: _offsetTime)
         }
         set {
+
             _offsetTime = newValue.beats
         }
     }
@@ -345,6 +337,13 @@ public class MIDITempoTrack : MIDITrack {
     override init(sequence: MIDISequence) {
         super.init(tempo : sequence)
     }
+}
+
+@inline(__always) fileprivate
+func MusicSequenceGetTrack(ref: MusicSequence, at index: Int) -> MusicTrack {
+    var r : MusicTrack? = nil
+    OSAssert(MusicSequenceGetIndTrack(ref, UInt32(index), &r))
+    return r!
 }
 
 
