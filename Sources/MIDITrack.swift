@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 //
 //let SequenceCallback : MusicSequenceUserCallback = {
@@ -233,7 +233,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
                     _ = i.remove()
                 }
                 else {
-                    
+
                 }
 
 //                add.append(transform(n))

@@ -8,24 +8,72 @@
 import Foundation
 
 
-public struct MIDIDrumEvent {
-    public typealias Timestamp = MIDITimestamp
-    public let timestamp: Timestamp
-}
 
 
-class MIDIDrumTrack : Sequence {
-    public typealias Element = MIDIDrumEvent
-    public typealias Timestamp = Element.Timestamp
+//class MIDIDrumTrack : Sequence, Equatable, CustomStringConvertible {
+//    public typealias Element = MIDIDrumEvent
+//    public typealias Timestamp = Element.Timestamp
+//
+//    private final let sequence: MIDISequence
+//    internal final let ref : MusicTrack
+//
+//    init(sequence: MIDISequence) {
+//        self.sequence = sequence
+//    }
+//
+//
+//    public func makeIterator() -> AnyIterator<Element> {
+//        fatalError()
+//    }
+//
+//
+//    public static func ==(lhs: MIDIDrumTrack, rhs: MIDIDrumTrack) -> Bool {
+//        return lhs === rhs || lhs.elementsEqual(rhs)
+//    }
+//
+//
+//    public final var timerange: Range<Timestamp> {
+//        return startTime..<endTime
+//    }
+//
+//    public final var description: String {
+//        var opts: [String] = []
+//        if soloed {
+//            opts.append("soloed")
+//        }
+//
+//        if muted {
+//            opts.append("muted")
+//        }
+//
+//        return "MIDITrack(in:\(timerange), \(map { $0 }))"
+//    }
+//
+//    public final subscript(timerange timerange: Range<Timestamp>) -> MIDIRangeIterator {
+//        fatalError()
+//    }
+//
+//    public final var startTime: Timestamp {
+//        get {
+//            return Timestamp(beats: _offsetTime)
+//        }
+//        set {
+//
+//            _offsetTime = newValue.beats
+//        }
+//    }
+//
+//    public final var endTime: Timestamp {
+//        get {
+//            return startTime.advanced(by: duration)
+//        }
+//        set {
+//            duration = _offsetTime + newValue.beats
+//        }
+//    }
+//
+//
+//}
 
 
-    internal init(timestamp: Timestamp, drum: Int8) {
-        fatalError()
-    }
 
-    public func makeIterator() -> AnyIterator<Element> {
-        fatalError()
-    }
-
-
-}

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 protocol DefaultConstructible {
     init()

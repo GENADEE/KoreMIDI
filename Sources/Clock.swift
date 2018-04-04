@@ -6,7 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import AudioToolbox
+import AVFoundation
 
 public final class Clock: Equatable {
 

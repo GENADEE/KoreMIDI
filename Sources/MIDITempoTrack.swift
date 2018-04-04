@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 
 public protocol MIDITrackType : Sequence, Hashable where Iterator.Element : MIDITrackEventType {

@@ -5,7 +5,7 @@
 //  Created by Adam Nemecek on 1/30/18.
 //
 
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 //enum MetaEvent {
 //

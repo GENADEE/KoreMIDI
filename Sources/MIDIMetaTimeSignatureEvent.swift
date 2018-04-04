@@ -5,7 +5,7 @@
 //  Created by Adam Nemecek on 1/31/18.
 //
 
-import AudioToolbox.MusicPlayer
+import AVFoundation
 import Foundation
 
 ///

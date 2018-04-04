@@ -6,7 +6,7 @@
 //  Copyright © 2017 Adam Nemecek. All rights reserved.
 //
 
-import AudioToolbox.MusicPlayer
+import AVFoundation
 
 @inline(__always) internal
 func OSAssert(_ err: OSStatus, function: String = #function) {
