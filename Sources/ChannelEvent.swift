@@ -13,7 +13,6 @@ enum ChannelEvent2 {
     case ProgramChange(channel: UInt8, programNumber: UInt8)
     case ChannelPressure(channel: UInt8, pressure: UInt8)
     case PitchBend(channel: UInt8, pitch: UInt16)
-
 }
 
 //protocol CCEvent : Comparable {

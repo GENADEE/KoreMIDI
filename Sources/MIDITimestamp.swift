@@ -9,9 +9,6 @@
 import Foundation
 import AVFoundation
 
-protocol DefaultConstructible {
-    init()
-}
 
 public struct MIDITimestamp : Comparable, Hashable, Strideable, CustomStringConvertible, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral {
 

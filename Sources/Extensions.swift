@@ -45,7 +45,7 @@ extension Int {
 
 extension Bool {
     init(_ value: DarwinBoolean) {
-        self = value.boolValue ? true : false
+        self = value.boolValue
     }
 }
 
@@ -66,6 +66,10 @@ extension Sequence {
         return accu
     }
 }
+
+//protocol DefaultConstructible {
+//    init()
+//}
 
 //
 //extension Sequence {

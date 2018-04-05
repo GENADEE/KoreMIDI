@@ -98,7 +98,7 @@ extension UnsafeRawBufferPointer : Equatable {
     }
 }
 
-internal struct MIDIRawEvent : EventType, CustomStringConvertible {
+internal struct MIDIData : EventType, CustomStringConvertible {
     let timestamp: MIDITimestamp
     let type: MIDIEventType
     let data: UnsafeRawBufferPointer
@@ -130,7 +130,7 @@ internal struct MIDIRawEvent : EventType, CustomStringConvertible {
         self.data = withUnsafeBytes(of: &data) { $0 }
     }
 
-    static func ==(lhs: MIDIRawEvent, rhs: MIDIRawEvent) -> Bool {
+    static func ==(lhs: MIDIData, rhs: MIDIData) -> Bool {
         return lhs.timestamp == rhs.timestamp &&
             lhs.type == rhs.type &&
             lhs.data == rhs.data

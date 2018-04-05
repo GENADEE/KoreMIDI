@@ -111,7 +111,7 @@ public final class Clock: Equatable {
         CAClockGetProperty(ref, prop, &size, ptr)
 
         defer {
-            ptr.deallocate(capacity: 1)
+            ptr.deallocate()
         }
 
         return ptr.pointee
