@@ -119,15 +119,17 @@ internal struct MIDIData : EventType, CustomStringConvertible {
         self.data = UnsafeRawBufferPointer(start: data!, count: Int(size))
     }
 
-    var description: String {
-        return "\(timestamp)\(type)"
-    }
-
+    ///
+    /// this is for serializing user created meta events
+    ///
     init(timestamp: MIDITimestamp, type: MIDIEventType, data: inout String) {
         self.timestamp = timestamp
         self.type = type
-
         self.data = withUnsafeBytes(of: &data) { $0 }
+    }
+
+    var description: String {
+        return "\(timestamp)\(type)"
     }
 
     static func ==(lhs: MIDIData, rhs: MIDIData) -> Bool {
@@ -168,14 +170,14 @@ internal struct MIDIData : EventType, CustomStringConvertible {
 //    }
 //}
 
-struct EventPointer<Event> {
-
-    private let pointer: UnsafeRawPointer
-
-    init() {
-        fatalError()
-    }
-}
+//struct EventPointer<Event> {
+//
+//    private let pointer: UnsafeRawPointer
+//
+//    init() {
+//        fatalError()
+//    }
+//}
 
 @inline(__always) internal
 func MIDIIteratorGetCurrent(ref: MusicEventIterator) -> MIDIEvent? {
@@ -216,7 +218,6 @@ func MIDITrackGetProperty<T>(ref: MusicTrack, prop: MIDITrackProp) -> T {
 
     return d.decode()
 }
-
 
 @inline(__always) internal
 func MIDITrackGetProperty(ref: MusicTrack, prop: UInt32) -> Bool {

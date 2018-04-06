@@ -9,10 +9,6 @@
 import Foundation
 import AVFoundation
 
-//
-//let SequenceCallback : MusicSequenceUserCallback = {
-//
-//}
 
 //@convention(c) func SequenceCallback(ref: UnsafeMutableRawPointer?,
 //                                    seq: MusicSequence,
@@ -24,54 +20,15 @@ import AVFoundation
 //
 //}
 
-
-public final class InstrumentName: Hashable, CustomStringConvertible {
-    private let name: String
-
-    internal init(name: String) {
-        fatalError()
-    }
-
-    public var description: String {
-        return name
-    }
-
-    public var hashValue: Int {
-        return name.hashValue
-    }
-
-    public static func ==(lhs: InstrumentName, rhs: InstrumentName) -> Bool {
-        fatalError()
-    }
-
-    internal init(ref: MusicTrack) {
-        fatalError()
-    }
-}
-
 public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, CustomStringConvertible {
-//    public func timestamp(after t: MIDITimestamp) -> MIDITimestamp {
-//        <#code#>
-//    }
 
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDINote
 
-    /// this needs to be a strong reference because sequence need to be around as long as track ref is around
+    /// this needs to be a strong reference because sequence need to be around as long as track is around
     private final let sequence: MIDISequence
     internal final let ref : MusicTrack
 //    let instrument: InstrumentName
-
-//    lazy var instrument: String = {
-//        first {
-//
-//        }
-//
-//    }()
-
-//    func add(set: Set<>) {
-//
-//    }
 
     public static func ===(lhs: MIDITrack, rhs: MIDITrack) -> Bool {
         return lhs.ref == rhs.ref
@@ -331,10 +288,8 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     fileprivate init(tempo sequence: MIDISequence) {
         self.sequence = sequence
         self.ref = MusicSequenceGetTempoTrack(ref: sequence.ref)
-//        self.instrument = InstrumentName(ref: self.ref)
     }
 }
-//}
 
 public class MIDITempoTrack : MIDITrack {
     override init(sequence: MIDISequence) {

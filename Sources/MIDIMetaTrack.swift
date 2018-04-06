@@ -7,40 +7,6 @@
 
 import AVFoundation
 
-//enum MetaEvent {
-//
-//}
-
-
-//public enum MIDIMetaEvent {
-//    func insert(to track: MIDIMetaTrack) {
-//
-//    }
-//}
-
-//public class TextTrack<Element: MIDITextEventType & MIDIMetaEventType> : Sequence {
-//    private let sequence: MIDISequence
-//
-//    internal init(sequence: MIDISequence) {
-//        fatalError()
-//    }
-//
-//    public func makeIterator() -> AnyIterator<Element> {
-////        Element
-////        var i = track.makeIterator()
-////        Element.byte
-//        return AnyIterator {
-//            nil
-//        }
-//
-//    }
-//}
-
-func yield<I: IteratorProtocol>(i: I) -> I {
-//    return I
-    fatalError()
-}
-
 public final class MIDIMetaTrack<Element : MIDIMetaEventType>: Sequence, Equatable, Hashable {
     private let sequence: MIDISequence
 

@@ -43,6 +43,7 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         if let t = _tempo {
             return t
         }
+
         _tempo = MIDITempoTrack(sequence: self)
         return _tempo!
     }
@@ -136,10 +137,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
 
     //    func remove
 
-    public var count: IndexDistance {
-        return content.count
-    }
-
     public var startTime : Timestamp {
         return self.min { $0.startTime }?.startTime ?? 0
     }
@@ -154,6 +151,10 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
 
     public var endIndex: Index {
         return count
+    }
+
+    public var count: IndexDistance {
+        return content.count
     }
 
     public func index(after i: Index) -> Index {
@@ -183,6 +184,18 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         try container.encode(export(), forKey: .content)
     }
 }
+
+//extension MIDISequence {
+//    func callack() {
+//        //MusicSequenceSetUserCallback
+//        /*
+//         typealias MusicSequenceUserCallback = (UnsafeMutableRawPointer?, MusicSequence, MusicTrack, MusicTimeStamp, UnsafePointer<MusicEventUserData>, MusicTimeStamp, MusicTimeStamp) -> Void
+//         */
+//        MusicSequenceSetUserCallback(ref, { (raw, seq, track, ts, data, ts0, ts1) in
+//
+//        }, nil)
+//    }
+//}
 
 
 ///
@@ -223,7 +236,6 @@ func MIDISequenceExport(ref: MusicSequence,
 func MIDISequenceSave(ref: MusicSequence,
                       to url: URL,
                       resolution: Int16 = 960) {
-
     OSAssert(MusicSequenceFileCreate(ref, url as CFURL,
                                      .midiType,
                                      .eraseFile,

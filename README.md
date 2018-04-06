@@ -126,3 +126,10 @@ enum MIDIEventType : RawRepresentable {
 }
 
 ```
+
+
+
+```swift
+    let sequence = MIDISequence(url: "darude-sandstorm.mid")
+    
+```

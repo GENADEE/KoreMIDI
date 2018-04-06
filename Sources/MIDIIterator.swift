@@ -74,6 +74,59 @@ public class MIDIIterator: IteratorProtocol {
 //    private let _timerange: Range<Timestamp>?
 }
 
+
+internal class MIDIDataIterator: IteratorProtocol {
+    public typealias Timestamp = MIDITimestamp
+    public typealias Element = MIDIData
+
+    internal init(_ content: MIDITrack) {
+        self.ref = MIDIIteratorCreate(ref : content.ref)
+    }
+
+    deinit {
+        DisposeMusicEventIterator(ref)
+    }
+
+    final var current: Element? {
+        get {
+            return Element(ref: ref)
+        }
+        set {
+            fatalError()
+        }
+    }
+
+    final func remove() -> Element? {
+        defer {
+            MusicEventIteratorDeleteEvent(ref)
+        }
+        return current
+    }
+
+    final func next() -> Element? {
+        defer {
+            fwd()
+        }
+        return current
+    }
+
+    final func seek(to timestamp: Timestamp) {
+        MusicEventIteratorSeek(ref, timestamp.beats)
+    }
+
+    @inline(__always)
+    fileprivate func fwd() {
+        MusicEventIteratorNextEvent(ref)
+    }
+
+    @inline(__always)
+    fileprivate func bwd() {
+        MusicEventIteratorPreviousEvent(ref)
+    }
+
+    private let ref: MusicEventIterator
+}
+
 public class MIDIRangeIterator : MIDIIterator {
     public let timerange : Range<Timestamp>
 
