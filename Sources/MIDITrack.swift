@@ -98,7 +98,12 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
         var i = MIDIDataIterator(self)
 
         return AnyIterator {
-
+            while let n = i.next() {
+                if n.type == .note {
+                    return Element(data: n)
+                }
+            }
+            return nil
         }
 //        return .init(self)
     }
@@ -227,7 +232,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
     func load(from other: MIDITrack) {
         clearAll()
-        copyInsert(from: other, in: other.timerange, at: other.startTime)
+        copyInsert(from: other, in: other.timerange, at: other.start)
     }
 
     func clear(_ timerange: Range<Timestamp>) {

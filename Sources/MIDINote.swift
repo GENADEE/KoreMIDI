@@ -28,6 +28,13 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
         return Timestamp(float: msg.duration)
     }
 
+    internal init(data: MIDIData) {
+        self.timestamp = data.timestamp
+
+        fatalError()
+    }
+
+
     public var endstamp: Timestamp {
         return timestamp + duration
     }
@@ -64,6 +71,12 @@ public struct MIDIDrumNote {
     public let timestamp: Timestamp
 
     internal let msg: MIDINoteMessage
+
+    internal init(data: MIDIData) {
+        self.timestamp = data.timestamp
+
+        fatalError()
+    }
 
     internal init(timestamp: Timestamp, msg: MIDINoteMessage) {
         self.timestamp = timestamp

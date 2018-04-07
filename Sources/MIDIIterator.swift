@@ -75,7 +75,7 @@ public class MIDIIterator: IteratorProtocol {
 }
 
 
-internal class MIDIDataIterator: IteratorProtocol {
+internal final class MIDIDataIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIData
 
