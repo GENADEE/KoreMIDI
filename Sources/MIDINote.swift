@@ -8,6 +8,13 @@
 
 import AVFoundation
 
+extension MIDINoteMessage {
+    @inline(__always)
+    init(data: MIDIData) {
+        self = data.data.baseAddress!.assumingMemoryBound(to: MIDINoteMessage.self).pointee
+    }
+}
+
 public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
@@ -30,10 +37,8 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
 
     internal init(data: MIDIData) {
         self.timestamp = data.timestamp
-        fatalError()
-//        self.msg = UnsafePointer<MIDINoteMessage>(data.data).pointee
+        self.msg = MIDINoteMessage(data: data)
     }
-
 
     public var endstamp: Timestamp {
         return timestamp + duration
@@ -64,7 +69,7 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
     }
 }
 
-public struct MIDIDrumNote {
+public struct MIDIDrumNote: Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride
 
@@ -74,8 +79,7 @@ public struct MIDIDrumNote {
 
     internal init(data: MIDIData) {
         self.timestamp = data.timestamp
-
-        fatalError()
+        self.msg = MIDINoteMessage(data: data)
     }
 
     internal init(timestamp: Timestamp, msg: MIDINoteMessage) {
@@ -83,8 +87,8 @@ public struct MIDIDrumNote {
         self.msg = msg
     }
 
-    public var pitch: MIDIPitch {
-        return MIDIPitch(Int8(msg.note))
+    public var drum: MIDIDrum {
+        return MIDIDrum(Int8(msg.note))
     }
 
     public func advanced(by n: Stride) -> MIDIDrumNote {

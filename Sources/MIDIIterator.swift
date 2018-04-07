@@ -126,6 +126,13 @@ internal final class MIDIDataIterator: IteratorProtocol {
         return current
     }
 
+    final func previous() -> Element? {
+        defer { 
+            bwd()
+        }
+        return current
+    }
+
     final func seek(to timestamp: Timestamp) {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }

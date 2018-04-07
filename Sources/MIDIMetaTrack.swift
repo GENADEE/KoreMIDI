@@ -18,7 +18,7 @@ public final class MIDIMetaTrack<Element : MIDIMetaEventType>: Sequence, Equatab
         var i = sequence.makeIterator()
         return AnyIterator {
 
-
+            
 /*
             while let n = i.next() {
              if Element.byte ==  {
