@@ -40,12 +40,12 @@ func MusicSequenceBeatsToBarBeatTime(ref: MusicSequence, beats: MIDITimestamp, s
     return t
 }
 
-//@inline(__always) internal
-//func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
-//    var out: Float64 = 0
-//    OSAssert(MusicSequenceGetSecondsForBeats(ref, beats, &out))
-//    return out
-//}
+@inline(__always) internal
+func MusicSequenceBeatsToSeconds(ref: MusicSequence, beats: MusicTimeStamp) -> Float64 {
+    var out: Float64 = 0
+    OSAssert(MusicSequenceGetSecondsForBeats(ref, beats, &out))
+    return out
+}
 
 //@inline(__always) internal
 //func MusicSequenceSecondsToBeats(ref: MusicSequence, seconds: MusicTimeStamp) -> Float64 {
@@ -122,10 +122,10 @@ internal struct MIDIData : EventType, CustomStringConvertible {
     ///
     /// this is for serializing user created meta events
     ///
-    init(timestamp: MIDITimestamp, type: MIDIEventType, data: inout String) {
+    init(timestamp: MIDITimestamp, type: MIDIEventType, data: UnsafeRawBufferPointer) {
         self.timestamp = timestamp
         self.type = type
-        self.data = withUnsafeBytes(of: &data) { $0 }
+        self.data = data
     }
 
     var description: String {
@@ -137,6 +137,7 @@ internal struct MIDIData : EventType, CustomStringConvertible {
             lhs.type == rhs.type &&
             lhs.data == rhs.data
     }
+
 }
 
 //internal struct MIDIRawEvent2<T> : Equatable {

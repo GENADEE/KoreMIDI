@@ -13,7 +13,6 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
     public typealias Stride = Timestamp.Stride
 
     public let timestamp: Timestamp
-
     internal let msg: MIDINoteMessage
 
     internal init(timestamp: Timestamp, msg: MIDINoteMessage) {

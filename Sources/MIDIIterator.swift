@@ -92,7 +92,19 @@ internal class MIDIDataIterator: IteratorProtocol {
             return Element(ref: ref)
         }
         set {
-            fatalError()
+            if let event = newValue {
+                if event.timestamp == current?.timestamp {
+
+                }
+                else {
+                    /// note that this moved the pointer to the next event
+                    fatalError()
+//                    MusicEventIteratorSetEventTime(ref, MusicTimeStamp(event.timestamp))
+                }
+            }
+            else {
+                _ = remove()
+            }
         }
     }
 
@@ -116,6 +128,9 @@ internal class MIDIDataIterator: IteratorProtocol {
 
     @inline(__always)
     fileprivate func fwd() {
+        var ret: DarwinBoolean = true
+        // todo
+        guard MusicEventIteratorHasNextEvent(ref, &ret) == noErr, ret.boolValue else { return }
         MusicEventIteratorNextEvent(ref)
     }
 

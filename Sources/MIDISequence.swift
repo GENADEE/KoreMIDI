@@ -117,8 +117,6 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         fatalError()
     }
 
-
-
     //        func _validate() {
     //            guard _type != .beats else { return }
     //            _type = .beats
