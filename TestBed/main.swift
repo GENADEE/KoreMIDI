@@ -66,7 +66,7 @@ func test() {
 //                break
 //            }
         }
-//        print(track.duration, track.startTime)
+//        print(track.duration, track.start)
     }
     Swift.print("return ret;\n}")
 
@@ -85,7 +85,7 @@ func test() {
     //print("duration", track.duration)
     //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
 
-//    print(s.startTime!, s.endTime!.beats)
+//    print(s.start!, s.endTime!.beats)
 }
 test()
 

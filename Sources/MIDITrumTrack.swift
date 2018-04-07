@@ -33,7 +33,7 @@ import Foundation
 //
 //
 //    public final var timerange: Range<Timestamp> {
-//        return startTime..<endTime
+//        return start..<endTime
 //    }
 //
 //    public final var description: String {
@@ -53,7 +53,7 @@ import Foundation
 //        fatalError()
 //    }
 //
-//    public final var startTime: Timestamp {
+//    public final var start: Timestamp {
 //        get {
 //            return Timestamp(beats: _offsetTime)
 //        }
@@ -65,7 +65,7 @@ import Foundation
 //
 //    public final var endTime: Timestamp {
 //        get {
-//            return startTime.advanced(by: duration)
+//            return start.advanced(by: duration)
 //        }
 //        set {
 //            duration = _offsetTime + newValue.beats

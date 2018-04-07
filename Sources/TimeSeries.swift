@@ -13,7 +13,7 @@ public protocol Temporal {
 }
 
 public protocol TimeSeries : Sequence, Temporal {
-    var startTime : Timestamp { get }
+    var start : Timestamp { get }
     var endTime : Timestamp { get }
 
     var duration : Timestamp.Stride { get }
@@ -27,7 +27,7 @@ protocol MutableTimeSeries : TimeSeries {
 
 extension TimeSeries {
     var duration: Timestamp.Stride {
-        return startTime.distance(to: endTime)
+        return start.distance(to: endTime)
     }
 }
 

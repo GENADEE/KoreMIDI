@@ -27,7 +27,7 @@ public protocol Temporal {
 }
 
 public protocol TimeSeries : Sequence, Temporal {
-    var startTime: Timestamp { get }
+    var start: Timestamp { get }
     var endTime : Timestamp { get }
 
     var duration : Timestamp.Stride { get }
@@ -81,7 +81,7 @@ struct MIDITrack : Sequence, Hashable, Equatable {
 
     init()
     var timerange: Range<MIDITimestamp> { get }
-    var startTime: MIDITimestamp { get }
+    var start: MIDITimestamp { get }
     var endTime: MIDITimestamp { get }
     var duration : Int { get set }
 

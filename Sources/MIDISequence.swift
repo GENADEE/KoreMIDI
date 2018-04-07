@@ -135,8 +135,8 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
 
     //    func remove
 
-    public var startTime : Timestamp {
-        return self.min { $0.startTime }?.startTime ?? 0
+    public var start : Timestamp {
+        return self.min { $0.start }?.start ?? 0
     }
 
     public var endTime : Timestamp {

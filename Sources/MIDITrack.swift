@@ -55,7 +55,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     }
 
     public final var timerange: Range<Timestamp> {
-        return startTime..<endTime
+        return start..<endTime
     }
 
     public final var description: String {
@@ -75,7 +75,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
         fatalError()
     }
 
-    public final var startTime: Timestamp {
+    public final var start: Timestamp {
         get {
             return Timestamp(beats: _offsetTime)
         }
@@ -87,7 +87,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
     public final var endTime: Timestamp {
         get {
-            return startTime.advanced(by: duration)
+            return start.advanced(by: duration)
         }
         set {
             duration = _offsetTime + newValue.beats
@@ -95,7 +95,11 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     }
 
     public final func makeIterator() -> AnyIterator<Element> { // MIDIIterator {
-        fatalError()
+        var i = MIDIDataIterator(self)
+
+        return AnyIterator {
+
+        }
 //        return .init(self)
     }
 

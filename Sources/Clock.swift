@@ -289,7 +289,7 @@ public final class Clock: Equatable {
     //        return Timestamp(parent: time.parent, seconds: 0)
     //    }
     //
-    public var startTime : CAClockTime {
+    public var start : CAClockTime {
         get {
             var time = CAClockTime()
             CAClockGetStartTime(ref, .seconds, &time)
