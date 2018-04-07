@@ -159,26 +159,7 @@ public class MIDIRangeIterator : MIDIIterator {
     }
 }
 
-//struct MIDIEventTrackView<Element : MIDIEvent> : Sequence {
+//struct MIDIEventIterator<Event: EventType> {
 //
-//    let content: MIDITrack
-//    let timerange: Range<MIDITimestamp>?
-//
-//    init(content: MIDITrack, timerange: Range<MIDITimestamp>? = nil) {
-//        self.content = content
-//        self.timerange = timerange
-//    }
-//
-//    func makeIterator() -> AnyIterator<Element> {
-//        let i = MIDIIterator(content, timerange: timerange)
-//
-//        return AnyIterator {
-//            while let n = i.next() {
-//                if let nn = n as? Element {
-//                    return nn
-//                }
-//            }
-//            return nil
-//        }
-//    }
 //}
+

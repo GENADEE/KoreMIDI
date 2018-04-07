@@ -95,7 +95,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     }
 
     public final func makeIterator() -> AnyIterator<Element> { // MIDIIterator {
-        var i = MIDIDataIterator(self)
+        let i = MIDIDataIterator(self)
 
         return AnyIterator {
             while let n = i.next() {
@@ -105,7 +105,6 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
             }
             return nil
         }
-//        return .init(self)
     }
 
     public final var hashValue: Int {
@@ -179,6 +178,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
 
     public final var duration : Timestamp.Stride {
         get {
+
             return self[.length]
         }
         set {
