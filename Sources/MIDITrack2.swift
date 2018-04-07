@@ -29,7 +29,6 @@ public enum ChannelEvent : Comparable, Strideable, Hashable, CustomStringConvert
     case note(Timestamp, MIDINoteMessage)
     case channel(Timestamp, MIDIChannelMessage)
 
-
     public func distance(to other: ChannelEvent) -> Stride {
         return timestamp.distance(to: other.timestamp)
     }

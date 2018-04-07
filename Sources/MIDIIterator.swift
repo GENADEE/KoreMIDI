@@ -101,7 +101,6 @@ internal final class MIDIDataIterator: IteratorProtocol {
                 else {
                     /// note that this moved the pointer to the next event
                     MusicEventIteratorSetEventTime(ref, MusicTimeStamp(event.timestamp.beats))
-                    fatalError()
                 }
             }
             else {
@@ -128,19 +127,28 @@ internal final class MIDIDataIterator: IteratorProtocol {
         MusicEventIteratorSeek(ref, timestamp.beats)
     }
 
+    private var hasNext: Bool {
+        var ret: DarwinBoolean = true
+        OSAssert(MusicEventIteratorHasNextEvent(ref, &ret))
+        return ret.boolValue
+    }
+
+    private var hasPrevious: Bool {
+        var ret: DarwinBoolean = true
+        OSAssert(MusicEventIteratorHasNextEvent(ref, &ret))
+        return ret.boolValue
+    }
+
     @inline(__always)
     fileprivate func fwd() {
-        var ret: DarwinBoolean = true
-        // todo
-        guard MusicEventIteratorHasNextEvent(ref, &ret) == noErr, ret.boolValue else { return }
-        MusicEventIteratorNextEvent(ref)
+        guard hasNext else { return }
+        OSAssert(MusicEventIteratorNextEvent(ref))
     }
 
     @inline(__always)
     fileprivate func bwd() {
-        var ret: DarwinBoolean = true
-        guard MusicEventIteratorHasPreviousEvent(ref, &ret) == noErr, ret.boolValue else { return }
-        MusicEventIteratorPreviousEvent(ref)
+        guard hasPrevious else { return }
+        OSAssert(MusicEventIteratorPreviousEvent(ref))
     }
 
     private let ref: MusicEventIterator
