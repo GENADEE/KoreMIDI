@@ -74,7 +74,7 @@ public class MIDIIterator: IteratorProtocol {
 //    private let _timerange: Range<Timestamp>?
 }
 
-
+/// todo rename to cursor?
 internal final class MIDIDataIterator: IteratorProtocol {
     public typealias Timestamp = MIDITimestamp
     public typealias Element = MIDIData
@@ -92,6 +92,9 @@ internal final class MIDIDataIterator: IteratorProtocol {
             return Element(ref: ref)
         }
         set {
+            ///
+            /// if we are updating,
+            ///
             if let event = newValue {
                 if event.timestamp == current?.timestamp {
                     _ = event.data.baseAddress.map {
@@ -135,7 +138,7 @@ internal final class MIDIDataIterator: IteratorProtocol {
 
     private var hasPrevious: Bool {
         var ret: DarwinBoolean = false
-        OSAssert(MusicEventIteratorHasNextEvent(ref, &ret))
+        OSAssert(MusicEventIteratorHasPreviousEvent(ref, &ret))
         return ret.boolValue
     }
 

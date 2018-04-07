@@ -246,7 +246,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
                                  timerange.upperBound.beats))
     }
 
-//    var channelEvents: 
+//    var channelEvents:
 
     func clearAll() {
         clear(timerange)
