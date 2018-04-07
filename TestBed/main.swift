@@ -85,7 +85,7 @@ func test() {
     //print("duration", track.duration)
     //track.insert(<#T##MIDIEvent#>, at: <#T##MIDITimestamp#>)
 
-//    print(s.start!, s.endTime!.beats)
+//    print(s.start!, s.end!.beats)
 }
 test()
 

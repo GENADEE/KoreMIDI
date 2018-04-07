@@ -139,8 +139,8 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         return self.min { $0.start }?.start ?? 0
     }
 
-    public var endTime : Timestamp {
-        return self.max { $0.endTime }?.endTime ?? 0
+    public var end : Timestamp {
+        return self.max { $0.end }?.end ?? 0
     }
 
     public var startIndex: Index {

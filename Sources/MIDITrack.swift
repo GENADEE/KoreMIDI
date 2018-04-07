@@ -55,7 +55,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
     }
 
     public final var timerange: Range<Timestamp> {
-        return start..<endTime
+        return start..<end
     }
 
     public final var description: String {
@@ -85,7 +85,7 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
         }
     }
 
-    public final var endTime: Timestamp {
+    public final var end: Timestamp {
         get {
             return start.advanced(by: duration)
         }
