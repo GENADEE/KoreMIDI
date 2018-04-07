@@ -94,12 +94,14 @@ internal final class MIDIDataIterator: IteratorProtocol {
         set {
             if let event = newValue {
                 if event.timestamp == current?.timestamp {
-
+                    _ = event.data.baseAddress.map {
+                        MusicEventIteratorSetEventInfo(ref, event.type.rawValue, $0)
+                    }
                 }
                 else {
                     /// note that this moved the pointer to the next event
+                    MusicEventIteratorSetEventTime(ref, MusicTimeStamp(event.timestamp.beats))
                     fatalError()
-//                    MusicEventIteratorSetEventTime(ref, MusicTimeStamp(event.timestamp))
                 }
             }
             else {
@@ -136,6 +138,8 @@ internal final class MIDIDataIterator: IteratorProtocol {
 
     @inline(__always)
     fileprivate func bwd() {
+        var ret: DarwinBoolean = true
+        guard MusicEventIteratorHasPreviousEvent(ref, &ret) == noErr, ret.boolValue else { return }
         MusicEventIteratorPreviousEvent(ref)
     }
 

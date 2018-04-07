@@ -30,7 +30,8 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
 
     internal init(data: MIDIData) {
         self.timestamp = data.timestamp
-        self.msg = UnsafePointer<MIDINoteMessage>(data.data).pointee
+        fatalError()
+//        self.msg = UnsafePointer<MIDINoteMessage>(data.data).pointee
     }
 
 

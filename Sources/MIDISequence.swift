@@ -53,6 +53,12 @@ public final class MIDISequence : RandomAccessCollection, Hashable, Comparable, 
         self.content = Array(parent: self)
     }
 
+    public init<S: Sequence>(seq: S) where S.Iterator.Element == Element {
+        self.ref = MIDISequenceCreate()
+        fatalError()
+        //self.content = seq.map { Element(sequence: self) }
+    }
+
     public init(import url: URL) {
         self.ref = MIDISequenceImport(url)
         self.content = Array(parent: self)

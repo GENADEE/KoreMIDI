@@ -235,6 +235,11 @@ public class MIDITrack : TimeSeries, Sequence, Equatable, Comparable, Hashable, 
         copyInsert(from: other, in: other.timerange, at: other.start)
     }
 
+    convenience init(copy: MIDITrack) {
+        self.init(sequence: copy.sequence)
+        load(from: copy)
+    }
+
     func clear(_ timerange: Range<Timestamp>) {
         OSAssert(MusicTrackClear(ref,
                                  timerange.lowerBound.beats,
