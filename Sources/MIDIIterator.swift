@@ -128,13 +128,13 @@ internal final class MIDIDataIterator: IteratorProtocol {
     }
 
     private var hasNext: Bool {
-        var ret: DarwinBoolean = true
+        var ret: DarwinBoolean = false
         OSAssert(MusicEventIteratorHasNextEvent(ref, &ret))
         return ret.boolValue
     }
 
     private var hasPrevious: Bool {
-        var ret: DarwinBoolean = true
+        var ret: DarwinBoolean = false
         OSAssert(MusicEventIteratorHasNextEvent(ref, &ret))
         return ret.boolValue
     }
