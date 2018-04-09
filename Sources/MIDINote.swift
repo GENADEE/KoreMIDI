@@ -69,6 +69,37 @@ public struct MIDINote: Equatable, Hashable, CustomStringConvertible, Strideable
     }
 }
 
+extension String {
+    @inline(__always)
+    func getString(ptr: UnsafeRawBufferPointer) {
+        fatalError()
+        //getCString(&ptr.bindMemory(to: [CChar].self), maxLength: ptr.count, encoding: <#T##String.Encoding#>)
+    }
+}
+
+//extension UnsafeMutablePointer where Pointee == MIDIMetaEvent {
+//    init<T : MIDIMetaEventType>(type: T, string: String) {
+//        let capacity = MemoryLayout<MIDIMetaEvent>.size + string.count
+//        self = .allocate(capacity: capacity)
+//        pointee.metaEventType = T.byte.rawValue
+//        pointee.unused1 = 0
+//        pointee.unused2 = 0
+//        pointee.unused3 = 0
+//        pointee.dataLength = UInt32(string.count)
+//        string.getString(ptr: withUnsafeBytes(of: &pointee.data) { $0 })
+//    }
+//}
+//
+//extension UnsafeMutablePointer where Pointee == MIDIRawData {
+//    init(string: String) {
+//        self = .allocate(capacity: MemoryLayout<MIDIRawData>.size + string.count)
+//
+//        var copy = string
+//        fatalError()
+//        //self = withUnsafeMutableBytes(of: &copy) { $0 }
+//    }
+//}
+
 public struct MIDIDrumNote: Equatable, Hashable, CustomStringConvertible, Strideable {
     public typealias Timestamp = MIDITimestamp
     public typealias Stride = Timestamp.Stride

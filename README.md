@@ -1,8 +1,8 @@
 # KoreMIDI: MIDI Swift library
 
-This project as a wrapper around the AudioToolbox framework and tries to make it look like AVFoundation.
-Collections in KoreMIDI are generally copy-on-write, i.e. following the semantics of the built in Swift collection.
+This project as a wrapper around the AudioToolbox framework and tries to make it look like a 21st century framework.  
 
+## Documentation
 * http://www.onicos.com/staff/iz/formats/midi-event.html
 * http://www.somascape.org/midi/tech/mfile.html
 
@@ -130,8 +130,12 @@ enum MIDIEventType : RawRepresentable {
 
 
 ```swift
+
     let sequence = MIDISequence(url: "darude-sandstorm.mid")
     let lyrics = sequence.lyrics
+    /// this is a separate property as 
+
+    let drums = sequence.drums
     let track = sequence[0]
     
  
